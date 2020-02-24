@@ -81,6 +81,8 @@ os: [Fedora 31 Workstation](https://getfedora.org/en/workstation/)
 
 mouse: Logitech G305
 
+keyboard: HyperX Alloy Origins Core
+
 headphones: Audio-Technica ATH-M50x (with a FiiO BTA10)
 
 **Xiaomi MI A2 (2018)**
