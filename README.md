@@ -77,7 +77,7 @@ buy bitcoin: [CoinMonitor](https://coinmonitor.info/)
 
 **ASUS TUF FX505DY (2019)**
 
-os: [Fedora 31 Workstation](https://getfedora.org/en/workstation/)
+os: Fedora 31 Workstation
 
 mouse: Logitech G305
 
