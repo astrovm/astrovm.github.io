@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: astrolince.com
+Token: dc5515f666f1fb9b6b66cf5081fb8896c5b668112a52f5d6aa7cc87971ca3d22
