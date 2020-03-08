@@ -57,15 +57,17 @@ desktop os:
 
 ### bitcoin wallets
 
-general purpose: [Muun](https://muun.com/) or [Edge](https://edge.app/)
+general purpose: [Muun](https://muun.com/)
 
-i want to receive and send lightning payments: [Phoenix](https://phoenix.acinq.co/) or [Breez](https://breez.technology/)
+can receive lightning payments: [Phoenix](https://phoenix.acinq.co/), [Breez](https://breez.technology/)
+
+supports multple coins (including monero): [Exodus](https://www.exodus.io/), [Edge](https://edge.app/)
 
 i want to store large amounts: [Green](https://blockstream.com/green/), [Unchained Capital](https://unchained-capital.com/vaults/) or [Casa Keymaster](https://keys.casa/keymaster/)
 
-i want to pay privately:
+if you want to pay privately you can:
 
-###### Pay with someone else's bitcoins using Monero (privacy-focused cryptocurrency): [XMR.to](https://xmr.to/), you can buy Monero with an exchange like [Changelly](https://changelly.com/) (give a fake mail from [Temp Mail](https://temp-mail.org/)), recommended Monero wallets: [Edge](https://edge.app/) or [Cake](https://cakewallet.com/)
+###### Pay with someone else's bitcoins with Monero (privacy-focused cryptocurrency) using [XMR.to](https://xmr.to/), you can buy Monero with Bitcoin through one of the multicoin wallets
 
 ###### You should use [Tor Browser](https://www.torproject.org/) or [Tails OS](https://tails.boum.org/) too.
 
