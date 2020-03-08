@@ -59,7 +59,7 @@ desktop os:
 
 general purpose: [Muun](https://muun.com/) or [Edge](https://edge.app/)
 
-i want to receive and send lightning payments: [Breez](https://breez.technology/)
+i want to receive and send lightning payments: [Phoenix](https://phoenix.acinq.co/) or [Breez](https://breez.technology/)
 
 i want to store large amounts: [Green](https://blockstream.com/green/), [Unchained Capital](https://unchained-capital.com/vaults/) or [Casa Keymaster](https://keys.casa/keymaster/)
 
