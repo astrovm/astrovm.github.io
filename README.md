@@ -56,6 +56,7 @@ desktop os:
 ##### more advanced: [Fedora](https://getfedora.org/), [Manjaro](https://manjaro.org/), [Pop OS](https://system76.com/pop)
 
 ### bitcoin wallets
+##### remember to backup your private keys
 
 general purpose: [Muun](https://muun.com/)
 
