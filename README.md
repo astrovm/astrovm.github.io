@@ -58,9 +58,9 @@ desktop os:
 ### bitcoin wallets
 ##### remember to backup your private keys
 
-general purpose: [Muun](https://muun.com/), [Samourai](https://samouraiwallet.com/) (only android)
+general purpose: [Muun](https://muun.com/) (android/ios), [Samourai](https://samouraiwallet.com/) (android)
 
-can receive lightning payments: [Phoenix](https://phoenix.acinq.co/) (only android), [Breez](https://breez.technology/)
+can receive lightning payments: [Phoenix](https://phoenix.acinq.co/) (android), [Breez](https://breez.technology/) (android/ios)
 
 supports multple coins: [Exodus](https://www.exodus.io/), [Edge](https://edge.app/) or [BRD](https://brd.com/) (this last one doesn't support monero)
 
