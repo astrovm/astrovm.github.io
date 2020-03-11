@@ -22,7 +22,7 @@ telegram: [@astrolince](https://t.me/astrolince)
 
 [hosty](https://astrolince.com/hosty) system-wide ad blocker for linux
 
-[Inside the firewall](https://insidethefirewall.astrolince.com/) videogame i made in 2013
+[Inside the firewall](https://scratch.mit.edu/projects/14166847/) videogame i made in 2013
 
 [astrobot](https://twitter.com/astroiince) my consciousness uploaded to the internet
 
