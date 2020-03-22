@@ -8,13 +8,15 @@ steam: [@astrolince](https://steamcommunity.com/id/astrolince)
 
 ## chat ([pgp](https://keybase.io/astrolince/pgp_keys.asc))
 
-email: astro@astrolince.com
+email: [astro@astrolince.com](mailto:astro@astrolince.com)
 
 keybase: [@astrolince](https://keybase.io/astrolince)
 
 matrix: [@astrolince:matrix.org](https://matrix.to/#/@astrolince:matrix.org)
 
 telegram: [@astrolince](https://t.me/astrolince)
+
+xmpp+omemo: [astrolince@404.city](xmpp:astrolince@404.city?message)
 
 ## projects
 
