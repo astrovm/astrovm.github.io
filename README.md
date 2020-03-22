@@ -62,7 +62,7 @@ general purpose: [Muun](https://muun.com/) (android/ios), [Samourai](https://sam
 
 can receive lightning payments: [Phoenix](https://phoenix.acinq.co/) (android), [Breez](https://breez.technology/) (android/ios)
 
-supports multple coins: [Exodus](https://www.exodus.io/), [Edge](https://edge.app/) or [BRD](https://brd.com/) (this last one doesn't support monero)
+supports multple coins: [Edge](https://edge.app/)
 
 i want to store large amounts: [Green](https://blockstream.com/green/), [Unchained Capital](https://unchained-capital.com/vaults/) or [Casa Keymaster](https://keys.casa/keymaster/)
 
