@@ -32,13 +32,15 @@ xmpp+omemo: [astrolince@404.city](xmpp:astrolince@404.city?message)
 
 ## recommended apps
 
-email: [ProtonMail](https://protonmail.com/) or [Tutanota](https://tutanota.com/)
+email: [ProtonMail](https://protonmail.com/), [Tutanota](https://tutanota.com/)
 
 password manager: [Bitwarden](https://bitwarden.com/)
 
 two factor auth: [Authy](https://authy.com/)
 
-chat: [Signal](https://signal.org/) or [Riot](https://riot.im/)
+chat: [Signal](https://signal.org/), [Riot](https://riot.im/)
+
+videoconference: [Jami](https://jami.net/), [Jitsi](https://jitsi.org/)
 
 browser: [Brave](https://brave.com/ast502) or [Firefox](https://www.mozilla.org/firefox/new/)
 
