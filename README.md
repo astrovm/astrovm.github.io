@@ -31,6 +31,7 @@ xmpp+omemo: [astrolince@404.city](xmpp:astrolince@404.city?message)
 [Respondedor de boludos](https://t.me/respondedorbot) yes or no telegram bot
 
 ## recommended apps
+##### checkout more in [privacytools.io](https://privacytools.io/)
 
 email: [ProtonMail](https://protonmail.com/), [Tutanota](https://tutanota.com/)
 
