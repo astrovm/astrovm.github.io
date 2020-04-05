@@ -54,7 +54,7 @@ desktop os (i'll only mention those with which i have a lot of experience, but t
 - stable, easy, hard to break, works: [Linux Mint](https://linuxmint.com/download.php)
 - feature-rich interface in a solid base: [KDE Neon](https://neon.kde.org/)
 - if apple created a linux distro: [elementary OS](https://elementary.io/)
-- always updated, you can choose many things, easy to install: [Manjaro](https://manjaro.org/) (my favorite of all-time)
+- always updated, you can choose many things, easy to install: [Manjaro](https://manjaro.org/) (my favorite of all-time, KDE recommended)
 - always updated, you can choose many things, "hard" to install: [Arch](https://www.archlinux.org/)
 - if you want to try what will come: [Fedora](https://getfedora.org/) (has a special place in my heart)
 - for old, slow hardware: [Lubuntu](https://lubuntu.me/)
