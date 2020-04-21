@@ -41,7 +41,7 @@ two factor auth: [Authy](https://authy.com/)
 
 chat: [Signal](https://signal.org/), [Riot](https://riot.im/)
 
-videoconference: [Linphone](https://www.linphone.org/), [Jami](https://jami.net/), [Jitsi](https://jitsi.org/)
+videoconference: [Linphone](https://linphone.org/), [Jami](https://jami.net/), [Jitsi](https://jitsi.org/)
 
 browser: [Brave](https://brave.com/ast502) or [Firefox](https://www.mozilla.org/firefox/new/)
 
