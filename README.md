@@ -41,7 +41,7 @@ two factor auth: [Authy](https://authy.com/)
 
 chat: [Signal](https://signal.org/), [Riot](https://riot.im/)
 
-videoconference: [Jami](https://jami.net/), [Jitsi](https://jitsi.org/)
+videoconference: [Linphone](https://www.linphone.org/), [Jami](https://jami.net/), [Jitsi](https://jitsi.org/)
 
 browser: [Brave](https://brave.com/ast502) or [Firefox](https://www.mozilla.org/firefox/new/)
 
@@ -51,15 +51,12 @@ vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 
 desktop os (i'll only mention those with which i have a lot of experience, but there are even more options):
 
-- stable, easy, hard to break, works: [Linux Mint](https://linuxmint.com/download.php)
-- feature-rich interface in a solid base: [KDE Neon](https://neon.kde.org/)
-- if apple created a linux distro: [elementary OS](https://elementary.io/)
 - always updated, you can choose many things, easy to install: [Manjaro](https://manjaro.org/) (my favorite of all-time, KDE recommended)
-- always updated, you can choose many things, "hard" to install: [Arch](https://www.archlinux.org/)
-- if you want to try what will come: [Fedora](https://getfedora.org/) (has a special place in my heart)
+- feature-rich interface in a solid base: [KDE Neon](https://neon.kde.org/)
+- stable, easy, hard to break, works: [Linux Mint](https://linuxmint.com/download.php)
+- if apple created a linux distro: [elementary OS](https://elementary.io/)
 - for old, slow hardware: [Lubuntu](https://lubuntu.me/)
 - can help in nvidia-gpu laptops: [Pop OS](https://system76.com/pop)
-- if you need a pc to run non-stop for 10 years: [CentOS](https://www.centos.org/) and [Debian](https://www.debian.org/)
 - if you rely heavily on commercial video, image and music editing programs, hackintosh is an option: [macOS](https://hackintosh.com/)
 
 ### bitcoin wallets
