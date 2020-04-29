@@ -66,9 +66,9 @@ general purpose: [Muun](https://muun.com/) (android/ios), [Samourai](https://sam
 
 can receive lightning payments: [Phoenix](https://phoenix.acinq.co/) (android), [Breez](https://breez.technology/) (android/ios)
 
-supports multple coins: [Edge](https://edge.app/), [BRD](https://brd.com/)
+supports multple coins: [Edge](https://edge.app/) (android/ios), [BRD](https://brd.com/) (android/ios)
 
-i want to store large amounts: [Green](https://blockstream.com/green/), [Unchained Capital](https://unchained-capital.com/vaults/) or [Casa Keymaster](https://keys.casa/keymaster/)
+i want to store large amounts: [Green](https://blockstream.com/green/), [Casa Keymaster](https://keys.casa/keymaster/) or [Unchained Capital](https://unchained-capital.com/vaults/)
 
 if you want to pay privately you can:
 
