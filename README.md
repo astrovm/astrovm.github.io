@@ -78,7 +78,7 @@ if you want to pay privately you can:
 
 ### argentina only
 
-buy bitcoin: [CoinMonitor](https://coinmonitor.info/)
+buy bitcoin: [Xapo](https://xapo.com/), [Bitso](https://bitso.com/), [Ripio](https://www.ripio.com/), [SatoshiTango](https://www.satoshitango.com/)
 
 ## devices
 
