@@ -72,7 +72,7 @@ i want to store large amounts: [Green](https://blockstream.com/green/), [Unchain
 
 if you want to pay privately you can:
 
-###### Pay with someone else's bitcoins with Monero (privacy-focused cryptocurrency) using [XMR.to](https://xmr.to/), you can buy Monero with Bitcoin through one of the multicoin wallets
+###### Pay with someone else's bitcoins with Monero (privacy-focused cryptocurrency) using [XMR.to](https://xmr.to/), you can buy Monero with Bitcoin through [Edge](https://edge.app/)
 
 ###### You should use [Tor Browser](https://www.torproject.org/) or [Tails OS](https://tails.boum.org/) too.
 
