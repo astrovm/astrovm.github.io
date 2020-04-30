@@ -49,15 +49,17 @@ search engine: [DuckDuckGo](https://duckduckgo.com/)
 
 vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 
-desktop os (i'll only mention those with which i have a lot of experience, but there are even more options):
+desktop os:
 
-- always updated, you can choose many things, easy to install: [Manjaro](https://manjaro.org/) (my favorite of all-time, KDE recommended)
-- feature-rich interface in a solid base: [KDE Neon](https://neon.kde.org/)
-- stable, easy, hard to break, works: [Linux Mint](https://linuxmint.com/download.php)
-- if apple created a linux distro: [elementary OS](https://elementary.io/)
+arch linux based (support never ends, rolling release ftw)
+- my favorite distro, KDE edition recommended: [Manjaro](https://manjaro.org/)
+
+ubuntu LTS based (supported until 2023)
+- official KDE flavour: [Kubuntu](https://kubuntu.org/)
 - for old, slow hardware: [Lubuntu](https://lubuntu.me/)
-- can help in nvidia-gpu laptops: [Pop OS](https://system76.com/pop)
-- if you rely heavily on commercial video, image and music editing programs, hackintosh is an option: [macOS](https://hackintosh.com/)
+
+other
+- if you rely heavily on commercial video, image and music editing software, hackintosh is an option: [macOS](https://hackintosh.com/)
 
 ### bitcoin wallets
 ##### remember to backup your private keys
