@@ -55,8 +55,8 @@ arch linux based (support never ends, rolling release ftw)
 - my favorite distro, KDE edition recommended: [Manjaro](https://manjaro.org/)
 
 ubuntu LTS based (mainly supported until 2023)
-- looks good, a classic: [Ubuntu](https://ubuntu.com/download)
 - feature-rich interface, spectacular performance: [Kubuntu](https://kubuntu.org/)
+- the good, nice and classic ubuntu: [Ubuntu](https://ubuntu.com/download/desktop)
 - for old, slow hardware: [Lubuntu](https://lubuntu.me/)
 
 other
