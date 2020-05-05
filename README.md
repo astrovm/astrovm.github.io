@@ -39,7 +39,7 @@ password manager: [Bitwarden](https://bitwarden.com/)
 
 two factor auth: [Authy](https://authy.com/)
 
-chat: [Signal](https://signal.org/), [Riot](https://riot.im/)
+chat: [Signal](https://signal.org/), [Keybase](https://keybase.io/), [Riot](https://riot.im/)
 
 videoconference: [Linphone](https://linphone.org/), [Jami](https://jami.net/), [Jitsi](https://jitsi.org/)
 
@@ -70,6 +70,8 @@ general purpose: [Muun](https://muun.com/) (android/ios), [Samourai](https://sam
 can receive lightning payments: [Phoenix](https://phoenix.acinq.co/) (android), [Breez](https://breez.technology/) (android/ios)
 
 supports multple coins: [Edge](https://edge.app/) (android/ios), [BRD](https://brd.com/) (android/ios)
+
+hardware wallets: [Trezor](https://trezor.io/), [Ledger](https://www.ledger.com/), [Coldcard](https://coldcardwallet.com/)
 
 i want to store large amounts: [Green](https://blockstream.com/green/), [Casa Keymaster](https://keys.casa/keymaster/) or [Unchained Capital](https://unchained-capital.com/vaults/)
 
