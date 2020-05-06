@@ -54,11 +54,11 @@ desktop os:
 arch linux based (support never ends, rolling release ftw)
 - my favorite distro, KDE edition recommended: [Manjaro](https://manjaro.org/)
 
-ubuntu based (lts mainly supported until 2023)
+ubuntu based (LTS mainly supported until 2023)
 - feature-rich interface, spectacular performance: [Kubuntu](https://kubuntu.org/)
 - not the nicest, nor the funniest, but it works: [Linux Mint](https://linuxmint.com/download.php)
 - the good, nice and classic ubuntu: [Ubuntu](https://ubuntu.com/download/desktop)
-- interesting options for notebooks with two gpus: [Pop OS](https://pop.system76.com/)
+- interesting option for notebooks with two gpus: [Pop OS](https://pop.system76.com/)
 - for old, slow hardware: [Lubuntu](https://lubuntu.me/)
 
 other
