@@ -91,7 +91,7 @@ buy crypto: [Xapo](https://xapo.com/), [Bitso](https://bitso.com/), [Ripio](http
 
 **ASUS TUF FX505DY (2019)**
 
-os: Fedora 31 KDE
+os: Manjaro KDE
 
 mouse: Logitech G305
 
