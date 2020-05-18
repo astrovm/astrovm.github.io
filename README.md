@@ -87,6 +87,8 @@ if you want to pay privately you can:
 
 buy crypto: [Xapo](https://xapo.com/), [Bitso](https://bitso.com/), [Ripio](https://www.ripio.com/), [SatoshiTango](https://www.satoshitango.com/), [Buenbit](https://buenbit.com/)
 
+market info: [CoinMonitor](https://coinmonitor.info/)
+
 ## devices
 
 **ASUS TUF FX505DY (2019)**
