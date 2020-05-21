@@ -71,7 +71,7 @@ general purpose: [Muun](https://muun.com/) (android/ios), [Samourai](https://sam
 
 can receive lightning payments: [Phoenix](https://phoenix.acinq.co/) (android), [Breez](https://breez.technology/) (android/ios)
 
-supports multiple coins: [Edge](https://edge.app/), [BRD](https://brd.com/), [Trust Wallet](https://trustwallet.com/), [Coinbase Wallet](https://wallet.coinbase.com/)
+supports multiple coins: [Edge](https://edge.app/), [BRD](https://brd.com/)
 
 hardware wallets: [Trezor](https://trezor.io/), [Ledger](https://www.ledger.com/), [Coldcard](https://coldcardwallet.com/)
 
