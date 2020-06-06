@@ -85,7 +85,7 @@ if you want to pay privately you can:
 
 ### argentina only
 
-buy crypto: [Xapo](https://xapo.com/), [Bitso](https://bitso.com/), [Ripio](https://www.ripio.com/), [SatoshiTango](https://www.satoshitango.com/), [Buenbit](https://buenbit.com/)
+buy crypto: [Buenbit](https://buenbit.com/), [Bitso](https://bitso.com/), [Ripio](https://www.ripio.com/), [SatoshiTango](https://www.satoshitango.com/)
 
 market info: [CoinMonitor](https://coinmonitor.info/)
 
@@ -118,4 +118,6 @@ my 9 years old self wanted to make a website
 
 [DAI, USDC, LTC, ETH, BCH](https://commerce.coinbase.com/checkout/cc3345c4-4697-44f7-a3a1-0ada15e37697)
 
-[XMR, DOGE, XRP, DCR](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR) *(min. 10 usd)*
+[XMR, DOGE, XRP, DCR](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR)
+
+[PayPal](https://www.buymeacoffee.com/astrolince)
