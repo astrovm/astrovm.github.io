@@ -87,7 +87,7 @@ if you want to pay privately you can:
 
 buy crypto: [Buenbit](https://buenbit.com/), [Bitso](https://bitso.com/), [Ripio](https://www.ripio.com/), [SatoshiTango](https://www.satoshitango.com/)
 
-market info: [CoinMonitor](https://coinmonitor.info/)
+market info: [CoinMonitor](https://coinmonitor.info/), [Criptos AR](https://criptos.com.ar/), [Cryptosaurio](http://www.cryptosaurio.com/)
 
 ## devices
 
