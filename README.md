@@ -20,15 +20,17 @@ telegram: [@astrolince](https://t.me/astrolince)
 
 ## projects
 
+[Anomalous](https://anomalous.xyz/) an anomalous company
+
 [Coiny](https://twitter.com/coinyfees) bitcoin fee estimates
 
 [hosty](https://astrolince.com/hosty) system-wide ad blocker for linux
 
-[Inside the firewall](https://scratch.mit.edu/projects/14166847/) videogame i made in 2013
-
 [astrobot](https://twitter.com/astroiince) my consciousness uploaded to the internet
 
 [Respondedor de boludos](https://t.me/respondedorbot) yes or no telegram bot
+
+[Inside the firewall](https://scratch.mit.edu/projects/14166847/) videogame i made in 2013
 
 ## recommended apps
 ##### checkout more in [privacytools.io](https://privacytools.io/)
