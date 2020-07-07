@@ -122,4 +122,6 @@ my 9 years old self wanted to make a website
 
 [XMR, DOGE, XRP, DCR](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR)
 
-[PayPal](https://www.buymeacoffee.com/astrolince)
+[Github Sponsors](https://github.com/sponsors/anomalouscode)
+
+[PayPal](https://www.paypal.com/biz/fund?id=5HCXEEX72QTV2)
