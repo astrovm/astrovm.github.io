@@ -93,9 +93,15 @@ market info: [CoinMonitor](https://coinmonitor.info/), [Criptos AR](https://crip
 
 ## devices
 
-**ASUS TUF FX505DY (2019)**
+**PC Master Race**
 
 os: Manjaro KDE
+
+cpu: AMD Ryzen 5 3600
+
+gpu: AMD Radeon RX 5600 XT
+
+ram: 16 GB
 
 mouse: Logitech G305
 
@@ -103,7 +109,7 @@ keyboard: HyperX Alloy Origins Core
 
 headphones: Audio-Technica ATH-M50x (with a FiiO BTA10)
 
-**Xiaomi MI A2 (2018)**
+**Xiaomi MI A2**
 
 ## deprecated projects
 
