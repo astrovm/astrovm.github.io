@@ -95,7 +95,7 @@ market info: [CriptoYa](https://criptoya.com/), [Criptos AR](https://criptos.com
 
 **PC Master Race**
 
-os: Manjaro KDE
+os: [Manjaro KDE](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 3600
 
