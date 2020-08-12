@@ -55,6 +55,7 @@ desktop os:
 
 arch linux based (support never ends, rolling release ftw)
 - my favorite distro, KDE edition recommended: [Manjaro](https://manjaro.org/)
+- clean arch with an easy installation: [EndeavourOS](https://endeavouros.com/latest-release/)
 
 ubuntu based (LTS mainly supported until 2023)
 - feature-rich interface, spectacular performance: [Kubuntu](https://kubuntu.org/)
