@@ -57,7 +57,7 @@ arch linux based (support never ends, rolling release ftw)
 - my favorite distro, KDE edition recommended: [Manjaro](https://manjaro.org/)
 
 ubuntu based (LTS mainly supported until 2023)
-- feature-rich interface, spectacular performance: [KDE neon](https://neon.kde.org/)
+- feature-rich interface, spectacular performance: [Kubuntu](https://kubuntu.org/)
 - not the nicest, nor the funniest, but it works: [Linux Mint](https://linuxmint.com/download.php)
 - the good, nice and classic ubuntu: [Ubuntu](https://ubuntu.com/download/desktop)
 - interesting option for notebooks with two gpus: [Pop OS](https://pop.system76.com/)
