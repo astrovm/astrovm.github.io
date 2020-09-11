@@ -53,19 +53,22 @@ vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 
 desktop os:
 
-arch linux based (support never ends, rolling release ftw)
-- my favorite distro, KDE edition recommended: [Manjaro](https://manjaro.org/)
-- clean arch with an easy installation: [EndeavourOS](https://endeavouros.com/latest-release/)
+arch linux based (rolling release)
+- [Manjaro](https://manjaro.org/)
+- [EndeavourOS](https://endeavouros.com/latest-release/)
 
-ubuntu based (LTS mainly supported until 2023)
-- feature-rich interface, spectacular performance: [Kubuntu](https://kubuntu.org/)
-- not the nicest, nor the funniest, but it works: [Linux Mint](https://linuxmint.com/download.php)
-- the good, nice and classic: [Ubuntu](https://ubuntu.com/download/desktop)
-- interesting option for notebooks with two gpus: [Pop OS](https://pop.system76.com/)
-- for old, slow hardware: [Lubuntu](https://lubuntu.me/)
+fedora based (releases every 6 months)
+- [Fedora Workstation](https://getfedora.org/en/workstation/) (gnome)
+
+ubuntu based (LTS releases every 2 years)
+- [KDE neon](https://neon.kde.org/) (kde)
+- [Linux Mint](https://linuxmint.com/download.php) (cinnamon, xfce, mate)
+- [Ubuntu](https://ubuntu.com/download/desktop) (gnome)
+- [Pop OS](https://pop.system76.com/) (gnome)
+- [Lubuntu](https://lubuntu.me/) (lxqt)
 
 other
-- if you rely heavily on commercial video, image and music editing software, hackintosh is an option: [macOS](https://hackintosh.com/)
+- [macOS](https://hackintosh.com/): if you rely heavily on commercial video, image and music editing software, hackintosh is an option
 
 ### bitcoin wallets
 ##### remember to backup your private keys
