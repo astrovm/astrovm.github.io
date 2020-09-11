@@ -70,30 +70,7 @@ ubuntu based (LTS releases every 2 years)
 other
 - [macOS](https://hackintosh.com/): if you rely heavily on commercial video, image and music editing software, hackintosh is an option
 
-### bitcoin wallets
-##### remember to backup your private keys
-
-general purpose: [Muun](https://muun.com/) (android/ios), [Samourai](https://samouraiwallet.com/) (android)
-
-can receive lightning payments: [Phoenix](https://phoenix.acinq.co/) (android), [Breez](https://breez.technology/) (android/ios)
-
-supports multiple coins: [Edge](https://edge.app/), [BRD](https://brd.com/)
-
-hardware wallets: [Trezor](https://trezor.io/), [Ledger](https://www.ledger.com/), [Coldcard](https://coldcardwallet.com/)
-
-i want to store large amounts: [Green](https://blockstream.com/green/), [Casa Keymaster](https://keys.casa/keymaster/) or [Unchained Capital](https://unchained-capital.com/vaults/)
-
-if you want to pay privately you can:
-
-###### Pay with someone else's bitcoins with Monero (privacy-focused cryptocurrency) using [XMR.to](https://xmr.to/), you can buy Monero with Bitcoin through [Edge](https://edge.app/)
-
-###### You should use [Tor Browser](https://www.torproject.org/) or [Tails OS](https://tails.boum.org/) too.
-
-### argentina only
-
-buy crypto: [Buenbit](https://buenbit.com/), [Bitso](https://bitso.com/), [Ripio](https://www.ripio.com/), [SatoshiTango](https://www.satoshitango.com/)
-
-market info: [CriptoYa](https://criptoya.com/), [Criptos AR](https://criptos.com.ar/), [CoinMonitor](https://coinmonitor.info/), [Cryptosaurio](http://www.cryptosaurio.com/)
+### [bitcoin wallets](https://wiki.anomalous.xyz/criptomonedas/)
 
 ## devices
 
