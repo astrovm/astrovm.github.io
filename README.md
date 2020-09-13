@@ -53,18 +53,17 @@ vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 
 desktop os:
 
-arch linux based (rolling release)
-- [Manjaro](https://manjaro.org/)
-- [EndeavourOS](https://endeavouros.com/latest-release/)
+arch based (rolling release)
+- [Manjaro](https://manjaro.org/) (xfce, kde, gnome)
 
 fedora based (releases every 6 months)
 - [Fedora Workstation](https://getfedora.org/en/workstation/) (gnome)
 
-ubuntu based (LTS releases every 2 years)
+ubuntu based (lts releases every 2 years)
 - [KDE neon](https://neon.kde.org/) (kde)
 - [Linux Mint](https://linuxmint.com/download.php) (cinnamon, xfce, mate)
-- [Ubuntu](https://ubuntu.com/download/desktop) (gnome)
-- [Pop OS](https://pop.system76.com/) (gnome)
+- [Ubuntu](https://ubuntu.com/download/desktop) (gnome custom)
+- [Pop OS](https://pop.system76.com/) (gnome standard)
 - [Lubuntu](https://lubuntu.me/) (lxqt)
 
 other
