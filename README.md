@@ -75,7 +75,7 @@ other
 
 **PC Master Race**
 
-os: [Manjaro](https://astrolince.com/configs/)
+os: [Fedora 32](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 3600
 
