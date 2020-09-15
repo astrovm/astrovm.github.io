@@ -58,6 +58,7 @@ arch based (rolling release)
 
 fedora based (releases every 6 months)
 - [Fedora Workstation](https://getfedora.org/en/workstation/) (gnome)
+- [Fedora Spins](https://spins.fedoraproject.org/) (kde, xfce, lxqt, mate, cinnamon, lxde)
 
 ubuntu based (lts releases every 2 years)
 - [KDE neon](https://neon.kde.org/) (kde)
