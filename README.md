@@ -65,10 +65,18 @@ ubuntu based (lts releases every 2 years)
 - [Linux Mint](https://linuxmint.com/download.php) (cinnamon, xfce, mate)
 - [Ubuntu](https://ubuntu.com/download/desktop) (gnome custom)
 - [Pop OS](https://pop.system76.com/) (gnome standard)
+- [Xubuntu](https://xubuntu.org/) (xfce)
 - [Lubuntu](https://lubuntu.me/) (lxqt)
 
+debian based (stable releases every 2 years)
+- [Debian](https://www.debian.org/CD/live/) (cinnamon, gnome, kde, lxde, lxqt, mate, xfce)
+- [MX Linux](https://mxlinux.org/) (xfce, fluxbox, kde)
+
+red hat based (releases every 4 years)
+- [CentOS](https://www.centos.org/) (gnome)
+
 other
-- [macOS](https://hackintosh.com/): if you rely heavily on commercial video, image and music editing software, hackintosh is an option
+- [macOS](https://hackintosh.com/)
 
 ### [bitcoin wallets](https://wiki.anomalous.xyz/criptomonedas/)
 
