@@ -84,13 +84,13 @@ other
 
 **PC Master Race**
 
-os: [Fedora 32](https://astrolince.com/configs/)
+os: [Fedora Silverblue](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 3600
 
 gpu: AMD Radeon RX 5600 XT
 
-ram: 16 GB
+ram: 32 GB
 
 mouse: Logitech G305
 
