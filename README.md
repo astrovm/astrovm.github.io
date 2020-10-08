@@ -84,7 +84,7 @@ other
 
 **PC Master Race**
 
-os: [Fedora Silverblue](https://astrolince.com/configs/)
+os: [Fedora](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 3600
 
