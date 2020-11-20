@@ -37,13 +37,13 @@ telegram: [@astrolince](https://t.me/astrolince)
 
 email: [ProtonMail](https://protonmail.com/), [Tutanota](https://tutanota.com/)
 
-password manager: [Bitwarden](https://bitwarden.com/)
+password manager: [Bitwarden](https://bitwarden.com/), [KeePassXC](https://keepassxc.org/)
 
 two factor auth: [Authy](https://authy.com/)
 
-chat: [Signal](https://signal.org/), [Keybase](https://keybase.io/), [Riot](https://riot.im/)
+chat: [Signal](https://signal.org/), [Keybase](https://keybase.io/), [Element](https://element.io/)
 
-videoconference: [Linphone](https://linphone.org/), [Jami](https://jami.net/), [Jitsi](https://jitsi.org/)
+videoconference: [Jitsi](https://jitsi.org/), [Jami](https://jami.net/), [Linphone](https://linphone.org/)
 
 browser: [Brave](https://brave.com/ast502) or [Firefox](https://www.mozilla.org/firefox/new/)
 
