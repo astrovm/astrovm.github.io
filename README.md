@@ -72,9 +72,6 @@ debian based (stable releases every 2 years)
 - [Debian](https://www.debian.org/CD/live/) (cinnamon, gnome, kde, lxde, lxqt, mate, xfce)
 - [MX Linux](https://mxlinux.org/) (xfce, fluxbox, kde)
 
-red hat based (releases every 4 years)
-- [CentOS](https://www.centos.org/) (gnome)
-
 other
 - [macOS](https://hackintosh.com/)
 
@@ -84,7 +81,7 @@ other
 
 **PC Master Race**
 
-os: [Arch Linux](https://astrolince.com/configs/)
+os: [Manjaro KDE](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 3600
 
