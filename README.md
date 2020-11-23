@@ -81,7 +81,7 @@ other
 
 **PC Master Race**
 
-os: [Manjaro KDE](https://astrolince.com/configs/)
+os: [Fedora KDE](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 3600
 
