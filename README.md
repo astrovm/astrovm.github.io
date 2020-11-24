@@ -57,7 +57,7 @@ vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 
 - [Arch Linux](https://www.archlinux.org/) (independent)
 - [Manjaro](https://manjaro.org/) (arch based; focused on xfce, kde, gnome)
-- [EndeavourOS](https://endeavouros.com/) (arch based, focused on xfce, mate, lxqt, cinnamon, kde, gnome, budgie, deepin, i3)
+- [EndeavourOS](https://endeavouros.com/) (arch based; focused on xfce, mate, lxqt, cinnamon, kde, gnome, budgie, deepin, i3)
 - [Fedora](https://getfedora.org/) (independent)
 - [Debian Testing](https://www.debian.org/devel/debian-installer/) (independent)
 
