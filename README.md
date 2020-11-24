@@ -56,20 +56,20 @@ vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 #### newest software and features, latest hardware support
 
 - [Arch Linux](https://www.archlinux.org/) (independent)
-- [Manjaro](https://manjaro.org/) (arch based; isos with xfce, kde, gnome)
-- [EndeavourOS](https://endeavouros.com/) (arch based, iso with xfce, mate, lxqt, cinnamon, kde, gnome, budgie, deepin, i3)
+- [Manjaro](https://manjaro.org/) (arch based; focused on xfce, kde, gnome)
+- [EndeavourOS](https://endeavouros.com/) (arch based, focused on xfce, mate, lxqt, cinnamon, kde, gnome, budgie, deepin, i3)
 - [Fedora](https://getfedora.org/) (independent)
 - [Debian Testing](https://www.debian.org/devel/debian-installer/) (independent)
 
-#### more tested software, less system updates
+#### more tested software, fewer system updates
 
-- [KDE neon](https://neon.kde.org/) (ubuntu based; kde)
-- [Linux Mint](https://linuxmint.com/download.php) (ubuntu based; isos with cinnamon, xfce, mate)
-- [Ubuntu](https://ubuntu.com/download/desktop) (debian based; gnome custom)
-- [Pop OS](https://pop.system76.com/) (ubuntu based; gnome standard)
-- [Xubuntu](https://xubuntu.org/) (ubuntu based; xfce)
-- [Lubuntu](https://lubuntu.me/) (ubuntu based; lxqt)
-- [MX Linux](https://mxlinux.org/) (debian based; isos with xfce, fluxbox, kde)
+- [KDE neon](https://neon.kde.org/) (ubuntu based; kde-only)
+- [Linux Mint](https://linuxmint.com/download.php) (ubuntu based; focused on cinnamon, xfce, mate)
+- [Ubuntu](https://ubuntu.com/download/desktop) (debian based; gnome-only)
+- [Pop OS](https://pop.system76.com/) (ubuntu based; gnome-only)
+- [Xubuntu](https://xubuntu.org/) (ubuntu based; xfce-only)
+- [Lubuntu](https://lubuntu.me/) (ubuntu based; lxqt-only)
+- [MX Linux](https://mxlinux.org/) (debian based; focused on xfce, fluxbox, kde)
 
 #### nuclear power plant level of software stability
 
