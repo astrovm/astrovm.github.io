@@ -51,29 +51,33 @@ search engine: [DuckDuckGo](https://duckduckgo.com/)
 
 vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 
-desktop os:
+### operating systems
 
-arch based (rolling release)
-- [Manjaro](https://manjaro.org/) (xfce, kde, gnome)
+#### newest software and features, latest hardware support
 
-fedora based (releases every 6 months)
-- [Fedora Workstation](https://getfedora.org/en/workstation/) (gnome)
-- [Fedora Spins](https://spins.fedoraproject.org/) (kde, xfce, lxqt, mate, cinnamon, lxde)
+- [Arch Linux](https://www.archlinux.org/)
+- [Manjaro](https://manjaro.org/) (arch based; isos with xfce, kde, gnome)
+- [EndeavourOS](https://endeavouros.com/) (arch based, iso with xfce, mate, lxqt, cinnamon, kde, gnome, budgie, deepin, i3)
 
-ubuntu based (lts releases every 2 years)
-- [KDE neon](https://neon.kde.org/) (kde)
-- [Linux Mint](https://linuxmint.com/download.php) (cinnamon, xfce, mate)
-- [Ubuntu](https://ubuntu.com/download/desktop) (gnome custom)
-- [Pop OS](https://pop.system76.com/) (gnome standard)
-- [Xubuntu](https://xubuntu.org/) (xfce)
-- [Lubuntu](https://lubuntu.me/) (lxqt)
+- [Fedora Workstation](https://getfedora.org/en/workstation/) (isos with gnome)
+- [Fedora Spins](https://spins.fedoraproject.org/) (isos with kde, xfce, lxqt, mate, cinnamon, lxde)
 
-debian based (stable releases every 2 years)
+- [Debian Testing](https://cdimage.debian.org/cdimage/weekly-builds/)
+
+#### more tested software, less system updates
+
+- [KDE neon](https://neon.kde.org/) (ubuntu based; kde)
+- [Linux Mint](https://linuxmint.com/download.php) (ubuntu based; isos with cinnamon, xfce, mate)
+- [Ubuntu](https://ubuntu.com/download/desktop) (debian based; gnome custom)
+- [Pop OS](https://pop.system76.com/) (ubuntu based; gnome standard)
+- [Xubuntu](https://xubuntu.org/) (ubuntu based; xfce)
+- [Lubuntu](https://lubuntu.me/) (ubuntu based; lxqt)
+- [MX Linux](https://mxlinux.org/) (debian based; isos with xfce, fluxbox, kde)
+
+#### nuclear power plant level of software stability
+
 - [Debian](https://www.debian.org/CD/live/) (cinnamon, gnome, kde, lxde, lxqt, mate, xfce)
-- [MX Linux](https://mxlinux.org/) (xfce, fluxbox, kde)
-
-other
-- [macOS](https://hackintosh.com/)
+- [CentOS](https://www.centos.org/)
 
 ### [bitcoin wallets](https://wiki.anomalous.xyz/criptomonedas/)
 
