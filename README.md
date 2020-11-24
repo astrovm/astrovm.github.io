@@ -76,7 +76,7 @@ vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 - [Debian](https://www.debian.org/CD/live/) (independent)
 - [CentOS](https://www.centos.org/) (fedora based)
 
-### [bitcoin wallets](https://wiki.anomalous.xyz/criptomonedas/)
+### [bitcoin/ethereum wallets](https://wiki.anomalous.xyz/criptomonedas/)
 
 ## devices
 
