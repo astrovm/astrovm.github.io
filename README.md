@@ -55,14 +55,11 @@ vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 
 #### newest software and features, latest hardware support
 
-- [Arch Linux](https://www.archlinux.org/)
+- [Arch Linux](https://www.archlinux.org/) (independent)
 - [Manjaro](https://manjaro.org/) (arch based; isos with xfce, kde, gnome)
 - [EndeavourOS](https://endeavouros.com/) (arch based, iso with xfce, mate, lxqt, cinnamon, kde, gnome, budgie, deepin, i3)
-
-- [Fedora Workstation](https://getfedora.org/en/workstation/) (isos with gnome)
-- [Fedora Spins](https://spins.fedoraproject.org/) (isos with kde, xfce, lxqt, mate, cinnamon, lxde)
-
-- [Debian Testing](https://cdimage.debian.org/cdimage/weekly-builds/)
+- [Fedora](https://getfedora.org/) (independent)
+- [Debian Testing](https://www.debian.org/devel/debian-installer/) (independent)
 
 #### more tested software, less system updates
 
@@ -76,8 +73,8 @@ vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 
 #### nuclear power plant level of software stability
 
-- [Debian](https://www.debian.org/CD/live/) (cinnamon, gnome, kde, lxde, lxqt, mate, xfce)
-- [CentOS](https://www.centos.org/)
+- [Debian](https://www.debian.org/CD/live/) (independent)
+- [CentOS](https://www.centos.org/) (fedora based)
 
 ### [bitcoin wallets](https://wiki.anomalous.xyz/criptomonedas/)
 
