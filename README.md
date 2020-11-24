@@ -71,7 +71,7 @@ vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 - [Lubuntu](https://lubuntu.me/) (ubuntu based; lxqt-only)
 - [MX Linux](https://mxlinux.org/) (debian based; focused on xfce, fluxbox, kde)
 
-#### nuclear power plant level of software stability
+#### nuclear power plant level of software stability, minimal updates
 
 - [Debian](https://www.debian.org/CD/live/) (independent)
 - [CentOS](https://www.centos.org/) (fedora based)
