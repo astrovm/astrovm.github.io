@@ -64,7 +64,7 @@ vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
 #### more tested software, fewer system updates
 
 - [Ubuntu](https://ubuntu.com/download/desktop) (debian based; gnome-only)
-- [KDE neon](https://neon.kde.org/) (ubuntu based; kde-only)
+- [KDE neon](https://neon.kde.org/download) (ubuntu based; kde-only)
 - [Linux Mint](https://linuxmint.com/download.php) (ubuntu based; focused on cinnamon, xfce, mate)
 - [Pop OS](https://pop.system76.com/) (ubuntu based; gnome-only)
 - [Xubuntu](https://xubuntu.org/) (ubuntu based; xfce-only)
