@@ -86,7 +86,7 @@ os: [Fedora KDE](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 3600
 
-gpu: AMD Radeon RX 5600 XT
+gpu: AMD Radeon RX 6800
 
 ram: 32 GB
 
