@@ -32,51 +32,7 @@ telegram: [@astrolince](https://t.me/astrolince)
 
 [Inside the firewall](https://scratch.mit.edu/projects/14166847/) videogame i made in 2013
 
-## recommended apps
-##### checkout more in [privacytools.io](https://privacytools.io/)
-
-email: [ProtonMail](https://protonmail.com/), [Tutanota](https://tutanota.com/)
-
-password manager: [Bitwarden](https://bitwarden.com/), [KeePassXC](https://keepassxc.org/)
-
-two factor auth: [Authy](https://authy.com/)
-
-chat: [Signal](https://signal.org/), [Keybase](https://keybase.io/), [Element](https://element.io/)
-
-videoconference: [Jitsi](https://jitsi.org/), [Jami](https://jami.net/), [Linphone](https://linphone.org/)
-
-browser: [Brave](https://brave.com/ast502) or [Firefox](https://www.mozilla.org/firefox/new/)
-
-search engine: [DuckDuckGo](https://duckduckgo.com/)
-
-vpn: [ProtonVPN](https://protonvpn.com/) or [Mullvad VPN](https://mullvad.net/)
-
-### operating systems
-
-#### newest software and features, latest hardware support
-
-- [Fedora](https://getfedora.org/) (independent)
-- [Debian Testing](https://www.debian.org/devel/debian-installer/) (independent)
-- [Arch Linux](https://www.archlinux.org/) (independent)
-- [Manjaro](https://manjaro.org/) (arch based; focused on xfce, kde, gnome)
-- [EndeavourOS](https://endeavouros.com/) (arch based; focused on xfce, mate, lxqt, cinnamon, kde, gnome, budgie, deepin, i3)
-
-#### more tested software, fewer system updates
-
-- [Ubuntu](https://ubuntu.com/download/desktop) (debian based; gnome-only)
-- [KDE neon](https://neon.kde.org/download) (ubuntu based; kde-only)
-- [Linux Mint](https://linuxmint.com/download.php) (ubuntu based; focused on cinnamon, xfce, mate)
-- [Pop OS](https://pop.system76.com/) (ubuntu based; gnome-only)
-- [Xubuntu](https://xubuntu.org/) (ubuntu based; xfce-only)
-- [Lubuntu](https://lubuntu.me/) (ubuntu based; lxqt-only)
-- [MX Linux](https://mxlinux.org/) (debian based; focused on xfce, fluxbox, kde)
-
-#### nuclear power plant level of software stability, minimal updates
-
-- [Debian](https://www.debian.org/CD/live/) (independent)
-- [CentOS](https://www.centos.org/) (fedora based)
-
-### [bitcoin/ethereum wallets](https://wiki.anomalous.xyz/criptomonedas/)
+## [anomalous wiki](https://wiki.anomalous.xyz/)
 
 ## devices
 
