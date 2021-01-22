@@ -32,7 +32,7 @@ telegram: [@astrolince](https://t.me/astrolince)
 
 [Inside the firewall](https://scratch.mit.edu/projects/14166847/) videogame i made in 2013
 
-## [anomalous wiki](https://wiki.anomalous.xyz/)
+## recommended stuff moved to [anomalous wiki](https://wiki.anomalous.xyz/)
 
 ## devices
 
