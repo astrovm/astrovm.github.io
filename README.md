@@ -38,11 +38,13 @@ telegram: [@astrolince](https://t.me/astrolince)
 
 **PC Master Race**
 
-os: [Fedora KDE](https://astrolince.com/configs/)
+os: [Manajaro KDE](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 3600
 
-gpu: AMD Radeon RX 6800
+gpu 1: AMD Radeon RX 6800
+
+gpu 2: AMD Radeon RX 5600 XT
 
 ram: 32 GB
 
