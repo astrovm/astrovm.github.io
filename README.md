@@ -54,6 +54,14 @@ keyboard: HyperX Alloy Origins Core
 
 headphones: Audio-Technica ATH-M50x (with a FiiO BTA10)
 
+**Lenovo Thinkpad E14 Gen 2 AMD**
+
+os: [Debian Testing KDE](https://astrolince.com/configs/)
+
+cpu: AMD Ryzen 5 4500U
+
+ram: 8 GB
+
 **Xiaomi MI A2**
 
 ## deprecated projects
