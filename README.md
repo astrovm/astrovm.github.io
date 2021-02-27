@@ -54,7 +54,7 @@ keyboard: HyperX Alloy Origins Core
 
 headphones: Audio-Technica ATH-M50x (with a FiiO BTA10)
 
-**Lenovo Thinkpad E14 Gen 2 AMD**
+**Lenovo Thinkpad E14 Gen 2**
 
 os: [Debian Testing KDE](https://astrolince.com/configs/)
 
