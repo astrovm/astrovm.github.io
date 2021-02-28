@@ -57,7 +57,7 @@ headphones: Audio-Technica ATH-M50x (with a FiiO BTA10)
 **Lenovo ThinkPad E14 Gen 2**
 
 os: [Debian Testing KDE](https://astrolince.com/configs/)
-
+h
 cpu: AMD Ryzen 5 4500U
 
 ram: 8 GB
