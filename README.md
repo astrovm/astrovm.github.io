@@ -79,6 +79,6 @@ my 9 years old self wanted to make a website
 
 [DAI, USDC, LTC, ETH, BCH](https://commerce.coinbase.com/checkout/cc3345c4-4697-44f7-a3a1-0ada15e37697)
 
-[XMR, DOGE, DCR](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR)
+[Monero, DOGE, DCR](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR)
 
 [PayPal](https://www.paypal.com/donate?hosted_button_id=LBVYB6G6GAJQW)
