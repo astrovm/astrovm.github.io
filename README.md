@@ -79,4 +79,4 @@ my 9 years old self wanted to make a website
 
 [ETH, XMR, LTC, DOGE, DCR](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR)
 
-[PayPal](https://www.paypal.com/donate?hosted_button_id=LBVYB6G6GAJQW)
+[PayPal](https://www.paypal.com/donate?hosted_button_id=PMTWEW3YQPHAJ)
