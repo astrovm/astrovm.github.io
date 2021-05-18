@@ -64,6 +64,8 @@ ram: 8 GB
 
 **Xiaomi MI A2**
 
+os: CalyxOS
+
 ## deprecated projects
 
 [linky (2016)](https://web.archive.org/web/20180901073301/https://linky.tk/) url shortener
