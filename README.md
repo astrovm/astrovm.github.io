@@ -62,6 +62,10 @@ cpu: AMD Ryzen 5 4500U
 
 ram: 8 GB
 
+**Samsung Galaxy S20 FE**
+
+os: Stock
+
 **Xiaomi MI A2**
 
 os: CalyxOS
