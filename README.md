@@ -56,7 +56,7 @@ headphones: Audio-Technica ATH-M50x (with a FiiO BTA10)
 
 **Lenovo ThinkPad E14 Gen 2**
 
-os: [Ubuntu 20.04 LTS](https://astrolince.com/configs/)
+os: [Fedora 34 KDE](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 4500U
 
