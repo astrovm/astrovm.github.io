@@ -38,7 +38,7 @@ telegram: [@astrolince](https://t.me/astrolince)
 
 **PC Master Race**
 
-os: [Manjaro KDE](https://astrolince.com/configs/)
+os: [Fedora 34 KDE](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 3600
 
