@@ -80,5 +80,3 @@ my 9 years old self wanted to make a website
 [Bitcoin, Lightning](https://checkout.opennode.com/p/32c4dcff-1ef4-44ba-908e-cccf7f564233)
 
 [ETH, XMR, LTC, DOGE, DCR](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR)
-
-[PayPal](https://www.paypal.com/donate?hosted_button_id=PMTWEW3YQPHAJ)
