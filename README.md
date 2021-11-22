@@ -38,7 +38,7 @@ telegram: [@astrolince](https://t.me/astrolince)
 
 **PC Master Race**
 
-os: [Fedora 34 KDE](https://astrolince.com/configs/)
+os: [Fedora 35 KDE](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 3600
 
@@ -56,9 +56,17 @@ headphones: Audio-Technica ATH-M50x (with a FiiO BTA10)
 
 **Lenovo ThinkPad E14 Gen 2**
 
-os: [Fedora 34 KDE](https://astrolince.com/configs/)
+os: [Fedora 35 KDE](https://astrolince.com/configs/)
 
 cpu: AMD Ryzen 5 4500U
+
+ram: 8 GB
+
+**Apple Macbook Air M1 2020**
+
+os: macOS Monterey
+
+cpu: Apple M1
 
 ram: 8 GB
 
