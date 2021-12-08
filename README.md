@@ -91,8 +91,10 @@ for private donations use these links, you'll receive a unique address not linke
 
 [ETH, XMR, LTC, DOGE, DOT, DCR](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR)
 
-my public addresses
+## my public addresses
 
-bitcoin: [bc1q24p4wrht3ddfaqr8wguqfa4f46fweg9hv0znaj](https://mempool.space/address/bc1q24p4wrht3ddfaqr8wguqfa4f46fweg9hv0znaj)
+bitcoin:
+[bc1q24p4wrht3ddfaqr8wguqfa4f46fweg9hv0znaj](https://mempool.space/address/bc1q24p4wrht3ddfaqr8wguqfa4f46fweg9hv0znaj)
 
-ethereum/rsk/bsc/polygon/l2s/any-compatible-chain: [astrolince.eth](https://etherscan.io/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd) / [astrolince.rsk](https://explorer.rsk.co/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd) / [0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd](https://blockscan.com/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd)
+ethereum/rsk/bsc/polygon/l2s/any-compatible-chain:
+[astrolince.eth](https://etherscan.io/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd) / [astrolince.rsk](https://explorer.rsk.co/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd) / [0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd](https://blockscan.com/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd)
