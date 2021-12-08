@@ -85,6 +85,14 @@ my 9 years old self wanted to make a website
 
 ## donate
 
+for private donations use these links, you'll receive a unique address not linked to anyone else
+
 [Bitcoin, Lightning](https://checkout.opennode.com/p/32c4dcff-1ef4-44ba-908e-cccf7f564233)
 
-[ETH, XMR, LTC, DOGE, DCR](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR)
+[ETH, XMR, LTC, DOGE, DOT, DCR](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR)
+
+my public addresses
+
+bitcoin: [bc1q24p4wrht3ddfaqr8wguqfa4f46fweg9hv0znaj](https://mempool.space/address/bc1q24p4wrht3ddfaqr8wguqfa4f46fweg9hv0znaj)
+
+ethereum/rsk/bsc/polygon/l2s/any-compatible-chain: [astrolince.eth](https://etherscan.io/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd) / [astrolince.rsk](https://explorer.rsk.co/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd) / [0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd](https://blockscan.com/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd)
