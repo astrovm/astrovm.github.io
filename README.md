@@ -6,8 +6,6 @@ github: [@astrolince](https://github.com/astrolince)
 
 steam: [@astrolince](https://steamcommunity.com/id/astrolince)
 
-tumblr: [@thespectacularquiet](https://thespectacularquiet.tumblr.com/)
-
 ## chat ([pgp](https://keybase.io/astrolince/pgp_keys.asc))
 
 email: [astro@astrolince.com](mailto:astro@astrolince.com)
