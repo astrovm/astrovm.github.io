@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/astrolince
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://astrolince.com
+  * I am astrolince (https://keybase.io/astrolince) on keybase.
+  * I have a public key ASCWmGp4hMav7CpMoxH9fsQYfROpfnjoGxssaVqNvOzoMQo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120719ca13f0c0020f59bd79fface18fad7dc14428adb5800586dec1b060a3744620a",
+      "host": "keybase.io",
+      "kid": "012096986a7884c6afec2a4ca311fd7ec4187d13a97e78e81b1b2c695a8dbcece8310a",
+      "uid": "396465b7865118566e2d5f02989e4519",
+      "username": "astrolince"
+    },
+    "merkle_root": {
+      "ctime": 1536188866,
+      "hash": "ec9c1a3d2424650f10ba8fd172c2ceaa20cc5e87eb1776f17cc2c9b7344f1ba07d75520c36a3778e8def785b3faa689dc89de6e74ecf903b0f7e7ca1a24e8997",
+      "hash_meta": "ebb7eaf9e1f959b08bcb84274f702bfad422c33da2952ea774e1cd1d08887609",
+      "seqno": 3569006
+    },
+    "service": {
+      "entropy": "YoZapbW4xokm0QFvTFFw9MQy",
+      "hostname": "astrolince.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "2.6.0"
+  },
+  "ctime": 1536188887,
+  "expire_in": 504576000,
+  "prev": "f7ef1241baa96037fe0522aa5774f406973ff4bffa0c94a9840a4e4ee4d344aa",
+  "seqno": 104,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEglphqeITGr+wqTKMR/X7EGH0TqX546BsbLGlajbzs6DEKp3BheWxvYWTESpcCaMQg9+8SQbqpYDf+BSKqV3T0Bpc/9L/6DJSphApOTuTTRKrEIHGNT/w7Dk9sntdPmTsVV15ucGFBe+LfQEs3bGY9fXkJAgHCo3NpZ8RA+2I6IcTxth1gCwJlIUgWbdVqPUmoDSvlVHBaJ4v02fiBwxG1slm3oINUHW2FncV0m/9d1pXjOgEEI0t4MvCwCahzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIBuAxdixmTJ8IGCCFSCBvSlowfTcZTU7UAex7VfbwfDeo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/astrolince
+
+==================================================================

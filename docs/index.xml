@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>astro@web $ _</title>
+    <link>/</link>
+    <description>Recent content on astro@web $ _</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>© 2022 astrolince.com</copyright>
+    <lastBuildDate>Thu, 28 Apr 2022 23:01:58 -0300</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>hello world</title>
+      <link>/blog/hello-world/</link>
+      <pubDate>Thu, 28 Apr 2022 23:01:58 -0300</pubDate>
+      
+      <guid>/blog/hello-world/</guid>
+      <description>leaving this here in case i write stuff</description>
+      <content>&lt;p&gt;leaving this here in case i write stuff&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>configs</title>
+      <link>/configs/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/configs/</guid>
+      <description>general guidelines and philosophy i&amp;rsquo;ll try to keep this as simple as posible to increase mantainability and troubleshooting, and minimize unexpected behavior.
+also, if i can keep something in the userspace using flatpaks without affecting usability, i&amp;rsquo;ll prefer that to reduce system clutterness and increase security.
+devices pc master race
+  os: fedora 35 kde
+  cpu: amd ryzen 5 3600
+  gpu 1: amd radeon rx 6800 16 gb</description>
+      <content>&lt;h1 id=&#34;general-guidelines-and-philosophy&#34;&gt;general guidelines and philosophy&lt;/h1&gt;
+&lt;p&gt;i&amp;rsquo;ll try to keep this as simple as posible to increase mantainability and troubleshooting, and minimize unexpected behavior.&lt;/p&gt;
+&lt;p&gt;also, if i can keep something in the userspace using flatpaks without affecting usability, i&amp;rsquo;ll prefer that to reduce system clutterness and increase security.&lt;/p&gt;
+&lt;h1 id=&#34;devices&#34;&gt;devices&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;pc master race&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;os: &lt;a href=&#34;https://astrolince.com/configs/&#34;&gt;fedora 35 kde&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cpu: amd ryzen 5 3600&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;gpu 1: amd radeon rx 6800 16 gb&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;gpu 2: amd radeon rx 5600 xt 6 gb&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ram: 32 gb (4 x geil super luce 8 gb ddr4 3200mhz)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;m2: 1 tb (2 x adata xpg spectrix s40g 512 gb)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mb: asus tuf gaming x570-pro (wi-fi)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mouse: logitech g305&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;keyboard: hyperx alloy origins core (with razer pink pbt keycaps)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;headphones: audio-technica ath-m50x (with a fiio bta10)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;apple macbook air m1 2020&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;cpu: apple m1&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ram: 8 gb&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;samsung galaxy s20 fe&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;bios-config&#34;&gt;bios config&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;restore defaults.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;clear secure boot keys.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;set ram to 3200mhz.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;enable virtualization.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;disable csm.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;customize fans speed to maximize silence.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;specific-for-fedora-kdehttpsspinsfedoraprojectorgkde&#34;&gt;specific for &lt;a href=&#34;https://spins.fedoraproject.org/kde/&#34;&gt;fedora kde&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;dnf tweaks&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo nano /etc/dnf/dnf.conf&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-vim&#34; data-lang=&#34;vim&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;fastestmirror&lt;/span&gt;=&lt;span style=&#34;color:#a6e22e&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deltarpm&lt;/span&gt;=&lt;span style=&#34;color:#a6e22e&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;update system&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo dnf update&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;add rpm fusion repos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -e %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -e %fedora).noarch.rpm&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo dnf groupupdate core&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo dnf groupupdate multimedia --setop=&amp;quot;install_weak_deps=false&amp;quot; --exclude=packagekit-gstreamer-plugin&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo dnf groupupdate sound-and-video&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;install from repos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo dnf install tmux @virtualization alacritty android-tools arc-theme aria2 audacity blender curl dnscrypt-proxy emacs exa firewall-config flatpak gamemode gawk gimp git gnupg2 gparted gzip kdenlive kgpg krita libreoffice lutris nano neofetch neovim net-tools obs-studio p7zip p7zip-plugins qbittorrent qemu retroarch steam tor torsocks tree util-linux-user vim virt-manager vlc wget wine wine-mono winetricks wireguard-tools&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://brave.com/linux/&#34;&gt;brave&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://keybase.io/docs/the_app/install_linux&#34;&gt;keybase&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;specific-for-manjaro-kdehttpsmanjaroorgdownloadsofficialkde&#34;&gt;specific for &lt;a href=&#34;https://manjaro.org/downloads/official/kde/&#34;&gt;manjaro kde&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;pacman tweaks&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;regenerate the mirrors list with the fastest ones:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo pacman-mirrors --fasttrack&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;update system&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo pacman -syyuu&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;install from official repos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo pacman -sy --needed tmux alacritty android-tools aria2 audacity base-devel blender brave code curl dnscrypt-proxy dnsmasq ebtables edk2-ovmf emacs exa fish flatpak gamemode gawk gimp git gnupg go-ipfs gparted gufw gzip kbfs kdenlive keepassxc keybase keybase-gui kgpg krita libreoffice-still libreoffice-still-es libvirt linux-latest linux-latest-headers linux-lts linux-lts-headers lutris nano neofetch neovim net-tools obs-studio p7zip python-neovim qbittorrent qemu retroarch steam syncthing tor torsocks tree vim virt-manager vlc wget wine wine-gecko wine-mono winetricks wireguard-dkms wireguard-tools xclip&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id=&#34;specific-for-debian-testing-kdehttpscdimagedebianorgimagesunofficialnon-freeimages-including-firmwareweekly-live-buildsamd64iso-hybrid&#34;&gt;specific for &lt;a href=&#34;https://cdimage.debian.org/images/unofficial/non-free/images-including-firmware/weekly-live-builds/amd64/iso-hybrid/&#34;&gt;debian testing kde&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;edit /etc/apt/sources.list&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo nano /etc/apt/sources.list&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-vim&#34; data-lang=&#34;vim&#34;&gt;# &lt;span style=&#34;color:#a6e22e&#34;&gt;see&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;https&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;wiki&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;org&lt;/span&gt;/&lt;span style=&#34;color:#a6e22e&#34;&gt;sourceslist&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;more&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;information&lt;/span&gt;.&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deb&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deb&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;org&lt;/span&gt;/&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testing&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;contrib&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;non&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;free&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deb&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deb&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;org&lt;/span&gt;/&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testing&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;contrib&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;non&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;free&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deb&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deb&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;org&lt;/span&gt;/&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testing&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;updates&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;contrib&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;non&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;free&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deb&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deb&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;org&lt;/span&gt;/&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testing&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;updates&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;contrib&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;non&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;free&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deb&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;security&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;org&lt;/span&gt;/&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;security&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testing&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;security&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;contrib&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;non&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;free&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deb&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;src&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;http&lt;/span&gt;:&lt;span style=&#34;color:#e6db74&#34;&gt;//&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;security&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;org&lt;/span&gt;/&lt;span style=&#34;color:#a6e22e&#34;&gt;debian&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;security&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;testing&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;security&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;contrib&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;non&lt;/span&gt;-&lt;span style=&#34;color:#a6e22e&#34;&gt;free&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;$ sudo dpkg --add-architecture i386&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo apt update&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;install from repos&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo apt install tmux libgl1-mesa-dri:i386 libglx-mesa0:i386 mesa-vulkan-drivers mesa-vulkan-drivers:i386 steam wireguard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://brave.com/linux/&#34;&gt;brave&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://keybase.io/docs/the_app/install_linux&#34;&gt;keybase&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h1 id=&#34;for-all-distros&#34;&gt;for all distros:&lt;/h1&gt;
+&lt;p&gt;&lt;strong&gt;flatpaks&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ flatpak install flathub com.discordapp.discord com.github.micahflee.torbrowser-launcher com.github.vladimiry.electronmail com.leinardi.gst com.system76.popsicle com.tutanota.tutanota im.riot.riot io.lbry.lbry-app net.jami.jami org.jitsi.jitsi-meet org.signal.signal org.telegram.desktop com.stremio.stremio&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;signal&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;edit app to add &lt;code&gt;--start-in-tray&lt;/code&gt; or &lt;code&gt;--use-tray-icon&lt;/code&gt; in the end of the exec command.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;steam tweaks&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;enable steam play in steam settings.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;set launch options (per game) to:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;gamemoderun %command%&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;in some opengl games can be useful to add &lt;code&gt;mesa_glthread=true&lt;/code&gt; at the beginning, and in some vulkan/directx games can be useful to add &lt;code&gt;radv_perftest=aco&lt;/code&gt; and/or &lt;code&gt;dxvk_async=1&lt;/code&gt;(this last one is related to anti-cheats false positives, so don&amp;rsquo;t use it in online games to avoid bans).&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;try &lt;a href=&#34;https://github.com/gloriouseggroll/proton-ge-custom&#34;&gt;proton-ge-custom&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;keybase&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;import the public key:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;$ keybase pgp export | gpg --import&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;import the private key:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;code&gt;$ keybase pgp export -s | gpg --allow-secret-key-import --import&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;git&#34;&gt;git&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;$ git config --global color.ui true&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ git config --global user.name &amp;quot;astrolince&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ git config --global user.email &amp;quot;astro@astrolince.com&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ ssh-keygen -t rsa -b 4096 -c &amp;quot;astro@astrolince.com&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ cat ~/.ssh/id_rsa.pub&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;paste to &lt;a href=&#34;https://github.com/settings/ssh&#34;&gt;https://github.com/settings/ssh&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ git config --global user.signingkey cc39c6d77bdf0053&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ git config --global commit.gpgsign true&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;brave-extensions&#34;&gt;brave extensions&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://chrome.google.com/webstore/detail/clearurls/lckanjgmijmafbedllaakclkaicjfmnk&#34;&gt;clearurls&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://chrome.google.com/webstore/detail/decentraleyes/ldpochfccmkkmhdbclfhpagapcfdljkj&#34;&gt;decentraleyes&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh&#34;&gt;json viewer&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://chrome.google.com/webstore/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj&#34;&gt;privacy settings&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;vim&#34;&gt;vim&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;$ nano ~/.vimrc&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-vim&#34; data-lang=&#34;vim&#34;&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;showmode&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;autoindent&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;tabstop&lt;/span&gt;=&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;set&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;expandtab&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;syntax&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;on&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;networkmanager-randomize&#34;&gt;networkmanager randomize&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;$ sudo nano /etc/networkmanager/conf.d/99-randomize-mac-address.conf&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;device-mac-randomization&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+wifi.scan-rand-mac-address&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;yes
+	
+&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;connection-mac-randomization&lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt;
+ethernet.cloned-mac-address&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;random
+wifi.cloned-mac-address&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;random
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;$ sudo systemctl restart networkmanager&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;dns-over-https&#34;&gt;dns over https&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;$ sudo nano /etc/dnscrypt-proxy/dnscrypt-proxy.toml&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-vim&#34; data-lang=&#34;vim&#34;&gt;# &lt;span style=&#34;color:#a6e22e&#34;&gt;empty&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;listen_addresses&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;to&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;use&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;systemd&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;socket&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;activation&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;listen_addresses&lt;/span&gt; = []&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;server_names&lt;/span&gt; = [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;cloudflare&amp;#39;&lt;/span&gt;]&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;query_log&lt;/span&gt;]&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;file&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/var/log/dnscrypt-proxy/query.log&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;nx_log&lt;/span&gt;]&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;file&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/var/log/dnscrypt-proxy/nx.log&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;[&lt;span style=&#34;color:#a6e22e&#34;&gt;sources&lt;/span&gt;]&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;	[&lt;span style=&#34;color:#a6e22e&#34;&gt;sources&lt;/span&gt;.&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;public-resolvers&amp;#39;&lt;/span&gt;]&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;url&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;cache_file&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;/var/cache/dnscrypt-proxy/public-resolvers.md&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;minisign_key&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;rwqf6lrcga9i53mlyeco4izt51tgppvwucnsch1cbm0qtaln73y7gfo3&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;refresh_delay&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;72&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;prefix&lt;/span&gt; = &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;$ sudo systemctl enable --now dnscrypt-proxy.socket&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;change your connections dns to 127.0.0.1.&lt;/p&gt;
+&lt;h2 id=&#34;cloudflare-warp&#34;&gt;cloudflare warp&lt;/h2&gt;
+&lt;p&gt;download &lt;a href=&#34;https://github.com/virb3/wgcf/releases&#34;&gt;wgcf&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ ./wgcf register&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ ./wgcf generate&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo cp wgcf-profile.conf /etc/wireguard&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;$ sudo nmcli connection import type wireguard file /etc/wireguard/wgcf-profile.conf&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;gnome-extensions&#34;&gt;gnome extensions&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/1228/arc-menu/&#34;&gt;arc menu&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/648/bitcoin-markets/&#34;&gt;bitcoin markets&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/517/caffeine/&#34;&gt;caffeine&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/779/clipboard-indicator/&#34;&gt;clipboard indicator&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/307/dash-to-dock/&#34;&gt;dash to dock&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/1852/gamemode/&#34;&gt;gamemode&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/1319/gsconnect/&#34;&gt;gsconnect&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/277/impatience/&#34;&gt;impatience&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/615/appindicator-support/&#34;&gt;kstatusnotifieritem/appindicator support&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/750/openweather/&#34;&gt;openweather&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/8/places-status-indicator/&#34;&gt;places status indicator&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;https://extensions.gnome.org/extension/906/sound-output-device-chooser/&#34;&gt;sound input &amp;amp; output device chooser&lt;/a&gt;&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>contact</title>
+      <link>/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/contact/</guid>
+      <description>email: astro@astrolince.com
+  keybase: @astrolince
+  matrix: @astrolince:matrix.org
+  telegram: @astrolince
+  pgp key</description>
+      <content>&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;email: &lt;a href=&#34;mailto:astro@astrolince.com&#34;&gt;astro@astrolince.com&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;keybase: &lt;a href=&#34;https://keybase.io/astrolince&#34;&gt;@astrolince&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;matrix: &lt;a href=&#34;https://matrix.to/#/@astrolince:matrix.org&#34;&gt;@astrolince:matrix.org&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;telegram: &lt;a href=&#34;https://t.me/astrolince&#34;&gt;@astrolince&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://keybase.io/astrolince/pgp_keys.asc&#34;&gt;pgp key&lt;/a&gt;&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>donate</title>
+      <link>/donate/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/donate/</guid>
+      <description>for private donations use these links, you&amp;rsquo;ll receive a unique address not linked to anyone else
+  bitcoin, lightning
+  eth, xmr, ltc, doge, dot, dcr
+  my public addresses   bitcoin: bc1q24p4wrht3ddfaqr8wguqfa4f46fweg9hv0znaj
+  ethereum/rsk/bsc/polygon/l2s/any-compatible-chain: astrolince.eth / astrolince.rsk / 0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd
+  </description>
+      <content>&lt;p&gt;for private donations use these links, you&amp;rsquo;ll receive a unique address not linked to anyone else&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://checkout.opennode.com/p/32c4dcff-1ef4-44ba-908e-cccf7f564233&#34;&gt;bitcoin, lightning&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR&#34;&gt;eth, xmr, ltc, doge, dot, dcr&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;my-public-addresses&#34;&gt;my public addresses&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;bitcoin:
+&lt;a href=&#34;https://mempool.space/address/bc1q24p4wrht3ddfaqr8wguqfa4f46fweg9hv0znaj&#34;&gt;bc1q24p4wrht3ddfaqr8wguqfa4f46fweg9hv0znaj&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;ethereum/rsk/bsc/polygon/l2s/any-compatible-chain:
+&lt;a href=&#34;https://etherscan.io/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd&#34;&gt;astrolince.eth&lt;/a&gt; / &lt;a href=&#34;https://explorer.rsk.co/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd&#34;&gt;astrolince.rsk&lt;/a&gt; / &lt;a href=&#34;https://blockscan.com/address/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd&#34;&gt;0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>projects</title>
+      <link>/projects/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/</guid>
+      <description>anomalous an anomalous company
+  coiny bitcoin fee estimates
+  hosty system-wide ad blocker for linux
+  astrobot my consciousness uploaded to the internet
+  respondedor de boludos yes or no telegram bot
+  inside the firewall videogame i made in 2013
+  deprecated projects   linky (2016) url shortener
+  tuxifeed (2014) tech news
+  juan respuestas (2007) my 9 years old self wanted to make a website</description>
+      <content>&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://anomalous.xyz/&#34;&gt;anomalous&lt;/a&gt; an anomalous company&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/coinyfees&#34;&gt;coiny&lt;/a&gt; bitcoin fee estimates&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://astrolince.com/hosty&#34;&gt;hosty&lt;/a&gt; system-wide ad blocker for linux&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://twitter.com/astroiince&#34;&gt;astrobot&lt;/a&gt; my consciousness uploaded to the internet&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://t.me/respondedorbot&#34;&gt;respondedor de boludos&lt;/a&gt; yes or no telegram bot&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://scratch.mit.edu/projects/14166847/&#34;&gt;inside the firewall&lt;/a&gt; videogame i made in 2013&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;deprecated-projects&#34;&gt;deprecated projects&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://web.archive.org/web/20180901073301/https://linky.tk/&#34;&gt;linky (2016)&lt;/a&gt; url shortener&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://web.archive.org/web/20141222080138/https://tuxi.tk/&#34;&gt;tuxifeed (2014)&lt;/a&gt; tech news&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&#34;https://web.archive.org/web/20090804045736/http://juanrespuestas.freeconfigbox.com/&#34;&gt;juan respuestas (2007)&lt;/a&gt;
+my 9 years old self wanted to make a website&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>
