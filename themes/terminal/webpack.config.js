@@ -20,6 +20,7 @@ module.exports = (env, { mode }) => ({
     blue: join("assets", "css", "color", "blue.css"),
     green: join("assets", "css", "color", "green.css"),
     pink: join("assets", "css", "color", "pink.css"),
+    astro: join("assets", "css", "color", "astro.css"),
   },
   output: {
     filename: "[name].js",
@@ -93,6 +94,7 @@ module.exports = (env, { mode }) => ({
         join("static/assets/green.js"),
         join("static/assets/red.js"),
         join("static/assets/pink.js"),
+        join("static/assets/astro.js"),
       ],
       verbose: true,
     }),

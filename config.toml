@@ -9,7 +9,7 @@ paginate = 5
   contentTypeName = "blog"
 
   # ["orange", "blue", "red", "green", "pink"]
-  themeColor = "pink"
+  themeColor = "astro"
 
   # if you set this to 0, only submenu trigger will be visible
   showMenuItems = 6
