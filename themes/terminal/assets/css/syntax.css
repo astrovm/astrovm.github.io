@@ -116,7 +116,7 @@ pre[class*="language-"] {
 }
 
 :root {
-	--code-margin: 10px;
+	--code-margin: 40px;
 }
 
 .code-toolbar {

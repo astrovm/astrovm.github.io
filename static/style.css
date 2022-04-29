@@ -2,3 +2,20 @@
     margin-top: 0 !important;
     padding-top: 0 !important;
 }
+
+.menu {
+    margin: 15px 1px 0px 1px !important;
+}
+
+h1.post-title {
+    margin-top: 1px !important;
+}
+
+:root {
+    --code-margin: 10px !important;
+}
+
+.post {
+    margin: 5px auto !important;
+    padding: 5px 0 !important;
+}
