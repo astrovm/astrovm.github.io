@@ -3,42 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/</loc>
+    <loc>https://astrolince.com/</loc>
     <lastmod>2022-04-28T23:01:58-03:00</lastmod>
   </url>
   
   <url>
-    <loc>/blog/</loc>
+    <loc>https://astrolince.com/blog/</loc>
     <lastmod>2022-04-28T23:01:58-03:00</lastmod>
   </url>
   
   <url>
-    <loc>/blog/hello-world/</loc>
+    <loc>https://astrolince.com/blog/hello-world/</loc>
     <lastmod>2022-04-28T23:01:58-03:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://astrolince.com/categories/</loc>
   </url>
   
   <url>
-    <loc>/configs/</loc>
+    <loc>https://astrolince.com/configs/</loc>
   </url>
   
   <url>
-    <loc>/contact/</loc>
+    <loc>https://astrolince.com/contact/</loc>
   </url>
   
   <url>
-    <loc>/donate/</loc>
+    <loc>https://astrolince.com/donate/</loc>
   </url>
   
   <url>
-    <loc>/projects/</loc>
+    <loc>https://astrolince.com/projects/</loc>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://astrolince.com/tags/</loc>
   </url>
   
 </urlset>

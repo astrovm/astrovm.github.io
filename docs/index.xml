@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>astro@web $ _</title>
-    <link>/</link>
+    <link>https://astrolince.com/</link>
     <description>Recent content on astro@web $ _</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2022 astrolince.com</copyright>
-    <lastBuildDate>Thu, 28 Apr 2022 23:01:58 -0300</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Apr 2022 23:01:58 -0300</lastBuildDate><atom:link href="https://astrolince.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>hello world</title>
-      <link>/blog/hello-world/</link>
+      <link>https://astrolince.com/blog/hello-world/</link>
       <pubDate>Thu, 28 Apr 2022 23:01:58 -0300</pubDate>
       
-      <guid>/blog/hello-world/</guid>
+      <guid>https://astrolince.com/blog/hello-world/</guid>
       <description>leaving this here in case i write stuff</description>
       <content>&lt;p&gt;leaving this here in case i write stuff&lt;/p&gt;
 </content>
@@ -21,10 +21,10 @@
     
     <item>
       <title>configs</title>
-      <link>/configs/</link>
+      <link>https://astrolince.com/configs/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/configs/</guid>
+      <guid>https://astrolince.com/configs/</guid>
       <description>general guidelines and philosophy i&amp;rsquo;ll try to keep this as simple as posible to increase mantainability and troubleshooting, and minimize unexpected behavior.
 also, if i can keep something in the userspace using flatpaks without affecting usability, i&amp;rsquo;ll prefer that to reduce system clutterness and increase security.
 devices pc master race
@@ -245,10 +245,10 @@ wifi.cloned-mac-address&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;r
     
     <item>
       <title>contact</title>
-      <link>/contact/</link>
+      <link>https://astrolince.com/contact/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/contact/</guid>
+      <guid>https://astrolince.com/contact/</guid>
       <description>email: astro@astrolince.com
   keybase: @astrolince
   matrix: @astrolince:matrix.org
@@ -274,10 +274,10 @@ wifi.cloned-mac-address&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;r
     
     <item>
       <title>donate</title>
-      <link>/donate/</link>
+      <link>https://astrolince.com/donate/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/donate/</guid>
+      <guid>https://astrolince.com/donate/</guid>
       <description>for private donations use these links, you&amp;rsquo;ll receive a unique address not linked to anyone else
   bitcoin, lightning
   eth, xmr, ltc, doge, dot, dcr
@@ -309,10 +309,10 @@ wifi.cloned-mac-address&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;r
     
     <item>
       <title>projects</title>
-      <link>/projects/</link>
+      <link>https://astrolince.com/projects/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/projects/</guid>
+      <guid>https://astrolince.com/projects/</guid>
       <description>anomalous an anomalous company
   coiny bitcoin fee estimates
   hosty system-wide ad blocker for linux

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogs on astro@web $ _</title>
-    <link>/blog/</link>
+    <link>https://astrolince.com/blog/</link>
     <description>Recent content in Blogs on astro@web $ _</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2022 astrolince.com</copyright>
-    <lastBuildDate>Thu, 28 Apr 2022 23:01:58 -0300</lastBuildDate><atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Apr 2022 23:01:58 -0300</lastBuildDate><atom:link href="https://astrolince.com/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>hello world</title>
-      <link>/blog/hello-world/</link>
+      <link>https://astrolince.com/blog/hello-world/</link>
       <pubDate>Thu, 28 Apr 2022 23:01:58 -0300</pubDate>
       
-      <guid>/blog/hello-world/</guid>
+      <guid>https://astrolince.com/blog/hello-world/</guid>
       <description>leaving this here in case i write stuff</description>
       <content>&lt;p&gt;leaving this here in case i write stuff&lt;/p&gt;
 </content>
