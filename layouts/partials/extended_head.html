@@ -1,0 +1,15 @@
+<script type="text/javascript">
+    const BLINK_TIME = 530;
+    const TITLE = "astro@web $ ";
+    const blinkUnderscore = (char) => {
+        setTimeout(() => {
+            document.title = TITLE + char;
+            if (char == " ") {
+                blinkUnderscore("_");
+            } else {
+                blinkUnderscore(" ");
+            }
+        }, BLINK_TIME);
+    };
+    blinkUnderscore(" ");
+</script>
