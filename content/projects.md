@@ -2,19 +2,19 @@
 title = "projects"
 +++
 
-- [anomalous](https://anomalous.xyz/) an anomalous company
+- [anomalous](https://anomalous.xyz/) an anomalous research society
 
-- [coiny](https://twitter.com/coinyfees) bitcoin fee estimates
+- [respondedor de boludos](https://t.me/respondedorbot) yes or no telegram bot
 
 - [hosty](https://astrolince.com/hosty) system-wide ad blocker for linux
 
-- [astrobot](https://twitter.com/astroiince) my consciousness uploaded to the internet
-
-- [respondedor de boludos](https://t.me/respondedorbot) yes or no telegram bot
+- [coiny](https://twitter.com/coinyfees) bitcoin fee estimates
 
 - [inside the firewall](https://scratch.mit.edu/projects/14166847/) videogame i made in 2013
 
 # deprecated projects
+
+- [astrobot (2018)](https://twitter.com/astroiince) my consciousness uploaded to the internet
 
 - [linky (2016)](https://web.archive.org/web/20180901073301/https://linky.tk/) url shortener
 
