@@ -37,7 +37,7 @@ the game has some interesting messages behind:
 - you probably will kill life by accident
 - your boss will run away if something really bad happens
 - the government will not save you and you shouldn't trust them
-- an individual can have real impact on the world, so you are important
+- an individual can have real impact in the world, so you are important
 - the world is chaotic and many events are not planned
 - nobody is really sure about what's going on
 - don't expect someone to tell you what you have to do, think, try and break stuff
@@ -50,7 +50,7 @@ i've seen a lot of people having trouble playing half-life, because they expect 
 
 the game is full of mods and a community trying weird shit, and valve (the company behind half-life) allows and promotes that, unleashing a lot of artistic creativity and what-ifs, that's why we have a lot of games based on half-life. i feel like a lot of that has been lost and we've been enclosed in walled gardens.
 
-if you didn't played half-life try it, the list of games is:
+if you didn't played half-life, try it, the list of games is:
 - half-life (there's an amazing remake called black mesa)
 - half-life 2
 - half-life 2 episode 1
@@ -59,7 +59,7 @@ if you didn't played half-life try it, the list of games is:
 
 non essential:
 - hl opposing force (you play the hl 1 story from the perspective of one of your enemies, a soldier, i particularly love this game for the aesthetics, weapons and cool tanks and helicopters)
-- hl blue shift (not essential, you play the hl 1 story from the perspective of one of your friends, a security guard)
+- hl blue shift (you play the hl 1 story from the perspective of one of your friends, a security guard)
 - half-life 2 lost coast (it's just a short tech demo and it feels like an out of context dream you had)
 
 you should also play portal and portal 2 as they take place in the same universe, but they are different games and cool in their own way.
