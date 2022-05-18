@@ -55,6 +55,7 @@ if you didn't played half-life try it, the list of games is:
 - half-life 2
 - half-life 2 episode 1
 - half-life 2 episode 2
+- half-life alyx (vr game)
 
 non essential:
 - hl opposing force (you play the hl 1 story from the perspective of one of your enemies, a soldier, i particularly love this game for the aesthetics, weapons and cool tanks and helicopters)
