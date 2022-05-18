@@ -31,7 +31,7 @@ D:
 
 i started to defend myself, in half-life combats are a puzzle to solve, you just have the solve something, it's not like those games in were you have to die to know something and then retry it, like brute forcing the game (i always wondered how it's that you get to know some things without dying first), in half-life you have to actually value your life and treat it like the most important thing you have.
 
-you are a man of science, not a assassin, if you see a threat, you first run to protect yourself, then think about how to leverage your tools, environment and knowledge against the enemy. if you don't really need to kill anyone, you don't, but if you do, now you have a plan.
+you are a man of science, not an assassin, if you see a threat, you first run to protect yourself, then think about how to leverage your tools, environment and knowledge against the enemy. if you don't really need to kill anyone, you don't, but if you do, now you have a plan.
 
 the game has some interesting messages behind:
 - you probably will kill life by accident
