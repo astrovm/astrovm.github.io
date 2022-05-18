@@ -1,5 +1,6 @@
 +++
 title = "donate"
+hideComments = true
 +++
 
 for private donations use these links, you'll receive a unique address not linked to anyone else

@@ -1,5 +1,6 @@
 +++
 title = "projects"
+hideComments = true
 +++
 
 - [anomalous](https://anomalous.xyz/) an anomalous research society

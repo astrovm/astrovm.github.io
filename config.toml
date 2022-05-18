@@ -42,7 +42,7 @@ paginate = 5
   # oneHeadingSize = true # default
 
   # whether to show a page's estimated reading time
-  readingTime = true
+  # readingTime = false # default
 
   # whether to show a table of contents
   # can be overridden in a page's front-matter

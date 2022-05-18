@@ -1,5 +1,6 @@
 +++
 title = "contact"
+hideComments = true
 +++
 
 - email: [astro@astrolince.com](mailto:astro@astrolince.com)

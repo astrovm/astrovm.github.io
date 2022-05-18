@@ -1,6 +1,7 @@
 +++
 title = "run, think, shoot, live"
 date = "2022-05-18T05:33:50-03:00"
+readingTime = true
 +++
 
 half-life changes the way you think about life, it's not a normal first person shooter. as someone who grew up playing doom, the first time i played half-life i had one of the most important realizations as a child: you don't need that much skill if you actually think, and running from problems is super useful and acceptable sometimes (one of the reasons that i also loved playing resident evil in my psone back then, but it scared the hell out of me).

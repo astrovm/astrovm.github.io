@@ -1,5 +1,6 @@
 +++
 title = "configs"
+hideComments = true
 +++
 
 # general guidelines and philosophy
