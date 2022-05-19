@@ -1,5 +1,6 @@
 #welcome.post {
     margin-top: 0 !important;
+    margin-bottom: 2px !important;
     padding-top: 0 !important;
 }
 
@@ -8,7 +9,7 @@
 }
 
 h1.post-title {
-    margin-top: 1px !important;
+    margin-top: 4px !important;
 }
 
 :root {
