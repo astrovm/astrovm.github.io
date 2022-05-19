@@ -19,7 +19,7 @@ the (obviously pirated) cd actually included:
 - deathmatch classic
 - counter strike
 
-i installed everything and opened half-life first because i liked the aesthetics more, i started playing and... A FUCKING TRAIN APPEARED. i've never been on a moving train in a game before and i love trains so i liked it, the train took a lot of time to reach its destination so i felt the game was chill about himself and i loved that!.
+i installed everything and opened half-life first because i liked the aesthetics more, i started playing and... A FUCKING TRAIN APPEARED. i've never been on a moving train in a game before and i love trains so i liked it, the train took a lot of time to reach its destination so i felt the game was chill about himself and i loved that!
 
 a couple of minutes later the world goes to hell D:!  but the aesthetics are nice :D! so i was there running as something of a scientist with a cool "hazardous environment suit", and irl i was wearing an spiderman suit so i felt related.
 
@@ -30,7 +30,7 @@ D:
 
 :((( what i just didd
 
-i started to defend myself, in half-life combats are a puzzle to solve, you just have the solve something, it's not like those games in were you have to die to know something and then retry it, like brute forcing the game (i always wondered how it's that you get to know some things without dying first), in half-life you have to actually value your life and treat it like the most important thing you have.
+and then i started defending myself, in half-life combats are a puzzle to solve, it's not like those games in were you have to die to know something and then retry it, like brute forcing the game (i always wondered how it's that you get to know those things without dying first), in half-life you have to actually value your life and treat it like the most important thing you have.
 
 you are a man of science, not an assassin, if you see a threat, you first run to protect yourself, then think about how to leverage your tools, environment and knowledge against the enemy. if you don't really need to kill anyone, you don't, but if you do, now you have a plan.
 
