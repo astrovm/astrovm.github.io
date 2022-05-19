@@ -13,7 +13,7 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 **pc master race**
 
-- os: [fedora 35 kde](https://astrolince.com/configs/)
+- os: [fedora 36 kde](https://spins.fedoraproject.org/kde/)
 
 - cpu: amd ryzen 5 3600
 
@@ -82,7 +82,7 @@ deltarpm=True
 
 **install from repos**
 
-`$ sudo dnf install tmux @virtualization alacritty android-tools arc-theme aria2 audacity blender curl dnscrypt-proxy emacs exa firewall-config flatpak gamemode gawk gimp git gnupg2 gparted gzip kdenlive kgpg krita libreoffice lutris nano neofetch neovim net-tools obs-studio p7zip p7zip-plugins qbittorrent qemu retroarch steam tor torsocks tree util-linux-user vim virt-manager vlc wget wine wine-mono winetricks wireguard-tools`
+`$ sudo dnf install tmux @virtualization alacritty android-tools arc-theme aria2 audacity blender curl emacs exa firewall-config flatpak gamemode gimp git gparted gzip kdenlive kgpg krita libreoffice lutris neofetch neovim net-tools obs-studio p7zip p7zip-plugins qbittorrent qemu retroarch steam tor torsocks tree util-linux-user vim virt-manager vlc wine wine-mono winetricks wireguard-tools`
 
 **[brave](https://brave.com/linux/)**
 
@@ -102,37 +102,7 @@ regenerate the mirrors list with the fastest ones:
 
 **install from official repos**
 
-`$ sudo pacman -Sy --needed tmux alacritty android-tools aria2 audacity base-devel blender brave code curl dnscrypt-proxy dnsmasq ebtables edk2-ovmf emacs exa fish flatpak gamemode gawk gimp git gnupg go-ipfs gparted gufw gzip kbfs kdenlive keepassxc keybase keybase-gui kgpg krita libreoffice-still libreoffice-still-es libvirt linux-latest linux-latest-headers linux-lts linux-lts-headers lutris nano neofetch neovim net-tools obs-studio p7zip python-neovim qbittorrent qemu retroarch steam syncthing tor torsocks tree vim virt-manager vlc wget wine wine-gecko wine-mono winetricks wireguard-dkms wireguard-tools xclip`
-
-# specific for [debian testing kde](https://cdimage.debian.org/images/unofficial/non-free/images-including-firmware/weekly-live-builds/amd64/iso-hybrid/)
-
-**edit /etc/apt/sources.list**
-
-`$ sudo nano /etc/apt/sources.list`
-
-```vim
-# See https://wiki.debian.org/SourcesList for more information.
-deb http://deb.debian.org/debian testing main contrib non-free
-deb-src http://deb.debian.org/debian testing main contrib non-free
-
-deb http://deb.debian.org/debian testing-updates main contrib non-free
-deb-src http://deb.debian.org/debian testing-updates main contrib non-free
-
-deb http://security.debian.org/debian-security testing-security main contrib non-free
-deb-src http://security.debian.org/debian-security testing-security main contrib non-free
-```
-
-`$ sudo dpkg --add-architecture i386`
-
-`$ sudo apt update`
-
-**install from repos**
-
-`$ sudo apt install tmux libgl1-mesa-dri:i386 libglx-mesa0:i386 mesa-vulkan-drivers mesa-vulkan-drivers:i386 steam wireguard`
-
-**[brave](https://brave.com/linux/)**
-
-**[keybase](https://keybase.io/docs/the_app/install_linux)**
+`$ sudo pacman -Sy --needed tmux alacritty android-tools aria2 audacity base-devel blender brave code emacs exa fish flatpak gamemode gimp git gparted gufw gzip kbfs kdenlive keybase keybase-gui kgpg krita libreoffice-still libreoffice-still-es libvirt linux-latest linux-latest-headers linux-lts linux-lts-headers lutris neofetch neovim net-tools obs-studio p7zip python-neovim qbittorrent qemu retroarch steam tor torsocks tree vim virt-manager vlc wine wine-gecko wine-mono winetricks wireguard-dkms wireguard-tools xclip`
 
 # for all distros:
 
@@ -215,76 +185,10 @@ syntax on
 ```bash
 [device-mac-randomization]
 wifi.scan-rand-mac-address=yes
-	
+
 [connection-mac-randomization]
 ethernet.cloned-mac-address=random
 wifi.cloned-mac-address=random
 ```
 
 `$ sudo systemctl restart NetworkManager`
-
-## dns over https
-
-`$ sudo nano /etc/dnscrypt-proxy/dnscrypt-proxy.toml`
-
-```vim
-# Empty listen_addresses to use systemd socket activation
-listen_addresses = []
-server_names = ['cloudflare']
-
-[query_log]
-	file = '/var/log/dnscrypt-proxy/query.log'
-
-[nx_log]
-	file = '/var/log/dnscrypt-proxy/nx.log'
-
-[sources]
-	[sources.'public-resolvers']
-	url = 'https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md'
-	cache_file = '/var/cache/dnscrypt-proxy/public-resolvers.md'
-	minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
-	refresh_delay = 72
-	prefix = ''
-```
-
-`$ sudo systemctl enable --now dnscrypt-proxy.socket`
-
-change your connections dns to 127.0.0.1.
-
-## cloudflare warp
-
-download [wgcf](https://github.com/virb3/wgcf/releases).
-
-`$ ./wgcf register`
-
-`$ ./wgcf generate`
-
-`$ sudo cp wgcf-profile.conf /etc/wireguard`
-
-`$ sudo nmcli connection import type wireguard file /etc/wireguard/wgcf-profile.conf`
-
-## gnome extensions
-
-[arc menu](https://extensions.gnome.org/extension/1228/arc-menu/)
-
-[bitcoin markets](https://extensions.gnome.org/extension/648/bitcoin-markets/)
-
-[caffeine](https://extensions.gnome.org/extension/517/caffeine/)
-
-[clipboard indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/)
-
-[dash to dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
-
-[gamemode](https://extensions.gnome.org/extension/1852/gamemode/)
-
-[gsconnect](https://extensions.gnome.org/extension/1319/gsconnect/)
-
-[impatience](https://extensions.gnome.org/extension/277/impatience/)
-
-[kstatusnotifieritem/appindicator support](https://extensions.gnome.org/extension/615/appindicator-support/)
-
-[openweather](https://extensions.gnome.org/extension/750/openweather/)
-
-[places status indicator](https://extensions.gnome.org/extension/8/places-status-indicator/)
-
-[sound input & output device chooser](https://extensions.gnome.org/extension/906/sound-output-device-chooser/)

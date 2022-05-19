@@ -21,5 +21,5 @@ hideComments = true
 
 - [tuxifeed (2014)](https://web.archive.org/web/20141222080138/https://tuxi.tk/) tech news
 
-- [juan respuestas (2007)](https://web.archive.org/web/20090804045736/http://juanrespuestas.freeconfigbox.com/) 
-my 9 years old self wanted to make a website
+- [juan respuestas (2007)](https://web.archive.org/web/20090804045736/http://juanrespuestas.freeconfigbox.com/)
+  my 9 years old self wanted to make a website
