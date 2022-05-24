@@ -5,6 +5,8 @@ hideComments = true
 
 - [anomalous](https://anomalous.xyz/) an anomalous research society
 
+- [magi](https://magi.lol/) a wizard worm that powers an orb
+
 - [respondedor de boludos](https://t.me/respondedorbot) yes or no telegram bot
 
 - [hosty](https://astrolince.com/hosty) system-wide ad blocker for linux
