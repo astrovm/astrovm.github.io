@@ -88,22 +88,6 @@ deltarpm=True
 
 **[keybase](https://keybase.io/docs/the_app/install_linux)**
 
-# specific for [manjaro kde](https://manjaro.org/downloads/official/kde/)
-
-**pacman tweaks**
-
-regenerate the mirrors list with the fastest ones:
-
-`$ sudo pacman-mirrors --fasttrack`
-
-**update system**
-
-`$ sudo pacman -Syyuu`
-
-**install from official repos**
-
-`$ sudo pacman -Sy --needed tmux alacritty android-tools aria2 audacity base-devel blender brave code emacs exa fish flatpak gamemode gimp git gparted gufw gzip kbfs kdenlive keybase keybase-gui kgpg krita libreoffice-still libreoffice-still-es libvirt linux-latest linux-latest-headers linux-lts linux-lts-headers lutris neofetch neovim net-tools obs-studio p7zip python-neovim qbittorrent qemu retroarch steam tor torsocks tree vim virt-manager vlc wine wine-gecko wine-mono winetricks wireguard-dkms wireguard-tools xclip`
-
 # for all distros:
 
 **flatpaks**
