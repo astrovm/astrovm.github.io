@@ -82,9 +82,7 @@ deltarpm=True
 
 **install from repos**
 
-`$ sudo dnf install tmux @virtualization kitty android-tools arc-theme aria2 curl emacs exa firewall-config flatpak gamemode git gparted gzip kgpg lutris neofetch neovim net-tools obs-studio p7zip p7zip-plugins qemu steam tor torsocks tree util-linux-user virt-manager wireguard-tools`
-
-**[brave](https://brave.com/linux/)**
+`$ sudo dnf install tmux @virtualization kitty android-tools arc-theme aria2 curl emacs exa firewall-config flatpak gamemode git gparted gzip kgpg lutris neofetch neovim net-tools p7zip p7zip-plugins qemu steam tor torsocks tree util-linux-user virt-manager wireguard-tools`
 
 **[keybase](https://keybase.io/docs/the_app/install_linux)**
 
@@ -94,7 +92,7 @@ deltarpm=True
 
 `$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 
-`$ flatpak install flathub com.discordapp.Discord com.github.micahflee.torbrowser-launcher com.leinardi.gst com.system76.Popsicle im.riot.Riot io.lbry.lbry-app net.jami.Jami org.jitsi.jitsi-meet org.signal.Signal org.telegram.desktop com.stremio.Stremio org.libreoffice.LibreOffice org.qbittorrent.qBittorrent org.gimp.GIMP org.kde.krita org.videolan.VLC org.kde.kdenlive org.blender.Blender org.audacityteam.Audacity`
+`$ flatpak install flathub com.discordapp.Discord com.github.micahflee.torbrowser-launcher com.leinardi.gst com.system76.Popsicle im.riot.Riot io.lbry.lbry-app net.jami.Jami org.jitsi.jitsi-meet org.signal.Signal org.telegram.desktop com.stremio.Stremio org.libreoffice.LibreOffice org.qbittorrent.qBittorrent org.gimp.GIMP org.kde.krita org.videolan.VLC org.kde.kdenlive org.blender.Blender org.audacityteam.Audacity com.obsproject.Studio`
 
 **signal**
 
