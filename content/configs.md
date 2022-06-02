@@ -82,7 +82,7 @@ deltarpm=True
 
 **install from repos**
 
-`$ sudo dnf install tmux @virtualization alacritty kitty android-tools arc-theme aria2 audacity blender curl emacs exa firewall-config flatpak gamemode gimp git gparted gzip kdenlive kgpg krita libreoffice lutris neofetch neovim net-tools obs-studio p7zip p7zip-plugins qbittorrent qemu retroarch steam tor torsocks tree util-linux-user vim virt-manager vlc wireguard-tools`
+`$ sudo dnf install tmux @virtualization alacritty kitty android-tools arc-theme aria2 audacity blender curl emacs exa firewall-config flatpak gamemode gimp git gparted gzip kdenlive kgpg krita lutris neofetch neovim net-tools obs-studio p7zip p7zip-plugins qemu retroarch steam tor torsocks tree util-linux-user vim virt-manager vlc wireguard-tools`
 
 **[brave](https://brave.com/linux/)**
 
@@ -94,7 +94,7 @@ deltarpm=True
 
 `$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 
-`$ flatpak install flathub com.discordapp.Discord com.github.micahflee.torbrowser-launcher com.github.vladimiry.ElectronMail com.leinardi.gst com.system76.Popsicle com.tutanota.Tutanota im.riot.Riot io.lbry.lbry-app net.jami.Jami org.jitsi.jitsi-meet org.signal.Signal org.telegram.desktop com.stremio.Stremio`
+`$ flatpak install flathub com.discordapp.Discord com.github.micahflee.torbrowser-launcher com.leinardi.gst com.system76.Popsicle im.riot.Riot io.lbry.lbry-app net.jami.Jami org.jitsi.jitsi-meet org.signal.Signal org.telegram.desktop com.stremio.Stremio org.libreoffice.LibreOffice org.qbittorrent.qBittorrent`
 
 **signal**
 
