@@ -82,7 +82,7 @@ deltarpm=True
 
 **install from repos**
 
-`$ sudo dnf install tmux @virtualization kitty android-tools arc-theme aria2 curl emacs exa firewall-config flatpak gamemode git gparted gzip kgpg lutris neofetch neovim net-tools p7zip p7zip-plugins qemu steam tor torsocks tree util-linux-user virt-manager wireguard-tools`
+`$ sudo dnf install tmux @virtualization kitty android-tools arc-theme aria2 curl emacs exa firewall-config flatpak gamemode git gparted gzip kgpg lutris neofetch neovim net-tools p7zip p7zip-plugins qemu tor torsocks tree util-linux-user virt-manager wireguard-tools`
 
 **[keybase](https://keybase.io/docs/the_app/install_linux)**
 
