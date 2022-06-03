@@ -148,6 +148,10 @@ paste to [https://github.com/settings/ssh](https://github.com/settings/ssh).
 
 [privacy settings](https://chrome.google.com/webstore/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj)
 
+## duckduckgo
+
+`https://duckduckgo.com/?kae=d&kn=1&kav=1&kp=-2&k1=-1&kaj=m&kak=-1&kax=-1&kaq=-1&kap=-1&kao=-1&kau=-1&kad=en_GB&kay=b&kg=g&k5=2&ku=-1&ks=l&kaz=-1&kaf=s&kai=a&kx=f462c6`
+
 ## vim
 
 `$ nano ~/.vimrc`
