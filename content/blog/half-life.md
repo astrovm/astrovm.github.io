@@ -12,13 +12,13 @@ i noticed that the cd box said "half-life counter-strike" and i was like, "what 
 
 the (obviously pirated) cd actually included:
 
-- half-life
-- hl opposing force
-- hl blue shift
-- team fortress classic
-- ricochet
-- deathmatch classic
-- counter strike
+- [half-life](https://store.steampowered.com/app/70/HalfLife/)
+- [hl opposing force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/)
+- [hl blue shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/)
+- [team fortress classic](https://store.steampowered.com/app/20/Team_Fortress_Classic/)
+- [ricochet](https://store.steampowered.com/app/60/Ricochet/)
+- [deathmatch classic](https://store.steampowered.com/app/40/Deathmatch_Classic/)
+- [counter strike](https://store.steampowered.com/app/10/CounterStrike/)
 
 i installed everything and opened half-life first because i liked the aesthetics more, i started playing and... A FUCKING TRAIN APPEARED. i've never been on a moving train in a game before and i love trains so i liked it, the train took a lot of time to reach its destination so i felt the game was chill about himself and i loved that!
 
@@ -54,16 +54,16 @@ the game is full of mods and a community trying weird shit, and valve (the compa
 
 if you didn't played half-life, try it, the list of games is:
 
-- half-life (there's an amazing remake called black mesa)
-- half-life 2
-- half-life 2 episode 1
-- half-life 2 episode 2
-- half-life alyx (vr game)
+- [half-life](https://store.steampowered.com/app/70/HalfLife/) (there's an amazing remake called [black mesa](https://store.steampowered.com/app/362890/Black_Mesa/))
+- [half-life 2](https://store.steampowered.com/app/220/HalfLife_2/)
+- [half-life 2 episode 1](https://store.steampowered.com/app/380/HalfLife_2_Episode_One/)
+- [half-life 2 episode 2](https://store.steampowered.com/app/420/HalfLife_2_Episode_Two/)
+- [half-life alyx](https://store.steampowered.com/app/546560/HalfLife_Alyx/) (vr game)
 
 non essential:
 
-- hl opposing force (you play the hl 1 story from the perspective of one of your enemies, a soldier, i particularly love this game for the aesthetics, weapons and cool tanks and helicopters)
-- hl blue shift (you play the hl 1 story from the perspective of one of your friends, a security guard)
-- half-life 2 lost coast (it's just a short tech demo and it feels like an out of context dream you had)
+- [hl opposing force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/) (you play the hl 1 story from the perspective of one of your enemies, a soldier, i particularly love this game for the aesthetics, weapons and cool tanks and helicopters)
+- [hl blue shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/) (you play the hl 1 story from the perspective of one of your friends, a security guard)
+- [half-life 2 lost coast](https://store.steampowered.com/app/340/HalfLife_2_Lost_Coast/) (it's just a short tech demo and it feels like an out of context dream you had)
 
 you should also play portal and portal 2 as they take place in the same universe, but they are different games and cool in their own way.
