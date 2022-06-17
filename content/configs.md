@@ -70,16 +70,6 @@ deltarpm=True
 
 `$ sudo dnf update`
 
-**add rpm fusion repos**
-
-`$ sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm`
-
-`$ sudo dnf groupupdate core`
-
-`$ sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin`
-
-`$ sudo dnf groupupdate sound-and-video`
-
 **install from repos**
 
 `$ sudo dnf install tmux @virtualization kitty android-tools arc-theme aria2 curl emacs exa firewall-config flatpak gamemode git gparted gzip kgpg lutris neofetch vim neovim net-tools p7zip p7zip-plugins qemu tor torsocks tree util-linux-user virt-manager wireguard-tools`
