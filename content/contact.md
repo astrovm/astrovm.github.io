@@ -5,7 +5,7 @@ hideComments = true
 
 - email: [astro@astrolince.com](mailto:astro@astrolince.com)
 
-- keybase: [@astrolince](https://keybase.io/astrolince)
+- [session](https://getsession.org/): 0569a182a7f9f9b5a39266017b45f4dab1aebdbbd15910c586c3a7f021679af506
 
 - matrix: [@astrolince:matrix.org](https://matrix.to/#/@astrolince:matrix.org)
 
