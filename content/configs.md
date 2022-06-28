@@ -45,9 +45,9 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 - restore defaults.
 
-- clear secure boot keys.
-
 - set ram to 3200mhz.
+
+- enable resizable bar.
 
 - enable virtualization.
 
