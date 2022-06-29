@@ -74,7 +74,7 @@ deltarpm=True
 
 **install from repos**
 
-`$ sudo dnf install tmux @virtualization kitty android-tools arc-theme aria2 curl emacs exa firewall-config flatpak snapd gamemode git gparted gzip kgpg lutris neofetch vim neovim net-tools p7zip p7zip-plugins qemu tor torsocks tree util-linux-user virt-manager wireguard-tools`
+`$ sudo dnf install tmux @virtualization kitty android-tools arc-theme aria2 curl emacs exa firewall-config flatpak snapd gamemode git gparted gzip kgpg lutris neofetch vim neovim net-tools p7zip p7zip-plugins qemu tor torsocks tree util-linux-user virt-manager wireguard-tools ffmpeg-free`
 
 `$ sudo ln -s /var/lib/snapd/snap /snap`
 
