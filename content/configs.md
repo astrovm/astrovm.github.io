@@ -51,6 +51,8 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 - enable virtualization.
 
+- enable secure boot.
+
 - disable csm.
 
 - customize fans speed to maximize silence.
@@ -75,8 +77,6 @@ deltarpm=True
 `$ sudo dnf install tmux @virtualization kitty android-tools arc-theme aria2 curl emacs exa firewall-config flatpak snapd gamemode git gparted gzip kgpg lutris neofetch vim neovim net-tools p7zip p7zip-plugins qemu tor torsocks tree util-linux-user virt-manager wireguard-tools`
 
 `$ sudo ln -s /var/lib/snapd/snap /snap`
-
-**[keybase](https://keybase.io/docs/the_app/install_linux)**
 
 # for all distros:
 
@@ -105,16 +105,6 @@ edit app to add `--start-in-tray` or `--use-tray-icon` in the end of the exec co
 in some opengl games can be useful to add `mesa_glthread=true` at the beginning, and in some Vulkan/DirectX games can be useful to add `RADV_PERFTEST=aco` and/or `DXVK_ASYNC=1`(this last one is related to anti-cheats false positives, so don't use it in online games to avoid bans).
 
 - try [proton-ge-custom](https://github.com/gloriouseggroll/proton-ge-custom).
-
-**keybase**
-
-- import the public key:
-
-`$ keybase pgp export | gpg --import`
-
-- import the private key:
-
-`$ keybase pgp export -s | gpg --allow-secret-key-import --import`
 
 ## git
 
