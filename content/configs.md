@@ -84,7 +84,7 @@ deltarpm=True
 
 `$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 
-`$ flatpak install flathub com.discordapp.Discord com.github.micahflee.torbrowser-launcher com.leinardi.gst com.system76.Popsicle im.riot.Riot io.lbry.lbry-app net.jami.Jami org.jitsi.jitsi-meet org.signal.Signal org.telegram.desktop com.stremio.Stremio org.libreoffice.LibreOffice org.qbittorrent.qBittorrent org.gimp.GIMP org.kde.krita org.videolan.VLC org.kde.kdenlive org.blender.Blender org.audacityteam.Audacity com.obsproject.Studio com.brave.Browser org.fedoraproject.MediaWriter org.mozilla.firefox com.spotify.Client com.valvesoftware.Steam network.loki.Session`
+`$ flatpak install flathub com.discordapp.Discord com.github.micahflee.torbrowser-launcher com.leinardi.gst com.system76.Popsicle im.riot.Riot org.signal.Signal org.telegram.desktop com.stremio.Stremio org.libreoffice.LibreOffice org.qbittorrent.qBittorrent org.gimp.GIMP org.kde.krita org.videolan.VLC org.kde.kdenlive org.blender.Blender org.audacityteam.Audacity com.obsproject.Studio com.brave.Browser org.fedoraproject.MediaWriter org.mozilla.firefox com.spotify.Client com.valvesoftware.Steam network.loki.Session`
 
 **snaps**
 
