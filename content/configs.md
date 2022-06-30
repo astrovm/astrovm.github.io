@@ -90,11 +90,11 @@ deltarpm=True
 
 `$ sudo snap install --classic code`
 
-**signal**
+# signal
 
 edit app to add `--start-in-tray` or `--use-tray-icon` in the end of the exec command.
 
-**steam tweaks**
+# steam tweaks
 
 - enable steam play in steam settings.
 
@@ -106,7 +106,7 @@ in some opengl games can be useful to add `mesa_glthread=true` at the beginning,
 
 - try [proton-ge-custom](https://github.com/gloriouseggroll/proton-ge-custom).
 
-## git
+# git
 
 `$ git config --global color.ui true`
 
@@ -124,7 +124,7 @@ paste to [https://github.com/settings/ssh](https://github.com/settings/ssh).
 
 `$ git config --global commit.gpgsign true`
 
-## brave extensions
+# brave extensions
 
 [clearurls](https://chrome.google.com/webstore/detail/clearurls/lckanjgmijmafbedllaakclkaicjfmnk)
 
@@ -134,11 +134,13 @@ paste to [https://github.com/settings/ssh](https://github.com/settings/ssh).
 
 [privacy settings](https://chrome.google.com/webstore/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj)
 
-## duckduckgo
+[rabby](https://chrome.google.com/webstore/detail/rabby/acmacodkjbdgmoleebolmdjonilkdbch)
+
+# duckduckgo
 
 `https://duckduckgo.com/?kae=d&kn=1&kav=1&kp=-2&k1=-1&kaj=m&kak=-1&kax=-1&kaq=-1&kap=-1&kao=-1&kau=-1&kad=en_GB&kay=b&kg=g&k5=2&ku=-1&ks=l&kaz=-1&kaf=s&kai=a&kx=f462c6`
 
-## vim
+# vim
 
 `$ nano ~/.vimrc`
 
@@ -150,7 +152,7 @@ set expandtab
 syntax on
 ```
 
-## networkmanager randomize
+# networkmanager randomize
 
 `$ sudo nano /etc/NetworkManager/conf.d/99-randomize-mac-address.conf`
 
