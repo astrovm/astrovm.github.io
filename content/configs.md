@@ -74,7 +74,7 @@ deltarpm=True
 
 **install from repos**
 
-`$ sudo dnf install tmux @virtualization kitty android-tools arc-theme aria2 curl emacs exa firewall-config flatpak snapd gamemode git gparted gzip kgpg lutris neofetch vim neovim net-tools p7zip p7zip-plugins qemu tor torsocks tree util-linux-user virt-manager wireguard-tools ffmpeg-free lm_sensors`
+`$ sudo dnf install @virtualization android-tools arc-theme aria2 curl emacs exa ffmpeg-free firewall-config flatpak gamemode git gparted gzip kgpg kitty lm_sensors lutris neofetch neovim net-tools p7zip p7zip-plugins qemu snapd tmux tor torsocks tree util-linux-user vim virt-manager wireguard-tools`
 
 `$ sudo ln -s /var/lib/snapd/snap /snap`
 
@@ -84,7 +84,7 @@ deltarpm=True
 
 `$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 
-`$ flatpak install flathub com.discordapp.Discord com.github.micahflee.torbrowser-launcher com.leinardi.gst com.system76.Popsicle im.riot.Riot org.signal.Signal org.telegram.desktop com.stremio.Stremio org.qbittorrent.qBittorrent org.kde.krita org.videolan.VLC org.kde.kdenlive org.blender.Blender com.obsproject.Studio com.brave.Browser com.spotify.Client com.valvesoftware.Steam network.loki.Session com.github.tchx84.Flatseal org.yuzu_emu.yuzu io.github.hakuneko.HakuNeko com.github.k4zmu2a.spacecadetpinball org.libreoffice.LibreOffice org.gimp.GIMP org.audacityteam.Audacity org.fedoraproject.MediaWriter org.mozilla.firefox org.darktable.Darktable org.inkscape.Inkscape`
+`$ flatpak install flathub com.brave.Browser com.discordapp.Discord com.github.k4zmu2a.spacecadetpinball com.github.micahflee.torbrowser-launcher com.github.tchx84.Flatseal com.leinardi.gst com.obsproject.Studio com.spotify.Client com.stremio.Stremio com.system76.Popsicle com.valvesoftware.Steam im.riot.Riot io.github.hakuneko.HakuNeko network.loki.Session org.audacityteam.Audacity org.blender.Blender org.darktable.Darktable org.fedoraproject.MediaWriter org.gimp.GIMP org.inkscape.Inkscape org.kde.kdenlive org.kde.krita org.libreoffice.LibreOffice org.mozilla.firefox org.qbittorrent.qBittorrent org.signal.Signal org.telegram.desktop org.videolan.VLC org.yuzu_emu.yuzu`
 
 **snaps**
 
