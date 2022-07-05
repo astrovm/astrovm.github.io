@@ -82,13 +82,9 @@ deltarpm=True
 
 **flatpaks**
 
-`$ flatpak remote-add --if-not-exists fedora oci+https://registry.fedoraproject.org`
-
 `$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 
-`$ flatpak install fedora org.libreoffice.LibreOffice org.gimp.GIMP org.audacityteam.Audacity org.fedoraproject.MediaWriter org.mozilla.Firefox`
-
-`$ flatpak install flathub com.discordapp.Discord com.github.micahflee.torbrowser-launcher com.leinardi.gst com.system76.Popsicle im.riot.Riot org.signal.Signal org.telegram.desktop com.stremio.Stremio org.qbittorrent.qBittorrent org.kde.krita org.videolan.VLC org.kde.kdenlive org.blender.Blender com.obsproject.Studio com.brave.Browser com.spotify.Client com.valvesoftware.Steam network.loki.Session com.github.tchx84.Flatseal org.yuzu_emu.yuzu io.github.hakuneko.HakuNeko com.github.k4zmu2a.spacecadetpinball`
+`$ flatpak install flathub com.discordapp.Discord com.github.micahflee.torbrowser-launcher com.leinardi.gst com.system76.Popsicle im.riot.Riot org.signal.Signal org.telegram.desktop com.stremio.Stremio org.qbittorrent.qBittorrent org.kde.krita org.videolan.VLC org.kde.kdenlive org.blender.Blender com.obsproject.Studio com.brave.Browser com.spotify.Client com.valvesoftware.Steam network.loki.Session com.github.tchx84.Flatseal org.yuzu_emu.yuzu io.github.hakuneko.HakuNeko com.github.k4zmu2a.spacecadetpinball org.libreoffice.LibreOffice org.gimp.GIMP org.audacityteam.Audacity org.fedoraproject.MediaWriter org.mozilla.firefox org.darktable.Darktable org.inkscape.Inkscape`
 
 **snaps**
 
