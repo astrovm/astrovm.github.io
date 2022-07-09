@@ -65,7 +65,9 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 **install from repos**
 
-`$ sudo dnf install @virtualization android-tools arc-theme aria2 curl emacs exa ffmpeg-free firewall-config flatpak gamemode git gparted gzip kgpg kitty lm_sensors lutris neofetch neovim net-tools p7zip p7zip-plugins qemu snapd tmux tor torsocks tree util-linux-user virt-manager wireguard-tools`
+`$ sudo dnf in @virtualization android-tools arc-theme aria2 curl deltarpm emacs exa ffmpeg-free firewall-config flatpak gamemode git gparted gzip kgpg kitty lm_sensors lutris neofetch neovim net-tools p7zip p7zip-plugins qemu snapd tmux tor torsocks tree util-linux-user virt-manager wireguard-tools`
+
+**enable classic snap support**
 
 `$ sudo ln -s /var/lib/snapd/snap /snap`
 
