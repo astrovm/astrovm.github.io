@@ -59,18 +59,9 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 # specific for [fedora kde](https://spins.fedoraproject.org/kde/)
 
-**dnf tweaks**
-
-`$ sudo nano /etc/dnf/dnf.conf`
-
-```vim
-fastestmirror=True
-deltarpm=True
-```
-
 **update system**
 
-`$ sudo dnf update`
+`$ sudo dnf up`
 
 **install from repos**
 
