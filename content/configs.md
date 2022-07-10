@@ -23,7 +23,7 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 - ram: 32 gb (4 x geil super luce 8 gb ddr4 3200mhz)
 
-- m2: 1 tb (2 x adata xpg spectrix s40g 512 gb)
+- nvme: 1 tb (2 x adata xpg spectrix s40g 512 gb)
 
 - mb: asus tuf gaming x570-pro (wi-fi)
 
@@ -65,6 +65,15 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 ```vim
 deltarpm=True
+```
+
+**set bfq i/o scheduler for nvme**
+
+`$ sudo nano /etc/udev/rules.d/99-scheduler.rules`
+
+```vim
+# set scheduler for nvme
+ACTION=="add|change", KERNEL=="nvme[0-9]n[0-9]", ATTR{queue/scheduler}="bfq"
 ```
 
 **add rpm fusion repos**
