@@ -77,9 +77,7 @@ deltarpm=True
 
 **install from repos**
 
-`$ sudo dnf in @core @sound-and-video @virtualization android-tools arc-theme aria2 curl deltarpm emacs exa firewall-config flatpak gamemode git gparted gzip kgpg kitty lm_sensors lutris neofetch neovim net-tools p7zip p7zip-plugins qemu rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted snapd steam tmux tor torsocks tree util-linux-user virt-manager wireguard-tools`
-
-`$ sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin`
+`$ sudo dnf in @core @multimedia @sound-and-video @virtualization android-tools arc-theme aria2 curl deltarpm emacs exa firewall-config flatpak gamemode git gparted gzip kgpg kitty lm_sensors lutris neofetch neovim net-tools p7zip p7zip-plugins qemu rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted snapd steam tmux tor torsocks tree util-linux-user virt-manager wireguard-tools`
 
 **enable classic snap support**
 
