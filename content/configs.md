@@ -67,29 +67,23 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 deltarpm=True
 ```
 
+**add rpm fusion repos**
+
+`$ sudo dnf in https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm`
+
 **update system**
 
 `$ sudo dnf up`
 
 **install from repos**
 
-`$ sudo dnf in @virtualization android-tools arc-theme aria2 curl deltarpm emacs exa firewall-config flatpak gamemode git gparted gzip kgpg kitty lm_sensors lutris neofetch neovim net-tools p7zip p7zip-plugins qemu snapd tmux tor torsocks tree util-linux-user virt-manager wireguard-tools`
+`$ sudo dnf in @core @sound-and-video @virtualization android-tools arc-theme aria2 curl deltarpm emacs exa firewall-config flatpak gamemode git gparted gzip kgpg kitty lm_sensors lutris neofetch neovim net-tools p7zip p7zip-plugins qemu rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted snapd steam tmux tor torsocks tree util-linux-user virt-manager wireguard-tools`
+
+`$ sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin`
 
 **enable classic snap support**
 
 `$ sudo ln -s /var/lib/snapd/snap /snap`
-
-**add rpm fusion repos**
-
-`$ sudo dnf in https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm`
-
-`$ sudo dnf in rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted steam`
-
-`$ sudo dnf groupupdate core`
-
-`$ sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin`
-
-`$ sudo dnf groupupdate sound-and-video`
 
 # for all distros:
 
