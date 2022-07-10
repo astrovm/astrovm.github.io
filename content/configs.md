@@ -59,17 +59,37 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 # specific for [fedora kde](https://spins.fedoraproject.org/kde/)
 
+**dnf tweaks**
+
+`$ sudo nano /etc/dnf/dnf.conf`
+
+```vim
+deltarpm=True
+```
+
 **update system**
 
 `$ sudo dnf up`
 
 **install from repos**
 
-`$ sudo dnf in @virtualization android-tools arc-theme aria2 curl deltarpm emacs exa ffmpeg-free firewall-config flatpak gamemode git gparted gzip kgpg kitty lm_sensors lutris neofetch neovim net-tools p7zip p7zip-plugins qemu snapd tmux tor torsocks tree util-linux-user virt-manager wireguard-tools`
+`$ sudo dnf in @virtualization android-tools arc-theme aria2 curl deltarpm emacs exa firewall-config flatpak gamemode git gparted gzip kgpg kitty lm_sensors lutris neofetch neovim net-tools p7zip p7zip-plugins qemu snapd tmux tor torsocks tree util-linux-user virt-manager wireguard-tools`
 
 **enable classic snap support**
 
 `$ sudo ln -s /var/lib/snapd/snap /snap`
+
+**add rpm fusion repos**
+
+`$ sudo dnf in https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm`
+
+`$ sudo dnf in rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted steam`
+
+`$ sudo dnf groupupdate core`
+
+`$ sudo dnf groupupdate multimedia --setop="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin`
+
+`$ sudo dnf groupupdate sound-and-video`
 
 # for all distros:
 
@@ -77,7 +97,7 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 `$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 
-`$ flatpak install flathub com.brave.Browser com.discordapp.Discord com.github.k4zmu2a.spacecadetpinball com.github.micahflee.torbrowser-launcher com.github.tchx84.Flatseal com.leinardi.gst com.obsproject.Studio com.spotify.Client com.stremio.Stremio com.system76.Popsicle com.valvesoftware.Steam im.riot.Riot io.github.hakuneko.HakuNeko network.loki.Session org.audacityteam.Audacity org.blender.Blender org.darktable.Darktable org.fedoraproject.MediaWriter org.gimp.GIMP org.inkscape.Inkscape org.kde.kdenlive org.kde.krita org.libreoffice.LibreOffice org.mozilla.firefox org.qbittorrent.qBittorrent org.signal.Signal org.telegram.desktop org.videolan.VLC org.yuzu_emu.yuzu`
+`$ flatpak install flathub com.brave.Browser com.discordapp.Discord com.github.k4zmu2a.spacecadetpinball com.github.micahflee.torbrowser-launcher com.github.tchx84.Flatseal com.leinardi.gst com.obsproject.Studio com.spotify.Client com.stremio.Stremio com.system76.Popsicle im.riot.Riot io.github.hakuneko.HakuNeko network.loki.Session org.audacityteam.Audacity org.blender.Blender org.darktable.Darktable org.fedoraproject.MediaWriter org.gimp.GIMP org.inkscape.Inkscape org.kde.kdenlive org.kde.krita org.libreoffice.LibreOffice org.mozilla.firefox org.qbittorrent.qBittorrent org.signal.Signal org.telegram.desktop org.videolan.VLC org.yuzu_emu.yuzu`
 
 **snaps**
 
