@@ -59,14 +59,6 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 # specific for [fedora kde](https://spins.fedoraproject.org/kde/)
 
-**dnf tweaks**
-
-`$ sudo nano /etc/dnf/dnf.conf`
-
-```vim
-deltarpm=True
-```
-
 **speedy encryption on nvme devices**
 
 `$ sudo nano /etc/crypttab`
@@ -77,6 +69,14 @@ add these flags
 discard,no-read-workqueue,no-write-workqueue
 ```
 
+**dnf tweaks**
+
+`$ sudo nano /etc/dnf/dnf.conf`
+
+```vim
+deltarpm=True
+```
+
 **add rpm fusion repos**
 
 `$ sudo dnf in https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm`
@@ -84,6 +84,8 @@ discard,no-read-workqueue,no-write-workqueue
 **update system**
 
 `$ sudo dnf up`
+
+tip: you can install only the most important updates with `$ sudo dnf up-min`
 
 **install from repos**
 
