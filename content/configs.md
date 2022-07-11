@@ -77,17 +77,6 @@ add these flags
 discard,no-read-workqueue,no-write-workqueue
 ```
 
-**set bfq scheduler for nvme devices**
-
-this reduces throughput but increases general responsiveness under very high load
-
-`$ sudo nano /etc/udev/rules.d/99-scheduler.rules`
-
-```vim
-# set scheduler for nvme
-ACTION=="add|change", KERNEL=="nvme[0-9]n[0-9]", ATTR{queue/scheduler}="bfq"
-```
-
 **add rpm fusion repos**
 
 `$ sudo dnf in https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm`
