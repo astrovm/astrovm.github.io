@@ -67,7 +67,19 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 deltarpm=True
 ```
 
-**set bfq i/o scheduler for nvme**
+**speedy encryption on nvme devices**
+
+`$ sudo nano /etc/crypttab`
+
+add these flags
+
+```vim
+discard,no-read-workqueue,no-write-workqueue
+```
+
+**set bfq scheduler for nvme devices**
+
+this reduces throughput but increases general responsiveness under very high load
 
 `$ sudo nano /etc/udev/rules.d/99-scheduler.rules`
 
