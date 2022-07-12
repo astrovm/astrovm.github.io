@@ -75,6 +75,8 @@ discard,no-read-workqueue,no-write-workqueue
 
 ```vim
 deltarpm=True
+fastestmirror=True
+max_parallel_downloads=15
 ```
 
 **add rpm fusion repos**
