@@ -69,6 +69,8 @@ add these flags
 discard,no-read-workqueue,no-write-workqueue
 ```
 
+and regenerate the initramfs with `$ sudo dracut -f --regenerate-all`
+
 **dnf tweaks**
 
 `$ sudo nano /etc/dnf/dnf.conf`
