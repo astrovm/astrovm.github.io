@@ -79,7 +79,7 @@ and regenerate the initramfs with `$ sudo dracut -f --regenerate-all`
 [main]
 best=False
 clean_requirements_on_remove=True
-deltarpm=False
+deltarpm=True
 fastestmirror=True
 gpgcheck=True
 installonly_limit=3
