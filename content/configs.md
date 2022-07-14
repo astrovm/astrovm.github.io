@@ -111,7 +111,7 @@ tip: you can install only the most important updates with `$ sudo dnf up-min`
 
 `$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 
-`$ flatpak install flathub com.brave.Browser com.discordapp.Discord com.github.k4zmu2a.spacecadetpinball com.github.micahflee.torbrowser-launcher com.github.tchx84.Flatseal com.leinardi.gst com.obsproject.Studio com.spotify.Client com.stremio.Stremio com.system76.Popsicle im.riot.Riot io.github.hakuneko.HakuNeko io.gitlab.librewolf-community network.loki.Session org.audacityteam.Audacity org.blender.Blender org.darktable.Darktable org.fedoraproject.MediaWriter org.gimp.GIMP org.inkscape.Inkscape org.kde.kdenlive org.kde.krita org.libreoffice.LibreOffice org.qbittorrent.qBittorrent org.signal.Signal org.telegram.desktop org.videolan.VLC org.yuzu_emu.yuzu`
+`$ flatpak install flathub com.brave.Browser com.discordapp.Discord com.github.k4zmu2a.spacecadetpinball com.github.micahflee.torbrowser-launcher com.github.tchx84.Flatseal com.heroicgameslauncher.hgl com.leinardi.gst com.obsproject.Studio com.spotify.Client com.stremio.Stremio com.system76.Popsicle im.riot.Riot io.github.hakuneko.HakuNeko io.gitlab.librewolf-community network.loki.Session org.audacityteam.Audacity org.blender.Blender org.darktable.Darktable org.fedoraproject.MediaWriter org.gimp.GIMP org.inkscape.Inkscape org.kde.kdenlive org.kde.krita org.libreoffice.LibreOffice org.qbittorrent.qBittorrent org.signal.Signal org.telegram.desktop org.videolan.VLC org.yuzu_emu.yuzu`
 
 **snaps**
 
