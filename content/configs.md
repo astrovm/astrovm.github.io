@@ -117,6 +117,10 @@ tip: you can install only the most important updates with `$ sudo dnf up-min`
 
 `$ sudo snap install --classic code`
 
+# signal
+
+edit app to add `--start-in-tray` or `--use-tray-icon` in the end of the exec command.
+
 # steam tweaks
 
 - enable steam play in steam settings.
