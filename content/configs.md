@@ -82,7 +82,7 @@ clean_requirements_on_remove=True
 deltarpm=True
 fastestmirror=True
 gpgcheck=True
-installonly_limit=3
+installonly_limit=5
 max_parallel_downloads=20
 skip_if_unavailable=True
 ```
