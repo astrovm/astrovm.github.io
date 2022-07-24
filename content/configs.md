@@ -111,15 +111,11 @@ tip: you can install only the most important updates with `$ sudo dnf up-min`
 
 `$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 
-`$ flatpak install flathub com.brave.Browser com.discordapp.Discord com.github.k4zmu2a.spacecadetpinball com.github.micahflee.torbrowser-launcher com.github.tchx84.Flatseal com.heroicgameslauncher.hgl com.leinardi.gst com.obsproject.Studio com.spotify.Client com.stremio.Stremio com.system76.Popsicle im.riot.Riot io.github.hakuneko.HakuNeko io.gitlab.librewolf-community network.loki.Session org.audacityteam.Audacity org.blender.Blender org.darktable.Darktable org.fedoraproject.MediaWriter org.gimp.GIMP org.inkscape.Inkscape org.kde.kdenlive org.kde.krita org.libreoffice.LibreOffice org.qbittorrent.qBittorrent org.signal.Signal org.telegram.desktop org.videolan.VLC org.yuzu_emu.yuzu`
+`$ flatpak install flathub com.brave.Browser com.discordapp.Discord com.github.k4zmu2a.spacecadetpinball com.github.micahflee.torbrowser-launcher com.github.tchx84.Flatseal com.heroicgameslauncher.hgl com.leinardi.gst com.obsproject.Studio com.spotify.Client com.stremio.Stremio com.system76.Popsicle im.riot.Riot io.github.hakuneko.HakuNeko io.gitlab.librewolf-community net.davidotek.pupgui2 network.loki.Session org.audacityteam.Audacity org.blender.Blender org.darktable.Darktable org.fedoraproject.MediaWriter org.gimp.GIMP org.inkscape.Inkscape org.kde.kdenlive org.kde.krita org.libreoffice.LibreOffice org.qbittorrent.qBittorrent org.signal.Signal org.telegram.desktop org.videolan.VLC org.yuzu_emu.yuzu`
 
 **snaps**
 
 `$ sudo snap install --classic code`
-
-# signal
-
-edit app to add `--start-in-tray` or `--use-tray-icon` in the end of the exec command.
 
 # steam tweaks
 
@@ -131,7 +127,7 @@ edit app to add `--start-in-tray` or `--use-tray-icon` in the end of the exec co
 
 in some opengl games can be useful to add `mesa_glthread=true` at the beginning, and in some Vulkan/DirectX games can be useful to add `RADV_PERFTEST=aco` and/or `DXVK_ASYNC=1`(this last one is related to anti-cheats false positives, so don't use it in online games to avoid bans).
 
-- try [proton-ge-custom](https://github.com/gloriouseggroll/proton-ge-custom).
+- try [proton-ge-custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonUp-Qt.
 
 # git
 
