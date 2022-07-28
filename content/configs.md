@@ -141,9 +141,9 @@ in some opengl games can be useful to add `mesa_glthread=true` at the beginning,
 
 `$ git config --global user.email "astro@astrolince.com"`
 
-`$ ssh-keygen -t ed25519 -C "astro@astrolince.com"`
+`$ ssh-keygen -t ed25519-sk -C "astro@astrolince.com"`
 
-`$ cat ~/.ssh/id_ed25519.pub`
+`$ cat ~/.ssh/id_ed25519_sk.pub`
 
 paste to [https://github.com/settings/ssh](https://github.com/settings/ssh).
 
