@@ -33,6 +33,12 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 - headphones: audio-technica ath-m50x (with a fiio bta10)
 
+**raspberry pi 4 model b**
+
+- os: [fedora 37 iot](https://getfedora.org/iot/)
+
+- ram: 8 gb
+
 **apple macbook air m1 2020**
 
 - cpu: apple m1
