@@ -41,10 +41,6 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 **apple macbook air m1 2020**
 
-- cpu: apple m1
-
-- ram: 8 gb
-
 **samsung galaxy s20 fe**
 
 # bios config
