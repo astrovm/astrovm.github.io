@@ -35,7 +35,7 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 **raspberry pi 4 model b**
 
-- os: [fedora 37 iot](https://getfedora.org/iot/)
+- os: [raspberry pi os](https://www.raspberrypi.com/software/)
 
 - ram: 8 gb
 
