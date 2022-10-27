@@ -13,7 +13,7 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 **pc master race**
 
-- os: [fedora 36 kde](https://spins.fedoraproject.org/kde/)
+- os: [fedora 37](https://getfedora.org/)
 
 - cpu: amd ryzen 5 3600
 
@@ -59,7 +59,7 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 - customize fans speed to maximize silence.
 
-# specific for [fedora kde](https://spins.fedoraproject.org/kde/)
+# specific for [fedora](https://getfedora.org/)
 
 **speedy encryption on nvme devices**
 
@@ -101,7 +101,7 @@ tip: you can install only the most important updates with `$ sudo dnf up-min`
 
 **install from repos**
 
-`$ sudo dnf in @core @multimedia @sound-and-video @virtualization android-tools arc-theme aria2 curl deltarpm emacs exa firewall-config flatpak gamemode git gparted gzip kgpg kitty lm_sensors lutris neofetch neovim net-tools p7zip p7zip-plugins qemu rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted snapd steam tmux tor torsocks tree util-linux-user virt-manager wireguard-tools`
+`$ sudo dnf in @core @multimedia @sound-and-video @virtualization android-tools arc-theme aria2 curl deltarpm emacs exa firewall-config flatpak gamemode gimp git gparted gzip kgpg kitty libreoffice lm_sensors lutris mediawriter neofetch neovim net-tools p7zip p7zip-plugins qemu rpmfusion-free-release-tainted rpmfusion-nonfree-release-tainted snapd steam tmux tor torsocks tree util-linux-user virt-manager vlc wireguard-tools`
 
 **enable classic snap support**
 
@@ -113,7 +113,7 @@ tip: you can install only the most important updates with `$ sudo dnf up-min`
 
 `$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
 
-`$ flatpak install flathub com.brave.Browser com.discordapp.Discord com.github.k4zmu2a.spacecadetpinball com.github.micahflee.torbrowser-launcher com.github.tchx84.Flatseal com.heroicgameslauncher.hgl com.leinardi.gst com.obsproject.Studio com.spotify.Client com.stremio.Stremio com.system76.Popsicle im.riot.Riot io.github.hakuneko.HakuNeko io.gitlab.librewolf-community net.davidotek.pupgui2 network.loki.Session org.audacityteam.Audacity org.blender.Blender org.darktable.Darktable org.fedoraproject.MediaWriter org.gimp.GIMP org.inkscape.Inkscape org.kde.kdenlive org.kde.krita org.libreoffice.LibreOffice org.qbittorrent.qBittorrent org.signal.Signal org.telegram.desktop org.videolan.VLC org.yuzu_emu.yuzu`
+`$ flatpak install flathub com.brave.Browser com.discordapp.Discord com.github.k4zmu2a.spacecadetpinball com.github.micahflee.torbrowser-launcher com.github.tchx84.Flatseal com.heroicgameslauncher.hgl com.leinardi.gst com.obsproject.Studio com.spotify.Client com.stremio.Stremio com.system76.Popsicle im.riot.Riot io.github.hakuneko.HakuNeko io.gitlab.librewolf-community net.davidotek.pupgui2 network.loki.Session org.audacityteam.Audacity org.blender.Blender org.darktable.Darktable org.inkscape.Inkscape org.kde.kdenlive org.kde.krita org.qbittorrent.qBittorrent org.signal.Signal org.telegram.desktop org.yuzu_emu.yuzu`
 
 **snaps**
 
