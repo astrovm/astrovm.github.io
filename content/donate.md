@@ -7,7 +7,7 @@ for private donations use these links, you'll receive a unique address not linke
 
 - [bitcoin, lightning](https://checkout.opennode.com/p/32c4dcff-1ef4-44ba-908e-cccf7f564233)
 
-- [eth, xmr, ltc, doge, dot, dcr](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR)
+- [eth, xmr, usdt, doge, dot, dcr](https://globee.com/donate/Mmp6rjZ53Yo2ZOPGKkgVbR)
 
 # my public addresses
 
