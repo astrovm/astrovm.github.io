@@ -101,9 +101,4 @@ paginate = 5
         name = "configs"
         url = "/configs"
         weight = 4
-      [[languages.en.menu.main]]
-        identifier = "donate"
-        name = "donate"
-        url = "/donate"
-        weight = 5
         
