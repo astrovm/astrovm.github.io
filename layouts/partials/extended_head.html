@@ -1,0 +1,13 @@
+<script>
+    const BLINK_TIME = 530
+    const LAST_CHAR = document.title.slice(-1)
+    const WEB_TITLE = document.title.slice(0, -1)
+    const blinkChar = (_char, _title) => {
+        if (document.title.endsWith(_char)) {
+            document.title = _title + " "
+        } else {
+            document.title = _title + _char
+        }
+    }
+    setInterval(blinkChar, BLINK_TIME, LAST_CHAR, WEB_TITLE)
+</script>

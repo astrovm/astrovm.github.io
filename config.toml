@@ -1,0 +1,109 @@
+baseurl = "https://astrolince.com"
+languageCode = "en-us"
+theme = "terminal"
+paginate = 5
+
+[params]
+  # dir name of your main content (default is `content/posts`).
+  # the list of set content will show up on your index page (baseurl).
+  contentTypeName = "blog"
+
+  # ["orange", "blue", "red", "green", "pink"]
+  themeColor = "astro"
+
+  # if you set this to 0, only submenu trigger will be visible
+  showMenuItems = 6
+
+  # show selector to switch language
+  showLanguageSelector = false
+
+  # set theme to full screen width
+  fullWidthTheme = false
+
+  # center theme with default width
+  centerTheme = true
+
+  # if your resource directory contains an image called `cover.(jpg|png|webp)`,
+  # then the file will be used as a cover automatically.
+  # With this option you don't have to put the `cover` param in a front-matter.
+  autoCover = true
+
+  # set post to show the last updated
+  # If you use git, you can set `enableGitInfo` to `true` and then post will automatically get the last updated
+  showLastUpdated = false
+
+  # set a custom favicon (default is a `themeColor` square)
+  favicon = "favicon.ico"
+
+  # Provide a string as a prefix for the last update date. By default, it looks like this: 2020-xx-xx [Updated: 2020-xx-xx] :: Author
+  # updatedDatePrefix = "Updated"
+
+  # set all headings to their default size (depending on browser settings)
+  # oneHeadingSize = true # default
+
+  # whether to show a page's estimated reading time
+  # readingTime = false # default
+
+  # whether to show a table of contents
+  # can be overridden in a page's front-matter
+  # Toc = false # default
+
+  # set title for the table of contents
+  # can be overridden in a page's front-matter
+  # TocTitle = "contents" # default
+
+
+[params.twitter]
+  # set Twitter handles for Twitter cards
+  # see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
+  # do not include @
+  creator = "astrolince"
+  site = "astrolince.com"
+
+[languages]
+  [languages.en]
+    languageName = "english"
+    title = "astro@web $ _"
+    subtitle = "prepare for unforeseen consequences."
+    owner = "astrolince"
+    keywords = "crypto, bitcoin, programming, code, linux, hacking"
+    copyright = "© 2023 astrolince.com"
+    menuMore = "show more"
+    readMore = "read more"
+    readOtherPosts = "read other posts"
+    newerPosts = "newer posts"
+    olderPosts = "older posts"
+    missingContentMessage = "page not found..."
+    missingBackButtonLabel = "back to home page"
+
+    [languages.en.params.logo]
+      logoText = "astro <(^^,)>"
+      logoHomeLink = "/"
+
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "home"
+        name = "home"
+        url = "/"      
+        weight = 1
+      [[languages.en.menu.main]]
+        identifier = "projects"
+        name = "projects"
+        url = "/projects"
+        weight = 2
+      [[languages.en.menu.main]]
+        identifier = "contact"
+        name = "contact"
+        url = "/contact"
+        weight = 3
+      [[languages.en.menu.main]]
+        identifier = "configs"
+        name = "configs"
+        url = "/configs"
+        weight = 4
+      [[languages.en.menu.main]]
+        identifier = "donate"
+        name = "donate"
+        url = "/donate"
+        weight = 5
+        
