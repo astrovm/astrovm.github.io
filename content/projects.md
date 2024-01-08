@@ -11,4 +11,4 @@ hideComments = true
 
 - [hosty](https://astrolince.com/hosty) system-wide ad blocker for linux
 
-- [inside the firewall](https://scratch.mit.edu/projects/14166847/) videogame i made in 2013
+- [inside the firewall](https://astrolince.com/insidethefirewall) videogame i made in 2013
