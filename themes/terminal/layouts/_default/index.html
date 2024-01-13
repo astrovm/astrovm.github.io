@@ -4,14 +4,6 @@
       {{ .Content }}
     </div>
   {{ end }}
-  <div id="welcome" class="post">
-    <p>you have entered my website yaayy ^_^</p>
-    <p>follow me ^•ﻌ•^ฅ♡</p>
-    <ul>
-      <li><a href="https://github.com/astrolince">github</a></li>
-      <li><a href="https://steamcommunity.com/id/astrolince">steam</a></li>
-    </ul>
-  </div>
   <div class="posts">
     {{ $isntDefault := not (or (eq (trim $.Site.Params.contentTypeName " ") "posts") (eq (trim $.Site.Params.contentTypeName " ") "")) }}
     {{ $contentTypeName := cond $isntDefault (string $.Site.Params.contentTypeName) "posts" }}
@@ -23,17 +15,20 @@
     {{ $paginator := .Paginate (where $PageContext.RegularPages "Type" $contentTypeName) }}
 
     {{ range $paginator.Pages }}
-      <div class="post on-list">
+      <article class="post on-list">
         <h1 class="post-title">
           <a href="{{ .Permalink }}">{{ .Title | markdownify }}</a>
         </h1>
+
         <div class="post-meta">
-          <span class="post-date">
-            {{ .Date.Format "2006-01-02" }}
-          </span>
-          {{ with .Params.Author }}
-            <span class="post-author">:: {{ . }}</span>
-          {{ end }}
+          {{- if .Date -}}
+            <time class="post-date">
+              {{- .Date.Format "2006-01-02" -}}
+            </time>
+          {{- end -}}
+          {{- with .Params.Author -}}
+            <span class="post-author">{{ . }}</span>
+          {{- end -}}
         </div>
 
         {{ if .Params.tags }}
@@ -46,9 +41,7 @@
           </span>
         {{ end }}
 
-
         {{ partial "cover.html" . }}
-
 
         <div class="post-content">
           {{ if .Params.showFullContent }}
@@ -56,18 +49,18 @@
           {{ else if .Description }}
             {{ .Description | markdownify }}
           {{ else }}
-            {{ .Summary | markdownify }}
+            {{ .Summary }}
           {{ end }}
         </div>
 
         {{ if not .Params.showFullContent }}
-        <div>
-          <a class="read-more button"
-            href="{{.RelPermalink}}">{{ $.Site.Params.ReadMore }} →</a>
-        </div>
+          <div>
+            <a class="read-more button" href="{{.RelPermalink}}">{{ $.Site.Params.ReadMore }} →</a>
+          </div>
         {{ end }}
-      </div>
+      </article>
     {{ end }}
+
     {{ partial "pagination.html" . }}
   </div>
 {{ end }}

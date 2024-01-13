@@ -12,14 +12,22 @@ a.button {
   align-items: center;
   justify-content: center;
   padding: 8px 18px;
-  margin-bottom: 5px;
+  margin: 5px 0;
   text-decoration: none;
   text-align: center;
-  border-radius: 8px;
-  border: 1px solid transparent;
+  border-radius: 8;
+  border: 1px solid $accent;
+  background: $accent;
+  color: $background;
+  font: inherit;
+  font-weight: bold;
   appearance: none;
   cursor: pointer;
   outline: none;
+
+  &:hover {
+    background: transparentize($accent, .1);
+  }
 
   /* variants */
 
@@ -34,19 +42,10 @@ a.button {
     }
   }
 
-  &.primary {
-    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
-
-    &:hover {
-      box-shadow: 0 2px 6px rgba(50, 50, 93, .21), 0 1px 3px rgba(0, 0, 0, .08);
-    }
-  }
-
   &.link {
     background: none;
     font-size: 1rem;
   }
-
 
   /* sizes */
 
@@ -64,6 +63,8 @@ a.read-more,
 a.read-more:hover,
 a.read-more:active {
   display: inline-flex;
+  border: none;
+  color: $accent;
   background: none;
   box-shadow: none;
   padding: 0;
