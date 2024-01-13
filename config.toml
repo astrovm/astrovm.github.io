@@ -1,4 +1,4 @@
-baseurl = "https://astrolince.com"
+baseurl = "/"
 languageCode = "en-us"
 theme = "terminal"
 paginate = 5
@@ -67,7 +67,7 @@ paginate = 5
     subtitle = "prepare for unforeseen consequences."
     owner = "astrolince"
     keywords = "crypto, bitcoin, programming, code, linux, hacking"
-    copyright = "© 2023 astrolince.com"
+    copyright = "© 2024 astrolince"
     menuMore = "show more"
     readMore = "read more"
     readOtherPosts = "read other posts"
@@ -75,6 +75,8 @@ paginate = 5
     olderPosts = "older posts"
     missingContentMessage = "page not found..."
     missingBackButtonLabel = "back to home page"
+    minuteReadingTime = "min read"
+    words = "words"
 
     [languages.en.params.logo]
       logoText = "astro <(^^,)>"
