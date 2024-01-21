@@ -50,13 +50,13 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 sudo nvim /etc/crypttab
 ```
 
-Add these flags:
+- Add these flags:
 
 ```vim
 discard,no-read-workqueue,no-write-workqueue
 ```
 
-And regenerate the initramfs with:
+- And regenerate the initramfs with:
 
 ```bash
 sudo dracut -f --regenerate-all
@@ -64,7 +64,7 @@ sudo dracut -f --regenerate-all
 
 **DNF tweaks**
 
-Add this:
+- Add this:
 
 ```bash
 sudo nvim /etc/dnf/dnf.conf
@@ -101,7 +101,7 @@ sudo dnf up-min
 sudo nvim /etc/crypttab
 ```
 
-Add these flags:
+- Add these flags:
 
 ```vim
 discard,no-read-workqueue,no-write-workqueue
@@ -130,7 +130,7 @@ gamemoderun %command%
 
 ## CS:GO
 
-Launch options:
+- Launch options:
 
 ```bash
 gamemoderun %command% -vulkan -novid -fullscreen
@@ -158,7 +158,7 @@ ssh-keygen -t ed25519 -C "astro@astrolince.com"
 cat ~/.ssh/id_ed25519.pub
 ```
 
-Paste to [https://github.com/settings/ssh](https://github.com/settings/ssh).
+- Paste to [https://github.com/settings/ssh](https://github.com/settings/ssh).
 
 ```bash
 git config --global user.signingkey CC39C6D77BDF0053
