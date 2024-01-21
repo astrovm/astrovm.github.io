@@ -4,13 +4,13 @@ date = "2022-05-18T05:33:50-03:00"
 readingTime = true
 +++
 
-Half-Life changes the way you think about life; it's not a normal first-person shooter. As someone who grew up playing Doom, the first time I played Half-Life, I had one of the most important realizations as a child: you don't need that much skill if you actually think, and running from problems is super useful and acceptable sometimes (One of the reasons that I also loved playing Resident Evil on my PSone back then, but it scared the hell out of me).
+Half-Life changes the way you think about life; it's not a normal first-person shooter. As someone who grew up playing Doom, the first time I played Half-Life, I had one of the most important realizations as a child: you don't need that much skill if you actually think, and running from problems is super useful and acceptable sometimes (one of the reasons that I also loved playing Resident Evil on my PSone back then, but it scared the hell out of me).
 
-It was a sunny Sunday; I was about 4 years old, and my brother told me to go to the game store (Yeah, like, physically walking there) and purchase Counter-Strike (It was the most popular game in Buenos Aires cybercafes). So I did it with my father. At that time, there were 2 Counter-Strikes available (Normal and Condition Zero), so I brought both home, inserted the first disk into the computer, and a Half-Life screen came up.
+It was a sunny Sunday; I was about 4 years old, and my brother told me to go to the game store (yeah, like, physically walking there) and purchase Counter-Strike (it was the most popular game in Buenos Aires cybercafes). So I did it with my father. At that time, there were 2 Counter-Strikes available (Normal and Condition Zero), so I brought both home, inserted the first disk into the computer, and a Half-Life screen came up.
 
 I noticed that the CD box said "Half-Life Counter-Strike," and I was like, "What is Half-Life? Sounds fun! :)"
 
-The (Obviously pirated) CD actually included:
+The (obviously pirated) CD actually included:
 
 - [Half-Life](https://store.steampowered.com/app/70/HalfLife/)
 - [HL Opposing Force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/)
@@ -63,7 +63,7 @@ If you didn't play Half-Life, try it. The list of games is:
 Non-essential:
 
 - [HL Opposing Force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/) (You play the HL1 story from the perspective of one of your enemies, a soldier. I particularly love this game for the aesthetics, weapons, and cool tanks and helicopters)
-- [hl blue shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/) (You play the HL1 story from the perspective of one of your friends, a security guard)
-- [half-life 2 lost coast](https://store.steampowered.com/app/340/HalfLife_2_Lost_Coast/) (It's just a short tech demo, and it feels like an out-of-context dream you had)
+- [HL Blue Shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/) (You play the HL1 story from the perspective of one of your friends, a security guard)
+- [Half-Life 2 Lost Coast](https://store.steampowered.com/app/340/HalfLife_2_Lost_Coast/) (It's just a short tech demo, and it feels like an out-of-context dream you had)
 
 You should also play Portal and Portal 2 as they take place in the same universe, but they are different games and cool in their own way.
