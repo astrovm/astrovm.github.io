@@ -41,60 +41,66 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 **Samsung Galaxy S22 Ultra**
 
-# bios config
+# BIOS Config
 
-- restore defaults.
+- Restore defaults.
+- Set RAM to 3200MHz.
+- Enable Resizable Bar.
+- Enable virtualization.
+- Enable Secure Boot.
+- Disable CSM.
+- Customize fans speed to maximize silence.
 
-- set ram to 3200mhz.
+# Specific for [Fedora](https://getfedora.org/)
 
-- enable resizable bar.
+**Speedy Encryption on NVMe Devices**
 
-- enable virtualization.
+```bash
+sudo nvim /etc/crypttab
+```
 
-- enable secure boot.
-
-- disable csm.
-
-- customize fans speed to maximize silence.
-
-# specific for [fedora](https://getfedora.org/)
-
-**speedy encryption on nvme devices**
-
-`$ sudo nvim /etc/crypttab`
-
-add these flags
+Add these flags:
 
 ```vim
 discard,no-read-workqueue,no-write-workqueue
 ```
 
-and regenerate the initramfs with `$ sudo dracut -f --regenerate-all`
+And regenerate the initramfs with:
 
-**dnf tweaks**
+```bash
+sudo dracut -f --regenerate-all
+```
 
-add this
+**DNF tweaks**
 
-`$ sudo nvim /etc/dnf/dnf.conf`
+Add this:
+
+```bash
+sudo nvim /etc/dnf/dnf.conf
+```
 
 ```vim
 fastestmirror=True
 max_parallel_downloads=10
 ```
 
-**add rpm fusion repos**
+**Add RPM Fusion repos**
 
-`$ sudo dnf in https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm`
+```bash
+sudo dnf in https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+```
 
-**update system**
+**Update system**
 
-`$ sudo dnf up`
+```bash
+sudo dnf up
+```
 
-tip: you can install only the most important updates with `$ sudo dnf up-min`
+Tip: You can install only the most important updates with:
 
-**install from repos**
-
-`$ sudo dnf in @core @multimedia @sound-and-video @virtualization android-tools aria2 curl emacs exa firewall-config flatpak gamemode git gnome-tweaks gparted gzip kitty lm_sensors neofetch neovim net-tools p7zip p7zip-plugins qemu tmux tree util-linux-user virt-manager wireguard-tools`
+```bash
+sudo dnf up-min
+```
 
 # specific for [amy os](https://github.com/astrolince/amy-os)
 
