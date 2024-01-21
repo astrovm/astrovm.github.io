@@ -3,11 +3,11 @@ title = "configs"
 hideComments = true
 +++
 
-# general guidelines and philosophy
+# General Guidelines and Philosophy
 
-i'll try to keep this as simple as posible to increase mantainability and troubleshooting, and minimize unexpected behavior.
+I'll try to keep this as simple as possible to increase maintainability and troubleshooting, and minimize unexpected behavior.
 
-also, if i can keep something in the userspace using flatpaks without affecting usability, i'll prefer that to reduce system clutterness and increase security.
+Also, if I can keep something in the user space using Flatpaks without affecting usability, I'll prefer that to reduce system clutter and increase security.
 
 # devices
 
@@ -33,7 +33,7 @@ also, if i can keep something in the userspace using flatpaks without affecting 
 
 **raspberry pi 4 model b**
 
-- os: [raspberry pi os](https://www.raspberrypi.com/software/)
+- os: [Alpine Linux](https://www.alpinelinux.org/downloads/)
 
 - ram: 8 gb
 
@@ -112,7 +112,7 @@ discard,no-read-workqueue,no-write-workqueue
 
 `$ sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla`
 
-# for all distros:
+# for all distros
 
 **flatpaks**
 
