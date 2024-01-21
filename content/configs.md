@@ -208,8 +208,6 @@ git config --global commit.gpgsign true
 
 [Lock Keys](https://extensions.gnome.org/extension/36/Lock-Keys/)
 
-[OpenWeather](https://extensions.gnome.org/extension/750/OpenWeather/)
-
 [Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
 
 [Removable Drive Menu](https://extensions.gnome.org/extension/7/Removable-Drive-Menu/)
