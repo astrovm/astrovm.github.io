@@ -170,33 +170,35 @@ paste to [https://github.com/settings/ssh](https://github.com/settings/ssh).
 
 [Rabby](https://chrome.google.com/webstore/detail/rabby/acmacodkjbdgmoleebolmdjonilkdbch)
 
-# gnome extensions
+# GNOME extensions
 
 [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
 
 [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
 
-[Clipboard Indicator](https://extensions.gnome.org/extension/779/clipboard-indicator/)
+[Clipboard Indicator](https://extensions.gnome.org/extension/779/Clipboard-indicator/)
 
-[Dash to Dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
+[Dash to Dock](https://extensions.gnome.org/extension/307/Dash-to-Dock/)
 
-[GSConnect](https://extensions.gnome.org/extension/1319/gsconnect/)
+[GSConnect](https://extensions.gnome.org/extension/1319/GSConnect/)
 
-[Lock Keys](https://extensions.gnome.org/extension/36/lock-keys/)
+[Lock Keys](https://extensions.gnome.org/extension/36/Lock-Keys/)
 
-[OpenWeather](https://extensions.gnome.org/extension/750/openweather/)
+[OpenWeather](https://extensions.gnome.org/extension/750/OpenWeather/)
 
-[Places Status Indicator](https://extensions.gnome.org/extension/8/places-status-indicator/)
+[Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
 
-[Removable Drive Menu](https://extensions.gnome.org/extension/7/removable-drive-menu/)
+[Removable Drive Menu](https://extensions.gnome.org/extension/7/Removable-Drive-Menu/)
 
-[Search Light](https://extensions.gnome.org/extension/5489/search-light/)
+[Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
 
-# networkmanager randomize
+# NetworkManager randomize
 
-(amy os default config)
+(Amy OS default config)
 
-`$ sudo nvim /etc/NetworkManager/conf.d/99-randomize-mac-address.conf`
+```bash
+sudo nvim /etc/NetworkManager/conf.d/99-randomize-mac-address.conf
+```
 
 ```bash
 [device-mac-randomization]
@@ -207,4 +209,6 @@ ethernet.cloned-mac-address=random
 wifi.cloned-mac-address=random
 ```
 
-`$ sudo systemctl restart NetworkManager`
+```bash
+sudo systemctl restart NetworkManager
+```
