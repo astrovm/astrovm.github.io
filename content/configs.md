@@ -3,7 +3,7 @@ title = "configs"
 hideComments = true
 +++
 
-# General Guidelines and Philosophy
+# General guidelines and philosophy
 
 I'll try to keep this as simple as possible to increase maintainability and troubleshooting, and minimize unexpected behavior.
 
@@ -41,7 +41,7 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 **Samsung Galaxy S22 Ultra**
 
-# BIOS Config
+# BIOS config
 
 - Restore defaults.
 - Set RAM to 3200MHz.
@@ -53,7 +53,7 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 # Specific for [Fedora](https://getfedora.org/)
 
-**Speedy Encryption on NVMe Devices**
+**Speedy encryption on NVMe Devices**
 
 ```bash
 sudo nvim /etc/crypttab
@@ -120,14 +120,6 @@ discard,no-read-workqueue,no-write-workqueue
 
 # for all distros
 
-**flatpaks**
-
-(amy os default config)
-
-`$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo`
-
-`$ flatpak install flathub com.bitwarden.desktop com.brave.Browser com.discordapp.Discord com.github.k4zmu2a.spacecadetpinball com.github.micahflee.torbrowser-launcher com.github.tchx84.Flatseal com.github.wwmm.easyeffects com.obsproject.Studio com.spotify.Client com.stremio.Stremio com.valvesoftware.Steam im.riot.Riot io.github.hakuneko.HakuNeko io.gitlab.librewolf-community io.mpv.Mpv net.davidotek.pupgui2 net.lutris.Lutris network.loki.Session org.audacityteam.Audacity org.blender.Blender org.duckstation.DuckStation org.fedoraproject.MediaWriter org.gimp.GIMP org.gnome.Extensions org.kde.kdenlive org.libreoffice.LibreOffice org.qbittorrent.qBittorrent org.signal.Signal org.standardnotes.standardnotes org.telegram.desktop org.videolan.VLC org.yuzu_emu.yuzu`
-
 # steam tweaks
 
 - enable steam play in steam settings.
@@ -162,15 +154,19 @@ paste to [https://github.com/settings/ssh](https://github.com/settings/ssh).
 
 `$ git config --global commit.gpgsign true`
 
-# brave extensions
+# Brave/Chromium extensions
+
+[uBlock Origin](https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm)
 
 [ClearURLs](https://chrome.google.com/webstore/detail/clearurls/lckanjgmijmafbedllaakclkaicjfmnk)
 
 [Decentraleyes](https://chrome.google.com/webstore/detail/decentraleyes/ldpochfccmkkmhdbclfhpagapcfdljkj)
 
-[JSON Viewer](https://chrome.google.com/webstore/detail/json-viewer/gbmdgpbipfallnflgajpaliibnhdgobh)
-
 [Privacy Settings](https://chrome.google.com/webstore/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj)
+
+[SponsorBlock](https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone)
+
+[DeArrow](https://chromewebstore.google.com/detail/dearrow-better-titles-and/enamippconapkdmgfgjchkhakpfinmaj)
 
 [Rabby](https://chrome.google.com/webstore/detail/rabby/acmacodkjbdgmoleebolmdjonilkdbch)
 
