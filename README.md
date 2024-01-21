@@ -1,9 +1,9 @@
 # astroweb
 
-simple, modular, statically generated, easily maintanable and continuously deployed personal website using the hugo framework.
+Simple, modular, statically generated, easily maintainable, and continuously deployed personal website using the Hugo framework.
 
-currently using the [terminal theme](https://github.com/panr/hugo-theme-terminal) with some customization.
+Currently using the [Terminal theme](https://github.com/panr/hugo-theme-terminal) with some customization.
 
-## license
+## License
 
-[mit license](/LICENSE)
+[MIT License](/LICENSE)
