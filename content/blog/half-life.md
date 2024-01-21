@@ -6,9 +6,9 @@ readingTime = true
 
 Half-Life changes the way you think about life; it's not a normal first-person shooter. As someone who grew up playing Doom, the first time I played Half-Life, I had one of the most important realizations as a child: you don't need that much skill if you actually think, and running from problems is super useful and acceptable sometimes (one of the reasons that I also loved playing Resident Evil on my PSone back then, but it scared the hell out of me).
 
-It was a sunny Sunday; I was about 4 years old, and my brother told me to go to the game store (yeah, like, physically walking there) and purchase Counter-Strike (it was the most popular game in Buenos Aires cybercafes). So I did it with my father. At that time, there were 2 Counter-Strikes available (Normal and Condition Zero), so I brought both home, inserted the first disk into the computer, and a Half-Life screen came up.
+It was a sunny Sunday; I was about 4 years old, and my brother told me to go to the game store (yeah, like, physically walking there) and purchase Counter-Strike (it was the most popular game in Buenos Aires cybercafes). So I did it with my father. At that time, there were 2 Counter-Strikes available (normal and Condition Zero), so I brought both home, inserted the first disk into the computer, and a Half-Life screen came up.
 
-I noticed that the CD box said "Half-Life Counter-Strike," and I was like, "What is Half-Life? Sounds fun! :)"
+I noticed that the CD box said "Half-Life Counter-Strike" and I was like, "What is Half-Life? Sounds fun! :)"
 
 The (obviously pirated) CD actually included:
 
@@ -54,7 +54,7 @@ The game is full of mods and a community trying weird shit, and Valve (the compa
 
 If you didn't play Half-Life, try it. The list of games is:
 
-- [Half-Life](https://store.steampowered.com/app/70/HalfLife/) (There's an amazing remake called [Black Mesa](https://store.steampowered.com/app/362890/Black_Mesa/))
+- [Half-Life](https://store.steampowered.com/app/70/HalfLife/) (there's an amazing remake called [Black Mesa](https://store.steampowered.com/app/362890/Black_Mesa/))
 - [Half-Life 2](https://store.steampowered.com/app/220/HalfLife_2/)
 - [Half-Life 2 Episode 1](https://store.steampowered.com/app/380/HalfLife_2_Episode_One/)
 - [Half-Life 2 Episode 2](https://store.steampowered.com/app/420/HalfLife_2_Episode_Two/)
@@ -62,8 +62,8 @@ If you didn't play Half-Life, try it. The list of games is:
 
 Non-essential:
 
-- [HL Opposing Force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/) (You play the HL1 story from the perspective of one of your enemies, a soldier. I particularly love this game for the aesthetics, weapons, and cool tanks and helicopters)
-- [HL Blue Shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/) (You play the HL1 story from the perspective of one of your friends, a security guard)
-- [Half-Life 2 Lost Coast](https://store.steampowered.com/app/340/HalfLife_2_Lost_Coast/) (It's just a short tech demo, and it feels like an out-of-context dream you had)
+- [HL Opposing Force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/) (you play the HL1 story from the perspective of one of your enemies, a soldier. I particularly love this game for the aesthetics, weapons, and cool tanks and helicopters)
+- [HL Blue Shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/) (you play the HL1 story from the perspective of one of your friends, a security guard)
+- [Half-Life 2 Lost Coast](https://store.steampowered.com/app/340/HalfLife_2_Lost_Coast/) (it's just a short tech demo, and it feels like an out-of-context dream you had)
 
 You should also play Portal and Portal 2 as they take place in the same universe, but they are different games and cool in their own way.
