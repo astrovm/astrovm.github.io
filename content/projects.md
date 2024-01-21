@@ -3,12 +3,12 @@ title = "projects"
 hideComments = true
 +++
 
-- [anomalous](https://anomalous.xyz/) an anomalous research society
+- [Anomalous](https://anomalous.xyz/) An Anomalous Research Society
 
-- [magi](https://magi.pm/) a wizard worm that powers an orb
+- [Magi](https://magi.pm/) A wizard worm that powers an orb
 
-- [respondedor de boludos](https://t.me/respondedorbot) yes or no telegram bot running on a raspberry pi
+- [Respondedor de boludos](https://t.me/respondedorbot) Yes or No Telegram bot running on a Raspberry Pi
 
-- [hosty](https://astrolince.com/hosty) system-wide ad blocker for linux
+- [Hosty](https://astrolince.com/hosty) System-wide ad blocker for Linux
 
-- [inside the firewall](https://astrolince.com/insidethefirewall) videogame i made in 2013
+- [Inside the firewall](https://astrolince.com/insidethefirewall) Videogame I made in 2013
