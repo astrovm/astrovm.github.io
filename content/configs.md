@@ -102,57 +102,81 @@ Tip: You can install only the most important updates with:
 sudo dnf up-min
 ```
 
-# specific for [amy os](https://github.com/astrolince/amy-os)
+# Specific for [Amy OS](https://github.com/astrolince/amy-os)
 
-**speedy encryption on nvme devices**
+**Speedy encryption on NVMe Devices**
 
-`$ sudo nvim /etc/crypttab`
+```bash
+sudo nvim /etc/crypttab
+```
 
-add these flags
+Add these flags:
 
 ```vim
 discard,no-read-workqueue,no-write-workqueue
 ```
 
-`$ sudo dmsetup table`
+```bash
+sudo dmsetup table
+```
 
-`$ sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla`
+```bash
+sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
+```
 
-# for all distros
+# For all distros
 
-# steam tweaks
+## Steam tweaks
 
-- enable steam play in steam settings.
+- Enable Steam Play in Steam settings.
 
-- set launch options (per game) to:
+- Set launch options (per game) to:
 
-`gamemoderun %command%`
+```bash
+gamemoderun %command%
+```
 
-- try [proton-ge-custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonUp-Qt.
+- Try [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonUp-Qt.
 
-# csgo
+## CS:GO
 
-launch options:
+Launch options:
 
-`gamemoderun %command% -vulkan -novid -fullscreen`
+```bash
+gamemoderun %command% -vulkan -novid -fullscreen
+```
 
-# git
+## Git
 
-`$ git config --global color.ui true`
+```bash
+git config --global color.ui true
+```
 
-`$ git config --global user.name "astrolince"`
+```bash
+git config --global user.name "astrolince"
+```
 
-`$ git config --global user.email "astro@astrolince.com"`
+```bash
+git config --global user.email "astro@astrolince.com"
+```
 
-`$ ssh-keygen -t ed25519 -C "astro@astrolince.com"`
+```bash
+ssh-keygen -t ed25519 -C "astro@astrolince.com"
+```
 
-`$ cat ~/.ssh/id_ed25519.pub`
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
 
-paste to [https://github.com/settings/ssh](https://github.com/settings/ssh).
+Paste to [https://github.com/settings/ssh](https://github.com/settings/ssh).
 
-`$ git config --global user.signingkey CC39C6D77BDF0053`
+```bash
+git config --global user.signingkey CC39C6D77BDF0053
+```
 
-`$ git config --global commit.gpgsign true`
+```bash
+git config --global commit.gpgsign true
+```
 
 # Brave/Chromium extensions
 
