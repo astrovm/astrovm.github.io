@@ -14,27 +14,18 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 **PC Master Race**
 
 - OS: [Amy OS](https://github.com/astrolince/amy-os)
-
 - CPU: AMD Ryzen 5 3600
-
 - GPU: AMD Radeon RX 6800 16 GB
-
 - RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)
-
 - NVMe: 1 TB (2 x Adata XPG Spectrix S40G 512 GB)
-
 - Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi)
-
 - Mouse: Logitech G305
-
 - Keyboard: HyperX Alloy Origins Core (with Razer Pink PBT keycaps)
-
 - Headphones: Audio-Technica ATH-M50x (with a FiiO BTA10) and Sony Inzone H9
 
 **Raspberry Pi 4 Model B**
 
 - OS: [Alpine Linux](https://www.alpinelinux.org/downloads/)
-
 - RAM: 8 GB
 
 **Apple MacBook Air M1 2020**
@@ -129,7 +120,6 @@ sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqu
 ## Steam tweaks
 
 - Enable Steam Play in Steam settings.
-
 - Set launch options (per game) to:
 
 ```bash
@@ -180,39 +170,25 @@ git config --global commit.gpgsign true
 
 # Brave/Chromium extensions
 
-[uBlock Origin](https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm)
-
-[ClearURLs](https://chrome.google.com/webstore/detail/clearurls/lckanjgmijmafbedllaakclkaicjfmnk)
-
-[Decentraleyes](https://chrome.google.com/webstore/detail/decentraleyes/ldpochfccmkkmhdbclfhpagapcfdljkj)
-
-[Privacy Settings](https://chrome.google.com/webstore/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj)
-
-[SponsorBlock](https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone)
-
-[DeArrow](https://chromewebstore.google.com/detail/dearrow-better-titles-and/enamippconapkdmgfgjchkhakpfinmaj)
-
-[Rabby](https://chrome.google.com/webstore/detail/rabby/acmacodkjbdgmoleebolmdjonilkdbch)
+- [uBlock Origin](https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm)
+- [ClearURLs](https://chrome.google.com/webstore/detail/clearurls/lckanjgmijmafbedllaakclkaicjfmnk)
+- [Decentraleyes](https://chrome.google.com/webstore/detail/decentraleyes/ldpochfccmkkmhdbclfhpagapcfdljkj)
+- [Privacy Settings](https://chrome.google.com/webstore/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj)
+- [SponsorBlock](https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone)
+- [DeArrow](https://chromewebstore.google.com/detail/dearrow-better-titles-and/enamippconapkdmgfgjchkhakpfinmaj)
+- [Rabby](https://chrome.google.com/webstore/detail/rabby/acmacodkjbdgmoleebolmdjonilkdbch)
 
 # GNOME extensions
 
-[AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
-
-[Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
-
-[Clipboard Indicator](https://extensions.gnome.org/extension/779/Clipboard-indicator/)
-
-[Dash to Dock](https://extensions.gnome.org/extension/307/Dash-to-Dock/)
-
-[GSConnect](https://extensions.gnome.org/extension/1319/GSConnect/)
-
-[Lock Keys](https://extensions.gnome.org/extension/36/Lock-Keys/)
-
-[Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
-
-[Removable Drive Menu](https://extensions.gnome.org/extension/7/Removable-Drive-Menu/)
-
-[Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
+- [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
+- [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
+- [Clipboard Indicator](https://extensions.gnome.org/extension/779/Clipboard-indicator/)
+- [Dash to Dock](https://extensions.gnome.org/extension/307/Dash-to-Dock/)
+- [GSConnect](https://extensions.gnome.org/extension/1319/GSConnect/)
+- [Lock Keys](https://extensions.gnome.org/extension/36/Lock-Keys/)
+- [Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
+- [Removable Drive Menu](https://extensions.gnome.org/extension/7/Removable-Drive-Menu/)
+- [Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
 
 # NetworkManager randomize
 
