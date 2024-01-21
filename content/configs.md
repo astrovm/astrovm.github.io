@@ -9,37 +9,37 @@ I'll try to keep this as simple as possible to increase maintainability and trou
 
 Also, if I can keep something in the user space using Flatpaks without affecting usability, I'll prefer that to reduce system clutter and increase security.
 
-# devices
+# Devices
 
-**pc master race**
+**PC Master Race**
 
-- os: [amy os](https://github.com/astrolince/amy-os)
+- OS: [Amy OS](https://github.com/astrolince/amy-os)
 
-- cpu: amd ryzen 5 3600
+- CPU: AMD Ryzen 5 3600
 
-- gpu: amd radeon rx 6800 16 gb
+- GPU: AMD Radeon RX 6800 16 GB
 
-- ram: 32 gb (4 x geil super luce 8 gb ddr4 3200mhz)
+- RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)
 
-- nvme: 1 tb (2 x adata xpg spectrix s40g 512 gb)
+- NVMe: 1 TB (2 x Adata XPG Spectrix S40G 512 GB)
 
-- mb: asus tuf gaming x570-pro (wi-fi)
+- Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi)
 
-- mouse: logitech g305
+- Mouse: Logitech G305
 
-- keyboard: hyperx alloy origins core (with razer pink pbt keycaps)
+- Keyboard: HyperX Alloy Origins Core (with Razer Pink PBT keycaps)
 
-- headphones: audio-technica ath-m50x (with a fiio bta10) and sony inzone h9
+- Headphones: Audio-Technica ATH-M50x (with a FiiO BTA10) and Sony Inzone H9
 
-**raspberry pi 4 model b**
+**Raspberry Pi 4 Model B**
 
-- os: [Alpine Linux](https://www.alpinelinux.org/downloads/)
+- OS: [Alpine Linux](https://www.alpinelinux.org/downloads/)
 
-- ram: 8 gb
+- RAM: 8 GB
 
-**apple macbook air m1 2020**
+**Apple MacBook Air M1 2020**
 
-**samsung galaxy s22 ultra**
+**Samsung Galaxy S22 Ultra**
 
 # bios config
 
