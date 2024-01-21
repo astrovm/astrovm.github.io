@@ -13,8 +13,8 @@ I noticed that the CD box said "Half-Life Counter-Strike" and I was like, "What 
 The (obviously pirated) CD actually included:
 
 - [Half-Life](https://store.steampowered.com/app/70/HalfLife/)
-- [HL Opposing Force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/)
-- [HL Blue Shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/)
+- [Half-Life: Opposing Force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/)
+- [Half-Life: Blue Shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/)
 - [Team Fortress Classic](https://store.steampowered.com/app/20/Team_Fortress_Classic/)
 - [Ricochet](https://store.steampowered.com/app/60/Ricochet/)
 - [Deathmatch Classic](https://store.steampowered.com/app/40/Deathmatch_Classic/)
@@ -56,14 +56,14 @@ If you didn't play Half-Life, try it. The list of games is:
 
 - [Half-Life](https://store.steampowered.com/app/70/HalfLife/) (there's an amazing remake called [Black Mesa](https://store.steampowered.com/app/362890/Black_Mesa/))
 - [Half-Life 2](https://store.steampowered.com/app/220/HalfLife_2/)
-- [Half-Life 2 Episode 1](https://store.steampowered.com/app/380/HalfLife_2_Episode_One/)
-- [Half-Life 2 Episode 2](https://store.steampowered.com/app/420/HalfLife_2_Episode_Two/)
-- [Half-Life Alyx](https://store.steampowered.com/app/546560/HalfLife_Alyx/) (VR game)
+- [Half-Life 2: Episode One](https://store.steampowered.com/app/380/HalfLife_2_Episode_One/)
+- [Half-Life 2: Episode Two](https://store.steampowered.com/app/420/HalfLife_2_Episode_Two/)
+- [Half-Life: Alyx](https://store.steampowered.com/app/546560/HalfLife_Alyx/) (VR game)
 
 Non-essential:
 
-- [HL Opposing Force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/) (you play the HL1 story from the perspective of one of your enemies, a soldier. I particularly love this game for the aesthetics, weapons, and cool tanks and helicopters)
-- [HL Blue Shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/) (you play the HL1 story from the perspective of one of your friends, a security guard)
-- [Half-Life 2 Lost Coast](https://store.steampowered.com/app/340/HalfLife_2_Lost_Coast/) (it's just a short tech demo, and it feels like an out-of-context dream you had)
+- [Half-Life: Opposing Force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/) (you play the HL1 story from the perspective of one of your enemies, a soldier. I particularly love this game for the aesthetics, weapons, and cool tanks and helicopters)
+- [Half-Life: Blue Shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/) (you play the HL1 story from the perspective of one of your friends, a security guard)
+- [Half-Life 2: Lost Coast](https://store.steampowered.com/app/340/HalfLife_2_Lost_Coast/) (it's just a short tech demo, and it feels like an out-of-context dream you had)
 
-You should also play Portal and Portal 2 as they take place in the same universe, but they are different games and cool in their own way.
+You should also play [Portal](https://store.steampowered.com/app/400/Portal/) and [Portal 2](https://store.steampowered.com/app/620/Portal_2/) as they take place in the same universe, but they are different games and cool in their own way.
