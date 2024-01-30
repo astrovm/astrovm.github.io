@@ -147,11 +147,11 @@ git config --global user.name "astrovm"
 ```
 
 ```bash
-git config --global user.email "_@4st.li"
+git config --global user.email "~@4st.li"
 ```
 
 ```bash
-ssh-keygen -t ed25519 -C "_@4st.li"
+ssh-keygen -t ed25519 -C "~@4st.li"
 ```
 
 ```bash
