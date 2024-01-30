@@ -3,7 +3,7 @@ title = "contact"
 hideComments = true
 +++
 
-- email: [astro@astrolince.com](mailto:astro@astrolince.com)
+- email: [_@4st.li](mailto:_@4st.li)
 
 - telegram: [@astrolince](https://t.me/astrolince)
 
