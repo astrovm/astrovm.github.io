@@ -84,7 +84,7 @@ OS: Amy OS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x G
 &lt;li>Disable CSM.&lt;/li>
 &lt;li>Customize fans speed to maximize silence.&lt;/li>
 &lt;/ul>
-&lt;h1 id="specific-for-fedorahttpsgetfedoraorg">Specific for &lt;a href="https://getfedora.org/">Fedora&lt;/a>&lt;/h1>
+&lt;h1 id="specific-for-fedorahttpsfedoraprojectorgworkstation">Specific for &lt;a href="https://fedoraproject.org/workstation/">Fedora&lt;/a>&lt;/h1>
 &lt;p>&lt;strong>Speedy encryption on NVMe Devices&lt;/strong>&lt;/p>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo nvim /etc/crypttab
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
