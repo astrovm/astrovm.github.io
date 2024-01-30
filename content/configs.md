@@ -13,7 +13,7 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 **PC Master Race**
 
-- OS: [Amy OS](https://github.com/astrovm/amy-os)
+- OS: [Amy OS](https://github.com/astrovm/amyos)
 - CPU: AMD Ryzen 5 3600
 - GPU: AMD Radeon RX 6800 16 GB
 - RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)
@@ -93,7 +93,7 @@ Tip: You can install only the most important updates with:
 sudo dnf up-min
 ```
 
-# Specific for [Amy OS](https://github.com/astrovm/amy-os)
+# Specific for [Amy OS](https://github.com/astrovm/amyos)
 
 **Speedy encryption on NVMe Devices**
 
