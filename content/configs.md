@@ -143,15 +143,15 @@ git config --global color.ui true
 ```
 
 ```bash
-git config --global user.name "astrolince"
+git config --global user.name "astrovm"
 ```
 
 ```bash
-git config --global user.email "astro@astrolince.com"
+git config --global user.email "_@4st.li"
 ```
 
 ```bash
-ssh-keygen -t ed25519 -C "astro@astrolince.com"
+ssh-keygen -t ed25519 -C "_@4st.li"
 ```
 
 ```bash
