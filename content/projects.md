@@ -12,3 +12,7 @@ hideComments = true
 - [Magi](https://magi.4st.li/) A wizard worm that powers an orb
 
 - [Hosty](https://github.com/astrovm/hosty) System-wide ad blocker for Linux/Unix/BSD/Mac
+
+**self-hosted instances**
+
+- [PrivateBin](https://bin.4st.li/) Open source pastebin where the server has zero knowledge of pasted data
