@@ -194,23 +194,23 @@ bitcoin/lightning ethereum/l2s: astrolince.eth monero: 8BVAgmF6bwQeW8Y6UEFut7YzK
 &lt;li>ethereum/l2s: &lt;a href="https://app.zerion.io/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd/overview?name=astrolince.eth">astrolince.eth&lt;/a>&lt;/li>
 &lt;li>monero: 8BVAgmF6bwQeW8Y6UEFut7YzKyQCE19UANt9avx64ZjsApwvCaaMhVZYd6LwqpKjsaRyJaVvTjxapK3chj3JUv4cUepKCjB&lt;/li>
 &lt;/ul></content></item><item><title>projects</title><link>/projects/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/projects/</guid><description>Anomalous An Anomalous Research Society
-Magi A wizard worm that powers an orb
 Respondedor de boludos Yes or No Telegram bot running on a Raspberry Pi
-Hosty System-wide ad blocker for Linux
-Inside the firewall Videogame I made in 2013</description><content>&lt;ul>
+Inside the firewall Videogame I made in 2013
+Magi A wizard worm that powers an orb
+Hosty System-wide ad blocker for Linux/Unix/BSD/Mac</description><content>&lt;ul>
 &lt;li>
 &lt;p>&lt;a href="https://anomalous.xyz/">Anomalous&lt;/a> An Anomalous Research Society&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://magi.pm/">Magi&lt;/a> A wizard worm that powers an orb&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a href="https://t.me/respondedorbot">Respondedor de boludos&lt;/a> Yes or No Telegram bot running on a Raspberry Pi&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;a href="https://astrolince.com/hosty">Hosty&lt;/a> System-wide ad blocker for Linux&lt;/p>
+&lt;p>&lt;a href="https://4st.li/insidethefirewall">Inside the firewall&lt;/a> Videogame I made in 2013&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;a href="https://astrolince.com/insidethefirewall">Inside the firewall&lt;/a> Videogame I made in 2013&lt;/p>
+&lt;p>&lt;a href="https://magi.pm/">Magi&lt;/a> A wizard worm that powers an orb&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://github.com/astrovm/hosty">Hosty&lt;/a> System-wide ad blocker for Linux/Unix/BSD/Mac&lt;/p>
 &lt;/li>
 &lt;/ul></content></item></channel></rss>
