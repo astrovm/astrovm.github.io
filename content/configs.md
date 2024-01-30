@@ -42,7 +42,7 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 - Disable CSM.
 - Customize fans speed to maximize silence.
 
-# Specific for [Fedora](https://getfedora.org/)
+# Specific for [Fedora](https://fedoraproject.org/workstation/)
 
 **Speedy encryption on NVMe Devices**
 
