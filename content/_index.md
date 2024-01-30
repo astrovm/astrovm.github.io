@@ -1,3 +1,3 @@
-twitter: [@astrolince](https://twitter.com/astrolince)
+twitter: [@astrovm](https://twitter.com/astrovm)
 
-github: [@astrolince](https://github.com/astrolince)
+github: [@astrovm](https://github.com/astrovm)
