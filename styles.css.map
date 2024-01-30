@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "styles.css",
-	"sourceRoot": "/home/runner/work/astrolince.github.io/astrolince.github.io",
+	"sourceRoot": "/home/runner/work/astrovm.github.io/astrovm.github.io",
 	"sources": [
 		"css/base.scss",
 		"themes/terminal/assets/css/variables.scss",
