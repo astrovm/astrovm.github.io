@@ -13,6 +13,8 @@ hideComments = true
 
 - [Hosty](https://github.com/astrovm/hosty) System-wide ad blocker for Linux/Unix/BSD/Mac
 
+- [Flash Collection](https://4st.li/flash/) Flash games archive
+
 **self-hosted instances**
 
 - [PrivateBin](https://bin.4st.li/) Open source pastebin where the server has zero knowledge of pasted data
