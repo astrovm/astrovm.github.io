@@ -58,14 +58,14 @@ paginate = 5
   # see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/guides/getting-started#card-and-content-attribution
   # do not include @
   creator = "astrovm"
-  site = "4st.li"
+  site = "astrovm"
 
 [languages]
   [languages.en]
     languageName = "english"
     title = "astro@web $ _"
     subtitle = "prepare for unforeseen consequences."
-    owner = "4st.li"
+    owner = "astro"
     keywords = "crypto, bitcoin, programming, code, linux, hacking"
     copyright = "© 2024 4st.li"
     menuMore = "show more"
