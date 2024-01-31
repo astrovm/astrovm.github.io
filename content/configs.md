@@ -93,7 +93,7 @@ Tip: You can install only the most important updates with:
 sudo dnf up-min
 ```
 
-# Specific for [Amy OS](https://github.com/astrovm/amyos)
+# Specific for [Amy OS](https://github.com/astrovm/amyos/compare/template...live)
 
 **Speedy encryption on NVMe Devices**
 
