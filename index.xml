@@ -202,6 +202,7 @@ Respondedor de boludos Yes or No Telegram bot running on a Raspberry Pi
 Inside the firewall Videogame I made in 2013
 Magi A wizard worm that powers an orb
 Hosty System-wide ad blocker for Linux/Unix/BSD/Mac
+Flash Collection Flash games archive
 self-hosted instances
 PrivateBin Open source pastebin where the server has zero knowledge of pasted data</description><content>&lt;ul>
 &lt;li>
@@ -218,6 +219,9 @@ PrivateBin Open source pastebin where the server has zero knowledge of pasted da
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a href="https://github.com/astrovm/hosty">Hosty&lt;/a> System-wide ad blocker for Linux/Unix/BSD/Mac&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://4st.li/flash/">Flash Collection&lt;/a> Flash games archive&lt;/p>
 &lt;/li>
 &lt;/ul>
 &lt;p>&lt;strong>self-hosted instances&lt;/strong>&lt;/p>
