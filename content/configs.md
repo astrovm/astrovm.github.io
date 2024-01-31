@@ -189,6 +189,8 @@ git config --global commit.gpgsign true
 - [Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
 - [Removable Drive Menu](https://extensions.gnome.org/extension/7/Removable-Drive-Menu/)
 - [Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
+- [Burn My Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/)
+- [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
 
 # NetworkManager randomize
 
