@@ -4,7 +4,7 @@ date = "2022-05-18T05:33:50-03:00"
 readingTime = true
 +++
 
-Half-Life changes the way you think about life; it's not a normal first-person shooter. As someone who grew up playing Doom, the first time I played Half-Life, I had one of the most important realizations as a child: you don't need that much skill if you actually think, and running from problems is super useful and acceptable sometimes (one of the reasons that I also loved playing Resident Evil on my PSone back then, but it scared the hell out of me).
+Half-Life changes the way you think about life; it's not a normal first-person shooter. As someone who grew up playing Doom, the first time I played Half-Life I had one of the most important realizations as a child: you don't need that much skill if you actually think, and running from problems is super useful and acceptable sometimes (one of the reasons that I also loved playing Resident Evil on my PSone back then, but it scared the hell out of me).
 
 It was a sunny Sunday; I was about 4 years old, and my brother told me to go to the game store (yeah, like, physically walking there) and purchase Counter-Strike (it was the most popular game in Buenos Aires cybercafes). So I did it with my father. At that time, there were 2 Counter-Strikes available (normal and Condition Zero), so I brought both home, inserted the first disk into the computer, and a Half-Life screen came up.
 
