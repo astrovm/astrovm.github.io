@@ -1,0 +1,75 @@
+==================================================================
+https://keybase.io/astrolince
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://4st.li
+  * I am astrolince (https://keybase.io/astrolince) on keybase.
+  * I have a public key with fingerprint 4678 098B F578 3D3F 5D50  6EB6 CC39 C6D7 7BDF 0053
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120719ca13f0c0020f59bd79fface18fad7dc14428adb5800586dec1b060a3744620a",
+      "fingerprint": "4678098bf5783d3f5d506eb6cc39c6d77bdf0053",
+      "host": "keybase.io",
+      "key_id": "cc39c6d77bdf0053",
+      "kid": "0101e43017ac4f1aeba2e49cf110c5df430bf864bfacaea6e426479a079dd6eac8df0a",
+      "uid": "396465b7865118566e2d5f02989e4519",
+      "username": "astrolince"
+    },
+    "service": {
+      "hostname": "4st.li",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1706675918,
+  "expire_in": 157680000,
+  "prev": "0c9cbf77c197d31d1bef42d5859a5b8633c47dba2114a4698bbac94e1591dea6",
+  "seqno": 354,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.1.13
+Comment: https://keybase.io/crypto
+
+yMNyAnicbVJ9TBRHHD2+5fBK0VoC1mrXpJwEZfZ2d3b3iqFNBS0GpKLYAnrsxyxs
+PO/gvpBSNGghVSMCLfbD1hoLQomUihowQC22EkVDLKQggZSgoihaW0KKfGlnif7X
+v2bnt++9ee/N/Gbw0em9rvMdfQVDuhSva+2Vbh260NVVQIh2OZ8wFxA70fyCrDJy
+uiw7VZkwE4A0AZbkJYGkFCABYAIKw4syyyuKICGSUwSZlSWSpk2cIIsMBwDDQRlJ
+pAggECiWpqEJCEQUoai2LOTIcag2F5alIcsBnhMVhuUomVIYmQEQiVCSKF6CMsuK
+soKlKEzMtjs1BjYnCk60RrXjGd5Y5u39D/6Fb0AimgIkK0i0QgpIFEyI5iWFJIHE
+yAr+JSocpEUcQ0ACRLQJ0iwvAJaXZYgEicOCmm/3vBzFQxoyIstBhiQ5BkJkkhkF
+mHiORzRD8hrQiRw2YRfCaMHpctitqk1CRGEUgeceFX/iarUszzG007XGqmJejsPu
+skt2K55lu1w5TrPGceXnaKA8JFqe0y2iapNxh5jhQQ6narcRZhIjJZeq6ZEsgJBl
+eJKLItDuHNWBLKqGYFiI7wQA7Rzk0YqReElUWFYieVamSJkUkULjMBzDC4zIQYqS
+aFbGbZEkLdAQ35EoSDyNSKwt46IILVCuzU6YKYbGRoUsLOpUs2yCy+3AeS+1Z/jq
+vPQ6fz9v7XXp9IEvv3hzQz8GzwTsPzvWaWufiTLElUxbAmeDgVL1tGDw1cSli3qF
+zanNDb2NY2GXOzeGp+w7HrgiYqVVl/nO1TRPE6ow9vBL89fOlbSMlPwVM1Lf8/7N
+oLrFZ9DwcIiy6dlLiz6X914M9SysmZv9Z8eC7csrYhcnh+8rude86kgD6i7sLl7w
+xcB3kT8ffuPWwTvDt/RPBMv1212TyZGvf9q72rEnaa4i7svasLZ+Ja1vKin6z6T4
+N9vNI63VMbtW9QSdblru9v+oqXPLeK09Ny9lOjJ5a1H85A15om1Tetzemd5I7/pC
+9lxV670/lvwSG1xpSmtPHw0ffAxblx2AvhmR5XvuWOC2Z9zQK9Hsv57LwPfr6kNn
+RvPtnd/r6pLCDNHVS94baa78qU39eGXDN/E1H7hP9bcY3GHjqY/Sp+7H3G40Xj3R
+pR/I3Dox9kQ/ta7u2LqztU0Jo79+4u6ejPB6ZAgZvBFB0SvaiirH5W9Pl0uu13oe
+ppw70bChqFv3VvT2CON94LM7OqP/bvFAzYfjrnQv27Lz4R0HD48YysNKC6Zns29+
+tWFbTJCfeWJ1Xuv6VPXoD4WJRzqGrrSUGR+f54xG+srdp2yWd2hx/YMLa68FxDYk
+vHvp71N+x3xCA47S46WN+uOb969/mFl/MiG3pufiSTejxs8U+VclloUsP9CXsXHh
+72WflW5525FvTXxg6c/a8R9jyMMH
+=zKI0
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/astrolince
+
+==================================================================
