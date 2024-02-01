@@ -109,9 +109,7 @@ discard,no-read-workqueue,no-write-workqueue
 
 ```bash
 sudo dmsetup table
-```
 
-```bash
 sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
 ```
 
@@ -140,21 +138,13 @@ gamemoderun %command% -vulkan -novid -fullscreen
 
 ```bash
 git config --global color.ui true
-```
 
-```bash
 git config --global user.name "astrovm"
-```
 
-```bash
 git config --global user.email "~@4st.li"
-```
 
-```bash
 ssh-keygen -t ed25519 -C "~@4st.li"
-```
 
-```bash
 cat ~/.ssh/id_ed25519.pub
 ```
 
@@ -162,9 +152,7 @@ cat ~/.ssh/id_ed25519.pub
 
 ```bash
 git config --global user.signingkey CC39C6D77BDF0053
-```
 
-```bash
 git config --global commit.gpgsign true
 ```
 
