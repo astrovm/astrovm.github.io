@@ -116,7 +116,8 @@ OS: Amy OS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x G
 &lt;/ul>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-vim" data-lang="vim">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">discard&lt;/span>,&lt;span style="color:#a6e22e">no&lt;/span>-&lt;span style="color:#a6e22e">read&lt;/span>-&lt;span style="color:#a6e22e">workqueue&lt;/span>,&lt;span style="color:#a6e22e">no&lt;/span>-&lt;span style="color:#a6e22e">write&lt;/span>-&lt;span style="color:#a6e22e">workqueue&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dmsetup table
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="for-all-distros">For all distros&lt;/h1>
 &lt;h2 id="steam-tweaks">Steam tweaks&lt;/h2>
 &lt;ul>
@@ -134,15 +135,20 @@ OS: Amy OS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x G
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gamemoderun %command% -vulkan -novid -fullscreen
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="git">Git&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git config --global color.ui true
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git config --global user.name &lt;span style="color:#e6db74">&amp;#34;astrovm&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git config --global user.email &lt;span style="color:#e6db74">&amp;#34;~@4st.li&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>ssh-keygen -t ed25519 -C &lt;span style="color:#e6db74">&amp;#34;~@4st.li&amp;#34;&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>cat ~/.ssh/id_ed25519.pub
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global user.name &lt;span style="color:#e6db74">&amp;#34;astrovm&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global user.email &lt;span style="color:#e6db74">&amp;#34;~@4st.li&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ssh-keygen -t ed25519 -C &lt;span style="color:#e6db74">&amp;#34;~@4st.li&amp;#34;&lt;/span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>cat ~/.ssh/id_ed25519.pub
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>Paste to &lt;a href="https://github.com/settings/ssh">https://github.com/settings/ssh&lt;/a>.&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git config --global user.signingkey CC39C6D77BDF0053
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git config --global commit.gpgsign true
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global commit.gpgsign true
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="bravechromium-extensions">Brave/Chromium extensions&lt;/h1>
 &lt;ul>
 &lt;li>&lt;a href="https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm">uBlock Origin&lt;/a>&lt;/li>
