@@ -1,4 +1,4 @@
-baseurl = "/"
+baseurl = "https://4st.li/"
 languageCode = "en-us"
 theme = "terminal"
 paginate = 5
