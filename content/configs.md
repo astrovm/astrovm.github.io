@@ -34,13 +34,13 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 # BIOS config
 
-- Restore defaults.
-- Set RAM to 3200MHz.
-- Enable Resizable Bar.
-- Enable virtualization.
-- Enable Secure Boot.
-- Disable CSM.
-- Customize fans speed to maximize silence.
+- Restore defaults
+- Set RAM to 3200MHz
+- Enable Resizable Bar
+- Enable virtualization
+- Enable Secure Boot
+- Disable CSM
+- Customize fans speed to maximize silence
 
 # Specific for [Fedora](https://fedoraproject.org/workstation/)
 
@@ -117,14 +117,14 @@ sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqu
 
 ## Steam tweaks
 
-- Enable Steam Play in Steam settings.
+- Enable Steam Play in Steam settings
 - Set launch options (per game) to:
 
 ```bash
 gamemoderun %command%
 ```
 
-- Try [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonUp-Qt.
+- Try [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonUp-Qt
 
 ## CS:GO
 
@@ -148,7 +148,7 @@ ssh-keygen -t ed25519 -C "~@4st.li"
 cat ~/.ssh/id_ed25519.pub
 ```
 
-- Paste to [https://github.com/settings/ssh](https://github.com/settings/ssh).
+- Paste to [https://github.com/settings/ssh](https://github.com/settings/ssh)
 
 ```bash
 git config --global user.signingkey CC39C6D77BDF0053
