@@ -208,16 +208,19 @@ bitcoin/lightning ethereum/l2s: astrolince.eth monero: 8BVAgmF6bwQeW8Y6UEFut7YzK
 &lt;li>ethereum/l2s: &lt;a href="https://app.zerion.io/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd/overview?name=astrolince.eth">astrolince.eth&lt;/a>&lt;/li>
 &lt;li>monero: 8BVAgmF6bwQeW8Y6UEFut7YzKyQCE19UANt9avx64ZjsApwvCaaMhVZYd6LwqpKjsaRyJaVvTjxapK3chj3JUv4cUepKCjB&lt;/li>
 &lt;/ul></content></item><item><title>projects</title><link>https://4st.li/projects/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://4st.li/projects/</guid><description>Anomalous An Anomalous Research Society
+Flash Collection Flash games archive
 Respondedor de boludos Yes or No Telegram bot running on a Raspberry Pi
 Inside the firewall Videogame I made in 2013
 Magi A wizard worm that powers an orb
 Hosty System-wide ad blocker for Linux/Unix/BSD/Mac
-Flash Collection Flash games archive
 self-hosted instances
 FreshRSS News aggregator
 PrivateBin Open source pastebin where the server has zero knowledge of pasted data</description><content>&lt;ul>
 &lt;li>
 &lt;p>&lt;a href="https://anomalous.xyz/">Anomalous&lt;/a> An Anomalous Research Society&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;a href="https://4st.li/flash/">Flash Collection&lt;/a> Flash games archive&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a href="https://t.me/respondedorbot">Respondedor de boludos&lt;/a> Yes or No Telegram bot running on a Raspberry Pi&lt;/p>
@@ -230,9 +233,6 @@ PrivateBin Open source pastebin where the server has zero knowledge of pasted da
 &lt;/li>
 &lt;li>
 &lt;p>&lt;a href="https://github.com/astrovm/hosty">Hosty&lt;/a> System-wide ad blocker for Linux/Unix/BSD/Mac&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://4st.li/flash/">Flash Collection&lt;/a> Flash games archive&lt;/p>
 &lt;/li>
 &lt;/ul>
 &lt;p>&lt;strong>self-hosted instances&lt;/strong>&lt;/p>
