@@ -10,6 +10,8 @@ It was a sunny Sunday; I was about 4 years old, and my brother told me to go to 
 
 I noticed that the CD box said "Half-Life Counter-Strike" and I was like, "What is Half-Life? Sounds fun! :)"
 
+![Half-Life Counter-Strike CD Front Cover](hl-cs-cd.jpg)
+
 The (obviously pirated) CD actually included:
 
 - [Half-Life](https://store.steampowered.com/app/70/HalfLife/)
