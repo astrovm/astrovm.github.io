@@ -53,7 +53,7 @@ The game has some interesting messages behind:
 - Talking is not so important.
 
 {{< rawhtml >}}
-<video src="mashup.webm" preload autoplay muted playsinline loop></video>
+<video src="mashup.webm" width="100%" preload autoplay muted playsinline loop></video>
 {{< /rawhtml >}}
 
 I've seen a lot of people having trouble playing Half-Life because they expect the game to tell them what to do, and if the game doesn't tell them, they'll do nothing! The game is all about curiosity and trying new ideas, and that extends to much more than the story.
