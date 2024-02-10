@@ -10,7 +10,7 @@ It was a sunny Sunday; I was about 4 years old, and my brother told me to go to 
 
 I noticed that the CD box said "Half-Life Counter-Strike" and I was like, "What is Half-Life? Sounds fun! :)"
 
-![Half-Life Counter-Strike CD Front Cover](hl-cs-cd.jpg)
+![Half-Life Counter-Strike CD Front Cover](cd.jpg)
 
 The (obviously pirated) CD actually included:
 
@@ -23,6 +23,8 @@ The (obviously pirated) CD actually included:
 - [Counter-Strike](https://store.steampowered.com/app/10/CounterStrike/)
 
 I installed everything and opened Half-Life first because I liked the aesthetics more. I started playing, and... A FREAKING TRAIN APPEARED. I'd never been on a moving train in a game before, and I love trains, so I liked it. The train took a lot of time to reach its destination, so I felt the game was chill about itself, and I loved that!
+
+![Train with G-Man and a scientist inside](train.jpg)
 
 A couple of minutes later, the world goes to hell D:! But the aesthetics are nice :D! So I was there running as something of a scientist with a cool "Hazardous Environment Suit," and IRL I was wearing a Spiderman suit, so I felt related.
 
@@ -49,6 +51,8 @@ The game has some interesting messages behind:
 - Your search for freedom may never come to an end.
 - Your worst enemy seems to be an inter-dimensional bureaucrat who wants to give you a job.
 - Talking is not so important.
+
+<video src="mashup.webm" preload autoplay muted playsinline loop></video>
 
 I've seen a lot of people having trouble playing Half-Life because they expect the game to tell them what to do, and if the game doesn't tell them, they'll do nothing! The game is all about curiosity and trying new ideas, and that extends to much more than the story.
 
