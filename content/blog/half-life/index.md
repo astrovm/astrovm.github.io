@@ -52,7 +52,7 @@ The game has some interesting messages behind:
 - Your worst enemy seems to be an inter-dimensional bureaucrat who wants to give you a job.
 - Talking is not so important.
 
-<video src="mashup.webm" preload autoplay muted playsinline loop></video>
+{% include_relative mashup.html %}
 
 I've seen a lot of people having trouble playing Half-Life because they expect the game to tell them what to do, and if the game doesn't tell them, they'll do nothing! The game is all about curiosity and trying new ideas, and that extends to much more than the story.
 
