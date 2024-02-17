@@ -126,13 +126,17 @@ gamemoderun %command%
 
 - Try [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonUp-Qt
 
-## CS:GO
+## CS2
 
 - Launch options:
 
 ```bash
 gamemoderun %command% -vulkan -novid -fullscreen
 ```
+
+## Sonic Adventure
+
+https://gamebanana.com/tuts/16934
 
 ## Git
 
