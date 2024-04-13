@@ -5,9 +5,7 @@ hideComments = true
 
 - email: [~@4st.li](mailto:~@4st.li)
 
-- signal: [astro.09](https://signal.me/#eu/JPJ5IHl6BzGeNrQ6uGdHNHl4mu6tfu9XEmhswEeJvdkUDVlWQT9LY6CnilLHJphO)
-
-- [session](https://getsession.org/): 0569a182a7f9f9b5a39266017b45f4dab1aebdbbd15910c586c3a7f021679af506
+- signal: [astro.99](https://signal.me/#eu/Kz9MrSbPxZY4IWQmqVd4vob21mJnYvU-Ru9STNJErWZNOALb_8lJupYf9j9tOE0X)
 
 - telegram: [@astrolince](https://t.me/astrolince)
 
