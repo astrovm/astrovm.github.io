@@ -189,8 +189,7 @@ OS: Amy OS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x G
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wifi.cloned-mac-address&lt;span style="color:#f92672">=&lt;/span>random
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo systemctl restart NetworkManager
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>contact</title><link>https://4st.li/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://4st.li/contact/</guid><description> email: ~@4st.li
-signal: astro.09
-session: 0569a182a7f9f9b5a39266017b45f4dab1aebdbbd15910c586c3a7f021679af506
+signal: astro.99
 telegram: @astrolince
 pgp key: CC39 C6D7 7BDF 0053
 donate
@@ -199,10 +198,7 @@ bitcoin/lightning ethereum/l2s: astrolince.eth monero: 8BVAgmF6bwQeW8Y6UEFut7YzK
 &lt;p>email: &lt;a href="mailto:~@4st.li">~@4st.li&lt;/a>&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>signal: &lt;a href="https://signal.me/#eu/JPJ5IHl6BzGeNrQ6uGdHNHl4mu6tfu9XEmhswEeJvdkUDVlWQT9LY6CnilLHJphO">astro.09&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://getsession.org/">session&lt;/a>: 0569a182a7f9f9b5a39266017b45f4dab1aebdbbd15910c586c3a7f021679af506&lt;/p>
+&lt;p>signal: &lt;a href="https://signal.me/#eu/Kz9MrSbPxZY4IWQmqVd4vob21mJnYvU-Ru9STNJErWZNOALb_8lJupYf9j9tOE0X">astro.99&lt;/a>&lt;/p>
 &lt;/li>
 &lt;li>
 &lt;p>telegram: &lt;a href="https://t.me/astrolince">@astrolince&lt;/a>&lt;/p>
