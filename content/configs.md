@@ -138,6 +138,14 @@ gamemoderun %command% -vulkan -novid -fullscreen
 
 https://gamebanana.com/tuts/16934
 
+## GTA IV
+
+- Launch options:
+
+```bash
+WINEDLLOVERRIDES="dinput8=n,b" gamemoderun %command%
+```
+
 ## Git
 
 ```bash
