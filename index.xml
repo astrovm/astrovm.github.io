@@ -75,13 +75,13 @@ Soy bastante pesimista con las recomendaciones en general porque no existen como
 &lt;p>You should also play &lt;a href="https://store.steampowered.com/app/400/Portal/">Portal&lt;/a> and &lt;a href="https://store.steampowered.com/app/620/Portal_2/">Portal 2&lt;/a> as they take place in the same universe, but they are different games and cool in their own way.&lt;/p></content></item><item><title>configs</title><link>https://4st.li/configs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://4st.li/configs/</guid><description>General guidelines and philosophy I&amp;rsquo;ll try to keep this as simple as possible to increase maintainability and troubleshooting, and minimize unexpected behavior.
 Also, if I can keep something in the user space using Flatpaks without affecting usability, I&amp;rsquo;ll prefer that to reduce system clutter and increase security.
 Devices PC Master Race
-OS: Amy OS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz) NVMe: 1 TB (2 x Adata XPG Spectrix S40G 512 GB) Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi) Mouse: Logitech G305 Keyboard: HyperX Alloy Origins Core (with Razer Pink PBT keycaps) Headphones: Audio-Technica ATH-M50x (with a FiiO BTA10) and Sony Inzone H9 Raspberry Pi 4 Model B</description><content>&lt;h1 id="general-guidelines-and-philosophy">General guidelines and philosophy&lt;/h1>
+OS: Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz) NVMe: 1 TB (2 x Adata XPG Spectrix S40G 512 GB) Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi) Mouse: Logitech G305 Keyboard: HyperX Alloy Origins Core (with Razer Pink PBT keycaps) Headphones: Audio-Technica ATH-M50x (with a FiiO BTA10) and Sony Inzone H9 Raspberry Pi 4 Model B</description><content>&lt;h1 id="general-guidelines-and-philosophy">General guidelines and philosophy&lt;/h1>
 &lt;p>I&amp;rsquo;ll try to keep this as simple as possible to increase maintainability and troubleshooting, and minimize unexpected behavior.&lt;/p>
 &lt;p>Also, if I can keep something in the user space using Flatpaks without affecting usability, I&amp;rsquo;ll prefer that to reduce system clutter and increase security.&lt;/p>
 &lt;h1 id="devices">Devices&lt;/h1>
 &lt;p>&lt;strong>PC Master Race&lt;/strong>&lt;/p>
 &lt;ul>
-&lt;li>OS: &lt;a href="https://github.com/astrovm/amyos">Amy OS&lt;/a>&lt;/li>
+&lt;li>OS: &lt;a href="https://ubuntu.com/download/desktop">Ubuntu 24.04 LTS&lt;/a>&lt;/li>
 &lt;li>CPU: AMD Ryzen 5 3600&lt;/li>
 &lt;li>GPU: AMD Radeon RX 6800 16 GB&lt;/li>
 &lt;li>RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)&lt;/li>
@@ -108,32 +108,8 @@ OS: Amy OS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x G
 &lt;li>Disable CSM&lt;/li>
 &lt;li>Customize fans speed to maximize silence&lt;/li>
 &lt;/ul>
-&lt;h1 id="specific-for-fedorahttpsfedoraprojectorgworkstation">Specific for &lt;a href="https://fedoraproject.org/workstation/">Fedora&lt;/a>&lt;/h1>
-&lt;p>&lt;strong>Speedy encryption on NVMe Devices&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo nvim /etc/crypttab
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>Add these flags:&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-vim" data-lang="vim">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">discard&lt;/span>,&lt;span style="color:#a6e22e">no&lt;/span>-&lt;span style="color:#a6e22e">read&lt;/span>-&lt;span style="color:#a6e22e">workqueue&lt;/span>,&lt;span style="color:#a6e22e">no&lt;/span>-&lt;span style="color:#a6e22e">write&lt;/span>-&lt;span style="color:#a6e22e">workqueue&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>And regenerate the initramfs with:&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dracut -f --regenerate-all
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>DNF tweaks&lt;/strong>&lt;/p>
-&lt;ul>
-&lt;li>Add this:&lt;/li>
-&lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo nvim /etc/dnf/dnf.conf
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-vim" data-lang="vim">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">fastestmirror&lt;/span>=&lt;span style="color:#a6e22e">True&lt;/span>
-&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>&lt;span style="color:#a6e22e">max_parallel_downloads&lt;/span>=&lt;span style="color:#ae81ff">10&lt;/span>
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Add RPM Fusion repos&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dnf in https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-&lt;span style="color:#66d9ef">$(&lt;/span>rpm -E %fedora&lt;span style="color:#66d9ef">)&lt;/span>.noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-&lt;span style="color:#66d9ef">$(&lt;/span>rpm -E %fedora&lt;span style="color:#66d9ef">)&lt;/span>.noarch.rpm
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>&lt;strong>Update system&lt;/strong>&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dnf up
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;p>Tip: You can install only the most important updates with:&lt;/p>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dnf up-min
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="specific-for-amy-oshttpsgithubcomastrovmamyos">Specific for &lt;a href="https://github.com/astrovm/amyos">Amy OS&lt;/a>&lt;/h1>
-&lt;p>&lt;strong>Speedy encryption on NVMe Devices&lt;/strong>&lt;/p>
+&lt;h1 id="linux-stuff">Linux stuff&lt;/h1>
+&lt;h2 id="speedy-encryption-on-nvme-devices">Speedy encryption on NVMe Devices&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo nvim /etc/crypttab
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>Add these flags:&lt;/li>
@@ -142,8 +118,7 @@ OS: Amy OS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x G
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dmsetup table
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="for-all-distros">For all distros&lt;/h1>
-&lt;h2 id="steam-tweaks">Steam tweaks&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="steam-tweaks">Steam tweaks&lt;/h2>
 &lt;ul>
 &lt;li>Enable Steam Play in Steam settings&lt;/li>
 &lt;li>Set launch options (per game) to:&lt;/li>
@@ -180,17 +155,7 @@ OS: Amy OS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x G
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git config --global user.signingkey CC39C6D77BDF0053
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global commit.gpgsign true
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="bravechromium-extensions">Brave/Chromium extensions&lt;/h1>
-&lt;ul>
-&lt;li>&lt;a href="https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm">uBlock Origin&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://chrome.google.com/webstore/detail/clearurls/lckanjgmijmafbedllaakclkaicjfmnk">ClearURLs&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://chrome.google.com/webstore/detail/decentraleyes/ldpochfccmkkmhdbclfhpagapcfdljkj">Decentraleyes&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://chrome.google.com/webstore/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj">Privacy Settings&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone">SponsorBlock&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://chromewebstore.google.com/detail/dearrow-better-titles-and/enamippconapkdmgfgjchkhakpfinmaj">DeArrow&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://chrome.google.com/webstore/detail/rabby/acmacodkjbdgmoleebolmdjonilkdbch">Rabby&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h1 id="gnome-extensions">GNOME extensions&lt;/h1>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="gnome-extensions">GNOME extensions&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/615/appindicator-support/">AppIndicator and KStatusNotifierItem Support&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/517/caffeine/">Caffeine&lt;/a>&lt;/li>
@@ -204,8 +169,7 @@ OS: Amy OS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x G
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/4679/burn-my-windows/">Burn My Windows&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/4648/desktop-cube/">Desktop Cube&lt;/a>&lt;/li>
 &lt;/ul>
-&lt;h1 id="networkmanager-randomize">NetworkManager randomize&lt;/h1>
-&lt;p>(Amy OS default config)&lt;/p>
+&lt;h2 id="networkmanager-randomize">NetworkManager randomize&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo nvim /etc/NetworkManager/conf.d/99-randomize-mac-address.conf
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>device-mac-randomization&lt;span style="color:#f92672">]&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wifi.scan-rand-mac-address&lt;span style="color:#f92672">=&lt;/span>yes
@@ -214,7 +178,16 @@ OS: Amy OS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x G
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ethernet.cloned-mac-address&lt;span style="color:#f92672">=&lt;/span>random
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wifi.cloned-mac-address&lt;span style="color:#f92672">=&lt;/span>random
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo systemctl restart NetworkManager
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div></content></item><item><title>contact</title><link>https://4st.li/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://4st.li/contact/</guid><description> email: ~@4st.li
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="bravechromium-extensions">Brave/Chromium extensions&lt;/h1>
+&lt;ul>
+&lt;li>&lt;a href="https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm">uBlock Origin&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://chrome.google.com/webstore/detail/clearurls/lckanjgmijmafbedllaakclkaicjfmnk">ClearURLs&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://chrome.google.com/webstore/detail/decentraleyes/ldpochfccmkkmhdbclfhpagapcfdljkj">Decentraleyes&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://chrome.google.com/webstore/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj">Privacy Settings&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone">SponsorBlock&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://chromewebstore.google.com/detail/dearrow-better-titles-and/enamippconapkdmgfgjchkhakpfinmaj">DeArrow&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://chrome.google.com/webstore/detail/rabby/acmacodkjbdgmoleebolmdjonilkdbch">Rabby&lt;/a>&lt;/li>
+&lt;/ul></content></item><item><title>contact</title><link>https://4st.li/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://4st.li/contact/</guid><description> email: ~@4st.li
 signal: astro.99
 telegram: @astrolince
 pgp key: CC39 C6D7 7BDF 0053
