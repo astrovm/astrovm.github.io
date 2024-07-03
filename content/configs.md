@@ -70,6 +70,12 @@ sudo nala install audacity calibre easyeffects flatpak gdebi gimp gnome-boxes gn
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ```
 
+- Install Flatpaks:
+
+```bash
+flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.stremio.Stremio com.usebottles.bottles net.pcsx2.PCSX2 org.atheme.audacious org.duckstation.DuckStation org.kde.kdenlive org.signal.Signal org.telegram.desktop
+```
+
 ## Speedy encryption on NVMe Devices
 
 ```bash
