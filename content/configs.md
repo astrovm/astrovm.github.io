@@ -78,7 +78,7 @@ gamemoderun %command%
 - Launch options:
 
 ```bash
-gamemoderun %command% -vulkan -novid -fullscreen
+-vulkan -novid -fullscreen
 ```
 
 ## Sonic Adventure
@@ -87,10 +87,12 @@ https://gamebanana.com/tuts/16934
 
 ## GTA IV
 
+https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix
+
 - Launch options:
 
 ```bash
-WINEDLLOVERRIDES="dinput8=n,b" gamemoderun %command%
+WINEDLLOVERRIDES="dinput8=n,b" %command%
 ```
 
 ## Git
