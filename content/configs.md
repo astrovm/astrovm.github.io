@@ -44,6 +44,32 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 # Linux stuff
 
+## Ubuntu 24.04
+
+- Remove App Center:
+
+```bash
+sudo snap remove --purge snap-store
+```
+
+- Install Nala:
+
+```bash
+sudo apt install nala
+```
+
+- Install apps:
+
+```bash
+sudo nala install flatpak gnome-software gnome-software-plugin-flatpak gdebi synaptic tree
+```
+
+- Enable Flathub:
+
+```bash
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+```
+
 ## Speedy encryption on NVMe Devices
 
 ```bash
