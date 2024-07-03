@@ -61,7 +61,7 @@ sudo apt install nala
 - Install apps:
 
 ```bash
-sudo nala install audacity easyeffects flatpak gdebi gimp gnome-browser-connector gnome-mines gnome-shell-extensions gnome-software gnome-software-plugin-flatpak gnome-tweaks gparted libreoffice lutris mpv neovim protontricks qbittorrent synaptic tree virt-manager vlc
+sudo nala install audacity calibre easyeffects flatpak gdebi gimp gnome-boxes gnome-browser-connector gnome-mines gnome-shell-extensions gnome-software gnome-software-plugin-flatpak gnome-tweaks gnome-weather gparted libreoffice lutris mpv neovim obs-studio protontricks qbittorrent scummvm synaptic tree virt-manager vlc zsh
 ```
 
 - Enable Flathub:
