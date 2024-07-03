@@ -44,7 +44,7 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 # Linux stuff
 
-## Ubuntu 24.04
+## Ubuntu 24.04 LTS
 
 - Remove App Center:
 
@@ -61,7 +61,7 @@ sudo apt install nala
 - Install apps:
 
 ```bash
-sudo nala install audacity calibre easyeffects flatpak gdebi gimp gnome-boxes gnome-browser-connector gnome-mines gnome-shell-extensions gnome-software gnome-software-plugin-flatpak gnome-tweaks gnome-weather gparted libreoffice lutris mpv neovim obs-studio protontricks qbittorrent scummvm synaptic tree virt-manager vlc zsh
+sudo nala install 7zip 7zip-rar 7zip-standalone audacity calibre easyeffects file-roller flatpak gdebi gimp gnome-boxes gnome-browser-connector gnome-calendar gnome-mines gnome-shell-extension-prefs gnome-shell-extensions gnome-shell-ubuntu-extensions gnome-snapshot gnome-software gnome-software-plugin-flatpak gnome-tweaks gnome-weather gparted libreoffice lutris mpv neovim obs-studio protontricks qbittorrent remmina remmina-plugin-rdp remmina-plugin-spice scummvm simple-scan synaptic tree ubuntu-desktop-minimal unzip usb-creator-gtk virt-manager vlc zsh
 ```
 
 - Enable Flathub:
