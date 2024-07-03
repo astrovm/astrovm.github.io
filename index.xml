@@ -121,7 +121,7 @@ OS: Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>Install apps:&lt;/li>
 &lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo nala install flatpak gnome-software gnome-software-plugin-flatpak gdebi synaptic tree chrome-gnome-shell gnome-tweaks easyeffects gparted neovim libreoffice mpv vlc gimp qbittorrent protontricks
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo nala install audacity chrome-gnome-shell easyeffects flatpak gdebi gimp gnome-mines gnome-software gnome-software-plugin-flatpak gnome-tweaks gparted libreoffice lutris mpv neovim protontricks qbittorrent synaptic tree virt-manager vlc
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>Enable Flathub:&lt;/li>
 &lt;/ul>
