@@ -61,7 +61,7 @@ sudo apt install nala
 - Install apps:
 
 ```bash
-sudo nala install 7zip 7zip-rar 7zip-standalone audacity calibre easyeffects file-roller flatpak gdebi gimp gnome-boxes gnome-browser-connector gnome-calendar gnome-mines gnome-shell-extension-prefs gnome-shell-extensions gnome-shell-ubuntu-extensions gnome-snapshot gnome-software gnome-software-plugin-flatpak gnome-tweaks gnome-weather gparted libreoffice lutris mpv neovim obs-studio protontricks qbittorrent remmina remmina-plugin-rdp remmina-plugin-spice scummvm simple-scan synaptic tree ubuntu-desktop-minimal unzip usb-creator-gtk virt-manager vlc zsh
+sudo nala install 7zip 7zip-rar 7zip-standalone alacritty audacity calibre easyeffects file-roller flatpak gdebi gimp gnome-boxes gnome-browser-connector gnome-calendar gnome-disk-utility gnome-mines gnome-shell-extension-prefs gnome-shell-extensions gnome-shell-ubuntu-extensions gnome-snapshot gnome-software gnome-software-plugin-flatpak gnome-tweaks gnome-weather gparted libreoffice lutris mpv neovim obs-studio protontricks qbittorrent remmina remmina-plugin-rdp remmina-plugin-spice scummvm simple-scan synaptic tor torbrowser-launcher torsocks tree ubuntu-desktop-minimal unzip usb-creator-gtk virt-manager vlc zsh
 ```
 
 - Enable Flathub:
