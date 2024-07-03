@@ -61,7 +61,7 @@ sudo apt install nala
 - Install apps:
 
 ```bash
-sudo nala install flatpak gnome-software gnome-software-plugin-flatpak gdebi synaptic tree
+sudo nala install flatpak gnome-software gnome-software-plugin-flatpak gdebi synaptic tree chrome-gnome-shell gnome-tweaks easyeffects gparted neovim libreoffice mpv vlc gimp qbittorrent protontricks
 ```
 
 - Enable Flathub:
