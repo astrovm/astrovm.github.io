@@ -61,7 +61,7 @@ sudo apt install nala
 - Install apps:
 
 ```bash
-sudo nala install 7zip 7zip-rar 7zip-standalone android-sdk-platform-tools alacritty aria2 audacity bridge-utils calibre curl easyeffects file-roller flatpak gdebi gimp git gnome-boxes gnome-browser-connector gnome-calendar gnome-disk-utility gnome-mines gnome-shell-extension-manager corectrl gnome-shell-ubuntu-extensions gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libimage-exiftool-perl libreoffice lm-sensors lutris mpv neofetch neovim net-tools obs-studio protontricks qbittorrent scummvm shotwell simple-scan stacer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-desktop-minimal ubuntu-restricted-extras unzip usb-creator-gtk util-linux virt-manager vlc wget zsh
+sudo nala install 7zip 7zip-rar 7zip-standalone alacritty android-sdk-platform-tools aria2 audacity bridge-utils calibre corectrl curl easyeffects file-roller flatpak gdebi gimp git gnome-boxes gnome-browser-connector gnome-calendar gnome-disk-utility gnome-mines gnome-shell-extension-manager gnome-shell-ubuntu-extensions gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libimage-exiftool-perl libreoffice lm-sensors lutris mpv neofetch neovim net-tools obs-studio protontricks qbittorrent scummvm shotwell simple-scan stacer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-desktop-minimal ubuntu-restricted-extras unzip usb-creator-gtk util-linux virt-manager vlc wget zsh
 ```
 
 - Enable Flathub:
