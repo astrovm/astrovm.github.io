@@ -46,16 +46,24 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 ## Ubuntu 24.04 LTS
 
-- Remove App Center:
+- Remove Snaps:
 
 ```bash
+snap list
 sudo snap remove --purge snap-store
+sudo snap remove --purge *enter every package*
 ```
 
 - Install Nala:
 
 ```bash
 sudo apt install nala
+```
+
+- Remove snapd:
+
+```bash
+sudo nala purge snapd
 ```
 
 - Install apps:
