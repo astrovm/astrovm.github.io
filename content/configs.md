@@ -81,7 +81,7 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 - Install Flatpaks:
 
 ```bash
-flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.stremio.Stremio com.usebottles.bottles net.pcsx2.PCSX2 org.atheme.audacious org.duckstation.DuckStation org.kde.kdenlive org.signal.Signal org.telegram.desktop org.gimp.GIMP com.calibre_ebook.calibre
+flatpak install flathub com.calibre_ebook.calibre com.github.k4zmu2a.spacecadetpinball com.stremio.Stremio com.usebottles.bottles net.pcsx2.PCSX2 org.atheme.audacious org.audacityteam.Audacity org.duckstation.DuckStation org.gimp.GIMP org.kde.kdenlive org.signal.Signal org.telegram.desktop
 ```
 
 ## Speedy encryption on NVMe Devices
