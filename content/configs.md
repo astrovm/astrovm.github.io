@@ -63,7 +63,7 @@ sudo apt install nala
 - Install apps:
 
 ```bash
-sudo nala install 7zip 7zip-rar 7zip-standalone alacritty android-sdk-platform-tools aria2 corectrl curl dconf-editor easyeffects file-roller flatpak gdebi git gnome-boxes gnome-browser-connector gnome-calendar gnome-disk-utility gnome-mines gnome-shell-extension-manager gnome-shell-ubuntu-extensions gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libreoffice lm-sensors lutris mpv nemo neofetch neovim net-tools protontricks qbittorrent shotwell simple-scan stacer steam-installer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-restricted-extras unzip util-linux virt-manager vlc wget zsh
+sudo nala install 7zip 7zip-rar 7zip-standalone alacritty android-sdk-platform-tools aria2 corectrl curl dconf-editor deborphan easyeffects file-roller flatpak gdebi git gnome-boxes gnome-browser-connector gnome-calendar gnome-disk-utility gnome-mines gnome-multi-writer gnome-shell-extension-manager gnome-shell-ubuntu-extensions gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libreoffice lm-sensors lutris mintstick mpv nemo neofetch neovim net-tools protontricks python3-unidecode qbittorrent shotwell simple-scan stacer steam-installer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-restricted-extras unzip util-linux virt-manager vlc wget zsh
 ```
 
 - Enable Flathub:
