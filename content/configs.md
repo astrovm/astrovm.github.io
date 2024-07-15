@@ -7,7 +7,7 @@ hideComments = true
 
 I'll try to keep this as simple as possible to increase maintainability and troubleshooting, and minimize unexpected behavior.
 
-Also, if I can keep something in the user space using Flatpaks without affecting usability, I'll prefer that to reduce system clutter and increase security.
+Also, if I can keep something in the user space using Flatpaks without affecting usability and security, I'll prefer that to reduce system clutter and have newer versions.
 
 # Devices
 
@@ -72,7 +72,7 @@ sudo nala install 7zip 7zip-rar 7zip-standalone alacritty android-sdk-platform-t
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ```
 
-- Install Flatpaks:
+## Flatpaks
 
 ```bash
 flatpak install flathub com.calibre_ebook.calibre com.github.k4zmu2a.spacecadetpinball com.heroicgameslauncher.hgl com.obsproject.Studio com.stremio.Stremio com.usebottles.bottles net.davidotek.pupgui2 net.pcsx2.PCSX2 org.atheme.audacious org.audacityteam.Audacity org.duckstation.DuckStation org.gimp.GIMP org.kde.kdenlive org.scummvm.ScummVM org.signal.Signal org.telegram.desktop
@@ -95,6 +95,10 @@ sudo dmsetup table
 
 sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
 ```
+
+## Liquorix Kernel
+
+https://liquorix.net/
 
 ## Steam tweaks
 
@@ -153,17 +157,18 @@ git config --global commit.gpgsign true
 
 ## GNOME extensions
 
-- [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
 - [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
 - [Clipboard Indicator](https://extensions.gnome.org/extension/779/Clipboard-indicator/)
-- [Dash to Dock](https://extensions.gnome.org/extension/307/Dash-to-Dock/)
 - [GSConnect](https://extensions.gnome.org/extension/1319/GSConnect/)
-- [Lock Keys](https://extensions.gnome.org/extension/36/Lock-Keys/)
 - [Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
-- [Removable Drive Menu](https://extensions.gnome.org/extension/7/Removable-Drive-Menu/)
 - [Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
 - [Burn My Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/)
 - [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
+
+Non Ubuntu:
+
+- [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
+- [Dash to Dock](https://extensions.gnome.org/extension/307/Dash-to-Dock/)
 
 ## NetworkManager randomize
 
