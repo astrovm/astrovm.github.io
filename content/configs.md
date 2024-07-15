@@ -93,13 +93,13 @@ sudo nvim /etc/crypttab
 - Add these flags:
 
 ```vim
-no-read-workqueue,no-write-workqueue
+discard,no-read-workqueue,no-write-workqueue
 ```
 
 ```bash
 sudo dmsetup table
 
-sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
+sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
 ```
 
 ## Steam tweaks
