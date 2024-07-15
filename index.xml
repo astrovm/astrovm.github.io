@@ -73,11 +73,11 @@ Soy bastante pesimista con las recomendaciones en general porque no existen como
 &lt;li>&lt;a href="https://store.steampowered.com/app/340/HalfLife_2_Lost_Coast/">Half-Life 2: Lost Coast&lt;/a> (it&amp;rsquo;s just a short tech demo, and it feels like an out-of-context dream you had)&lt;/li>
 &lt;/ul>
 &lt;p>You should also play &lt;a href="https://store.steampowered.com/app/400/Portal/">Portal&lt;/a> and &lt;a href="https://store.steampowered.com/app/620/Portal_2/">Portal 2&lt;/a> as they take place in the same universe, but they are different games and cool in their own way.&lt;/p></content></item><item><title>configs</title><link>https://4st.li/configs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://4st.li/configs/</guid><description>General guidelines and philosophy I&amp;rsquo;ll try to keep this as simple as possible to increase maintainability and troubleshooting, and minimize unexpected behavior.
-Also, if I can keep something in the user space using Flatpaks without affecting usability, I&amp;rsquo;ll prefer that to reduce system clutter and increase security.
+Also, if I can keep something in the user space using Flatpaks without affecting usability and security, I&amp;rsquo;ll prefer that to reduce system clutter and have newer versions.
 Devices PC Master Race
 OS: Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz) NVMe: 1 TB (2 x Adata XPG Spectrix S40G 512 GB) Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi) Mouse: Logitech G305 Keyboard: HyperX Alloy Origins Core (with Razer Pink PBT keycaps) Headphones: Audio-Technica ATH-M50x (with a FiiO BTA10) and Sony Inzone H9 Raspberry Pi 4 Model B</description><content>&lt;h1 id="general-guidelines-and-philosophy">General guidelines and philosophy&lt;/h1>
 &lt;p>I&amp;rsquo;ll try to keep this as simple as possible to increase maintainability and troubleshooting, and minimize unexpected behavior.&lt;/p>
-&lt;p>Also, if I can keep something in the user space using Flatpaks without affecting usability, I&amp;rsquo;ll prefer that to reduce system clutter and increase security.&lt;/p>
+&lt;p>Also, if I can keep something in the user space using Flatpaks without affecting usability and security, I&amp;rsquo;ll prefer that to reduce system clutter and have newer versions.&lt;/p>
 &lt;h1 id="devices">Devices&lt;/h1>
 &lt;p>&lt;strong>PC Master Race&lt;/strong>&lt;/p>
 &lt;ul>
@@ -128,9 +128,7 @@ OS: Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32
 &lt;li>Enable Flathub:&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
-&lt;li>Install Flatpaks:&lt;/li>
-&lt;/ul>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flatpaks">Flatpaks&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>flatpak install flathub com.calibre_ebook.calibre com.github.k4zmu2a.spacecadetpinball com.heroicgameslauncher.hgl com.obsproject.Studio com.stremio.Stremio com.usebottles.bottles net.davidotek.pupgui2 net.pcsx2.PCSX2 org.atheme.audacious org.audacityteam.Audacity org.duckstation.DuckStation org.gimp.GIMP org.kde.kdenlive org.scummvm.ScummVM org.signal.Signal org.telegram.desktop
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="speedy-encryption-on-nvme-devices">Speedy encryption on NVMe Devices&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo nvim /etc/crypttab
@@ -141,7 +139,9 @@ OS: Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dmsetup table
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="steam-tweaks">Steam tweaks&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="liquorix-kernel">Liquorix Kernel&lt;/h2>
+&lt;p>&lt;a href="https://liquorix.net/">https://liquorix.net/&lt;/a>&lt;/p>
+&lt;h2 id="steam-tweaks">Steam tweaks&lt;/h2>
 &lt;ul>
 &lt;li>Enable Steam Play in Steam settings&lt;/li>
 &lt;li>Set launch options (per game) to:&lt;/li>
@@ -181,17 +181,18 @@ OS: Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global commit.gpgsign true
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="gnome-extensions">GNOME extensions&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/615/appindicator-support/">AppIndicator and KStatusNotifierItem Support&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/517/caffeine/">Caffeine&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/779/Clipboard-indicator/">Clipboard Indicator&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/307/Dash-to-Dock/">Dash to Dock&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/1319/GSConnect/">GSConnect&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/36/Lock-Keys/">Lock Keys&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/8/Places-Status-Indicator/">Places Status Indicator&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/7/Removable-Drive-Menu/">Removable Drive Menu&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/5489/Search-Light/">Search Light&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/4679/burn-my-windows/">Burn My Windows&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/4648/desktop-cube/">Desktop Cube&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Non Ubuntu:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/615/appindicator-support/">AppIndicator and KStatusNotifierItem Support&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/307/Dash-to-Dock/">Dash to Dock&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;h2 id="networkmanager-randomize">NetworkManager randomize&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo nvim /etc/NetworkManager/conf.d/99-randomize-mac-address.conf
