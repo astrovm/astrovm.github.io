@@ -95,6 +95,9 @@ sudo dmsetup table
 
 sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
 ```
+## XanMod Kernel
+
+https://xanmod.org/
 
 ## Liquorix Kernel
 
