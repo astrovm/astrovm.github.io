@@ -156,13 +156,18 @@ git config --global commit.gpgsign true
 
 ## GNOME extensions
 
+- [Alphabetical App Grid](https://extensions.gnome.org/extension/4269/alphabetical-app-grid/)
+- [Burn My Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/)
 - [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
 - [Clipboard Indicator](https://extensions.gnome.org/extension/779/Clipboard-indicator/)
+- [Compiz alike magic lamp effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/)
+- [Compiz windows effect](https://extensions.gnome.org/extension/3210/compiz-windows-effect/)
+- [Control monitor brightness and volume with ddcutil](https://extensions.gnome.org/extension/6325/control-monitor-brightness-and-volume-with-ddcutil/)
+- [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
 - [GSConnect](https://extensions.gnome.org/extension/1319/GSConnect/)
+- [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
 - [Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
 - [Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
-- [Burn My Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/)
-- [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
 
 Non Ubuntu:
 
