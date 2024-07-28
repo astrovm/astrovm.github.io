@@ -217,6 +217,10 @@ OS: CachyOS GNOME and Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>ethernet.cloned-mac-address&lt;span style="color:#f92672">=&lt;/span>random
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wifi.cloned-mac-address&lt;span style="color:#f92672">=&lt;/span>random
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo systemctl restart NetworkManager
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="bluetooth-restart">Bluetooth restart&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo rfkill unblock all
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo rmmod btusb
+&lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo modprobe btusb
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="bravechromium-extensions">Brave/Chromium extensions&lt;/h1>
 &lt;ul>
 &lt;li>&lt;a href="https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm">uBlock Origin&lt;/a>&lt;/li>
