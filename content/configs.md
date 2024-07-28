@@ -46,8 +46,10 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 ## CachyOS GNOME
 
+- Install apps:
+
 ```bash
-sudo pacman -Syu --needed android-tools aria2 btop curl ddcutil distrobox easyeffects gparted vlc mpv nmap tmux tree virt-manager wget yt-dlp
+sudo pacman -Syu --needed android-tools aria2 btop curl ddcutil distrobox easyeffects gnome-shell-extension-pop-shell-git gparted mpv nmap telegram-desktop tmux tree virt-manager vlc wget yt-dlp
 ```
 
 ## Ubuntu 24.04 LTS
