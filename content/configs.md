@@ -202,6 +202,14 @@ wifi.cloned-mac-address=random
 sudo systemctl restart NetworkManager
 ```
 
+## Bluetooth restart
+
+```bash
+sudo rfkill unblock all
+sudo rmmod btusb
+sudo modprobe btusb
+```
+
 # Brave/Chromium extensions
 
 - [uBlock Origin](https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm)
