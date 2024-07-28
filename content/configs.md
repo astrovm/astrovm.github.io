@@ -137,6 +137,12 @@ Non Ubuntu:
 gamemoderun %command%
 ```
 
+or in CachyOS:
+
+```bash
+game-performance %command%
+```
+
 - Try [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonUp-Qt
 
 ## CS2
