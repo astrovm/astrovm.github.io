@@ -49,7 +49,7 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools aria2 btop curl ddcutil distrobox easyeffects gnome-shell-extension-pop-shell-git gparted mpv nmap telegram-desktop tmux tree virt-manager vlc wget yt-dlp
+sudo pacman -Syu --needed android-tools aria2 btop calibre curl ddcutil distrobox easyeffects gimp gnome-shell-extension-pop-shell-git gparted mpv nmap obs-studio signal-desktop stremio telegram-desktop tmux tree virt-manager vlc wget yt-dlp
 ```
 
 ## Ubuntu 24.04 LTS
