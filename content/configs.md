@@ -44,6 +44,12 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 # Linux stuff
 
+## CachyOS GNOME
+
+```bash
+sudo pacman -Syu --needed android-tools aria2 btop curl ddcutil distrobox easyeffects gparted vlc mpv nmap tmux tree virt-manager wget yt-dlp
+```
+
 ## Ubuntu 24.04 LTS
 
 - Remove Snaps:
@@ -72,11 +78,15 @@ sudo nala install 7zip 7zip-rar 7zip-standalone alacritty android-sdk-platform-t
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ```
 
-## Flatpaks
+- Install Flatpaks:
 
 ```bash
 flatpak install flathub com.calibre_ebook.calibre com.github.k4zmu2a.spacecadetpinball com.heroicgameslauncher.hgl com.obsproject.Studio com.stremio.Stremio com.usebottles.bottles net.davidotek.pupgui2 net.pcsx2.PCSX2 org.atheme.audacious org.audacityteam.Audacity org.duckstation.DuckStation org.gimp.GIMP org.kde.kdenlive org.scummvm.ScummVM org.signal.Signal org.telegram.desktop
 ```
+
+- XanMod Kernel:
+
+https://xanmod.org/
 
 ## Speedy encryption on NVMe Devices
 
@@ -95,9 +105,26 @@ sudo dmsetup table
 
 sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
 ```
-## XanMod Kernel
 
-https://xanmod.org/
+## GNOME extensions
+
+- [Alphabetical App Grid](https://extensions.gnome.org/extension/4269/alphabetical-app-grid/)
+- [Burn My Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/)
+- [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
+- [Clipboard Indicator](https://extensions.gnome.org/extension/779/Clipboard-indicator/)
+- [Compiz alike magic lamp effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/)
+- [Compiz windows effect](https://extensions.gnome.org/extension/3210/compiz-windows-effect/)
+- [Control monitor brightness and volume with ddcutil](https://extensions.gnome.org/extension/6325/control-monitor-brightness-and-volume-with-ddcutil/)
+- [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
+- [GSConnect](https://extensions.gnome.org/extension/1319/GSConnect/)
+- [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
+- [Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
+- [Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
+
+Non Ubuntu:
+
+- [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
+- [Dash to Dock](https://extensions.gnome.org/extension/307/Dash-to-Dock/)
 
 ## Steam tweaks
 
@@ -153,26 +180,6 @@ git config --global user.signingkey CC39C6D77BDF0053
 
 git config --global commit.gpgsign true
 ```
-
-## GNOME extensions
-
-- [Alphabetical App Grid](https://extensions.gnome.org/extension/4269/alphabetical-app-grid/)
-- [Burn My Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/)
-- [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
-- [Clipboard Indicator](https://extensions.gnome.org/extension/779/Clipboard-indicator/)
-- [Compiz alike magic lamp effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/)
-- [Compiz windows effect](https://extensions.gnome.org/extension/3210/compiz-windows-effect/)
-- [Control monitor brightness and volume with ddcutil](https://extensions.gnome.org/extension/6325/control-monitor-brightness-and-volume-with-ddcutil/)
-- [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
-- [GSConnect](https://extensions.gnome.org/extension/1319/GSConnect/)
-- [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
-- [Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
-- [Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
-
-Non Ubuntu:
-
-- [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
-- [Dash to Dock](https://extensions.gnome.org/extension/307/Dash-to-Dock/)
 
 ## NetworkManager randomize
 
