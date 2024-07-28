@@ -109,7 +109,9 @@ OS: CachyOS GNOME and Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 
 &lt;li>Customize fans speed to maximize silence&lt;/li>
 &lt;/ul>
 &lt;h1 id="linux-stuff">Linux stuff&lt;/h1>
-&lt;h2 id="ubuntu-2404-lts">Ubuntu 24.04 LTS&lt;/h2>
+&lt;h2 id="cachyos-gnome">CachyOS GNOME&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo pacman -Syu --needed android-tools aria2 btop curl ddcutil distrobox easyeffects gparted vlc mpv nmap tmux tree virt-manager wget yt-dlp
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ubuntu-2404-lts">Ubuntu 24.04 LTS&lt;/h2>
 &lt;ul>
 &lt;li>Remove Snaps:&lt;/li>
 &lt;/ul>
@@ -128,9 +130,15 @@ OS: CachyOS GNOME and Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 
 &lt;li>Enable Flathub:&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="flatpaks">Flatpaks&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>Install Flatpaks:&lt;/li>
+&lt;/ul>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>flatpak install flathub com.calibre_ebook.calibre com.github.k4zmu2a.spacecadetpinball com.heroicgameslauncher.hgl com.obsproject.Studio com.stremio.Stremio com.usebottles.bottles net.davidotek.pupgui2 net.pcsx2.PCSX2 org.atheme.audacious org.audacityteam.Audacity org.duckstation.DuckStation org.gimp.GIMP org.kde.kdenlive org.scummvm.ScummVM org.signal.Signal org.telegram.desktop
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="speedy-encryption-on-nvme-devices">Speedy encryption on NVMe Devices&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
+&lt;li>XanMod Kernel:&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://xanmod.org/">https://xanmod.org/&lt;/a>&lt;/p>
+&lt;h2 id="speedy-encryption-on-nvme-devices">Speedy encryption on NVMe Devices&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo nvim /etc/crypttab
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>Add these flags:&lt;/li>
@@ -139,8 +147,26 @@ OS: CachyOS GNOME and Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dmsetup table
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="xanmod-kernel">XanMod Kernel&lt;/h2>
-&lt;p>&lt;a href="https://xanmod.org/">https://xanmod.org/&lt;/a>&lt;/p>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="gnome-extensions">GNOME extensions&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/4269/alphabetical-app-grid/">Alphabetical App Grid&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/4679/burn-my-windows/">Burn My Windows&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/517/caffeine/">Caffeine&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/779/Clipboard-indicator/">Clipboard Indicator&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/">Compiz alike magic lamp effect&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/3210/compiz-windows-effect/">Compiz windows effect&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/6325/control-monitor-brightness-and-volume-with-ddcutil/">Control monitor brightness and volume with ddcutil&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/4648/desktop-cube/">Desktop Cube&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/1319/GSConnect/">GSConnect&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/3843/just-perfection/">Just Perfection&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/8/Places-Status-Indicator/">Places Status Indicator&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/5489/Search-Light/">Search Light&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>Non Ubuntu:&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/615/appindicator-support/">AppIndicator and KStatusNotifierItem Support&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://extensions.gnome.org/extension/307/Dash-to-Dock/">Dash to Dock&lt;/a>&lt;/li>
+&lt;/ul>
 &lt;h2 id="steam-tweaks">Steam tweaks&lt;/h2>
 &lt;ul>
 &lt;li>Enable Steam Play in Steam settings&lt;/li>
@@ -179,27 +205,7 @@ OS: CachyOS GNOME and Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>git config --global user.signingkey CC39C6D77BDF0053
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>git config --global commit.gpgsign true
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="gnome-extensions">GNOME extensions&lt;/h2>
-&lt;ul>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/4269/alphabetical-app-grid/">Alphabetical App Grid&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/4679/burn-my-windows/">Burn My Windows&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/517/caffeine/">Caffeine&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/779/Clipboard-indicator/">Clipboard Indicator&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/">Compiz alike magic lamp effect&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/3210/compiz-windows-effect/">Compiz windows effect&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/6325/control-monitor-brightness-and-volume-with-ddcutil/">Control monitor brightness and volume with ddcutil&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/4648/desktop-cube/">Desktop Cube&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/1319/GSConnect/">GSConnect&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/3843/just-perfection/">Just Perfection&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/8/Places-Status-Indicator/">Places Status Indicator&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/5489/Search-Light/">Search Light&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;p>Non Ubuntu:&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/615/appindicator-support/">AppIndicator and KStatusNotifierItem Support&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://extensions.gnome.org/extension/307/Dash-to-Dock/">Dash to Dock&lt;/a>&lt;/li>
-&lt;/ul>
-&lt;h2 id="networkmanager-randomize">NetworkManager randomize&lt;/h2>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="networkmanager-randomize">NetworkManager randomize&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo nvim /etc/NetworkManager/conf.d/99-randomize-mac-address.conf
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>&lt;span style="color:#f92672">[&lt;/span>device-mac-randomization&lt;span style="color:#f92672">]&lt;/span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>wifi.scan-rand-mac-address&lt;span style="color:#f92672">=&lt;/span>yes
