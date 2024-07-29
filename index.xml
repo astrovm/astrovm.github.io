@@ -113,7 +113,7 @@ OS: CachyOS GNOME and Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 
 &lt;ul>
 &lt;li>Install apps:&lt;/li>
 &lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo pacman -Syu --needed android-tools aria2 audacious audacity brave-bin btop cachyos-gaming-meta cachyos-gnome-settings cachyos-zsh-config calibre code curl ddcutil distrobox docker easyeffects gimp gnome-boxes gnome-shell-extension-dash-to-dock gnome-shell-extension-desktop-icons-ng gnome-shell-extension-pop-shell-git gparted htop kdenlive libreoffice-fresh mpv neofetch neovim nmap obs-studio popsicle signal-desktop stremio telegram-desktop tmux tree ttf-ubuntu-font-family virt-manager vlc wget yt-dlp
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo pacman -Syu --needed android-tools aria2 audacious audacity brave-bin btop cachyos-gaming-meta cachyos-gnome-settings cachyos-zsh-config calibre code curl ddcutil distrobox docker easyeffects gimp gnome-boxes gnome-shell-extension-dash-to-dock gnome-shell-extension-desktop-icons-ng gnome-shell-extension-pop-shell-git gparted htop kdenlive libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio popsicle signal-desktop stremio telegram-desktop tmux tree ttf-ubuntu-font-family virt-manager vlc wget yt-dlp
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="ubuntu-2404-lts">Ubuntu 24.04 LTS&lt;/h2>
 &lt;ul>
 &lt;li>Remove Snaps:&lt;/li>
