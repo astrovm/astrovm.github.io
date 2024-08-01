@@ -59,7 +59,7 @@ sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleach
 - Install Flatpaks:
 
 ```bash
-flatpak install flathub com.github.k4zmu2a.spacecadetpinball it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation
+flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal io.github.flattool.Warehouse it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation
 ```
 
 ## Ubuntu 24.04 LTS
