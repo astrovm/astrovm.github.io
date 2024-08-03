@@ -158,6 +158,8 @@ OS: CachyOS GNOME and Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dmsetup table
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="gnome-vrr-and-fractional-scaling">GNOME VRR and fractional scaling&lt;/h2>
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>gsettings set org.gnome.mutter experimental-features &lt;span style="color:#e6db74">&amp;#34;[&amp;#39;variable-refresh-rate&amp;#39;,&amp;#39;scale-monitor-framebuffer&amp;#39;]&amp;#34;&lt;/span>
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="gnome-extensions">GNOME extensions&lt;/h2>
 &lt;ul>
 &lt;li>&lt;a href="https://extensions.gnome.org/extension/4269/alphabetical-app-grid/">Alphabetical App Grid&lt;/a>&lt;/li>
