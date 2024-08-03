@@ -13,7 +13,7 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 **PC Master Race**
 
-- OS: [CachyOS GNOME](https://cachyos.org/) and [Ubuntu 24.04 LTS](https://ubuntu.com/desktop)
+- OS: [CachyOS GNOME](https://cachyos.org/)
 - CPU: AMD Ryzen 5 3600
 - GPU: AMD Radeon RX 6800 16 GB
 - RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)
