@@ -87,7 +87,7 @@ sudo nala purge snapd firefox thunderbird
 - Install apps:
 
 ```bash
-sudo nala install 7zip 7zip-rar 7zip-standalone alacritty android-sdk-platform-tools aria2 audacity bleachbit btop build-essential calibre curl dconf-editor ddcutil deborphan distrobox easyeffects file-roller flatpak gdebi gimp git gnome-boxes gnome-browser-connector gnome-calendar gnome-disk-utility gnome-shell-extension-alphabetical-grid gnome-shell-extension-gsconnect gnome-shell-extension-gsconnect-browsers gnome-shell-extension-manager gnome-shell-extensions gnome-shell-ubuntu-extensions gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libreoffice lm-sensors lutris mpv neofetch neovim net-tools protontricks qbittorrent scummvm shotwell simple-scan steam-installer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-desktop ubuntu-restricted-extras unzip util-linux virt-manager vlc wget yt-dlp zsh
+sudo nala install 7zip 7zip-rar 7zip-standalone alacritty android-sdk-platform-tools aria2 audacity bleachbit btop build-essential calibre curl dconf-editor ddcutil deborphan distrobox easyeffects file-roller flatpak gdebi gimp git gnome-boxes gnome-browser-connector gnome-calendar gnome-disk-utility gnome-shell-extension-manager gnome-shell-ubuntu-extensions gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libreoffice lm-sensors lutris mpv neofetch neovim net-tools protontricks qbittorrent scummvm shotwell simple-scan steam-installer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-desktop ubuntu-restricted-extras unzip util-linux virt-manager vlc wget yt-dlp zsh
 ```
 
 - Enable Flathub:
