@@ -117,6 +117,11 @@ sudo dmsetup table
 
 sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
 ```
+## GNOME VRR and fractional scaling
+
+```bash
+gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','scale-monitor-framebuffer']"
+```
 
 ## GNOME extensions
 
