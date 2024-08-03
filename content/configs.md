@@ -103,16 +103,6 @@ https://xanmod.org/
 ## Speedy encryption on NVMe Devices
 
 ```bash
-sudo nvim /etc/crypttab
-```
-
-- Add these flags:
-
-```vim
-discard,no-read-workqueue,no-write-workqueue
-```
-
-```bash
 sudo dmsetup table
 
 sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
