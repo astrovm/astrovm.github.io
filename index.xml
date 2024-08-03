@@ -75,13 +75,13 @@ Soy bastante pesimista con las recomendaciones en general porque no existen como
 &lt;p>You should also play &lt;a href="https://store.steampowered.com/app/400/Portal/">Portal&lt;/a> and &lt;a href="https://store.steampowered.com/app/620/Portal_2/">Portal 2&lt;/a> as they take place in the same universe, but they are different games and cool in their own way.&lt;/p></content></item><item><title>configs</title><link>https://4st.li/configs/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://4st.li/configs/</guid><description>General guidelines and philosophy I&amp;rsquo;ll try to keep this as simple as possible to increase maintainability and troubleshooting, and minimize unexpected behavior.
 Also, if I can keep something in the user space using Flatpaks without affecting usability and security, I&amp;rsquo;ll prefer that to reduce system clutter and have newer versions.
 Devices PC Master Race
-OS: CachyOS GNOME and Ubuntu 24.04 LTS CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz) NVMe: 1 TB (2 x Adata XPG Spectrix S40G 512 GB) Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi) Mouse: Logitech G305 Keyboard: HyperX Alloy Origins Core (with Razer Pink PBT keycaps) Headphones: Audio-Technica ATH-M50x (with a FiiO BTA10) and Sony Inzone H9 Raspberry Pi 4 Model B</description><content>&lt;h1 id="general-guidelines-and-philosophy">General guidelines and philosophy&lt;/h1>
+OS: CachyOS GNOME CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz) NVMe: 1 TB (2 x Adata XPG Spectrix S40G 512 GB) Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi) Mouse: Logitech G305 Keyboard: HyperX Alloy Origins Core (with Razer Pink PBT keycaps) Headphones: Audio-Technica ATH-M50x (with a FiiO BTA10) and Sony Inzone H9 Raspberry Pi 4 Model B</description><content>&lt;h1 id="general-guidelines-and-philosophy">General guidelines and philosophy&lt;/h1>
 &lt;p>I&amp;rsquo;ll try to keep this as simple as possible to increase maintainability and troubleshooting, and minimize unexpected behavior.&lt;/p>
 &lt;p>Also, if I can keep something in the user space using Flatpaks without affecting usability and security, I&amp;rsquo;ll prefer that to reduce system clutter and have newer versions.&lt;/p>
 &lt;h1 id="devices">Devices&lt;/h1>
 &lt;p>&lt;strong>PC Master Race&lt;/strong>&lt;/p>
 &lt;ul>
-&lt;li>OS: &lt;a href="https://cachyos.org/">CachyOS GNOME&lt;/a> and &lt;a href="https://ubuntu.com/desktop">Ubuntu 24.04 LTS&lt;/a>&lt;/li>
+&lt;li>OS: &lt;a href="https://cachyos.org/">CachyOS GNOME&lt;/a>&lt;/li>
 &lt;li>CPU: AMD Ryzen 5 3600&lt;/li>
 &lt;li>GPU: AMD Radeon RX 6800 16 GB&lt;/li>
 &lt;li>RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)&lt;/li>
