@@ -78,6 +78,12 @@ sudo snap remove --purge *enter every package*
 sudo apt install nala
 ```
 
+- Purge Snap:
+
+```bash
+sudo nala purge snapd firefox thunderbird
+```
+
 - Install apps:
 
 ```bash
