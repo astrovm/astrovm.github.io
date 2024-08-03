@@ -53,7 +53,7 @@ https://aur.chaotic.cx/
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-fish-config cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calibre code curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-browser-connector gnome-calendar gnome-shell-extension-appindicator gnome-shell-extension-caffeine gnome-shell-extension-dash-to-dock gnome-shell-extension-desktop-icons-ng gnome-shell-extensions gnome-weather gparted heroic-games-launcher htop libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio octopi pamac-aur polkit-gnome popsicle proton-cachyos proton-ge-custom protontricks protonup-qt ryujinx scummvm shotwell signal-desktop sushi telegram-desktop tmux tree ttf-ubuntu-font-family ttf-ubuntu-mono-nerd ttf-ubuntu-nerd vesktop virt-manager vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
+sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-fish-config cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calibre code curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-browser-connector gnome-calendar gnome-weather gparted heroic-games-launcher htop libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio octopi pamac-aur polkit-gnome popsicle proton-cachyos proton-ge-custom protontricks protonup-qt ryujinx scummvm shotwell signal-desktop sushi telegram-desktop tmux tree ttf-ubuntu-font-family ttf-ubuntu-mono-nerd ttf-ubuntu-nerd vesktop virt-manager vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
 ```
 
 - Install Flatpaks:
@@ -138,6 +138,7 @@ Non Ubuntu:
 
 - [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
 - [Dash to Dock](https://extensions.gnome.org/extension/307/Dash-to-Dock/)
+- [Gtk4 Desktop Icons NG (DING)](https://extensions.gnome.org/extension/5263/gtk4-desktop-icons-ng-ding/)
 
 ## Steam tweaks
 
