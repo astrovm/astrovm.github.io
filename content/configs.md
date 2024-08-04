@@ -53,7 +53,7 @@ https://aur.chaotic.cx/
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-fish-config cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre code curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-browser-connector gnome-calendar gnome-weather gparted heroic-games-launcher htop libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio octopi pamac-aur polkit-gnome popsicle proton-cachyos proton-ge-custom protontricks protonup-qt ryujinx scummvm shotwell signal-desktop sushi telegram-desktop tmux tree ttf-ubuntu-font-family ttf-ubuntu-mono-nerd ttf-ubuntu-nerd vesktop virt-manager vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
+sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-fish-config cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix code curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-browser-connector gnome-calendar gnome-weather gparted heroic-games-launcher htop libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur polkit-gnome popsicle proton-cachyos proton-ge-custom protontricks protonup-qt ryujinx scummvm shotwell signal-desktop sushi telegram-desktop tmux tree ttf-ubuntu-font-family ttf-ubuntu-mono-nerd ttf-ubuntu-nerd vesktop virt-manager vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
 ```
 
 - Install Flatpaks:
