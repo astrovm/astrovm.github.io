@@ -140,6 +140,7 @@ Non Ubuntu:
 - [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
 - [Dash to Dock](https://extensions.gnome.org/extension/307/Dash-to-Dock/)
 - [Gtk4 Desktop Icons NG (DING)](https://extensions.gnome.org/extension/5263/gtk4-desktop-icons-ng-ding/)
+- [Tiling Assistant](https://extensions.gnome.org/extension/3733/tiling-assistant/)
 
 ## Steam tweaks
 
