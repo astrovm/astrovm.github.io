@@ -53,13 +53,13 @@ https://aur.chaotic.cx/
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-fish-config cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix code curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-browser-connector gnome-calendar gnome-weather gparted heroic-games-launcher htop libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur polkit-gnome popsicle proton-cachyos proton-ge-custom protontricks protonup-qt ryujinx scummvm shotwell signal-desktop sushi telegram-desktop tmux tree ttf-ubuntu-font-family ttf-ubuntu-mono-nerd ttf-ubuntu-nerd vesktop virt-manager vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
+sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-fish-config cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix code curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-calendar gnome-weather gparted heroic-games-launcher htop libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur polkit-gnome popsicle proton-cachyos proton-ge-custom protontricks protonup-qt ryujinx scummvm shotwell signal-desktop sushi telegram-desktop tmux tree ttf-ubuntu-font-family ttf-ubuntu-mono-nerd ttf-ubuntu-nerd vesktop virt-manager vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
 ```
 
 - Install Flatpaks:
 
 ```bash
-flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.stremio.Stremio io.github.flattool.Warehouse it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation org.kde.kdenlive
+flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.mattjakeman.ExtensionManager com.stremio.Stremio io.github.flattool.Warehouse it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation org.kde.kdenlive
 ```
 
 ## Ubuntu 24.04 LTS
@@ -87,7 +87,7 @@ sudo nala purge snapd firefox thunderbird
 - Install apps:
 
 ```bash
-sudo nala install 7zip 7zip-rar 7zip-standalone alacritty android-sdk-platform-tools aria2 audacity bleachbit btop build-essential calibre curl dconf-editor ddcutil deborphan distrobox easyeffects file-roller flatpak gdebi gimp git gnome-boxes gnome-browser-connector gnome-calendar gnome-disk-utility gnome-shell-extension-manager gnome-shell-ubuntu-extensions gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libreoffice lm-sensors lutris mpv neofetch neovim net-tools protontricks qbittorrent scummvm shotwell simple-scan steam-installer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-desktop ubuntu-restricted-extras unzip util-linux virt-manager vlc wget yt-dlp
+sudo nala install 7zip 7zip-rar 7zip-standalone alacritty android-sdk-platform-tools aria2 audacity bleachbit btop build-essential calibre curl dconf-editor ddcutil deborphan distrobox easyeffects file-roller flatpak gdebi gimp git gnome-boxes gnome-calendar gnome-disk-utility gnome-shell-ubuntu-extensions gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libreoffice lm-sensors lutris mpv neofetch neovim net-tools protontricks qbittorrent scummvm shotwell simple-scan steam-installer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-desktop ubuntu-restricted-extras unzip util-linux virt-manager vlc wget yt-dlp
 ```
 
 - Enable Flathub:
@@ -99,7 +99,7 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 - Install Flatpaks:
 
 ```bash
-flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.heroicgameslauncher.hgl com.obsproject.Studio com.stremio.Stremio com.usebottles.bottles net.davidotek.pupgui2 net.pcsx2.PCSX2 org.atheme.audacious org.duckstation.DuckStation org.kde.kdenlive org.signal.Signal org.telegram.desktop
+flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.heroicgameslauncher.hgl com.mattjakeman.ExtensionManager com.obsproject.Studio com.stremio.Stremio com.usebottles.bottles net.davidotek.pupgui2 net.pcsx2.PCSX2 org.atheme.audacious org.duckstation.DuckStation org.kde.kdenlive org.signal.Signal org.telegram.desktop
 ```
 
 - XanMod Kernel:
@@ -133,6 +133,7 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 - [Just Perfection](https://extensions.gnome.org/extension/3843/just-perfection/)
 - [Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
 - [Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
+- [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
 
 Non Ubuntu:
 
