@@ -148,7 +148,7 @@ OS: CachyOS GNOME CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>Install Flatpaks:&lt;/li>
 &lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.heroicgameslauncher.hgl com.mattjakeman.ExtensionManager com.obsproject.Studio com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus io.github.fastrizwaan.WineZGUI io.github.flattool.Warehouse net.davidotek.pupgui2 net.pcsx2.PCSX2 org.atheme.audacious org.duckstation.DuckStation org.kde.kdenlive org.signal.Signal org.telegram.desktop
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.heroicgameslauncher.hgl com.mattjakeman.ExtensionManager com.obsproject.Studio com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus io.github.fastrizwaan.WineZGUI io.github.flattool.Warehouse net.pcsx2.PCSX2 org.atheme.audacious org.duckstation.DuckStation org.kde.kdenlive org.signal.Signal org.telegram.desktop
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>XanMod Kernel:&lt;/li>
 &lt;/ul>
