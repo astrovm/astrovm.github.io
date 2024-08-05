@@ -99,7 +99,7 @@ sudo snap remove --purge *enter every package*
 - Purge Snap:
 
 ```bash
-sudo apt purge --auto-remove snapd firefox thunderbird
+sudo apt autopurge snapd firefox thunderbird
 ```
 
 - Enable Flathub:
