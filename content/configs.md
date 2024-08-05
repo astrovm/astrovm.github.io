@@ -189,7 +189,7 @@ or in CachyOS:
 game-performance %command%
 ```
 
-- Try [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonUp-Qt
+- Try [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonPlus
 
 ## CS2
 
