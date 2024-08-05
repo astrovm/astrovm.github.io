@@ -53,7 +53,7 @@ https://aur.chaotic.cx/
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-fish-config cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix code curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-calendar gnome-multi-writer gnome-weather gparted htop libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur polkit-gnome proton-cachyos proton-ge-custom protontricks scummvm shotwell sushi tmux tree ttf-ubuntu-font-family ttf-ubuntu-mono-nerd ttf-ubuntu-nerd virt-manager vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
+sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-fish-config cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix code curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-calendar gnome-multi-writer gnome-weather gparted gufw htop libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur polkit-gnome proton-cachyos proton-ge-custom protontricks scummvm shotwell sushi tmux tree ttf-ubuntu-font-family ttf-ubuntu-mono-nerd ttf-ubuntu-nerd virt-manager vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
 ```
 
 ## Fedora GNOME
@@ -69,7 +69,7 @@ https://rpmfusion.org/Howto/Multimedia
 - Install apps:
 
 ```bash
-sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects file-roller flatpak fuse fuse-libs gimp gnome-boxes gnome-calendar gnome-multi-writer gnome-tweaks gnome-weather gparted htop libreoffice lutris mpv neofetch neovim net-tools nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks qbittorrent scummvm shotwell simple-scan steam sushi tmux tor torbrowser-launcher torsocks tree util-linux virt-manager vlc wget yaru-theme yt-dlp
+sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects file-roller firewall-config flatpak fuse fuse-libs gimp gnome-boxes gnome-calendar gnome-multi-writer gnome-tweaks gnome-weather gparted htop libreoffice lutris mpv neofetch neovim net-tools nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks qbittorrent scummvm shotwell simple-scan steam sushi tmux tor torbrowser-launcher torsocks tree util-linux virt-manager vlc wget yaru-theme yt-dlp
 ```
 
 - Install Brave:
