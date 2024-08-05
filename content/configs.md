@@ -53,7 +53,7 @@ https://aur.chaotic.cx/
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-fish-config cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix code curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-calendar gnome-weather gparted htop libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur polkit-gnome popsicle proton-cachyos proton-ge-custom protontricks ryujinx scummvm shotwell sushi tmux tree ttf-ubuntu-font-family ttf-ubuntu-mono-nerd ttf-ubuntu-nerd virt-manager vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
+sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-fish-config cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix code curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-calendar gnome-weather gparted htop libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur polkit-gnome proton-cachyos proton-ge-custom protontricks scummvm shotwell sushi tmux tree ttf-ubuntu-font-family ttf-ubuntu-mono-nerd ttf-ubuntu-nerd virt-manager vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
 ```
 
 ## Fedora GNOME
@@ -69,7 +69,7 @@ https://rpmfusion.org/Howto/Multimedia
 - Install apps:
 
 ```bash
-sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects flatpak fuse fuse-libs gimp gnome-boxes gnome-calendar gnome-tweaks gnome-weather gparted htop libreoffice lutris mpv neofetch neovim net-tools nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks scummvm shotwell steam sushi tmux tree virt-manager vlc wget yaru-theme yt-dlp
+sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects flatpak fuse fuse-libs gimp gnome-boxes gnome-calendar gnome-multi-writer gnome-tweaks gnome-weather gparted htop libreoffice lutris mpv neofetch neovim net-tools nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks scummvm shotwell steam sushi tmux tree virt-manager vlc wget yaru-theme yt-dlp
 ```
 
 - Install Brave:
@@ -135,7 +135,7 @@ https://xanmod.org/
 ## Flatpaks
 
 ```bash
-flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.heroicgameslauncher.hgl com.mattjakeman.ExtensionManager com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.fastrizwaan.WineZGUI io.github.flattool.Warehouse it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation org.kde.kdenlive org.signal.Signal org.telegram.desktop
+flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.heroicgameslauncher.hgl com.mattjakeman.ExtensionManager com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.fastrizwaan.WineZGUI io.github.flattool.Warehouse it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation org.fedoraproject.MediaWriter org.kde.kdenlive org.ryujinx.Ryujinx org.signal.Signal org.telegram.desktop
 ```
 
 ## Speedy encryption on NVMe Devices
