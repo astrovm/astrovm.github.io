@@ -144,6 +144,10 @@ OS: CachyOS GNOME CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB
 &lt;/ul>
 &lt;p>&lt;a href="https://brave.com/linux/">https://brave.com/linux/&lt;/a>&lt;/p>
 &lt;ul>
+&lt;li>Ubuntu fonts:&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/">https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/&lt;/a>&lt;/p>
+&lt;ul>
 &lt;li>CachyOS Kernel:&lt;/li>
 &lt;/ul>
 &lt;p>&lt;a href="https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos">https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos&lt;/a>&lt;/p>
