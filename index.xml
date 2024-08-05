@@ -143,6 +143,10 @@ OS: CachyOS GNOME CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB
 &lt;li>Install Brave:&lt;/li>
 &lt;/ul>
 &lt;p>&lt;a href="https://brave.com/linux/">https://brave.com/linux/&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>CachyOS Kernel:&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos">https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos&lt;/a>&lt;/p>
 &lt;h2 id="ubuntu-2404-lts">Ubuntu 24.04 LTS&lt;/h2>
 &lt;ul>
 &lt;li>Install apps:&lt;/li>
