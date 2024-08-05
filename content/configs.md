@@ -64,6 +64,14 @@ flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.F
 
 ## Fedora GNOME
 
+- Add RPM Fusion repo:
+
+https://rpmfusion.org/Configuration
+
+- Config codecs:
+
+https://rpmfusion.org/Howto/Multimedia
+
 - Install apps:
 
 ```bash
