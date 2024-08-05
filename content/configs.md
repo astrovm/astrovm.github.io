@@ -75,7 +75,7 @@ https://rpmfusion.org/Howto/Multimedia
 - Install apps:
 
 ```bash
-sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop lutris openssl steam
+sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects gimp gnome-boxes gparted htop lutris mpv neofetch neovim nmap openssl scummvm shotwell steam sushi timeshift tmux tree virt-manager vlc wget yaru-theme yt-dlp
 ```
 
 - Install Flatpaks:
