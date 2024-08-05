@@ -124,6 +124,14 @@ OS: CachyOS GNOME CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.mattjakeman.ExtensionManager com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus io.github.fastrizwaan.WineZGUI io.github.flattool.Warehouse it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation org.kde.kdenlive
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="fedora-gnome">Fedora GNOME&lt;/h2>
 &lt;ul>
+&lt;li>Add RPM Fusion repo:&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://rpmfusion.org/Configuration">https://rpmfusion.org/Configuration&lt;/a>&lt;/p>
+&lt;ul>
+&lt;li>Config codecs:&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://rpmfusion.org/Howto/Multimedia">https://rpmfusion.org/Howto/Multimedia&lt;/a>&lt;/p>
+&lt;ul>
 &lt;li>Install apps:&lt;/li>
 &lt;/ul>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop openssl
