@@ -70,6 +70,12 @@ flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.F
 sudo dnf install openssl
 ```
 
+- Install Flatpaks:
+
+```bash
+flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.mattjakeman.ExtensionManager com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus io.github.fastrizwaan.WineZGUI io.github.flattool.Warehouse it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation org.kde.kdenlive
+```
+
 - Install Brave:
 
 https://brave.com/linux/
