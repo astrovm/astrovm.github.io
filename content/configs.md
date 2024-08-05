@@ -69,7 +69,7 @@ https://rpmfusion.org/Howto/Multimedia
 - Install apps:
 
 ```bash
-sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects gimp gnome-boxes gnome-tweaks gparted htop lutris mpv neofetch neovim nmap obs-studio obs-studio-plugin-vkcapture openssl scummvm shotwell steam sushi tmux tree virt-manager vlc wget yaru-theme yt-dlp
+sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects gimp gnome-boxes gnome-tweaks gparted htop libreoffice lutris mpv neofetch neovim nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks scummvm shotwell steam sushi tmux tree virt-manager vlc wget yaru-theme yt-dlp
 ```
 
 - Install Brave:
