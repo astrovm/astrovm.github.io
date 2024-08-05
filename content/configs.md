@@ -67,7 +67,7 @@ flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.F
 - Install apps:
 
 ```bash
-sudo dnf install openssl audacious
+sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop openssl
 ```
 
 - Install Flatpaks:
