@@ -62,6 +62,18 @@ sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleach
 flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.mattjakeman.ExtensionManager com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus io.github.fastrizwaan.WineZGUI io.github.flattool.Warehouse it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation org.kde.kdenlive
 ```
 
+## Fedora GNOME
+
+- Install apps:
+
+```bash
+sudo dnf install openssl
+```
+
+- Install Brave:
+
+https://brave.com/linux/
+
 ## Ubuntu 24.04 LTS
 
 - Remove Snaps:
@@ -101,6 +113,10 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 ```bash
 flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.heroicgameslauncher.hgl com.mattjakeman.ExtensionManager com.obsproject.Studio com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus io.github.fastrizwaan.WineZGUI io.github.flattool.Warehouse net.pcsx2.PCSX2 org.atheme.audacious org.duckstation.DuckStation org.kde.kdenlive org.signal.Signal org.telegram.desktop
 ```
+
+- Install Brave:
+
+https://brave.com/linux/
 
 - XanMod Kernel:
 
