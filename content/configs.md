@@ -82,16 +82,10 @@ https://brave.com/linux/
 
 ## Ubuntu 24.04 LTS
 
-- Install Nala:
-
-```bash
-sudo apt install nala
-```
-
 - Install apps:
 
 ```bash
-sudo nala install 7zip 7zip-rar 7zip-standalone alacritty android-sdk-platform-tools aria2 audacity bleachbit btop build-essential calibre curl dconf-editor ddcutil deborphan distrobox easyeffects file-roller flatpak gdebi gimp git gnome-boxes gnome-calendar gnome-disk-utility gnome-shell-ubuntu-extensions gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libreoffice lm-sensors lutris mpv neofetch neovim net-tools protontricks qbittorrent scummvm shotwell simple-scan steam-installer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-desktop ubuntu-restricted-extras unzip util-linux virt-manager vlc wget yt-dlp
+sudo apt install 7zip 7zip-rar 7zip-standalone alacritty android-sdk-platform-tools aria2 audacity bleachbit btop build-essential calibre curl dconf-editor ddcutil deborphan distrobox easyeffects file-roller flatpak gdebi gimp git gnome-boxes gnome-calendar gnome-disk-utility gnome-shell-ubuntu-extensions gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libreoffice lm-sensors lutris mpv neofetch neovim net-tools protontricks qbittorrent scummvm shotwell simple-scan steam-installer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-desktop ubuntu-restricted-extras unzip util-linux virt-manager vlc wget yt-dlp
 ```
 
 - Remove Snaps:
@@ -105,7 +99,7 @@ sudo snap remove --purge *enter every package*
 - Purge Snap:
 
 ```bash
-sudo nala purge snapd firefox thunderbird
+sudo apt purge --auto-remove snapd firefox thunderbird
 ```
 
 - Enable Flathub:
