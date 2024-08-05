@@ -88,6 +88,10 @@ flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.F
 
 https://brave.com/linux/
 
+- Ubuntu fonts:
+
+https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/
+
 - CachyOS Kernel:
 
 https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos
