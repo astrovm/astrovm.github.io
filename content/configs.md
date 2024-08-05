@@ -88,6 +88,10 @@ flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.F
 
 https://brave.com/linux/
 
+- CachyOS Kernel:
+
+https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos
+
 ## Ubuntu 24.04 LTS
 
 - Install apps:
