@@ -128,7 +128,7 @@ https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distribu
 
 https://xanmod.org/
 
-## Flatpaks:
+## Flatpaks
 
 ```bash
 flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.heroicgameslauncher.hgl com.mattjakeman.ExtensionManager com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.fastrizwaan.WineZGUI io.github.flattool.Warehouse it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation org.kde.kdenlive org.signal.Signal org.telegram.desktop
