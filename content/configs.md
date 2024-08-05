@@ -88,6 +88,10 @@ flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.F
 
 https://brave.com/linux/
 
+- Install VSCode:
+
+https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions
+
 - Ubuntu fonts:
 
 https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/
@@ -133,6 +137,10 @@ flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.F
 - Install Brave:
 
 https://brave.com/linux/
+
+- Install VSCode:
+
+https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions
 
 - XanMod Kernel:
 
