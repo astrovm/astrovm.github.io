@@ -111,6 +111,10 @@ OS: CachyOS GNOME CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB
 &lt;h1 id="linux-stuff">Linux stuff&lt;/h1>
 &lt;h2 id="cachyos-gnome">CachyOS GNOME&lt;/h2>
 &lt;ul>
+&lt;li>Add BlackArch repo:&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://www.blackarch.org/downloads.html#install-repo">https://www.blackarch.org/downloads.html#install-repo&lt;/a>&lt;/p>
+&lt;ul>
 &lt;li>Add Chaotic-AUR repo:&lt;/li>
 &lt;/ul>
 &lt;p>&lt;a href="https://aur.chaotic.cx/">https://aur.chaotic.cx/&lt;/a>&lt;/p>
