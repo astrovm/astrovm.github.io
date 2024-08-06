@@ -46,6 +46,10 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 ## CachyOS GNOME
 
+- Add BlackArch repo:
+
+https://www.blackarch.org/downloads.html#install-repo
+
 - Add Chaotic-AUR repo:
 
 https://aur.chaotic.cx/
