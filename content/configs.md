@@ -96,7 +96,7 @@ https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/
 
 https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos
 
-## Ubuntu 24.04 LTS
+## Ubuntu LTS
 
 - Install apps:
 
