@@ -57,7 +57,7 @@ https://aur.chaotic.cx/
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-calendar gnome-multi-writer gnome-weather gparted gufw htop icu69 libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur polkit-gnome proton-cachyos proton-ge-custom protontricks scummvm shotwell sushi tmux tree ttf-ubuntu-font-family virt-manager visual-studio-code-bin vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
+sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix curl dconf-editor ddcutil distrobox docker easyeffects flatpak fuse2 gimp gnome-boxes gnome-calendar gnome-multi-writer gnome-weather gparted gufw htop libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur polkit-gnome proton-cachyos protontricks scummvm shotwell sushi tmux tree ttf-ubuntu-font-family virt-manager visual-studio-code-bin vlc wget yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme yt-dlp
 ```
 
 ## Fedora GNOME
