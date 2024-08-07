@@ -166,6 +166,7 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 - [Control monitor brightness and volume with ddcutil](https://extensions.gnome.org/extension/6325/control-monitor-brightness-and-volume-with-ddcutil/)
 - [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
 - [GSConnect](https://extensions.gnome.org/extension/1319/GSConnect/)
+- [Impatience](https://extensions.gnome.org/extension/277/impatience/)
 - [Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
 - [Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
 - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
