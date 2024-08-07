@@ -170,6 +170,7 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 - [Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
 - [Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
 - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
+- [Window title is back](https://extensions.gnome.org/extension/6310/window-title-is-back/)
 
 Non Ubuntu:
 
