@@ -271,16 +271,13 @@ OS: CachyOS GNOME CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>sudo rfkill unblock all
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo rmmod btusb
 &lt;/span>&lt;/span>&lt;span style="display:flex;">&lt;span>sudo modprobe btusb
-&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="bravechromium-extensions">Brave/Chromium extensions&lt;/h1>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h1 id="brave-extensions">Brave extensions&lt;/h1>
 &lt;ul>
-&lt;li>&lt;a href="https://chromewebstore.google.com/detail/clearurls/lckanjgmijmafbedllaakclkaicjfmnk">ClearURLs&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://chromewebstore.google.com/detail/dearrow-better-titles-and/enamippconapkdmgfgjchkhakpfinmaj">DeArrow&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://chromewebstore.google.com/detail/decentraleyes/ldpochfccmkkmhdbclfhpagapcfdljkj">Decentraleyes&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://chromewebstore.google.com/detail/gsconnect/jfnifeihccihocjbfcfhicmmgpjicaec">GSConnect&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://chromewebstore.google.com/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj">Privacy Settings&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://chromewebstore.google.com/detail/rabby-wallet/acmacodkjbdgmoleebolmdjonilkdbch">Rabby&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone">SponsorBlock&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm">uBlock Origin&lt;/a>&lt;/li>
 &lt;/ul></content></item><item><title>contact</title><link>https://4st.li/contact/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://4st.li/contact/</guid><description> email: ~@4st.li
 signal: astro.99
 telegram: @astrolince
