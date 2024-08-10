@@ -134,10 +134,6 @@ https://brave.com/linux/
 
 https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions
 
-- XanMod Kernel:
-
-https://xanmod.org/
-
 ## Flatpaks
 
 ```bash
