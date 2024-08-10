@@ -182,10 +182,6 @@ OS: CachyOS GNOME CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB
 &lt;li>Install VSCode:&lt;/li>
 &lt;/ul>
 &lt;p>&lt;a href="https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions">https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions&lt;/a>&lt;/p>
-&lt;ul>
-&lt;li>XanMod Kernel:&lt;/li>
-&lt;/ul>
-&lt;p>&lt;a href="https://xanmod.org/">https://xanmod.org/&lt;/a>&lt;/p>
 &lt;h2 id="flatpaks">Flatpaks&lt;/h2>
 &lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.stremio.Stremio com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.fastrizwaan.WineZGUI io.github.flattool.Warehouse it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation org.fedoraproject.MediaWriter org.signal.Signal org.telegram.desktop
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="speedy-encryption-on-nvme-devices">Speedy encryption on NVMe Devices&lt;/h2>
