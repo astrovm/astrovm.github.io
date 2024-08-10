@@ -53,7 +53,7 @@ https://www.blackarch.org/downloads.html#install-repo
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager flatpak fuse2 gimp gnome-calendar gnome-multi-writer gnome-weather gparted gufw htop jre17-openjdk john libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur paru polkit-gnome proton-cachyos protontricks qemu-full scummvm shotcut shotwell sqlmap sushi tmux tree ttf-ubuntu-font-family virt-manager vlc wget wireshark-qt yt-dlp
+sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager flatpak fuse2 gimp gnome-calendar gnome-multi-writer gnome-weather gparted gufw htop jre21-openjdk john libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur paru polkit-gnome proton-cachyos protontricks qemu-full scummvm shotcut shotwell sqlmap sushi tmux tree ttf-ubuntu-font-family virt-manager vlc wget wireshark-qt yt-dlp
 ```
 
 - Install VSCode and Yaru from AUR:
