@@ -53,7 +53,7 @@ https://www.blackarch.org/downloads.html#install-repo
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support calibre cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager flatpak fuse2 gimp gnome-calendar gnome-multi-writer gnome-shell-extension-pop-shell-git gnome-weather gparted gufw htop john jre21-openjdk libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur paru polkit-gnome proton-cachyos protontricks qemu-full scummvm shotcut shotwell sqlmap sushi tmux tree ttf-ubuntu-font-family virt-manager vlc wget wireshark-qt yt-dlp
+sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calibre cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager flatpak fuse2 gimp gnome-calendar gnome-multi-writer gnome-shell-extension-pop-shell-git gnome-weather gparted gufw htop john jre21-openjdk libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi pamac-aur paru polkit-gnome proton-cachyos protontricks qemu-full scummvm shotcut shotwell sqlmap stremio sushi tmux tree ttf-ubuntu-font-family virt-manager vlc waydroid wget wireshark-qt yt-dlp
 ```
 
 - Install VSCode and Yaru from AUR:
@@ -137,7 +137,7 @@ https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distribu
 ## Flatpaks
 
 ```bash
-flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.stremio.Stremio com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.fastrizwaan.WineZGUI io.github.flattool.Warehouse it.mijorus.gearlever net.pcsx2.PCSX2 net.rpcs3.RPCS3 org.duckstation.DuckStation org.fedoraproject.MediaWriter org.signal.Signal org.telegram.desktop
+flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal dev.vencord.Vesktop io.github.flattool.Warehouse it.mijorus.gearlever org.signal.Signal org.telegram.desktop
 ```
 
 ## Speedy encryption on NVMe Devices
