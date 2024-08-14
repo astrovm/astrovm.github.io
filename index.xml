@@ -121,7 +121,7 @@ OS: CachyOS GNOME CPU: AMD Ryzen 5 3600 GPU: AMD Radeon RX 6800 16 GB RAM: 32 GB
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;ul>
 &lt;li>Install VSCode and Yaru from AUR:&lt;/li>
 &lt;/ul>
-&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>paru -Syu --needed visual-studio-code-bin yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme
+&lt;div class="highlight">&lt;pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">&lt;code class="language-bash" data-lang="bash">&lt;span style="display:flex;">&lt;span>paru -S --needed visual-studio-code-bin yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme
 &lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/div>&lt;h2 id="fedora-gnome">Fedora GNOME&lt;/h2>
 &lt;ul>
 &lt;li>Add RPM Fusion repo:&lt;/li>
