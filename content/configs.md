@@ -59,7 +59,7 @@ sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleach
 - Install VSCode and Yaru from AUR:
 
 ```bash
-paru -Syu --needed visual-studio-code-bin yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme
+paru -S --needed visual-studio-code-bin yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme
 ```
 
 ## Fedora GNOME
