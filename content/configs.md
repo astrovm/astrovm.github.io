@@ -53,7 +53,7 @@ https://www.blackarch.org/downloads.html#install-repo
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calibre clipgrab cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager flatpak fuse2 gimp gnome-calendar gnome-multi-writer gnome-shell-extension-pop-shell-git gnome-weather gparted gufw handbrake htop john jre21-openjdk libreoffice-fresh mpv mutter-cachyos neofetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi ollama-rocm pamac-aur paru polkit-gnome proton-cachyos protontricks qemu-full rocm-smi-lib ryujinx scummvm shotcut shotwell sqlmap stremio sushi tmux tree ttf-ubuntu-font-family ventoy-bin virt-manager vlc wget wireshark-qt yt-dlp
+sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calibre clipgrab cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager flatpak fuse2 gimp gnome-calendar gnome-multi-writer gnome-shell-extension-pop-shell-git gnome-weather gparted gufw handbrake htop john jre21-openjdk libreoffice-fresh mpv mutter-cachyos fastfetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi ollama-rocm pamac-aur paru polkit-gnome proton-cachyos protontricks qemu-full rocm-smi-lib ryujinx scummvm shotcut shotwell sqlmap stremio sushi tmux tree ttf-ubuntu-font-family ventoy-bin virt-manager vlc wget wireshark-qt yt-dlp
 ```
 
 - Install VSCode and Yaru from AUR:
@@ -75,7 +75,7 @@ https://rpmfusion.org/Howto/Multimedia
 - Install apps:
 
 ```bash
-sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects file-roller firewall-config flatpak fuse fuse-libs gimp gnome-boxes gnome-calendar gnome-multi-writer gnome-tweaks gnome-weather gparted htop libreoffice lutris mpv neofetch neovim net-tools nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks qbittorrent scummvm shotwell simple-scan steam sushi tmux tor torbrowser-launcher torsocks tree util-linux virt-manager vlc wget yaru-theme yt-dlp
+sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects file-roller firewall-config flatpak fuse fuse-libs gimp gnome-boxes gnome-calendar gnome-multi-writer gnome-tweaks gnome-weather gparted htop libreoffice lutris mpv fastfetch neovim net-tools nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks qbittorrent scummvm shotwell simple-scan steam sushi tmux tor torbrowser-launcher torsocks tree util-linux virt-manager vlc wget yaru-theme yt-dlp
 ```
 
 - Install Brave:
@@ -103,7 +103,7 @@ https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos
 - Install apps:
 
 ```bash
-sudo apt install 7zip 7zip-rar 7zip-standalone android-sdk-platform-tools aria2 audacity bleachbit btop build-essential calibre curl dconf-editor ddcutil deborphan distrobox easyeffects file-roller flatpak gdebi gimp git gnome-boxes gnome-calendar gnome-disk-utility gnome-multi-writer gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libreoffice lm-sensors lutris mpv neofetch neovim net-tools protontricks qbittorrent scummvm shotwell simple-scan steam-installer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-restricted-extras unzip util-linux virt-manager vlc wget yt-dlp
+sudo apt install 7zip 7zip-rar 7zip-standalone android-sdk-platform-tools aria2 audacity bleachbit btop build-essential calibre curl dconf-editor ddcutil deborphan distrobox easyeffects file-roller flatpak gdebi gimp git gnome-boxes gnome-calendar gnome-disk-utility gnome-multi-writer gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libreoffice lm-sensors lutris mpv fastfetch neovim net-tools protontricks qbittorrent scummvm shotwell simple-scan steam-installer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-restricted-extras unzip util-linux virt-manager vlc wget yt-dlp
 ```
 
 - Remove Snaps:
