@@ -53,7 +53,7 @@ https://www.blackarch.org/downloads.html#install-repo
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calibre clipgrab cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager flatpak fuse2 gimp gnome-calendar gnome-multi-writer gnome-shell-extension-pop-shell-git gnome-weather gparted gufw handbrake htop john jre21-openjdk libreoffice-fresh mpv mutter-cachyos fastfetch neovim nmap obs-studio obs-vaapi obs-vkcapture octopi ollama-rocm pamac-aur paru polkit-gnome proton-cachyos protontricks qemu-full rocm-smi-lib ryujinx scummvm shotcut shotwell sqlmap stremio sushi tmux tree ttf-ubuntu-font-family ventoy-bin virt-manager vlc wget wireshark-qt yt-dlp
+sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calibre clipgrab cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager fastfetch flatpak fuse2 gimp gnome-calendar gnome-multi-writer gnome-shell-extension-pop-shell-git gnome-weather gparted gufw handbrake htop john jre21-openjdk kitty libreoffice-fresh mpv mutter-cachyos neovim nmap obs-studio obs-vaapi obs-vkcapture octopi ollama-rocm pamac-aur paru polkit-gnome proton-cachyos protontricks qemu-full rocm-smi-lib ryujinx scummvm shotcut shotwell sqlmap stremio sushi tmux tree ttf-ubuntu-font-family ventoy-bin virt-manager vlc wget wireshark-qt yt-dlp
 ```
 
 - Install VSCode and Yaru from AUR:
@@ -191,6 +191,18 @@ bold_font        auto
 italic_font      auto
 bold_italic_font auto
 font_size 14
+```
+
+## Zsh
+
+```bash
+nvim ~/.zshrc
+```
+
+```bash
+alias astrofetch="fastfetch -l arch -c neofetch"
+alias mikufetch="fastfetch --logo ~/Pictures/img_MIKU_us.png --logo-height 30"
+alias update="paru; flatpak update"
 ```
 
 ## Steam tweaks
