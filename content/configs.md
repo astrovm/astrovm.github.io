@@ -177,6 +177,22 @@ Non Ubuntu:
 - [Gtk4 Desktop Icons NG (DING)](https://extensions.gnome.org/extension/5263/gtk4-desktop-icons-ng-ding/)
 - [Tiling Assistant](https://extensions.gnome.org/extension/3733/tiling-assistant/)
 
+## Kitty
+
+```bash
+nvim ~/.config/kitty/kitty.conf
+```
+
+```bash
+linux_display_server x11
+map cmd+t new_tab_with_cwd
+font_family      UbuntuMono
+bold_font        auto
+italic_font      auto
+bold_italic_font auto
+font_size 14
+```
+
 ## Steam tweaks
 
 - Enable Steam Play in Steam settings
