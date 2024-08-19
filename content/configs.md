@@ -68,6 +68,18 @@ sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleach
 paru -S --needed visual-studio-code-bin yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme
 ```
 
+- Enable Ollama service:
+
+```bash
+sudo systemctl enable ollama.service
+```
+
+- Config Alpaca to use:
+
+```bash
+http://localhost:11434
+```
+
 ## Fedora GNOME
 
 - Add RPM Fusion repo:
