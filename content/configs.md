@@ -65,11 +65,14 @@ sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleach
 - Enable AppArmor:
 
 ```bash
-
 sudo nvim /boot/refind_linux.conf
 ```
 
-Add "lsm=landlock,lockdown,yama,integrity,apparmor,bpf"
+Add kernel params
+
+```bash
+lsm=landlock,lockdown,yama,integrity,apparmor,bpf
+```
 
 ```bash
 sudo systemctl enable apparmor.service
