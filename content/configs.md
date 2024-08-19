@@ -172,6 +172,7 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 - [Impatience](https://extensions.gnome.org/extension/277/impatience/)
 - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
 - [Window title is back](https://extensions.gnome.org/extension/6310/window-title-is-back/)
+- [Workspace Indicator](https://extensions.gnome.org/extension/21/workspace-indicator/)
 
 ## Kitty
 
