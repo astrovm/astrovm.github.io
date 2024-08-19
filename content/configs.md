@@ -75,7 +75,7 @@ https://rpmfusion.org/Howto/Multimedia
 - Install apps:
 
 ```bash
-sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects file-roller firewall-config flatpak fuse fuse-libs gimp gnome-boxes gnome-calendar gnome-multi-writer gnome-tweaks gnome-weather gparted htop libreoffice lutris mpv fastfetch neovim net-tools nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks qbittorrent scummvm shotwell simple-scan steam sushi tmux tor torbrowser-launcher torsocks tree util-linux virt-manager vlc wget yaru-theme yt-dlp
+sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects file-roller firewall-config flatpak fuse fuse-libs gimp gnome-calendar gnome-multi-writer gnome-tweaks gnome-weather gparted htop libreoffice lutris mpv fastfetch neovim net-tools nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks qbittorrent scummvm shotwell simple-scan steam sushi tmux tor torbrowser-launcher torsocks tree util-linux virt-manager vlc wget yaru-theme yt-dlp
 ```
 
 - Install Brave:
@@ -98,42 +98,6 @@ https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/
 
 https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos
 
-## Ubuntu LTS
-
-- Install apps:
-
-```bash
-sudo apt install 7zip 7zip-rar 7zip-standalone android-sdk-platform-tools aria2 audacity bleachbit btop build-essential calibre curl dconf-editor ddcutil deborphan distrobox easyeffects file-roller flatpak gdebi gimp git gnome-boxes gnome-calendar gnome-disk-utility gnome-multi-writer gnome-software gnome-software-plugin-flatpak gnome-sushi gnome-tweaks gnome-weather gparted gufw htop libfuse2t64 libreoffice lm-sensors lutris mpv fastfetch neovim net-tools protontricks qbittorrent scummvm shotwell simple-scan steam-installer synaptic tmux tor torbrowser-launcher torsocks tree ubuntu-restricted-extras unzip util-linux virt-manager vlc wget yt-dlp
-```
-
-- Remove Snaps:
-
-```bash
-snap list
-sudo snap remove --purge snap-store
-sudo snap remove --purge *enter every package*
-```
-
-- Purge Snap:
-
-```bash
-sudo apt autopurge snapd firefox thunderbird
-```
-
-- Enable Flathub:
-
-```bash
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-```
-
-- Install Brave:
-
-https://brave.com/linux/
-
-- Install VSCode:
-
-https://code.visualstudio.com/docs/setup/linux#_debian-and-ubuntu-based-distributions
-
 ## Flatpaks
 
 ```bash
@@ -145,7 +109,7 @@ flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.F
 ```bash
 sudo dmsetup table
 
-sudo cryptsetup --allow-discards --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
+sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
 ```
 ## GNOME VRR and fractional scaling
 
@@ -156,12 +120,14 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 ## GNOME extensions
 
 - [Alphabetical App Grid](https://extensions.gnome.org/extension/4269/alphabetical-app-grid/)
+- [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
 - [Burn My Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/)
 - [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
 - [Clipboard Indicator](https://extensions.gnome.org/extension/779/Clipboard-indicator/)
 - [Compiz alike magic lamp effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/)
 - [Compiz windows effect](https://extensions.gnome.org/extension/3210/compiz-windows-effect/)
 - [Control monitor brightness and volume with ddcutil](https://extensions.gnome.org/extension/6325/control-monitor-brightness-and-volume-with-ddcutil/)
+- [Dash to Dock](https://extensions.gnome.org/extension/307/Dash-to-Dock/)
 - [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
 - [GSConnect](https://extensions.gnome.org/extension/1319/GSConnect/)
 - [Impatience](https://extensions.gnome.org/extension/277/impatience/)
@@ -169,13 +135,6 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 - [Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
 - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
 - [Window title is back](https://extensions.gnome.org/extension/6310/window-title-is-back/)
-
-Non Ubuntu:
-
-- [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
-- [Dash to Dock](https://extensions.gnome.org/extension/307/Dash-to-Dock/)
-- [Gtk4 Desktop Icons NG (DING)](https://extensions.gnome.org/extension/5263/gtk4-desktop-icons-ng-ding/)
-- [Tiling Assistant](https://extensions.gnome.org/extension/3733/tiling-assistant/)
 
 ## Kitty
 
