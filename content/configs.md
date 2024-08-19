@@ -50,6 +50,12 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 https://www.blackarch.org/downloads.html#install-repo
 
+- Install AI SDK:
+
+```bash
+sudo chwd --ai_sdk -i pci rocm-ai-sdk
+```
+
 - Install apps:
 
 ```bash
