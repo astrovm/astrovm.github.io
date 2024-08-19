@@ -44,7 +44,7 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 # Linux stuff
 
-## CachyOS GNOME / AMD GPU
+## CachyOS GNOME / rEFInd / AMD GPU
 
 - Add BlackArch repo:
 
@@ -60,6 +60,25 @@ sudo chwd --ai_sdk -i pci rocm-ai-sdk
 
 ```bash
 sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calibre clipgrab cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager fastfetch flatpak fuse2 gimp gnome-calendar gnome-multi-writer gnome-shell-extension-pop-shell-git gnome-weather gparted gufw handbrake htop john jre21-openjdk kitty libreoffice-fresh mpv mutter-cachyos neovim nmap obs-studio obs-vaapi obs-vkcapture octopi ollama-rocm pamac-aur paru polkit-gnome proton-cachyos protontricks qemu-full rocm-smi-lib ryujinx scummvm shotcut shotwell sqlmap stremio sushi tmux tree ttf-ubuntu-font-family ventoy-bin virt-manager vlc wget wireshark-qt yt-dlp
+```
+
+- Enable AppArmor:
+
+```bash
+
+sudo nvim /boot/refind_linux.conf
+```
+
+Add "lsm=landlock,lockdown,yama,integrity,apparmor,bpf"
+
+```bash
+sudo systemctl enable apparmor.service
+```
+
+Reboot and check
+
+```bash
+aa-enabled
 ```
 
 - Install VSCode and Yaru from AUR:
