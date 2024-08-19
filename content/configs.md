@@ -170,6 +170,7 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 - [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
 - [GSConnect](https://extensions.gnome.org/extension/1319/GSConnect/)
 - [Impatience](https://extensions.gnome.org/extension/277/impatience/)
+- [Launch new instance](https://extensions.gnome.org/extension/600/launch-new-instance/)
 - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
 - [Window title is back](https://extensions.gnome.org/extension/6310/window-title-is-back/)
 - [Workspace Indicator](https://extensions.gnome.org/extension/21/workspace-indicator/)
