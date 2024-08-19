@@ -121,7 +121,6 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 
 - [Alphabetical App Grid](https://extensions.gnome.org/extension/4269/alphabetical-app-grid/)
 - [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
-- [Burn My Windows](https://extensions.gnome.org/extension/4679/burn-my-windows/)
 - [Caffeine](https://extensions.gnome.org/extension/517/caffeine/)
 - [Clipboard Indicator](https://extensions.gnome.org/extension/779/Clipboard-indicator/)
 - [Compiz alike magic lamp effect](https://extensions.gnome.org/extension/3740/compiz-alike-magic-lamp-effect/)
@@ -131,8 +130,6 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 - [Desktop Cube](https://extensions.gnome.org/extension/4648/desktop-cube/)
 - [GSConnect](https://extensions.gnome.org/extension/1319/GSConnect/)
 - [Impatience](https://extensions.gnome.org/extension/277/impatience/)
-- [Places Status Indicator](https://extensions.gnome.org/extension/8/Places-Status-Indicator/)
-- [Search Light](https://extensions.gnome.org/extension/5489/Search-Light/)
 - [User Themes](https://extensions.gnome.org/extension/19/user-themes/)
 - [Window title is back](https://extensions.gnome.org/extension/6310/window-title-is-back/)
 
