@@ -141,7 +141,7 @@ https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos
 ## Flatpaks
 
 ```bash
-flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.jeffser.Alpaca dev.vencord.Vesktop io.github.flattool.Warehouse it.mijorus.gearlever org.signal.Signal org.telegram.desktop
+flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.jeffser.Alpaca com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.flattool.Warehouse it.mijorus.gearlever org.signal.Signal org.telegram.desktop
 ```
 
 ## Speedy encryption on NVMe Devices
