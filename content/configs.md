@@ -59,7 +59,7 @@ sudo chwd --ai_sdk -i pci rocm-ai-sdk
 - Install apps:
 
 ```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calibre clipgrab cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager fastfetch file-roller flatpak fuse2 gimp gnome-break-timer gnome-calendar gnome-characters gnome-chess gnome-clocks gnome-connections gnome-contacts gnome-dictionary gnome-epub-thumbnailer gnome-font-viewer gnome-logs gnome-maps gnome-mines gnome-multi-writer gnome-nettool gnome-nibbles gnome-remote-desktop gnome-shell-extension-pop-shell-git gnome-sudoku gnome-user-share gnome-weather gnuchess gparted gufw gvfs-smb handbrake htop john jre21-openjdk kimageformats5 kitty krita krita-plugin-gmic kseexpr libheif libjxl libmypaint libreoffice-fresh lrzip mpv mutter-cachyos nautilus-image-converter neovim net-tools nmap obs-studio obs-vaapi obs-vkcapture octopi ollama-rocm p7zip pamac-aur paru polkit-gnome poppler-qt5 proton-cachyos protontricks python-pyqt5 qbittorrent qemu-full rocm-smi-lib rustup ryujinx scummvm shotcut shotwell sqlmap squashfs-tools stremio sushi tmux tree ttf-ubuntu-font-family unace unrar ventoy-bin virt-manager vlc wget wireshark-qt yt-dlp
+sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calibre clipgrab cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager fastfetch file-roller flatpak fuse2 gimp gnome-break-timer gnome-calendar gnome-characters gnome-chess gnome-clocks gnome-connections gnome-contacts gnome-dictionary gnome-epub-thumbnailer gnome-font-viewer gnome-logs gnome-maps gnome-mines gnome-multi-writer gnome-nettool gnome-nibbles gnome-remote-desktop gnome-shell-extension-pop-shell-git gnome-sudoku gnome-user-share gnome-weather gnuchess gparted gufw gvfs-smb handbrake htop john jre21-openjdk kimageformats5 kitty krita krita-plugin-gmic kseexpr libheif libjxl libmypaint libreoffice-fresh lrzip mpv mutter-cachyos nautilus-image-converter neovim net-tools nmap nvm obs-studio obs-vaapi obs-vkcapture octopi ollama-rocm p7zip pamac-aur paru polkit-gnome poppler-qt5 proton-cachyos protontricks python-pyqt5 qbittorrent qemu-full rocm-smi-lib rustup ryujinx scummvm shotcut shotwell sqlmap squashfs-tools stremio sushi tmux tree ttf-ubuntu-font-family unace unrar ventoy-bin virt-manager vlc wget wireshark-qt yt-dlp
 ```
 
 - Enable AppArmor:
@@ -198,6 +198,7 @@ nvim ~/.zshrc
 ```
 
 ```bash
+source /usr/share/nvm/init-nvm.sh
 alias astrofetch="fastfetch -l arch -c neofetch"
 alias mikufetch="fastfetch --logo ~/Pictures/img_MIKU_us.png --logo-height 30"
 alias update="paru; flatpak update"
