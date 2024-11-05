@@ -198,7 +198,6 @@ nvim ~/.zshrc
 ```
 
 ```bash
-source /usr/share/nvm/init-nvm.sh
 alias astrofetch="fastfetch -l arch -c neofetch"
 alias mikufetch="fastfetch --logo ~/Pictures/img_MIKU_us.png --logo-height 30"
 alias update="paru; flatpak update"
