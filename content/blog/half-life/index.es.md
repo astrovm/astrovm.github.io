@@ -1,18 +1,18 @@
 +++
-title = "Run, Think, Shoot, Live"
+title = "Correr, Pensar, Disparar, Vivir"
 date = "2022-05-18T05:33:50-03:00"
 readingTime = true
 +++
 
-Half-Life changes the way you think about life; it's not a normal first-person shooter. As someone who grew up playing Doom, the first time I played Half-Life I had one of the most important realizations as a child: you don't need that much skill if you actually think, and running from problems is super useful and acceptable sometimes (one of the reasons that I also loved playing Resident Evil on my PSone back then, but it scared the hell out of me).
+Half-Life cambia la forma en que pensás sobre la vida; no es un shooter en primera persona normal. Como alguien que creció jugando Doom, la primera vez que jugué Half-Life tuve una de las realizaciones más importantes de mi infancia: no necesitas tanta habilidad si realmente pensás, y huir de los problemas es muy útil y aceptable a veces (una de las razones por las que también me encantaba jugar Resident Evil en mi PSone en ese entonces, pero me asustaba mucho).
 
-It was a sunny Sunday; I was about 4 years old, and my brother told me to go to the game store (yeah, like, physically walking there) and purchase Counter-Strike (it was the most popular game in Buenos Aires cybercafes). So I did it with my father. At that time, there were 2 Counter-Strikes available (normal and Condition Zero), so I brought both home, inserted the first disk into the computer, and a Half-Life screen came up.
+Era un domingo soleado; tenía alrededor de 4 años, y mi hermano me dijo que fuera al local de juegos (sí, caminando físicamente) y comprara Counter-Strike (era el juego más popular en los cibers de Buenos Aires). Así que fui con mi papá. En ese momento, había 2 Counter-Strike disponibles (normal y Condition Zero), así que traje ambos a casa, inserté el primer disco en la compu, y apareció una pantalla de Half-Life.
 
-I noticed that the CD box said "Half-Life Counter-Strike" and I was like, "What is Half-Life? Sounds fun! :)"
+Noté que la caja del CD decía "Half-Life Counter-Strike" y pensé, "¿Qué es Half-Life? Suena divertido! :)"
 
-![Half-Life Counter-Strike CD Front Cover](cd.jpg)
+![Portada frontal del CD de Half-Life Counter-Strike](cd.jpg)
 
-The (obviously pirated) CD actually included:
+El CD (obviamente pirateado) incluía en realidad:
 
 - [Half-Life](https://store.steampowered.com/app/70/HalfLife/)
 - [Half-Life: Opposing Force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/)
@@ -22,56 +22,56 @@ The (obviously pirated) CD actually included:
 - [Deathmatch Classic](https://store.steampowered.com/app/40/Deathmatch_Classic/)
 - [Counter-Strike](https://store.steampowered.com/app/10/CounterStrike/)
 
-I installed everything and opened Half-Life first because I liked the aesthetics more. I started playing, and... A FREAKING TRAIN APPEARED. I'd never been on a moving train in a game before, and I love trains, so I liked it. The train took a lot of time to reach its destination, so I felt the game was chill about itself, and I loved that!
+Instalé todo y abrí Half-Life primero porque me gustaba más la estética. Empecé a jugar, y... APARECIÓ UN PUTO TREN. Nunca había estado en un tren en movimiento en un juego antes, y me encantan los trenes, así que me gustó. El tren tardó mucho tiempo en llegar a destino, así que sentí que el juego no tenía apuro y eso me encantó.
 
-![Train with G-Man and a scientist inside](train.jpg)
+![Tren con G-Man y un científico adentro](train.jpg)
 
-A couple of minutes later, the world goes to hell D:! But the aesthetics are nice :D! So I was there running as something of a scientist with a cool "Hazardous Environment Suit," and IRL I was wearing a Spiderman suit, so I felt related.
+Un par de minutos después, ¡el mundo se va a la verga D:! ¡Pero el juego es precioso :D!. Así que ahí estaba, corriendo como una especie de científico con un "Hazardous Environment Suit" genial, y en la vida real llevaba un traje de Spiderman, así que me sentí identificado.
 
-I took a nice crowbar and pressed a button to call an elevator inadvertently causing a failure that killed a couple of fellow scientists :(
+Agarré una buena palanca y apreté un botón para llamar un ascensor, inadvertidamente causando una falla que mató a un par de compañeros científicos :(
 
 D:
 
-:((( What did I just do?
+:((( Qué acabo de hacer??
 
-And then I started defending myself. In Half-Life, combats are a puzzle to solve; it's not like those games where you have to die to know something and then retry it, like brute-forcing the game (I always wondered how you get to know those things without dying first). In Half-Life, you have to actually value your life and treat it like the most important thing you have.
+Y luego empecé a defenderme. En Half-Life, los combates son un rompecabezas para resolver; no es como esos juegos donde tenés que morir para saber algo y luego reintentarlo, pasándolos con fuerza bruta (siempre me pregunté cómo sabés esas cosas sin morir primero). En Half-Life, realmente tenés que valorar tu vida y tratarla como lo más importante que tenés.
 
-You are a man of science, not an assassin. If you see a threat, you first run to protect yourself, then think about how to leverage your tools, environment, and knowledge against the enemy. If you don't really need to kill anyone, you don't, but if you do, now you have a plan.
+Sos un hombre de ciencia, no un asesino. Si ves una amenaza, primero corrés para protegerte, después pensás en cómo aprovechar tus herramientas, el entorno y el conocimiento contra el enemigo. Si realmente no necesitas matar a nadie, no lo hacés, pero si lo hacés, ahora tenés un plan.
 
-The game has some interesting messages behind:
+El juego tiene algunos mensajes interesantes detrás:
 
-- You probably will kill life by accident.
-- Your boss will run away if something really bad happens.
-- The government will not save you, and you shouldn't trust them.
-- An individual can have a real impact on the world, so you are important.
-- The world is chaotic, and many events are not planned.
-- Nobody is really sure about what's going on.
-- Don't expect someone to tell you what you have to do; think, try, and break stuff.
-- When everything goes to hell, you may have your friends to help you, but if you don't, you are alone with yourself and maybe beautiful weapons.
-- Your search for freedom may never come to an end.
-- Your worst enemy seems to be an inter-dimensional bureaucrat who wants to give you a job.
-- Talking is not so important.
+- Probablemente vas a matar vida por accidente.
+- Tu jefe se va a tomar el palo si algo realmente malo sucede.
+- El gobierno no te va a salvar, y no deberías confiar en ellos.
+- Un individuo puede tener un impacto real en el mundo, así que sos importante.
+- El mundo es caótico, y muchos eventos no están planificados.
+- Nadie está realmente seguro de lo que está pasando.
+- No esperés que alguien te diga lo que tenés que hacer; pensá, intentá y rompé cosas.
+- Cuando todo se va al infierno, podés tener a tus amigos para que te ayuden, pero si no, estás solo con vos mismo y tal vez con un par de armas copadas.
+- Tu búsqueda de la libertad puede nunca terminar.
+- Tu peor enemigo parece ser un burócrata interdimensional que quiere darte un trabajo.
+- Hablar no es tan importante.
 
 {{< rawhtml >}}
 <video src="mashup.webm" width="100%" preload autoplay muted playsinline loop></video>
 {{< /rawhtml >}}
 
-I've seen a lot of people having trouble playing Half-Life because they expect the game to tell them what to do, and if the game doesn't tell them, they'll do nothing! The game is all about curiosity and trying new ideas, and that extends to much more than the story.
+He visto a mucha gente tener problemas para jugar Half-Life porque esperan que el juego les diga qué hacer, y si el juego no lo hace, ¡no hacen nada! El juego se trata de curiosidad y de probar nuevas ideas, y eso se extiende a mucho más que la historia.
 
-The game is full of mods and a community trying weird shit, and Valve (the company behind Half-Life) allows and promotes that, unleashing a lot of artistic creativity and what-ifs. That's why we have a lot of games based on Half-Life. I feel like a lot of that has been lost, and we've been enclosed in walled gardens.
+El juego está lleno de mods y de una comunidad que intenta cosas raras, y Valve (la empresa detrás de Half-Life) lo permite y lo promueve, desatando mucha creatividad artística y posibilidades. Por eso tenemos muchos juegos basados en Half-Life. Siento que gran parte de eso se ha perdido, y estamos encerrados en walled gardens.
 
-If you didn't play Half-Life, try it. The list of games is:
+Si no jugaste Half-Life, probalo. La lista de juegos es:
 
-- [Half-Life](https://store.steampowered.com/app/70/HalfLife/) (there's an amazing remake called [Black Mesa](https://store.steampowered.com/app/362890/Black_Mesa/))
+- [Half-Life](https://store.steampowered.com/app/70/HalfLife/) (hay un remake tremendo llamado [Black Mesa](https://store.steampowered.com/app/362890/Black_Mesa/))
 - [Half-Life 2](https://store.steampowered.com/app/220/HalfLife_2/)
 - [Half-Life 2: Episode One](https://store.steampowered.com/app/380/HalfLife_2_Episode_One/)
 - [Half-Life 2: Episode Two](https://store.steampowered.com/app/420/HalfLife_2_Episode_Two/)
-- [Half-Life: Alyx](https://store.steampowered.com/app/546560/HalfLife_Alyx/) (VR game)
+- [Half-Life: Alyx](https://store.steampowered.com/app/546560/HalfLife_Alyx/) (juego de realidad virtual)
 
-Non-essential:
+No esencial:
 
-- [Half-Life: Opposing Force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/) (you play the HL1 story from the perspective of one of your enemies, a soldier. I particularly love this game for the aesthetics, weapons, and cool tanks and helicopters)
-- [Half-Life: Blue Shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/) (you play the HL1 story from the perspective of one of your friends, a security guard)
-- [Half-Life 2: Lost Coast](https://store.steampowered.com/app/340/HalfLife_2_Lost_Coast/) (it's just a short tech demo, and it feels like an out-of-context dream you had)
+- [Half-Life: Opposing Force](https://store.steampowered.com/app/50/HalfLife_Opposing_Force/) (jugás la historia de HL1 desde la perspectiva de uno de tus enemigos, un soldado. Me encanta este juego por la estética, armas y los tanques y helicópteros copados)
+- [Half-Life: Blue Shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/) (jugás la historia de HL1 desde la perspectiva de uno de tus amigos, un guardia de seguridad)
+- [Half-Life 2: Lost Coast](https://store.steampowered.com/app/340/HalfLife_2_Lost_Coast/) (es solo una demo técnica corta, y se siente como un sueño fuera de contexto que tuviste)
 
-You should also play [Portal](https://store.steampowered.com/app/400/Portal/) and [Portal 2](https://store.steampowered.com/app/620/Portal_2/) as they take place in the same universe, but they are different games and cool in their own way.
+También deberías jugar [Portal](https://store.steampowered.com/app/400/Portal/) y [Portal 2](https://store.steampowered.com/app/620/Portal_2/) ya que tienen lugar en el mismo universo, pero son juegos diferentes y geniales a su manera.

@@ -32,7 +32,7 @@ I took a nice crowbar and pressed a button to call an elevator inadvertently cau
 
 D:
 
-:((( What did I just do?
+:((( What did I just do??
 
 And then I started defending myself. In Half-Life, combats are a puzzle to solve; it's not like those games where you have to die to know something and then retry it, like brute-forcing the game (I always wondered how you get to know those things without dying first). In Half-Life, you have to actually value your life and treat it like the most important thing you have.
 
@@ -47,7 +47,7 @@ The game has some interesting messages behind:
 - The world is chaotic, and many events are not planned.
 - Nobody is really sure about what's going on.
 - Don't expect someone to tell you what you have to do; think, try, and break stuff.
-- When everything goes to hell, you may have your friends to help you, but if you don't, you are alone with yourself and maybe beautiful weapons.
+- When everything goes to hell, you may have your friends to help you, but if you don't, you are alone with yourself and maybe some cool weapons.
 - Your search for freedom may never come to an end.
 - Your worst enemy seems to be an inter-dimensional bureaucrat who wants to give you a job.
 - Talking is not so important.
