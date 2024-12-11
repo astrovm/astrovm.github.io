@@ -151,7 +151,7 @@ pagerSize = 5
         weight = 3
       [[languages.es.menu.main]]
         identifier = "configs"
-        name = "configuraciones"
+        name = "configs"
         url = "/es/configs"
         weight = 4
       [[languages.es.menu.main]]

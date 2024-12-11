@@ -1,5 +1,5 @@
 +++
-title = "contact"
+title = "contacto"
 hideComments = true
 +++
 
