@@ -1,14 +1,61 @@
+<!-- Language preference handling -->
 <script>
-    const BLINK_TIME = 530
-    const LAST_CHAR = document.title.slice(-1)
-    const WEB_TITLE = document.title.slice(0, -1)
-    const blinkChar = (_char, _title) => {
-        if (document.title.endsWith(_char)) {
-            document.title = _title + " "
-        } else {
-            document.title = _title + _char
-        }
-    }
-    setInterval(blinkChar, BLINK_TIME, LAST_CHAR, WEB_TITLE)
+  const SUPPORTED_LANGUAGES = ["en", "es"];
+  const COOKIE_NAME = "preferredLanguage";
+  const COOKIE_EXPIRY_DAYS = 365;
+  const COOKIE_SETTINGS = {
+    path: "/",
+  };
+
+  const setCookie = (name, value, days) => {
+    const expires = new Date(Date.now() + days * 864e5).toUTCString();
+    const cookieValue = encodeURIComponent(value);
+    const cookieString = Object.entries({
+      ...COOKIE_SETTINGS,
+      expires,
+    })
+      .map(([key, val]) => `${key.toLowerCase()}=${val}`)
+      .join("; ");
+
+    document.cookie = `${name}=${cookieValue}; ${cookieString}`;
+  };
+
+  // Set/update cookie based on current URL path
+  const currentLang = window.location.pathname.split("/")[1];
+  if (SUPPORTED_LANGUAGES.includes(currentLang)) {
+    setCookie(COOKIE_NAME, currentLang, COOKIE_EXPIRY_DAYS);
+  }
 </script>
+
+<!-- Title cursor blink effect -->
+<script>
+  const BLINK_TIME = 530;
+  const TITLE_CONFIG = {
+    lastChar: document.title.slice(-1),
+    baseTitle: document.title.slice(0, -1),
+    spaceChar: " ",
+  };
+
+  const updateTitle = () => {
+    const { lastChar, baseTitle, spaceChar } = TITLE_CONFIG;
+    document.title = document.title.endsWith(lastChar)
+      ? baseTitle + spaceChar
+      : baseTitle + lastChar;
+  };
+
+  // Start blinking only if we're not in a background tab
+  let blinkInterval = setInterval(updateTitle, BLINK_TIME);
+
+  // Pause blinking when tab is not visible to save resources
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      clearInterval(blinkInterval);
+      document.title = TITLE_CONFIG.baseTitle + TITLE_CONFIG.lastChar;
+    } else {
+      blinkInterval = setInterval(updateTitle, BLINK_TIME);
+    }
+  });
+</script>
+
+<!-- Oneko (cat) cursor follower -->
 <script src="/oneko.js" defer></script>

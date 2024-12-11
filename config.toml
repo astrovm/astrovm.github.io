@@ -1,7 +1,8 @@
 baseurl = "https://4st.li/"
-languageCode = "en-us"
+defaultContentLanguage = "en"
+defaultContentLanguageInSubdir = true
 theme = "terminal"
-paginate = 5
+pagerSize = 5
 
 [params]
   # dir name of your main content (default is `content/posts`).
@@ -15,7 +16,7 @@ paginate = 5
   showMenuItems = 6
 
   # show selector to switch language
-  showLanguageSelector = false
+  showLanguageSelector = true
 
   # set theme to full screen width
   fullWidthTheme = false
@@ -63,6 +64,7 @@ paginate = 5
 [languages]
   [languages.en]
     languageName = "english"
+    languageCode = "en"
     title = "astro@web $ _"
     subtitle = "prepare for unforeseen consequences."
     owner = "astro"
@@ -80,31 +82,80 @@ paginate = 5
 
     [languages.en.params.logo]
       logoText = "astro <(^^,)>"
-      logoHomeLink = "/"
+      logoHomeLink = "/en"
 
     [languages.en.menu]
       [[languages.en.menu.main]]
         identifier = "home"
         name = "home"
-        url = "/"      
+        url = "/en"      
         weight = 1
       [[languages.en.menu.main]]
         identifier = "projects"
         name = "projects"
-        url = "/projects"
+        url = "/en/projects"
         weight = 2
       [[languages.en.menu.main]]
         identifier = "contact"
         name = "contact"
-        url = "/contact"
+        url = "/en/contact"
         weight = 3
       [[languages.en.menu.main]]
         identifier = "configs"
         name = "configs"
-        url = "/configs"
+        url = "/en/configs"
         weight = 4
       [[languages.en.menu.main]]
         identifier = "rss"
         name = "rss"
-        url = "/blog/index.xml"
+        url = "/en/blog/index.xml"
+        weight = 5
+
+  [languages.es]
+    languageName = "español"
+    languageCode = "es"
+    title = "astro@web $ _"
+    subtitle = "preparate para consecuencias imprevistas."
+    owner = "astro"
+    keywords = "cripto, bitcoin, programación, código, linux, hacking"
+    copyright = "© 2024 4st.li"
+    menuMore = "mostrar más"
+    readMore = "leer más"
+    readOtherPosts = "leer otros posts"
+    newerPosts = "posts más recientes"
+    olderPosts = "posts más viejos"
+    missingContentMessage = "página no encontrada..."
+    missingBackButtonLabel = "volver al inicio"
+    minuteReadingTime = "min de lectura"
+    words = "palabras"
+
+    [languages.es.params.logo]
+      logoText = "astro <(^^,)>"
+      logoHomeLink = "/es"
+
+    [languages.es.menu]
+      [[languages.es.menu.main]]
+        identifier = "home"
+        name = "inicio"
+        url = "/es"      
+        weight = 1
+      [[languages.es.menu.main]]
+        identifier = "projects"
+        name = "proyectos"
+        url = "/es/projects"
+        weight = 2
+      [[languages.es.menu.main]]
+        identifier = "contact"
+        name = "contacto"
+        url = "/es/contact"
+        weight = 3
+      [[languages.es.menu.main]]
+        identifier = "configs"
+        name = "configuraciones"
+        url = "/es/configs"
+        weight = 4
+      [[languages.es.menu.main]]
+        identifier = "rss"
+        name = "rss"
+        url = "/es/blog/index.xml"
         weight = 5

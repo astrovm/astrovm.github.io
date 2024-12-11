@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{ .Permalink }}</title>
+    <link rel="canonical" href="{{ .Permalink }}" />
+    <meta name="robots" content="noindex" />
+    <meta charset="utf-8" />
+    <noscript>
+      <meta http-equiv="refresh" content="0; url={{ .Permalink }}" />
+    </noscript>
+    <script>
+      const SUPPORTED_LANGUAGES = ["en", "es"];
+      const DEFAULT_LANGUAGE = "en";
+      const COOKIE_NAME = "preferredLanguage";
+
+      const getCookie = (name) => {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        return parts.length === 2 ? parts.pop().split(";").shift() : null;
+      };
+
+      const getLanguage = () => {
+        // Check cookie first
+        const cookieLang = getCookie(COOKIE_NAME);
+        if (SUPPORTED_LANGUAGES.includes(cookieLang)) {
+          return cookieLang;
+        }
+
+        // Then check browser language
+        const browserLang = navigator.language?.toLowerCase()?.split("-")[0];
+        return SUPPORTED_LANGUAGES.includes(browserLang)
+          ? browserLang
+          : DEFAULT_LANGUAGE;
+      };
+
+      // Only do i18n at root, otherwise redirect immediately
+      if (window.location.pathname !== "/") {
+        window.location.replace("{{ .Permalink }}");
+      } else {
+        const targetLang = getLanguage();
+        window.location.replace(`/${targetLang}/`);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Redirecting...</h1>
+    <p>
+      If you are not redirected automatically,
+      <a href="{{ .Permalink }}">click here</a>.
+    </p>
+  </body>
+</html>
