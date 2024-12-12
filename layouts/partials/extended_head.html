@@ -73,18 +73,8 @@
       : baseTitle + lastChar;
   };
 
-  // Start blinking only if we're not in a background tab
-  let blinkInterval = setInterval(updateTitle, BLINK_TIME);
-
-  // Pause blinking when tab is not visible to save resources
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) {
-      clearInterval(blinkInterval);
-      document.title = TITLE_CONFIG.baseTitle + TITLE_CONFIG.lastChar;
-    } else {
-      blinkInterval = setInterval(updateTitle, BLINK_TIME);
-    }
-  });
+  // Start blinking
+  setInterval(updateTitle, BLINK_TIME);
 </script>
 
 <!-- Oneko (cat) cursor follower -->
