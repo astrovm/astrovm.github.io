@@ -12,8 +12,6 @@ Era un domingo soleado; tenía alrededor de 4 años, y mi hermano me dijo que fu
 
 Noté que la caja del CD decía "Half-Life Counter-Strike" y pensé, "¿Qué es Half-Life? Suena divertido! :)"
 
-![Portada frontal del CD de Half-Life Counter-Strike](cd.jpg)
-
 El CD (obviamente pirateado) incluía en realidad:
 
 - [Half-Life](https://store.steampowered.com/app/70/HalfLife/)
@@ -23,6 +21,8 @@ El CD (obviamente pirateado) incluía en realidad:
 - [Ricochet](https://store.steampowered.com/app/60/Ricochet/)
 - [Deathmatch Classic](https://store.steampowered.com/app/40/Deathmatch_Classic/)
 - [Counter-Strike](https://store.steampowered.com/app/10/CounterStrike/)
+
+![Portada frontal del CD del Half-Life Counter-Strike](cd.jpg)
 
 Instalé todo y abrí Half-Life primero porque me gustaba más la estética. Empecé a jugar, y... APARECIÓ UN PUTO TREN. Nunca había estado en un tren en movimiento en un juego antes, y me encantan los trenes, así que me gustó. El tren tardó mucho tiempo en llegar a destino, así que sentí que el juego no tenía apuro y eso me encantó.
 

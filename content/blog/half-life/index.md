@@ -12,8 +12,6 @@ It was a sunny Sunday; I was about 4 years old, and my brother told me to go to 
 
 I noticed that the CD box said "Half-Life Counter-Strike" and I was like, "What is Half-Life? Sounds fun! :)"
 
-![Half-Life Counter-Strike CD Front Cover](cd.jpg)
-
 The (obviously pirated) CD actually included:
 
 - [Half-Life](https://store.steampowered.com/app/70/HalfLife/)
@@ -23,6 +21,8 @@ The (obviously pirated) CD actually included:
 - [Ricochet](https://store.steampowered.com/app/60/Ricochet/)
 - [Deathmatch Classic](https://store.steampowered.com/app/40/Deathmatch_Classic/)
 - [Counter-Strike](https://store.steampowered.com/app/10/CounterStrike/)
+
+![Half-Life Counter-Strike CD Front Cover](cd.jpg)
 
 I installed everything and opened Half-Life first because I liked the aesthetics more. I started playing, and... A FREAKING TRAIN APPEARED. I'd never been on a moving train in a game before, and I love trains, so I liked it. The train took a lot of time to reach its destination, so I felt the game was chill about itself, and I loved that!
 
