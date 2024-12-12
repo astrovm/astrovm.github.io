@@ -4,7 +4,9 @@ date = "2022-05-18T05:33:50-03:00"
 readingTime = true
 +++
 
-Half-Life cambia la forma en que pensás sobre la vida; no es un shooter en primera persona normal. Como alguien que creció jugando Doom, la primera vez que jugué Half-Life tuve una de las realizaciones más importantes de mi infancia: no necesitas tanta habilidad si realmente pensás, y huir de los problemas es muy útil y aceptable a veces (una de las razones por las que también me encantaba jugar Resident Evil en mi PSone en ese entonces, pero me asustaba mucho).
+![Tren con G-Man y un científico adentro](train.jpg)
+
+Half-Life cambia la forma en que pensás sobre la vida; no es un shooter en primera persona normal. Como alguien que creció jugando Doom, la primera vez que jugué Half-Life tuve una de las realizaciones más importantes de mi infancia: no necesitas tanta habilidad si realmente pensás, y huir de los problemas es muy útil y aceptable a veces (una de las razones por las que también me encantaba jugar Resident Evil en la Play 1 en ese entonces, pero me asustaba mucho).
 
 Era un domingo soleado; tenía alrededor de 4 años, y mi hermano me dijo que fuera al local de juegos (sí, caminando físicamente) y comprara Counter-Strike (era el juego más popular en los cibers de Buenos Aires). Así que fui con mi papá. En ese momento, había 2 Counter-Strike disponibles (normal y Condition Zero), así que traje ambos a casa, inserté el primer disco en la compu, y apareció una pantalla de Half-Life.
 
@@ -23,8 +25,6 @@ El CD (obviamente pirateado) incluía en realidad:
 - [Counter-Strike](https://store.steampowered.com/app/10/CounterStrike/)
 
 Instalé todo y abrí Half-Life primero porque me gustaba más la estética. Empecé a jugar, y... APARECIÓ UN PUTO TREN. Nunca había estado en un tren en movimiento en un juego antes, y me encantan los trenes, así que me gustó. El tren tardó mucho tiempo en llegar a destino, así que sentí que el juego no tenía apuro y eso me encantó.
-
-![Tren con G-Man y un científico adentro](train.jpg)
 
 Un par de minutos después, ¡el mundo se va a la verga D:! ¡Pero el juego es precioso :D!. Así que ahí estaba, corriendo como una especie de científico con un "Hazardous Environment Suit" genial, y en la vida real llevaba un traje de Spiderman, así que me sentí identificado.
 
