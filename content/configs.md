@@ -3,12 +3,6 @@ title = "configs"
 hideComments = true
 +++
 
-# General guidelines and philosophy
-
-I'll try to keep this as simple as possible to increase maintainability and troubleshooting, and minimize unexpected behavior.
-
-Also, if I can keep something in the user space using Flatpaks without affecting usability and security, I'll prefer that to reduce system clutter and have newer versions.
-
 # Devices
 
 **PC Master Race**
@@ -151,6 +145,7 @@ sudo dmsetup table
 
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
 ```
+
 ## GNOME VRR and fractional scaling
 
 ```bash

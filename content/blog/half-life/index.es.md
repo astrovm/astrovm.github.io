@@ -8,7 +8,7 @@ readingTime = true
 
 Half-Life cambia la forma en que pensás sobre la vida; no es un shooter en primera persona normal. Como alguien que creció jugando Doom, la primera vez que jugué Half-Life tuve una de las realizaciones más importantes de mi infancia: no necesitas tanta habilidad si realmente pensás, y huir de los problemas es muy útil y aceptable a veces (una de las razones por las que también me encantaba jugar Resident Evil en la Play 1 en ese entonces, pero me asustaba mucho).
 
-Era un domingo soleado; tenía alrededor de 4 años, y mi hermano me dijo que fuera al local de juegos (sí, caminando físicamente) y comprara Counter-Strike (era el juego más popular en los cibers de Buenos Aires). Así que fui con mi papá. En ese momento, había 2 Counter-Strike disponibles (normal y Condition Zero), así que traje ambos a casa, inserté el primer disco en la compu, y apareció una pantalla de Half-Life.
+Era un domingo soleado; tenía alrededor de 4 años, y mi hermano me dijo que vaya al local de juegos (sí, caminando físicamente) y comprara Counter-Strike (era el juego más popular en los cibers de Buenos Aires). Así que fui con mi papá. En ese momento, había 2 Counter-Strike disponibles (normal y Condition Zero), así que traje ambos a casa, inserté el primer disco en la compu, y apareció una pantalla de Half-Life.
 
 Noté que la caja del CD decía "Half-Life Counter-Strike" y pensé, "¿Qué es Half-Life? Suena divertido! :)"
 
@@ -24,7 +24,7 @@ El CD (obviamente pirateado) incluía en realidad:
 
 ![Portada frontal del CD del Half-Life Counter-Strike](cd.jpg)
 
-Instalé todo y abrí Half-Life primero porque me gustaba más la estética. Empecé a jugar, y... APARECIÓ UN PUTO TREN. Nunca había estado en un tren en movimiento en un juego antes, y me encantan los trenes, así que me gustó. El tren tardó mucho tiempo en llegar a destino, así que sentí que el juego no tenía apuro y eso me encantó.
+Instalé todo y abrí el Half-Life primero porque me gustaba más la estética. Empecé a jugar, y... APARECIÓ UN PUTO TREN. Nunca había estado en un tren en movimiento en un juego antes, y me encantan los trenes, así que me gustó. El tren tardó mucho tiempo en llegar a destino, así que sentí que el juego no tenía apuro y eso me encantó.
 
 Un par de minutos después, ¡el mundo se va a la verga D:! ¡Pero el juego es precioso :D!. Así que ahí estaba, corriendo como una especie de científico con un "Hazardous Environment Suit" genial, y en la vida real llevaba un traje de Spiderman, así que me sentí identificado.
 
@@ -60,7 +60,7 @@ He visto a mucha gente tener problemas para jugar Half-Life porque esperan que e
 
 El juego está lleno de mods y de una comunidad que intenta cosas raras, y Valve (la empresa detrás de Half-Life) lo permite y lo promueve, desatando mucha creatividad artística y posibilidades. Por eso tenemos muchos juegos basados en Half-Life. Siento que gran parte de eso se ha perdido, y estamos encerrados en walled gardens.
 
-Si no jugaste Half-Life, probalo. La lista de juegos es:
+Si no jugaste al Half-Life, probalo. La lista de juegos es:
 
 - [Half-Life](https://store.steampowered.com/app/70/HalfLife/) (hay un remake tremendo llamado [Black Mesa](https://store.steampowered.com/app/362890/Black_Mesa/))
 - [Half-Life 2](https://store.steampowered.com/app/220/HalfLife_2/)
@@ -74,4 +74,4 @@ No esencial:
 - [Half-Life: Blue Shift](https://store.steampowered.com/app/130/HalfLife_Blue_Shift/) (jugás la historia de HL1 desde la perspectiva de uno de tus amigos, un guardia de seguridad)
 - [Half-Life 2: Lost Coast](https://store.steampowered.com/app/340/HalfLife_2_Lost_Coast/) (es solo una demo técnica corta, y se siente como un sueño fuera de contexto que tuviste)
 
-También deberías jugar [Portal](https://store.steampowered.com/app/400/Portal/) y [Portal 2](https://store.steampowered.com/app/620/Portal_2/) ya que tienen lugar en el mismo universo, pero son juegos diferentes y geniales a su manera.
+También deberías jugar al [Portal](https://store.steampowered.com/app/400/Portal/) y al [Portal 2](https://store.steampowered.com/app/620/Portal_2/) ya que tienen lugar en el mismo universo, pero son juegos diferentes y geniales a su manera.

@@ -3,13 +3,7 @@ title = "configs"
 hideComments = true
 +++
 
-# General guidelines and philosophy
-
-I'll try to keep this as simple as possible to increase maintainability and troubleshooting, and minimize unexpected behavior.
-
-Also, if I can keep something in the user space using Flatpaks without affecting usability and security, I'll prefer that to reduce system clutter and have newer versions.
-
-# Devices
+# Dispositivos
 
 **PC Master Race**
 
@@ -18,10 +12,10 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 - GPU: AMD Radeon RX 6800 16 GB
 - RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)
 - NVMe: 1 TB (2 x Adata XPG Spectrix S40G 512 GB)
-- Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi)
+- Mother: ASUS TUF Gaming X570-PRO (Wi-Fi)
 - Mouse: Logitech G305
-- Keyboard: HyperX Alloy Origins Core (with Razer Pink PBT keycaps)
-- Headphones: Audio-Technica ATH-M50x (with a FiiO BTA10) and Sony Inzone H9
+- Teclado: HyperX Alloy Origins Core (con keycaps Razer Pink PBT)
+- Auriculares: Audio-Technica ATH-M50x (con un FiiO BTA10) y Sony Inzone H9
 
 **Raspberry Pi 4 Model B**
 
@@ -32,111 +26,111 @@ Also, if I can keep something in the user space using Flatpaks without affecting
 
 **Samsung Galaxy S22 Ultra**
 
-# BIOS config
+# Configuración de BIOS
 
-- Restore defaults
-- Set RAM to 3200MHz
-- Enable Resizable Bar
-- Enable virtualization
-- Enable Secure Boot
-- Disable CSM
-- Customize fans speed to maximize silence
+- Restaurar valores predeterminados
+- Configurar RAM a 3200MHz
+- Habilitar Resizable Bar
+- Habilitar virtualización
+- Habilitar Secure Boot
+- Deshabilitar CSM
+- Configurar los coolers para que hagan el menor ruido posible
 
-# Linux stuff
+# Cosas de Linux
 
-## CachyOS GNOME / rEFInd / AMD GPU
+## CachyOS GNOME / rEFInd / GPU AMD
 
-- Add BlackArch repo:
+- Añadir repositorio BlackArch:
 
 https://www.blackarch.org/downloads.html#install-repo
 
-- Install AI SDK:
+- Instalar AI SDK:
 
-```bash
-sudo chwd --ai_sdk -i pci rocm-ai-sdk
-```
+  ```bash
+  sudo chwd --ai_sdk -i pci rocm-ai-sdk
+  ```
 
-- Install apps:
+- Instalar aplicaciones:
 
-```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calf calibre clipgrab cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager fastfetch file-roller flatpak fuse2 gimp gnome-break-timer gnome-calendar gnome-characters gnome-chess gnome-clocks gnome-connections gnome-contacts gnome-dictionary gnome-epub-thumbnailer gnome-font-viewer gnome-logs gnome-maps gnome-mines gnome-multi-writer gnome-nettool gnome-nibbles gnome-remote-desktop gnome-shell-extension-pop-shell-git gnome-sudoku gnome-user-share gnome-weather gnuchess gparted gufw gvfs-smb handbrake htop john jre21-openjdk kimageformats5 kitty krita krita-plugin-gmic kseexpr libheif libjxl libmypaint libreoffice-fresh lrzip lsp-plugins-lv2 mda.lv2 mpv mutter-cachyos nautilus-image-converter neovim net-tools nmap obs-studio obs-vaapi obs-vkcapture octopi ollama-rocm p7zip pamac-aur paru polkit-gnome poppler-qt5 proton-cachyos protontricks python-pyqt5 qbittorrent qemu-full rocm-smi-lib ryujinx scummvm shotcut shotwell sqlmap squashfs-tools stremio sushi tmux tree ttf-ubuntu-font-family unace unrar ventoy-bin virt-manager vlc wget wireshark-qt yelp yt-dlp zam-plugins-lv2
-```
+  ```bash
+  sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calf calibre clipgrab cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager fastfetch file-roller flatpak fuse2 gimp gnome-break-timer gnome-calendar gnome-characters gnome-chess gnome-clocks gnome-connections gnome-contacts gnome-dictionary gnome-epub-thumbnailer gnome-font-viewer gnome-logs gnome-maps gnome-mines gnome-multi-writer gnome-nettool gnome-nibbles gnome-remote-desktop gnome-shell-extension-pop-shell-git gnome-sudoku gnome-user-share gnome-weather gnuchess gparted gufw gvfs-smb handbrake htop john jre21-openjdk kimageformats5 kitty krita krita-plugin-gmic kseexpr libheif libjxl libmypaint libreoffice-fresh lrzip lsp-plugins-lv2 mda.lv2 mpv mutter-cachyos nautilus-image-converter neovim net-tools nmap obs-studio obs-vaapi obs-vkcapture octopi ollama-rocm p7zip pamac-aur paru polkit-gnome poppler-qt5 proton-cachyos protontricks python-pyqt5 qbittorrent qemu-full rocm-smi-lib ryujinx scummvm shotcut shotwell sqlmap squashfs-tools stremio sushi tmux tree ttf-ubuntu-font-family unace unrar ventoy-bin virt-manager vlc wget wireshark-qt yelp yt-dlp zam-plugins-lv2
+  ```
 
-- Enable AppArmor:
+- Habilitar AppArmor:
 
-```bash
-sudo nvim /boot/refind_linux.conf
-```
+  ```bash
+  sudo nvim /boot/refind_linux.conf
+  ```
 
-Add kernel params
+  Añadir parámetros del kernel:
 
-```bash
-lsm=landlock,lockdown,yama,integrity,apparmor,bpf
-```
+  ```bash
+  lsm=landlock,lockdown,yama,integrity,apparmor,bpf
+  ```
 
-```bash
-sudo systemctl enable apparmor.service
-```
+  ```bash
+  sudo systemctl enable apparmor.service
+  ```
 
-Reboot and check
+  Reiniciar y verificar:
 
-```bash
-aa-enabled
-```
+  ```bash
+  aa-enabled
+  ```
 
-- Install VSCode and Yaru from AUR:
+- Instalar VSCode y Yaru desde AUR:
 
-```bash
-paru -S --needed visual-studio-code-bin yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme
-```
+  ```bash
+  paru -S --needed visual-studio-code-bin yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme
+  ```
 
-- Enable Ollama service:
+- Habilitar servicio Ollama:
 
-```bash
-sudo systemctl enable ollama.service
-```
+  ```bash
+  sudo systemctl enable ollama.service
+  ```
 
-- Config Alpaca to use:
+- Configurar Alpaca para usar:
 
-```bash
-http://localhost:11434
-```
+  ```bash
+  http://localhost:11434
+  ```
 
 ## Fedora GNOME
 
-- Add RPM Fusion repo:
+- Añadir repositorio RPM Fusion:
 
-https://rpmfusion.org/Configuration
+  [https://rpmfusion.org/Configuration](https://rpmfusion.org/Configuration)
 
-- Config codecs:
+- Configurar codecs:
 
-https://rpmfusion.org/Howto/Multimedia
+  [https://rpmfusion.org/Howto/Multimedia](https://rpmfusion.org/Howto/Multimedia)
 
-- Install apps:
+- Instalar aplicaciones:
 
-```bash
-sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects file-roller firewall-config flatpak fuse fuse-libs gimp gnome-calendar gnome-multi-writer gnome-tweaks gnome-weather gparted htop libreoffice lutris mpv fastfetch neovim net-tools nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks qbittorrent scummvm shotwell simple-scan steam sushi tmux tor torbrowser-launcher torsocks tree util-linux virt-manager vlc wget yaru-theme yt-dlp
-```
+  ```bash
+  sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects file-roller firewall-config flatpak fuse fuse-libs gimp gnome-calendar gnome-multi-writer gnome-tweaks gnome-weather gparted htop libreoffice lutris mpv fastfetch neovim net-tools nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks qbittorrent scummvm shotwell simple-scan steam sushi tmux tor torbrowser-launcher torsocks tree util-linux virt-manager vlc wget yaru-theme yt-dlp
+  ```
 
-- Install Brave:
+- Instalar Brave:
 
-https://brave.com/linux/
+  [https://brave.com/linux/](https://brave.com/linux/)
 
-- Install VSCode:
+- Instalar VSCode:
 
-https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions
+  [https://code.visualstudio.com/docs/setup/linux#\_rhel-fedora-and-centos-based-distributions](https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions)
 
-- Install Docker:
+- Instalar Docker:
 
-https://developer.fedoraproject.org/tools/docker/docker-installation.html
+  [https://developer.fedoraproject.org/tools/docker/docker-installation.html](https://developer.fedoraproject.org/tools/docker/docker-installation.html)
 
-- Ubuntu fonts:
+- Fuentes de Ubuntu:
 
-https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/
+  [https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/](https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/)
 
-- CachyOS Kernel:
+- Kernel CachyOS:
 
-https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos
+  [https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos](https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos)
 
 ## Flatpaks
 
@@ -144,20 +138,21 @@ https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos
 flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.jeffser.Alpaca com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.flattool.Warehouse it.mijorus.gearlever org.signal.Signal org.telegram.desktop
 ```
 
-## Speedy encryption on NVMe Devices
+## Cifrado rápido en discos NVMe
 
 ```bash
 sudo dmsetup table
 
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
 ```
-## GNOME VRR and fractional scaling
+
+## GNOME VRR y escalado fraccional
 
 ```bash
 gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','scale-monitor-framebuffer']"
 ```
 
-## GNOME extensions
+## Extensiones de GNOME
 
 - [Alphabetical App Grid](https://extensions.gnome.org/extension/4269/alphabetical-app-grid/)
 - [AppIndicator and KStatusNotifierItem Support](https://extensions.gnome.org/extension/615/appindicator-support/)
@@ -181,7 +176,7 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 nvim ~/.config/kitty/kitty.conf
 ```
 
-```bash
+```conf
 linux_display_server x11
 map cmd+t new_tab_with_cwd
 font_family      UbuntuMono
@@ -197,50 +192,50 @@ font_size 14
 nvim ~/.zshrc
 ```
 
-```bash
+```zsh
 alias astrofetch="fastfetch -l arch -c neofetch"
 alias mikufetch="fastfetch --logo ~/Pictures/img_MIKU_us.png --logo-height 30"
 alias update="paru; flatpak update"
 ```
 
-## Steam tweaks
+## Ajustes de Steam
 
-- Enable Steam Play in Steam settings
-- Set launch options (per game) to:
+- Habilitar Steam Play en la configuración de Steam
+- Configurar opciones de lanzamiento (por juego) a:
 
-```bash
-gamemoderun %command%
-```
+  ```bash
+  gamemoderun %command%
+  ```
 
-or in CachyOS:
+  o en CachyOS:
 
-```bash
-game-performance %command%
-```
+  ```bash
+  game-performance %command%
+  ```
 
-- Try [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonPlus
+- Probar [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) con ProtonPlus
 
 ## CS2
 
-- Launch options:
+- Opciones de lanzamiento:
 
-```bash
--vulkan -novid -fullscreen
-```
+  ```bash
+  -vulkan -novid -fullscreen
+  ```
 
 ## Sonic Adventure
 
-https://gamebanana.com/tuts/16934
+[https://gamebanana.com/tuts/16934](https://gamebanana.com/tuts/16934)
 
 ## GTA IV
 
-https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix
+[https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix](https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix)
 
-- Launch options:
+- Opciones de lanzamiento:
 
-```bash
-WINEDLLOVERRIDES="dinput8=n,b" %command%
-```
+  ```bash
+  WINEDLLOVERRIDES="dinput8=n,b" %command%
+  ```
 
 ## Git
 
@@ -256,7 +251,7 @@ ssh-keygen -t ed25519 -C "~@4st.li"
 cat ~/.ssh/id_ed25519.pub
 ```
 
-- Paste to [https://github.com/settings/ssh](https://github.com/settings/ssh)
+- Pegar en [https://github.com/settings/ssh](https://github.com/settings/ssh)
 
 ```bash
 git config --global user.signingkey CC39C6D77BDF0053
@@ -264,13 +259,13 @@ git config --global user.signingkey CC39C6D77BDF0053
 git config --global commit.gpgsign true
 ```
 
-## NetworkManager randomize
+## Randomización de MAC
 
 ```bash
 sudo nvim /etc/NetworkManager/conf.d/99-randomize-mac-address.conf
 ```
 
-```bash
+```ini
 [device-mac-randomization]
 wifi.scan-rand-mac-address=yes
 
@@ -283,7 +278,7 @@ wifi.cloned-mac-address=random
 sudo systemctl restart NetworkManager
 ```
 
-## Bluetooth restart
+## Reinicio de Bluetooth
 
 ```bash
 sudo rfkill unblock all
@@ -291,7 +286,7 @@ sudo rmmod btusb
 sudo modprobe btusb
 ```
 
-# Brave extensions
+# Extensiones de Brave
 
 - [DeArrow](https://chromewebstore.google.com/detail/dearrow-better-titles-and/enamippconapkdmgfgjchkhakpfinmaj)
 - [GSConnect](https://chromewebstore.google.com/detail/gsconnect/jfnifeihccihocjbfcfhicmmgpjicaec)
