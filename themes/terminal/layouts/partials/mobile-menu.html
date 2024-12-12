@@ -11,7 +11,9 @@
         <hr />
         {{ range .Translations }}
           <li>
-            <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
+            <a href="{{ .Permalink }}" onclick="setLanguageCookie('{{ .Language.Lang }}')">
+              {{ .Language.LanguageName }}
+            </a>
           </li>
         {{ end }}
       {{ end }}

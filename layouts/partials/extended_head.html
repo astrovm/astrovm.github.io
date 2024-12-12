@@ -1,6 +1,7 @@
 <!-- Language preference handling -->
 <script>
   const SUPPORTED_LANGUAGES = ["en", "es"];
+  const DEFAULT_LANGUAGE = "en";
   const COOKIE_NAME = "preferredLanguage";
   const COOKIE_EXPIRY_DAYS = 365;
   const COOKIE_SETTINGS = {
@@ -20,10 +21,39 @@
     document.cookie = `${name}=${cookieValue}; ${cookieString}`;
   };
 
-  // Set/update cookie based on current URL path
-  const currentLang = window.location.pathname.split("/")[1];
-  if (SUPPORTED_LANGUAGES.includes(currentLang)) {
-    setCookie(COOKIE_NAME, currentLang, COOKIE_EXPIRY_DAYS);
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    return parts.length === 2 ? parts.pop().split(";").shift() : null;
+  };
+
+  const setLanguageCookie = (lang) => {
+    if (SUPPORTED_LANGUAGES.includes(lang)) {
+      setCookie(COOKIE_NAME, lang, COOKIE_EXPIRY_DAYS);
+    }
+  };
+
+  const getPreferredLanguage = () => {
+    // Check cookie first
+    const cookieLang = getCookie(COOKIE_NAME);
+    if (SUPPORTED_LANGUAGES.includes(cookieLang)) {
+      return cookieLang;
+    }
+
+    // Then check browser language
+    const browserLang = navigator.language?.toLowerCase()?.split("-")[0];
+    return SUPPORTED_LANGUAGES.includes(browserLang)
+      ? browserLang
+      : DEFAULT_LANGUAGE;
+  };
+
+  // Handle language redirection
+  const path = window.location.pathname;
+  const preferredLang = getPreferredLanguage();
+
+  // Only redirect if preferred language is Spanish and path doesn't start with /es/
+  if (preferredLang === "es" && !path.startsWith("/es/")) {
+    window.location.replace(`/es${path}`);
   }
 </script>
 

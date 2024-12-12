@@ -1,6 +1,6 @@
 baseurl = "https://4st.li/"
 defaultContentLanguage = "en"
-defaultContentLanguageInSubdir = true
+defaultContentLanguageInSubdir = false
 theme = "terminal"
 pagerSize = 5
 
@@ -82,33 +82,33 @@ pagerSize = 5
 
     [languages.en.params.logo]
       logoText = "astro <(^^,)>"
-      logoHomeLink = "/en"
+      logoHomeLink = "/"
 
     [languages.en.menu]
       [[languages.en.menu.main]]
         identifier = "home"
         name = "home"
-        url = "/en"      
+        url = "/"
         weight = 1
       [[languages.en.menu.main]]
         identifier = "projects"
         name = "projects"
-        url = "/en/projects"
+        url = "/projects"
         weight = 2
       [[languages.en.menu.main]]
         identifier = "contact"
         name = "contact"
-        url = "/en/contact"
+        url = "/contact"
         weight = 3
       [[languages.en.menu.main]]
         identifier = "configs"
         name = "configs"
-        url = "/en/configs"
+        url = "/configs"
         weight = 4
       [[languages.en.menu.main]]
         identifier = "rss"
         name = "rss"
-        url = "/en/blog/index.xml"
+        url = "/blog/index.xml"
         weight = 5
 
   [languages.es]
@@ -137,7 +137,7 @@ pagerSize = 5
       [[languages.es.menu.main]]
         identifier = "home"
         name = "inicio"
-        url = "/es"      
+        url = "/es"
         weight = 1
       [[languages.es.menu.main]]
         identifier = "projects"

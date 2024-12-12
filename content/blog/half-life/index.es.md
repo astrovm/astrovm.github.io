@@ -53,7 +53,7 @@ El juego tiene algunos mensajes interesantes detrás:
 - Hablar no es tan importante.
 
 {{< rawhtml >}}
-<video src="/en/blog/half-life/mashup.webm" width="100%" preload autoplay muted playsinline loop></video>
+<video src="/blog/half-life/mashup.webm" width="100%" preload autoplay muted playsinline loop></video>
 {{< /rawhtml >}}
 
 He visto a mucha gente tener problemas para jugar Half-Life porque esperan que el juego les diga qué hacer, y si el juego no lo hace, ¡no hacen nada! El juego se trata de curiosidad y de probar nuevas ideas, y eso se extiende a mucho más que la historia.
