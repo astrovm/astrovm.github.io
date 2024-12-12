@@ -4,7 +4,7 @@
     <ul class="menu__dropdown">
       {{ range .Translations }}
         <li>
-          <a href="{{ .Permalink }}" onclick="setLanguageCookie('{{ .Language.Lang }}')">
+          <a href="{{ .Permalink }}" onclick="setLanguage('{{ .Language.Lang }}')">
             {{ .Language.LanguageName }}
           </a>
         </li>

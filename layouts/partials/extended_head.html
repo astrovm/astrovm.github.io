@@ -1,80 +1,51 @@
 <!-- Language preference handling -->
 <script>
-  const SUPPORTED_LANGUAGES = ["en", "es"];
-  const DEFAULT_LANGUAGE = "en";
-  const COOKIE_NAME = "preferredLanguage";
-  const COOKIE_EXPIRY_DAYS = 365;
-  const COOKIE_SETTINGS = {
-    path: "/",
+  const LANGUAGES = {
+    supported: ["en", "es"],
+    default: "en",
+    cookieName: "preferredLanguage",
   };
 
-  const setCookie = (name, value, days) => {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    const cookieValue = encodeURIComponent(value);
-    const cookieString = Object.entries({
-      ...COOKIE_SETTINGS,
-      expires,
-    })
-      .map(([key, val]) => `${key.toLowerCase()}=${val}`)
-      .join("; ");
-
-    document.cookie = `${name}=${cookieValue}; ${cookieString}`;
-  };
-
-  const getCookie = (name) => {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    return parts.length === 2 ? parts.pop().split(";").shift() : null;
-  };
-
-  const setLanguageCookie = (lang) => {
-    if (SUPPORTED_LANGUAGES.includes(lang)) {
-      setCookie(COOKIE_NAME, lang, COOKIE_EXPIRY_DAYS);
+  const setLanguage = (lang) => {
+    if (LANGUAGES.supported.includes(lang)) {
+      document.cookie = `${LANGUAGES.cookieName}=${lang}; path=/; max-age=31536000`;
     }
   };
 
-  const getPreferredLanguage = () => {
-    // Check cookie first
-    const cookieLang = getCookie(COOKIE_NAME);
-    if (SUPPORTED_LANGUAGES.includes(cookieLang)) {
-      return cookieLang;
-    }
+  const getLanguage = () => {
+    // Check cookie
+    const cookie = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith(LANGUAGES.cookieName + "="));
+    const cookieLang = cookie?.split("=")[1];
+    if (LANGUAGES.supported.includes(cookieLang)) return cookieLang;
 
-    // Then check browser language
-    const browserLang = navigator.language?.toLowerCase()?.split("-")[0];
-    return SUPPORTED_LANGUAGES.includes(browserLang)
+    // Check browser language
+    const browserLang = navigator.language?.split("-")[0];
+    return LANGUAGES.supported.includes(browserLang)
       ? browserLang
-      : DEFAULT_LANGUAGE;
+      : LANGUAGES.default;
   };
 
-  // Handle language redirection
+  // Handle Spanish redirection
   const path = window.location.pathname;
-  const preferredLang = getPreferredLanguage();
-
-  // Only redirect if preferred language is Spanish and path doesn't start with /es/
-  if (preferredLang === "es" && !path.startsWith("/es/")) {
+  if (getLanguage() === "es" && !path.startsWith("/es/")) {
     window.location.replace(`/es${path}`);
   }
 </script>
 
 <!-- Title cursor blink effect -->
 <script>
-  const BLINK_TIME = 530;
-  const TITLE_CONFIG = {
-    lastChar: document.title.slice(-1),
-    baseTitle: document.title.slice(0, -1),
-    spaceChar: " ",
+  const title = {
+    text: document.title.slice(0, -1),
+    cursor: document.title.slice(-1),
   };
 
-  const updateTitle = () => {
-    const { lastChar, baseTitle, spaceChar } = TITLE_CONFIG;
-    document.title = document.title.endsWith(lastChar)
-      ? baseTitle + spaceChar
-      : baseTitle + lastChar;
-  };
-
-  // Start blinking
-  setInterval(updateTitle, BLINK_TIME);
+  setInterval(() => {
+    document.title = document.title.endsWith(title.cursor)
+      ? title.text + " "
+      : title.text + title.cursor;
+  }, 530);
 </script>
 
 <!-- Oneko (cat) cursor follower -->
