@@ -1,22 +1,18 @@
 +++
-title = "projects"
+title = "proyectos"
 hideComments = true
 +++
 
-- [Anomalous](https://anomalous.xyz/) An Anomalous Research Society
+- [Anomalous](https://anomalous.xyz/) Sociedad de investigaciones anómalas
 
-- [Flash Collection](https://4st.li/flash/) Flash games archive
+- [Flash Collection](https://4st.li/flash/) Archivo de juegos Flash
 
-- [Respondedor de boludos](https://t.me/respondedorbot) Telegram AI bot based on Argentina internet culture
+- [Respondedor de boludos](https://t.me/respondedorbot) Telegram AI bot basado en la cultura de internet argentina
 
-- [Inside the firewall](https://4st.li/insidethefirewall) Videogame I made in 2013
+- [Inside the firewall](https://4st.li/insidethefirewall) Juego que hice en 2013
 
-- [Magi](https://magi.4st.li/) A wizard worm that powers an orb
+**instancias self-hosteadas**
 
-- [Hosty](https://github.com/astrovm/hosty) System-wide ad blocker for Linux/Unix/BSD/Mac
+- [FreshRSS](https://news.4st.li/) Agregador de noticias
 
-**self-hosted instances**
-
-- [FreshRSS](https://news.4st.li/) News aggregator
-
-- [PrivateBin](https://bin.4st.li/) Open source pastebin where the server has zero knowledge of pasted data
+- [PrivateBin](https://bin.4st.li/) Pastebin de código abierto donde el servidor no tiene conocimiento de los datos pegados

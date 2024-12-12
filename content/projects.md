@@ -11,10 +11,6 @@ hideComments = true
 
 - [Inside the firewall](https://4st.li/insidethefirewall) Videogame I made in 2013
 
-- [Magi](https://magi.4st.li/) A wizard worm that powers an orb
-
-- [Hosty](https://github.com/astrovm/hosty) System-wide ad blocker for Linux/Unix/BSD/Mac
-
 **self-hosted instances**
 
 - [FreshRSS](https://news.4st.li/) News aggregator
