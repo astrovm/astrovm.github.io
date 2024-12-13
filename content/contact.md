@@ -14,5 +14,11 @@ hideComments = true
 **donate**
 
 - [bitcoin/lightning](https://checkout.opennode.com/p/32c4dcff-1ef4-44ba-908e-cccf7f564233)
+
 - ethereum/l2s: [astrolince.eth](https://app.zerion.io/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd/overview?name=astrolince.eth)
-- monero: 8BVAgmF6bwQeW8Y6UEFut7YzKyQCE19UANt9avx64ZjsApwvCaaMhVZYd6LwqpKjsaRyJaVvTjxapK3chj3JUv4cUepKCjB
+
+- monero, solana, doge, tron and others:
+
+{{< rawhtml >}}
+<iframe src="https://trocador.app/anonpay/?ticker_to=xmr&network_to=Mainnet&address=8BVAgmF6bwQeW8Y6UEFut7YzKyQCE19UANt9avx64ZjsApwvCaaMhVZYd6LwqpKjsaRyJaVvTjxapK3chj3JUv4cUepKCjB&donation=True&simple_mode=True&description=Donation+to+4st.li&email=pay@4st.li&ticker_from=xmr&network_from=Mainnet&buttonbgcolor=f462c6&bgcolor=" width="325" height="225" style="border:0" scrolling="no"></iframe>
+{{< /rawhtml >}}
