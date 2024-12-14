@@ -1,20 +1,28 @@
 body {
-    cursor: url(/cursor.cur), auto;
+  cursor: url(/cursor.cur), auto;
 }
 
 a {
-    cursor: url(/link.cur), auto;
+  cursor: url(/link.cur), auto;
 }
 
-h1.post-title {
-    margin-top: 0px !important;
-}
-
-.post {
-    margin: 0px auto !important;
-    padding: 0px auto !important;
+.header a {
+  color: #eceae5;
 }
 
 .index-content {
-    margin-top: 0px !important;
+  margin-top: 10px;
+}
+
+.index-content a {
+  color: #eceae5;
+}
+
+.index-content p {
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+}
+
+.navigation-menu {
+  margin-bottom: 0;
 }
