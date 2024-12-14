@@ -56,11 +56,21 @@
 - https://sir-photch.xyz **Sir-Photch** (ComSci-student. German Blog)
 - https://drewmorris.info **Drew Morris** (Mathematician && Computer Scientist)
 - https://blog.darkiiiiiice.com **MarioMang** (Software Developer)
-
+- https://www.sagbot.com **E. HADDAG** (Computer Scientist)
+- https://adamperkowski.dev **Adam Perkowski** (A Random Developer)
+- https://imortio.github.io **Azrul** (CompSci Student)
+- https://carmar.is **Carmaris** (Amateur Hacker)
+- https://ragonneau.github.io **Tom Ragonneau** (Engineer)
+- https://katiethe.dev **KatieTheDev** (Amateur porgrammer and tinkerer)
+- https://stefka.eu **Jiří Štefka** (Software Developer)
+- https://blog.networkchuck.com **NetworkChuck** (YouTuber & Hacker)
+- https://blog.arkb.me **AbdulRKB** (Security Researcher & Web Dev)
+- https://harshv5094.netlify.app **Harsh Vyapari** (Developer & Linux Enthusiast)
 <!--
  TEMPLATE:
 
  - https://radoslawkoziel.pl **Radek Kozieł** (Software Designer and Developer)
 
  -->
+
 
