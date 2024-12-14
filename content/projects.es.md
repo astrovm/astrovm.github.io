@@ -7,7 +7,7 @@ hideComments = true
 
 - [Flash Collection](https://4st.li/flash/) Archivo de juegos Flash
 
-- [Respondedor de boludos](https://t.me/respondedorbot) Telegram AI bot basado en la cultura de internet argentina
+- [Respondedor de boludos](https://t.me/respondedorbot) Bot de Telegram con IA basada en la cultura de internet argentina
 
 - [Inside the firewall](https://4st.li/insidethefirewall) Juego que hice en 2013
 
