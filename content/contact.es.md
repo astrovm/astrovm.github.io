@@ -9,8 +9,6 @@ hideComments = true
 
 - telegram: [@astrolince](https://t.me/astrolince)
 
-- pgp key: [CC39 C6D7 7BDF 0053](https://keybase.io/astrolince/pgp_keys.asc?fingerprint=4678098bf5783d3f5d506eb6cc39c6d77bdf0053)
-
 **donar**
 
 - [bitcoin/lightning](https://checkout.opennode.com/p/32c4dcff-1ef4-44ba-908e-cccf7f564233)
