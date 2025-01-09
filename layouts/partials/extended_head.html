@@ -34,18 +34,118 @@
   }
 </script>
 
-<!-- Title cursor blink effect -->
+<!-- Title cursor blink effect and terminal easter egg -->
 <script>
   const title = {
-    text: document.title.slice(0, -1),
-    cursor: document.title.slice(-1),
+    text: document.title,
+    prompt: " $ ",
+    cursor: "_",
   };
+  const blinkStates = [
+    title.text + title.prompt,
+    title.text + title.prompt + title.cursor,
+  ];
+  const blinkTime = 530;
+  document.title = blinkStates[0];
 
-  setInterval(() => {
-    document.title = document.title.endsWith(title.cursor)
-      ? title.text + " "
-      : title.text + title.cursor;
-  }, 530);
+  // Terminal configuration
+  const ACTIVATION_COMMAND = "sudo access";
+  const SECRET_PASSWORD =
+    "e41fe7f005b3be374f7d17da41e7c4cabddb91d9836a67216e8449001237f7f7a79661bad1bb5558d8aa62e139d18dcd029cc7bcdb546d7522a38f2ade1ee207";
+
+  let terminalActive = false;
+  let awaitingPassword = false;
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const terminal = {
+      elem: document.getElementById("secretTerminal"),
+      input: document.getElementById("terminalInput"),
+      output: document.getElementById("terminalOutput"),
+
+      print: (text) => {
+        terminal.output.innerHTML += `<div>${text}</div>`;
+        terminal.output.scrollTop = terminal.output.scrollHeight;
+      },
+
+      clear: () => {
+        terminal.output.innerHTML = "";
+      },
+    };
+
+    const hashPassword = async (password) => {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(password);
+      const hashBuffer = await crypto.subtle.digest("SHA-512", data);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+    };
+
+    const activateTerminal = () => {
+      terminalActive = true;
+      terminal.elem.classList.add("active");
+      terminal.clear();
+      terminal.print("=== RESTRICTED ACCESS TERMINAL ===");
+      terminal.print("Password required:");
+      terminal.input.focus();
+      awaitingPassword = true;
+    };
+
+    const processCommand = async (cmd) => {
+      if (awaitingPassword) {
+        const hashedInput = await hashPassword(cmd);
+        if (hashedInput === SECRET_PASSWORD) {
+          terminal.print("Access granted...");
+          terminal.print("Loading secret interface...");
+          setTimeout(() => {
+            window.location.href = "/secret";
+          }, 2000);
+        } else {
+          terminal.print("Access denied.");
+          terminal.print("Terminal shutting down...");
+          setTimeout(() => {
+            terminal.elem.classList.remove("active");
+            terminalActive = false;
+            awaitingPassword = false;
+            document.title = blinkStates[0];
+          }, 2000);
+        }
+      }
+    };
+
+    terminal.input.addEventListener("keypress", async (e) => {
+      if (e.key === "Enter") {
+        const cmd = terminal.input.value.trim();
+        terminal.print(`> ${cmd}`);
+        await processCommand(cmd);
+        terminal.input.value = "";
+      }
+    });
+
+    // Direct title change check
+    const checkTitleChange = () => {
+      const currentTitle = document.title.toLowerCase().trim();
+      if (currentTitle.includes(ACTIVATION_COMMAND) && !terminalActive) {
+        activateTerminal();
+      }
+    };
+
+    // Check title changes frequently
+    const titleCheckInterval = setInterval(checkTitleChange, 100);
+
+    // Title blink effect
+    const blinkInterval = setInterval(() => {
+      if (!terminalActive) {
+        const currentTitle = document.title.toLowerCase().trim();
+        if (
+          blinkStates.map((s) => s.toLowerCase().trim()).includes(currentTitle)
+        ) {
+          document.title = currentTitle.endsWith(title.prompt.trim())
+            ? blinkStates[1]
+            : blinkStates[0];
+        }
+      }
+    }, blinkTime);
+  });
 </script>
 
 <!-- Oneko (cat) cursor follower -->

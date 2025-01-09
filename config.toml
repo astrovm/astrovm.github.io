@@ -68,7 +68,7 @@ pagerSize = 5
   [languages.en]
     languageName = "english"
     languageCode = "en"
-    title = "astro@web $ _"
+    title = "astro@web"
     subtitle = "prepare for unforeseen consequences."
     owner = "astro"
     keywords = "crypto, bitcoin, programming, code, linux, hacking"
@@ -117,7 +117,7 @@ pagerSize = 5
   [languages.es]
     languageName = "español"
     languageCode = "es"
-    title = "astro@web $ _"
+    title = "astro@web"
     subtitle = "preparate para consecuencias imprevistas."
     owner = "astro"
     keywords = "cripto, bitcoin, programación, código, linux, hacking"
