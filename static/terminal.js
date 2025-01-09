@@ -15,6 +15,7 @@ let terminalActive = false;
 let awaitingPassword = false;
 let term = null;
 let commandBuffer = "";
+let cursorPosition = 0;
 let commandHistory = [];
 let historyIndex = -1;
 
@@ -103,16 +104,39 @@ document.addEventListener("DOMContentLoaded", () => {
                   historyIndex = -1;
                 }
                 commandBuffer = "";
+                cursorPosition = 0;
                 document.title = title.text + title.prompt;
               } else {
                 terminal.prompt();
               }
               break;
             case "\u007F": // Backspace
-              if (commandBuffer.length > 0) {
-                commandBuffer = commandBuffer.slice(0, -1);
-                term.write("\b \b");
+              if (commandBuffer.length > 0 && cursorPosition > 0) {
+                const start = commandBuffer.slice(0, cursorPosition - 1);
+                const end = commandBuffer.slice(cursorPosition);
+                commandBuffer = start + end;
+                cursorPosition--;
+                // Clear from cursor to end of line
+                term.write("\b \b"); // Remove character at cursor
+                if (end.length > 0) {
+                  term.write(end); // Rewrite the rest of the line
+                  term.write(" "); // Clear last character
+                  // Move cursor back to position
+                  term.write("\b".repeat(end.length + 1));
+                }
                 document.title = title.text + title.prompt + commandBuffer;
+              }
+              break;
+            case "\u001b[D": // Left arrow
+              if (cursorPosition > 0) {
+                cursorPosition--;
+                term.write(data);
+              }
+              break;
+            case "\u001b[C": // Right arrow
+              if (cursorPosition < commandBuffer.length) {
+                cursorPosition++;
+                term.write(data);
               }
               break;
             case "\u001b[A": // Up arrow
@@ -124,6 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 term.write("\r$ " + " ".repeat(commandBuffer.length) + "\r$ ");
                 historyIndex++;
                 commandBuffer = commandHistory[historyIndex];
+                cursorPosition = commandBuffer.length;
                 term.write(commandBuffer);
                 document.title = title.text + title.prompt + commandBuffer;
               }
@@ -135,14 +160,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 historyIndex--;
                 commandBuffer =
                   historyIndex >= 0 ? commandHistory[historyIndex] : "";
+                cursorPosition = commandBuffer.length;
                 term.write(commandBuffer);
                 document.title = title.text + title.prompt + commandBuffer;
               }
               break;
             default:
               if (data >= String.fromCharCode(32)) {
-                commandBuffer += data;
-                term.write(data);
+                // Insert character at cursor position
+                const start = commandBuffer.slice(0, cursorPosition);
+                const end = commandBuffer.slice(cursorPosition);
+                commandBuffer = start + data + end;
+                cursorPosition++;
+                term.write(data + end + "\b".repeat(end.length));
                 document.title = title.text + title.prompt + commandBuffer;
               }
           }
