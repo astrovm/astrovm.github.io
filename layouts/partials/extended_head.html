@@ -113,11 +113,31 @@
             );
           }
           const encryptedData = await response.arrayBuffer();
+          const dataView = new DataView(encryptedData);
+
+          // Read header
+          const headerLength = dataView.getUint16(0);
+          const headerText = new TextDecoder().decode(
+            encryptedData.slice(2, 2 + headerLength)
+          );
+          const header = JSON.parse(headerText);
+
+          // Extract components
+          let offset = 2 + headerLength;
+          const salt = new Uint8Array(encryptedData.slice(offset, offset + 32));
+          offset += 32;
+
+          const iv = new Uint8Array(encryptedData.slice(offset, offset + 16));
+          offset += 16;
+
+          const authTag = new Uint8Array(encryptedData.slice(-16));
+          const encrypted = new Uint8Array(encryptedData.slice(offset, -16));
+
           terminal.print(
             `Loaded ${encryptedData.byteLength} bytes of encrypted data`
           );
 
-          // Derive key from password
+          // Import password for key derivation
           const encoder = new TextEncoder();
           const keyMaterial = await crypto.subtle.importKey(
             "raw",
@@ -127,12 +147,13 @@
             ["deriveBits", "deriveKey"]
           );
 
+          // Derive key using parameters from header
           const key = await crypto.subtle.deriveKey(
             {
               name: "PBKDF2",
-              salt: encoder.encode("astro-secret-salt"),
-              iterations: 100000,
-              hash: "SHA-256",
+              salt: salt,
+              iterations: header.i,
+              hash: { name: header.a === "sha512" ? "SHA-512" : "SHA-256" },
             },
             keyMaterial,
             { name: "AES-GCM", length: 256 },
@@ -140,14 +161,11 @@
             ["decrypt"]
           );
 
-          // First 12 bytes are IV, rest is encrypted data
-          const iv = new Uint8Array(encryptedData.slice(0, 12));
-          const data = new Uint8Array(encryptedData.slice(12));
-
+          // Decrypt the commands
           const decrypted = await crypto.subtle.decrypt(
-            { name: "AES-GCM", iv },
+            { name: "AES-GCM", iv, tagLength: 128 },
             key,
-            data
+            new Uint8Array([...encrypted, ...authTag])
           );
 
           const decodedText = new TextDecoder().decode(decrypted);
