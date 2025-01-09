@@ -75,6 +75,8 @@
       terminal.print("=== RESTRICTED ACCESS TERMINAL ===");
       terminal.input.focus();
     };
+    // Make activateTerminal available globally
+    window.activateTerminal = activateTerminal;
 
     const commands = {
       help: () => {
@@ -196,8 +198,39 @@
         terminal.print(`> ${cmd}`);
         await processCommand(cmd);
         terminal.input.value = "";
+        document.title = title.text + title.prompt;
       }
     });
+
+    // Update title while typing
+    terminal.input.addEventListener("input", (e) => {
+      if (terminalActive) {
+        const currentInput = terminal.input.value.trim();
+        document.title = title.text + title.prompt + currentInput;
+      }
+    });
+
+    // Title blink effect
+    const blinkInterval = setInterval(() => {
+      if (!terminalActive) {
+        const currentTitle = document.title.toLowerCase().trim();
+        if (
+          blinkStates.map((s) => s.toLowerCase().trim()).includes(currentTitle)
+        ) {
+          document.title = currentTitle.endsWith(title.prompt.trim())
+            ? blinkStates[1]
+            : blinkStates[0];
+        }
+      } else {
+        // When terminal is active, blink cursor at the end of current input
+        const baseTitle =
+          title.text + title.prompt + (terminal.input.value.trim() || "");
+        document.title =
+          document.title === baseTitle + title.cursor
+            ? baseTitle
+            : baseTitle + title.cursor;
+      }
+    }, blinkTime);
 
     // Direct title change check
     const checkTitleChange = () => {
@@ -220,20 +253,6 @@
 
     // Check title changes frequently
     const titleCheckInterval = setInterval(checkTitleChange, 100);
-
-    // Title blink effect
-    const blinkInterval = setInterval(() => {
-      if (!terminalActive) {
-        const currentTitle = document.title.toLowerCase().trim();
-        if (
-          blinkStates.map((s) => s.toLowerCase().trim()).includes(currentTitle)
-        ) {
-          document.title = currentTitle.endsWith(title.prompt.trim())
-            ? blinkStates[1]
-            : blinkStates[0];
-        }
-      }
-    }, blinkTime);
   });
 </script>
 
