@@ -49,10 +49,8 @@
   document.title = blinkStates[0];
 
   // Terminal configuration
-  const ACTIVATION_COMMAND = "sudo access";
   const SECRET_PASSWORD =
     "e41fe7f005b3be374f7d17da41e7c4cabddb91d9836a67216e8449001237f7f7a79661bad1bb5558d8aa62e139d18dcd029cc7bcdb546d7522a38f2ade1ee207";
-
   let terminalActive = false;
   let awaitingPassword = false;
 
@@ -85,9 +83,32 @@
       terminal.elem.classList.add("active");
       terminal.clear();
       terminal.print("=== RESTRICTED ACCESS TERMINAL ===");
-      terminal.print("Password required:");
       terminal.input.focus();
-      awaitingPassword = true;
+    };
+
+    const commands = {
+      help: () => {
+        terminal.print("Available commands:");
+        terminal.print("  help     - Show this help message");
+        terminal.print("  clear    - Clear terminal screen");
+        terminal.print("  exit     - Close terminal");
+        terminal.print("  access   - Request access to restricted area");
+      },
+      clear: () => {
+        terminal.clear();
+      },
+      exit: () => {
+        terminal.print("Closing terminal...");
+        setTimeout(() => {
+          terminal.elem.classList.remove("active");
+          terminalActive = false;
+          document.title = blinkStates[0];
+        }, 1000);
+      },
+      access: () => {
+        awaitingPassword = true;
+        terminal.print("Password required:");
+      },
     };
 
     const processCommand = async (cmd) => {
@@ -109,6 +130,16 @@
             document.title = blinkStates[0];
           }, 2000);
         }
+        return;
+      }
+
+      const [command, ...args] = cmd.toLowerCase().trim().split(" ");
+
+      if (command in commands) {
+        commands[command](args);
+      } else {
+        terminal.print(`Command not found: ${command}`);
+        terminal.print("Type 'help' for available commands");
       }
     };
 
@@ -124,8 +155,19 @@
     // Direct title change check
     const checkTitleChange = () => {
       const currentTitle = document.title.toLowerCase().trim();
-      if (currentTitle.includes(ACTIVATION_COMMAND) && !terminalActive) {
+      if (
+        !terminalActive &&
+        !blinkStates.map((s) => s.toLowerCase().trim()).includes(currentTitle)
+      ) {
+        const command = currentTitle
+          .replace(blinkStates[0].toLowerCase().trim(), "")
+          .trim();
         activateTerminal();
+        setTimeout(() => {
+          terminal.print(`> ${command}`);
+          processCommand(command);
+          terminal.input.value = "";
+        }, 100);
       }
     };
 
