@@ -75,19 +75,48 @@ document.addEventListener("DOMContentLoaded", () => {
               term.writeln("");
               processCommand(commandBuffer);
               commandBuffer = "";
+              cursorPosition = 0;
               document.title = title.text + title.prompt;
               break;
             case "\u007F": // Backspace
-              if (commandBuffer.length > 0) {
-                commandBuffer = commandBuffer.slice(0, -1);
+              if (commandBuffer.length > 0 && cursorPosition > 0) {
+                const start = commandBuffer.slice(0, cursorPosition - 1);
+                const end = commandBuffer.slice(cursorPosition);
+                commandBuffer = start + end;
+                cursorPosition--;
                 term.write("\b \b");
-                document.title = title.text + title.prompt + commandBuffer;
+                if (end.length > 0) {
+                  term.write("*".repeat(end.length));
+                  term.write(" ");
+                  term.write("\b".repeat(end.length + 1));
+                }
+                document.title =
+                  title.text + title.prompt + "*".repeat(commandBuffer.length);
+              }
+              break;
+            case "\u001b[D": // Left arrow
+              if (cursorPosition > 0) {
+                cursorPosition--;
+                term.write(data);
+              }
+              break;
+            case "\u001b[C": // Right arrow
+              if (cursorPosition < commandBuffer.length) {
+                cursorPosition++;
+                term.write(data);
               }
               break;
             default:
               if (data >= String.fromCharCode(32)) {
-                commandBuffer += data;
+                const start = commandBuffer.slice(0, cursorPosition);
+                const end = commandBuffer.slice(cursorPosition);
+                commandBuffer = start + data + end;
+                cursorPosition++;
                 term.write("*");
+                if (end.length > 0) {
+                  term.write("*".repeat(end.length));
+                  term.write("\b".repeat(end.length));
+                }
                 document.title =
                   title.text + title.prompt + "*".repeat(commandBuffer.length);
               }
