@@ -6,137 +6,76 @@
 const crypto = require("crypto");
 const fs = require("fs");
 
-// Encryption configuration
-const CONFIG = {
-  version: 2, // Increment when encryption method changes
-  keyDerivation: {
-    algorithm: "sha512",
-    iterations: 1000000, // 1 million iterations
-    keyLength: 32,
-    saltLength: 32,
-  },
-  encryption: {
-    algorithm: "aes-256-gcm",
-    ivLength: 16,
-    tagLength: 16,
-  },
-};
-
-// Read secret commands from external file
 const SOURCE_FILE = "secret-commands-source.js";
 const ENCRYPTED_FILE = "static/secret-commands.js.enc";
 
+// Simplified encryption configuration
+const CONFIG = {
+  iterations: 1000000,
+  keyLength: 32,
+  ivLength: 16,
+  saltLength: 32,
+  tagLength: 16,
+};
+
 function deriveKey(password, salt) {
-  console.log("Deriving key (this may take a few seconds)...");
   return crypto.pbkdf2Sync(
     password,
     salt,
-    CONFIG.keyDerivation.iterations,
-    CONFIG.keyDerivation.keyLength,
-    CONFIG.keyDerivation.algorithm
+    CONFIG.iterations,
+    CONFIG.keyLength,
+    "sha512"
   );
 }
 
 async function encryptCommands(password) {
   const secretCommands = fs.readFileSync(SOURCE_FILE, "utf8");
-
-  // Generate a random salt and IV
-  const salt = crypto.randomBytes(CONFIG.keyDerivation.saltLength);
-  const iv = crypto.randomBytes(CONFIG.encryption.ivLength);
-
-  // Derive key from password
+  const salt = crypto.randomBytes(CONFIG.saltLength);
+  const iv = crypto.randomBytes(CONFIG.ivLength);
   const key = deriveKey(password, salt);
 
-  // Encrypt the commands
-  const cipher = crypto.createCipheriv(CONFIG.encryption.algorithm, key, iv);
-  let encrypted = cipher.update(secretCommands, "utf8");
-  encrypted = Buffer.concat([encrypted, cipher.final()]);
-
-  // Get the auth tag
+  const cipher = crypto.createCipheriv("aes-256-gcm", key, iv);
+  const encrypted = Buffer.concat([
+    cipher.update(secretCommands, "utf8"),
+    cipher.final(),
+  ]);
   const authTag = cipher.getAuthTag();
 
-  // Create header with version and encryption parameters
-  const header = Buffer.from(
-    JSON.stringify({
-      v: CONFIG.version,
-      i: CONFIG.keyDerivation.iterations,
-      a: CONFIG.keyDerivation.algorithm,
-    })
-  );
-  const headerLength = Buffer.alloc(2);
-  headerLength.writeUInt16BE(header.length);
-
-  // Combine all components:
-  // [2B header length][header][32B salt][16B IV][encrypted data][16B auth tag]
-  const result = Buffer.concat([
-    headerLength,
-    header,
-    salt,
-    iv,
-    encrypted,
-    authTag,
-  ]);
-
-  // Write to file
+  // Combine all components: [salt][iv][encrypted][tag]
+  const result = Buffer.concat([salt, iv, encrypted, authTag]);
   fs.writeFileSync(ENCRYPTED_FILE, result);
+
   console.log(`Encrypted commands saved to ${ENCRYPTED_FILE}`);
-  console.log(`Security parameters:`);
+  console.log(`\nSecurity parameters:`);
+  console.log(`- Key derivation: SHA-512`);
+  console.log(`- Iterations: ${CONFIG.iterations.toLocaleString()}`);
   console.log(
-    `- Key derivation: ${CONFIG.keyDerivation.algorithm.toUpperCase()}`
+    `- Salt/Key/IV lengths: ${CONFIG.saltLength * 8}/${CONFIG.keyLength * 8}/${
+      CONFIG.ivLength * 8
+    } bits`
   );
-  console.log(
-    `- Iterations: ${CONFIG.keyDerivation.iterations.toLocaleString()}`
-  );
-  console.log(`- Salt length: ${CONFIG.keyDerivation.saltLength * 8} bits`);
-  console.log(`- Key length: ${CONFIG.keyDerivation.keyLength * 8} bits`);
-  console.log(`- IV length: ${CONFIG.encryption.ivLength * 8} bits`);
 }
 
 async function decryptCommands(password) {
-  // Read the encrypted file
   const encryptedData = fs.readFileSync(ENCRYPTED_FILE);
 
-  // Read header
-  const headerLength = encryptedData.readUInt16BE(0);
-  const header = JSON.parse(encryptedData.slice(2, 2 + headerLength));
-
-  // Verify version compatibility
-  if (header.v !== CONFIG.version) {
-    console.error(
-      `Error: Incompatible encryption version (file: v${header.v}, current: v${CONFIG.version})`
-    );
-    process.exit(1);
-  }
-
   // Extract components
-  let offset = 2 + headerLength;
-  const salt = encryptedData.slice(
-    offset,
-    offset + CONFIG.keyDerivation.saltLength
-  );
-  offset += CONFIG.keyDerivation.saltLength;
+  let offset = 0;
+  const salt = encryptedData.slice(offset, (offset += CONFIG.saltLength));
+  const iv = encryptedData.slice(offset, (offset += CONFIG.ivLength));
+  const authTag = encryptedData.slice(-CONFIG.tagLength);
+  const encrypted = encryptedData.slice(offset, -CONFIG.tagLength);
 
-  const iv = encryptedData.slice(offset, offset + CONFIG.encryption.ivLength);
-  offset += CONFIG.encryption.ivLength;
-
-  const authTag = encryptedData.slice(-CONFIG.encryption.tagLength);
-  const encrypted = encryptedData.slice(offset, -CONFIG.encryption.tagLength);
-
-  // Derive key using the same parameters from the file
   const key = deriveKey(password, salt);
 
   try {
-    // Decrypt the commands
-    const decipher = crypto.createDecipheriv(
-      CONFIG.encryption.algorithm,
-      key,
-      iv
-    );
+    const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv);
     decipher.setAuthTag(authTag);
-    let decrypted = decipher.update(encrypted);
-    decrypted = Buffer.concat([decrypted, decipher.final()]);
+    const decrypted = Buffer.concat([
+      decipher.update(encrypted),
+      decipher.final(),
+    ]);
 
-    // Write to source file
     fs.writeFileSync(SOURCE_FILE, decrypted);
     console.log(`Decrypted commands saved to ${SOURCE_FILE}`);
   } catch (error) {

@@ -113,25 +113,12 @@
             );
           }
           const encryptedData = await response.arrayBuffer();
-          const dataView = new DataView(encryptedData);
 
-          // Read header
-          const headerLength = dataView.getUint16(0);
-          const headerText = new TextDecoder().decode(
-            encryptedData.slice(2, 2 + headerLength)
-          );
-          const header = JSON.parse(headerText);
-
-          // Extract components
-          let offset = 2 + headerLength;
-          const salt = new Uint8Array(encryptedData.slice(offset, offset + 32));
-          offset += 32;
-
-          const iv = new Uint8Array(encryptedData.slice(offset, offset + 16));
-          offset += 16;
-
+          // Extract components (32B salt + 16B IV + encrypted + 16B tag)
+          const salt = new Uint8Array(encryptedData.slice(0, 32));
+          const iv = new Uint8Array(encryptedData.slice(32, 48));
           const authTag = new Uint8Array(encryptedData.slice(-16));
-          const encrypted = new Uint8Array(encryptedData.slice(offset, -16));
+          const encrypted = new Uint8Array(encryptedData.slice(48, -16));
 
           terminal.print(
             `Loaded ${encryptedData.byteLength} bytes of encrypted data`
@@ -147,13 +134,13 @@
             ["deriveBits", "deriveKey"]
           );
 
-          // Derive key using parameters from header
+          // Derive key using SHA-512 and 1 million iterations
           const key = await crypto.subtle.deriveKey(
             {
               name: "PBKDF2",
               salt: salt,
-              iterations: header.i,
-              hash: { name: header.a === "sha512" ? "SHA-512" : "SHA-256" },
+              iterations: 1000000,
+              hash: "SHA-512",
             },
             keyMaterial,
             { name: "AES-GCM", length: 256 },
