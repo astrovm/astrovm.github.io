@@ -39,6 +39,23 @@ a {
   border-radius: 6px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.secret-terminal.minimized {
+  transform: translate(-50%, 100vh);
+  opacity: 0;
+}
+
+.secret-terminal.maximized {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  transform: none;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
 }
 
 .secret-terminal::before {
@@ -51,6 +68,18 @@ a {
   font-size: 14px;
   border-bottom: 1px solid #444;
   position: relative;
+  height: 24px;
+  line-height: 24px;
+}
+
+#terminal {
+  height: 100%;
+  width: 100%;
+}
+
+.secret-terminal.maximized .xterm {
+  padding: 5px;
+  height: 100%;
 }
 
 .window-controls {
@@ -69,14 +98,11 @@ a {
   padding: 0;
   cursor: pointer;
   flex-shrink: 0;
+  transition: filter 0.2s ease;
 }
 
 .window-button:hover {
   filter: brightness(0.9);
-}
-
-.window-button.close {
-  background: #ff5f56;
 }
 
 .window-button.minimize {
@@ -85,6 +111,10 @@ a {
 
 .window-button.maximize {
   background: #27c93f;
+}
+
+.window-button.close {
+  background: #ff5f56;
 }
 
 .secret-terminal.active {
