@@ -45,6 +45,7 @@ a {
 .secret-terminal.minimized {
   transform: translate(-50%, 100vh);
   opacity: 0;
+  pointer-events: none;
 }
 
 .secret-terminal.maximized {
@@ -58,9 +59,61 @@ a {
   box-shadow: none;
 }
 
+.terminal-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2a2a2a;
+  color: #ccc;
+  padding: 0px 16px;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  border-bottom: 1px solid #444;
+  height: 24px;
+  line-height: 24px;
+}
+
+.terminal-icon {
+  font-family: monospace;
+  font-weight: bold;
+  color: #0f0;
+  font-size: 16px;
+}
+
+.terminal-taskbar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: #ccc;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  z-index: 1000;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.terminal-taskbar:hover {
+  background: #3a3a3a;
+}
+
+.terminal-taskbar.active {
+  display: flex;
+}
+
 .secret-terminal::before {
-  content: "Terminal";
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background: #2a2a2a;
   color: #ccc;
   padding: 0px 16px;
@@ -72,8 +125,15 @@ a {
   line-height: 24px;
 }
 
+.secret-terminal::before::before {
+  content: ">";
+  font-family: monospace;
+  font-weight: bold;
+  color: #0f0;
+}
+
 #terminal {
-  height: 100%;
+  height: calc(100% - 24px);
   width: 100%;
 }
 
@@ -88,6 +148,7 @@ a {
   right: 16px;
   display: flex;
   gap: 8px;
+  margin-left: auto;
 }
 
 .window-button {
@@ -123,4 +184,5 @@ a {
 
 .xterm {
   padding: 16px;
+  height: 100%;
 }

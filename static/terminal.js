@@ -12,6 +12,7 @@ class TerminalState {
     this.intervals = [];
     this.passwordTimer = null;
     this.PASSWORD_TIMEOUT = 30000; // 30 seconds
+    this.resizeHandler = null;
   }
 
   startPasswordTimeout(onTimeout) {
@@ -38,6 +39,16 @@ class TerminalState {
       this.term.dispose();
       this.term = null;
     }
+    if (this.resizeHandler) {
+      window.removeEventListener("resize", this.resizeHandler);
+      this.resizeHandler = null;
+    }
+    this.active = false;
+    this.awaitingPassword = false;
+    this.commandBuffer = "";
+    this.cursorPosition = 0;
+    this.commandHistory = [];
+    this.historyIndex = -1;
   }
 
   addInterval(interval) {
@@ -62,22 +73,52 @@ document.title = blinkStates[0];
 document.addEventListener("DOMContentLoaded", () => {
   const state = new TerminalState();
 
-  // Initialize xterm.js
-  state.term = new Terminal({
-    cursorBlink: true,
-    theme: {
-      background: "rgba(0, 0, 0, 0.9)",
-      foreground: "#0f0",
-      cursor: "#0f0",
-    },
-    fontSize: 16,
-    fontFamily: "monospace",
-    scrollback: 1000,
+  // Create taskbar element
+  const taskbar = document.createElement("div");
+  taskbar.className = "terminal-taskbar";
+  taskbar.innerHTML = `<span class="terminal-icon">&gt;</span>Terminal`;
+  document.body.appendChild(taskbar);
+
+  taskbar.addEventListener("click", () => {
+    terminal.restore();
+    taskbar.classList.remove("active");
   });
 
-  // Initialize and load the fit addon
-  state.fitAddon = new FitAddon.FitAddon();
-  state.term.loadAddon(state.fitAddon);
+  const closeTerminal = () => {
+    // Remove all terminal classes
+    terminal.elem.classList.remove("active", "minimized", "maximized");
+    // Reset title
+    document.title = blinkStates[0];
+    // Clear the terminal container before cleanup
+    terminal.elem.innerHTML = "";
+    // Clean up state
+    state.cleanup();
+    // Remove taskbar
+    taskbar.classList.remove("active");
+    taskbar.style.display = "none";
+  };
+
+  const initializeTerminal = () => {
+    // Initialize xterm.js
+    state.term = new Terminal({
+      cursorBlink: true,
+      theme: {
+        background: "rgba(0, 0, 0, 0.9)",
+        foreground: "#0f0",
+        cursor: "#0f0",
+      },
+      fontSize: 16,
+      fontFamily: "monospace",
+      scrollback: 1000,
+    });
+
+    // Initialize and load the fit addon
+    state.fitAddon = new FitAddon.FitAddon();
+    state.term.loadAddon(state.fitAddon);
+  };
+
+  // Initialize terminal first time
+  initializeTerminal();
 
   const terminal = {
     elem: document.getElementById("secretTerminal"),
@@ -101,24 +142,47 @@ document.addEventListener("DOMContentLoaded", () => {
     minimize: () => {
       terminal.elem.classList.add("minimized");
       terminal.elem.classList.remove("maximized");
+      taskbar.classList.add("active");
+      taskbar.style.display = "flex";
     },
 
     maximize: () => {
       terminal.elem.classList.remove("minimized");
       terminal.elem.classList.add("maximized");
+      taskbar.classList.remove("active");
       state.fitAddon.fit();
     },
 
     restore: () => {
       terminal.elem.classList.remove("minimized", "maximized");
+      taskbar.classList.remove("active");
       state.fitAddon.fit();
     },
   };
 
   const activateTerminal = () => {
     if (!state.active) {
+      // Clean up any existing elements first
+      terminal.elem.innerHTML = "";
+
+      // Reinitialize terminal if needed
+      if (!state.term) {
+        initializeTerminal();
+      }
+
       state.active = true;
       terminal.elem.classList.add("active");
+
+      // Add title bar
+      const titleBar = document.createElement("div");
+      titleBar.className = "terminal-title";
+      titleBar.innerHTML = `<span class="terminal-icon">&gt;</span>Terminal`;
+      terminal.elem.appendChild(titleBar);
+
+      // Add terminal container
+      const terminalContainer = document.createElement("div");
+      terminalContainer.id = "terminal";
+      terminal.elem.appendChild(terminalContainer);
 
       // Add window control buttons
       const controls = document.createElement("div");
@@ -128,16 +192,10 @@ document.addEventListener("DOMContentLoaded", () => {
         <button class="window-button maximize" title="Maximize"></button>
         <button class="window-button close" title="Close"></button>
       `;
-      terminal.elem.appendChild(controls);
+      titleBar.appendChild(controls);
 
       // Add click handlers for window controls
-      controls.querySelector(".close").addEventListener("click", () => {
-        terminal.elem.classList.remove("active", "minimized", "maximized");
-        state.active = false;
-        state.awaitingPassword = false;
-        document.title = blinkStates[0];
-        state.cleanup();
-      });
+      controls.querySelector(".close").addEventListener("click", closeTerminal);
 
       controls.querySelector(".minimize").addEventListener("click", () => {
         terminal.minimize();
@@ -346,23 +404,13 @@ document.addEventListener("DOMContentLoaded", () => {
     clear: () => {
       terminal.clear();
     },
-    exit: () => {
-      terminal.print("Closing terminal...");
-      setTimeout(() => {
-        terminal.clear();
-        terminal.elem.classList.remove("active", "minimized", "maximized");
-        state.active = false;
-        state.awaitingPassword = false;
-        document.title = blinkStates[0];
-        state.cleanup();
-      }, 1000);
-    },
+    exit: closeTerminal,
     access: () => {
       state.awaitingPassword = true;
       terminal.print("Password required:");
       state.startPasswordTimeout(() => {
         terminal.print("Password timeout. Session terminated.");
-        commands.exit();
+        closeTerminal();
       });
     },
   };
@@ -439,19 +487,14 @@ document.addEventListener("DOMContentLoaded", () => {
         if (e.message.includes("Network error")) {
           errorMessage += "Could not load secret commands";
         } else if (e.name === "OperationError") {
-          errorMessage += "Invalid password or corrupted data";
+          errorMessage += "Invalid password";
         } else {
           errorMessage += "Unknown error occurred";
         }
         terminal.print(errorMessage);
-        terminal.print("Terminal shutting down...");
-        setTimeout(() => {
-          terminal.elem.classList.remove("active");
-          state.active = false;
-          state.awaitingPassword = false;
-          document.title = blinkStates[0];
-          state.cleanup();
-        }, 2000);
+        state.awaitingPassword = false;
+        state.clearPasswordTimeout();
+        terminal.prompt();
       }
       return;
     }
@@ -520,5 +563,6 @@ document.addEventListener("DOMContentLoaded", () => {
       state.fitAddon.fit();
     }
   };
+  state.resizeHandler = handleResize;
   window.addEventListener("resize", handleResize);
 });
