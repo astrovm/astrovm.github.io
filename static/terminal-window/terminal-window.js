@@ -456,7 +456,7 @@ document.addEventListener("DOMContentLoaded", () => {
       terminal.print("Verifying access...");
       try {
         // Load and attempt to decrypt the secret commands
-        const response = await fetch("/secret-commands.js.enc");
+        const response = await fetch("/terminal-window/secret-commands.js.enc");
         if (!response.ok) {
           throw new Error(
             `Network error: Failed to load encrypted file (${response.status})`

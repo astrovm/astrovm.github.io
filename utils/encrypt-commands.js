@@ -4,10 +4,14 @@
 // To decrypt: node encrypt-commands.js decrypt "your-password"
 
 const crypto = require("crypto");
+const path = require("path");
 const fs = require("fs");
 
-const SOURCE_FILE = "secret-commands-source.js";
-const ENCRYPTED_FILE = "static/secret-commands.js.enc";
+const SOURCE_FILE = path.resolve(__dirname, "secret-commands-source.js");
+const ENCRYPTED_FILE = path.resolve(
+  __dirname,
+  "../static/terminal-window/secret-commands.js.enc"
+);
 
 // Simplified encryption configuration
 const CONFIG = {
