@@ -1,7 +1,7 @@
 // Constants
 const CONSTANTS = {
   TIMEOUT: {
-    TRANSITION: 100, // Animation transition time (0.1s)
+    TRANSITION: 100 * 1.5, // Animation transition time (0.1s + delay)
     TITLE_BLINK: 530, // Title blink interval
     COMMAND_EXEC: 100, // Command execution delay
   },
@@ -141,9 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
       state.term.focus();
 
       // Fit terminal to container
-      setTimeout(() => {
-        state.fitAddon.fit();
-      }, 0);
+      ui.handleResize();
 
       terminal.print("=== RESTRICTED ACCESS TERMINAL ===");
       terminal.print("Type 'help' to see available commands");
@@ -485,15 +483,6 @@ document.addEventListener("DOMContentLoaded", () => {
     CONSTANTS.TIMEOUT.COMMAND_EXEC
   );
   state.addInterval(titleCheckInterval);
-
-  // Add window resize handler
-  const handleResize = () => {
-    if (state.active) {
-      state.fitAddon.fit();
-    }
-  };
-  state.resizeHandler = handleResize;
-  window.addEventListener("resize", handleResize);
 });
 
 class TerminalUI {
@@ -578,7 +567,9 @@ class TerminalUI {
 
   handleResize() {
     if (this.state.active) {
-      this.state.fitAddon.fit();
+      setTimeout(() => {
+        this.state.fitAddon.fit();
+      }, CONSTANTS.TIMEOUT.TRANSITION);
     }
   }
 
@@ -599,12 +590,12 @@ class TerminalUI {
     this.elem.classList.remove("minimized");
     this.elem.classList.add("maximized");
     this.taskbar.classList.remove("active");
-    this.state.fitAddon.fit();
+    this.handleResize();
   }
 
   restore() {
     this.elem.classList.remove("minimized");
-    this.state.fitAddon.fit();
+    this.handleResize();
   }
 
   toggleMaximize() {
@@ -619,6 +610,6 @@ class TerminalUI {
       this.elem.style.left = "0";
       this.elem.style.top = "0";
     }
-    setTimeout(() => this.state.fitAddon.fit(), CONSTANTS.TIMEOUT.TRANSITION);
+    this.handleResize();
   }
 }
