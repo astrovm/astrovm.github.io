@@ -1,4 +1,4 @@
-.secret-terminal {
+#terminal-window {
   display: none;
   position: fixed;
   top: 50%;
@@ -13,21 +13,21 @@
   transition: all 0.3s ease;
 }
 
-.secret-terminal.dragging {
+#terminal-window.dragging {
   transition: none;
 }
 
-.secret-terminal.active {
+#terminal-window.active {
   display: block;
 }
 
-.secret-terminal.minimized {
+#terminal-window.minimized {
   transform: translate(-50%, 100vh);
   opacity: 0;
   pointer-events: none;
 }
 
-.secret-terminal.maximized {
+#terminal-window.maximized {
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -38,7 +38,7 @@
   box-shadow: none;
 }
 
-.secret-terminal.maximized .xterm {
+#terminal-window.maximized .xterm {
   padding: 6px;
 }
 
@@ -70,7 +70,7 @@
   font-size: 16px;
 }
 
-.terminal-taskbar {
+#terminal-taskbar {
   display: none;
   position: fixed;
   bottom: 0;
@@ -92,11 +92,11 @@
   user-select: none;
 }
 
-.terminal-taskbar:hover {
+#terminal-taskbar:hover {
   background: #3a3a3a;
 }
 
-.terminal-taskbar.active {
+#terminal-taskbar.active {
   display: flex;
 }
 
@@ -142,7 +142,7 @@
   background: #ff5f56;
 }
 
-.secret-terminal.active {
+#terminal-window.active {
   display: block;
 }
 

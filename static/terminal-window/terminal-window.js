@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const state = new TerminalState();
 
   // Get taskbar element
-  const taskbar = document.querySelector(".terminal-taskbar");
+  const taskbar = document.getElementById("terminal-taskbar");
 
   // Add taskbar click handler
   taskbar.addEventListener("click", () => {
