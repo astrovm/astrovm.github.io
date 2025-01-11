@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 300);
       });
 
-      state.term.open(document.getElementById("terminal"));
+      state.term.open(document.getElementById("terminal-content"));
       state.term.clear();
       state.term.focus();
 
