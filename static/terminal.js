@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeTerminal();
 
   const terminal = {
-    elem: document.getElementById("secretTerminal"),
+    elem: document.getElementById("terminal-window"),
 
     print: (text) => {
       state.term.writeln(text);
