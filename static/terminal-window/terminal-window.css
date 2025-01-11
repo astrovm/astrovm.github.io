@@ -10,7 +10,7 @@
   border-radius: 6px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 }
 
 #terminal-window.dragging {
@@ -85,7 +85,6 @@
   color: #ccc;
   font-family: system-ui, -apple-system, sans-serif;
   font-size: 14px;
-  transition: all 0.2s ease;
   z-index: 1000;
   align-items: center;
   gap: 8px;
@@ -140,10 +139,6 @@
 
 .window-button.close {
   background: #ff5f56;
-}
-
-#terminal-window.active {
-  display: block;
 }
 
 .xterm {
