@@ -42,7 +42,7 @@
   padding: 6px;
 }
 
-.terminal-title {
+.window-title {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -59,7 +59,7 @@
   -webkit-app-region: drag;
 }
 
-.terminal-title:active {
+.window-title:active {
   cursor: grabbing;
 }
 
@@ -100,7 +100,7 @@
   display: flex;
 }
 
-#terminal {
+#terminal-content {
   width: 100%;
   height: calc(100% - 24px);
 }

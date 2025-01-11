@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
       terminal.elem.classList.add("active");
 
       // Get title bar elements
-      const titleBar = terminal.elem.querySelector(".terminal-title");
+      const titleBar = terminal.elem.querySelector(".window-title");
       const controls = titleBar.querySelector(".window-controls");
 
       // Add dragging functionality
