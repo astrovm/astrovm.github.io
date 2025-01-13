@@ -8,16 +8,19 @@
   width: calc(
     round(
         up,
-        min(calc(9.6px * 80), round(down, calc(96% - 14.6px), 9.6px)),
+        min(
+          calc(9.6px * 80),
+          round(down, calc(96% - var(--scrollbar-width) - 1.6px), 9.6px)
+        ),
         1px
-      ) + 14.6px
+      ) + var(--scrollbar-width) + 1.6px
   );
   height: calc(
     round(
         up,
-        min(calc(22.4px * 24), round(down, calc(96% - 25.6px), 22.4px)),
+        min(calc(22.4px * 24), round(down, calc(96% - 24px - 1.6px), 22.4px)),
         1px
-      ) + 25.6px
+      ) + 24px + 1.6px
   );
   border: 1px solid #444;
   border-radius: 6px;

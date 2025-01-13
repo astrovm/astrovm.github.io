@@ -99,6 +99,28 @@ const blinkTime = 530;
 document.title = blinkStates[0];
 
 document.addEventListener("DOMContentLoaded", () => {
+  // Calculate scrollbar width and set CSS variable
+  const calculateScrollbarWidth = () => {
+    const outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.overflow = "scroll";
+    document.body.appendChild(outer);
+
+    const inner = document.createElement("div");
+    outer.appendChild(inner);
+
+    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+    document.documentElement.style.setProperty(
+      "--scrollbar-width",
+      `${scrollbarWidth}px`
+    );
+
+    document.body.removeChild(outer);
+  };
+
+  calculateScrollbarWidth();
+  window.addEventListener("resize", calculateScrollbarWidth);
+
   const state = new TerminalState();
   const ui = new TerminalUI(state);
 
@@ -593,21 +615,21 @@ class TerminalUI {
     if (this.state.active) {
       setTimeout(() => {
         this.state.fitAddon.fit();
-        
+
         // Only reposition if not maximized and not dragging
-        if (!this.elem.classList.contains('maximized') && !this.isDragging) {
+        if (!this.elem.classList.contains("maximized") && !this.isDragging) {
           const rect = this.elem.getBoundingClientRect();
           const windowWidth = window.innerWidth;
           const windowHeight = window.innerHeight;
-          
+
           // Check if terminal is outside visible area
           const isOutsideX = rect.left < 0 || rect.right > windowWidth;
           const isOutsideY = rect.top < 0 || rect.bottom > windowHeight;
-          
+
           if (isOutsideX || isOutsideY) {
-            this.elem.style.transform = 'translate(-50%, -50%)';
-            this.elem.style.left = '50%';
-            this.elem.style.top = '50%';
+            this.elem.style.transform = "translate(-50%, -50%)";
+            this.elem.style.left = "50%";
+            this.elem.style.top = "50%";
           }
         }
       }, CONSTANTS.TIMEOUT.TRANSITION);
