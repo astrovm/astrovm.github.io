@@ -593,6 +593,23 @@ class TerminalUI {
     if (this.state.active) {
       setTimeout(() => {
         this.state.fitAddon.fit();
+        
+        // Only reposition if not maximized and not dragging
+        if (!this.elem.classList.contains('maximized') && !this.isDragging) {
+          const rect = this.elem.getBoundingClientRect();
+          const windowWidth = window.innerWidth;
+          const windowHeight = window.innerHeight;
+          
+          // Check if terminal is outside visible area
+          const isOutsideX = rect.left < 0 || rect.right > windowWidth;
+          const isOutsideY = rect.top < 0 || rect.bottom > windowHeight;
+          
+          if (isOutsideX || isOutsideY) {
+            this.elem.style.transform = 'translate(-50%, -50%)';
+            this.elem.style.left = '50%';
+            this.elem.style.top = '50%';
+          }
+        }
       }, CONSTANTS.TIMEOUT.TRANSITION);
     }
   }
