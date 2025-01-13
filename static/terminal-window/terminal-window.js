@@ -35,6 +35,7 @@ class TerminalState {
     this.awaitingPassword = false;
     this.term = null;
     this.fitAddon = null;
+    this.webglAddon = null;
     this.commandBuffer = "";
     this.cursorPosition = 0;
     this.commandHistory = [];
@@ -46,14 +47,30 @@ class TerminalState {
   cleanup() {
     this.intervals.forEach(clearInterval);
     this.intervals = [];
+
+    // Dispose WebGL addon first if it exists
+    if (this.webglAddon) {
+      this.webglAddon.dispose();
+      this.webglAddon = null;
+    }
+
+    // Dispose fit addon if it exists
+    if (this.fitAddon) {
+      this.fitAddon.dispose();
+      this.fitAddon = null;
+    }
+
+    // Finally dispose the terminal
     if (this.term) {
       this.term.dispose();
       this.term = null;
     }
+
     if (this.resizeHandler) {
       window.removeEventListener("resize", this.resizeHandler);
       this.resizeHandler = null;
     }
+
     this.active = false;
     this.awaitingPassword = false;
     this.commandBuffer = "";
@@ -102,7 +119,7 @@ document.addEventListener("DOMContentLoaded", () => {
       state.term.write("\r\n$ ");
     },
     minimize: () => ui.minimize(),
-    maximize: () => ui.maximize(),
+    maximize: () => ui.toggleMaximize(),
     restore: () => ui.restore(),
   };
 
@@ -121,13 +138,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize and load the fit addon
     state.fitAddon = new FitAddon.FitAddon();
     state.term.loadAddon(state.fitAddon);
+
+    // Initialize and load the WebGL addon
+    state.webglAddon = new WebglAddon.WebglAddon();
+    state.term.loadAddon(state.webglAddon);
+
+    // Handle WebGL addon errors
+    state.webglAddon.onContextLoss(() => {
+      state.webglAddon.dispose();
+      state.webglAddon = null;
+    });
   };
 
   const activateTerminal = () => {
     if (!state.active) {
-      // Reset taskbar style
-      ui.taskbar.style.display = "";
-
       // Reinitialize terminal if needed
       if (!state.term) {
         initializeTerminal();
@@ -578,19 +602,11 @@ class TerminalUI {
     document.title = blinkStates[0];
     this.state.cleanup();
     this.taskbar.classList.remove("active");
-    this.taskbar.style.display = "none";
   }
 
   minimize() {
     this.elem.classList.add("minimized");
     this.taskbar.classList.add("active");
-  }
-
-  maximize() {
-    this.elem.classList.remove("minimized");
-    this.elem.classList.add("maximized");
-    this.taskbar.classList.remove("active");
-    this.handleResize();
   }
 
   restore() {
