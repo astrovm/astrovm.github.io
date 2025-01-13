@@ -21,7 +21,7 @@ const CONSTANTS = {
     FONT_FAMILY: "monospace",
     SCROLLBACK: 1000,
     THEME: {
-      background: "rgba(0, 0, 0, 0.9)",
+      background: "rgba(0, 0, 0, 0.8)",
       foreground: "#0f0",
       cursor: "#0f0",
     },
