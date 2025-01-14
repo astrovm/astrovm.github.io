@@ -1,8 +1,9 @@
 // This script encrypts/decrypts your secret commands with multiple passwords
 // Each password will decrypt to different content
 // Run it with Node.js:
-// To encrypt: node encrypt-commands.js encrypt
-// To decrypt: node encrypt-commands.js decrypt "password" "output.js"
+// To encrypt: node encrypt-commands.js encrypt [master_password]
+// To decrypt: node encrypt-commands.js decrypt password output.js
+//            or node encrypt-commands.js decrypt master_password src/  (recreates all files)
 
 const crypto = require("crypto");
 const path = require("path");
@@ -42,7 +43,7 @@ function encryptContent(content, password, salt, iv) {
   return { encrypted, authTag: cipher.getAuthTag() };
 }
 
-async function encryptCommands() {
+async function encryptCommands(masterPassword) {
   const srcDir = path.resolve(__dirname, "src");
   const files = fs.readdirSync(srcDir);
 
@@ -51,7 +52,7 @@ async function encryptCommands() {
     const password = path.parse(filename).name; // Use filename without extension as password
     const file = path.resolve(srcDir, filename);
     const content = fs.readFileSync(file, "utf8");
-    return { password, content };
+    return { password, content, filename };
   });
 
   if (entries.length === 0) {
@@ -61,6 +62,17 @@ async function encryptCommands() {
   // Use the same salt and IV for all encryptions
   const salt = crypto.randomBytes(CONFIG.saltLength);
   const iv = crypto.randomBytes(CONFIG.ivLength);
+
+  // If master password provided, add master entry with all files info
+  if (masterPassword) {
+    const masterContent = JSON.stringify(
+      entries.map((e) => ({
+        filename: e.filename,
+        content: e.content,
+      }))
+    );
+    entries.push({ password: masterPassword, content: masterContent });
+  }
 
   // Encrypt each content with its password
   const encryptedParts = entries.map(({ password, content }) => {
@@ -93,7 +105,7 @@ async function encryptCommands() {
   console.log(`- Number of encrypted parts: ${entries.length}`);
 }
 
-async function decryptCommands(password, outputFile) {
+async function decryptCommands(password, outputPath) {
   const encryptedData = fs.readFileSync(ENCRYPTED_FILE);
 
   // Extract common components
@@ -102,6 +114,7 @@ async function decryptCommands(password, outputFile) {
   const iv = encryptedData.slice(offset, (offset += CONFIG.ivLength));
 
   const key = deriveKey(password, salt);
+  const decryptedParts = [];
 
   // Try to decrypt each part
   while (offset < encryptedData.length) {
@@ -124,18 +137,44 @@ async function decryptCommands(password, outputFile) {
         decipher.final(),
       ]);
 
-      // If we get here, decryption was successful
-      fs.writeFileSync(outputFile, decrypted);
-      console.log(`Decrypted commands saved to ${outputFile}`);
-      return;
+      decryptedParts.push(decrypted);
     } catch (error) {
       // Try next part
       continue;
     }
   }
 
-  console.error("Decryption failed. Invalid password or corrupted file.");
-  process.exit(1);
+  if (decryptedParts.length === 0) {
+    console.error("Decryption failed. Invalid password or corrupted file.");
+    process.exit(1);
+  }
+
+  // If output is a directory, try to parse as master password result
+  if (outputPath.endsWith("/")) {
+    try {
+      // Try to parse as JSON (master password result)
+      const files = JSON.parse(decryptedParts[0]);
+
+      // Ensure directory exists
+      if (!fs.existsSync(outputPath)) {
+        fs.mkdirSync(outputPath, { recursive: true });
+      }
+
+      // Write each file
+      files.forEach(({ filename, content }) => {
+        const outputFile = path.join(outputPath, filename);
+        fs.writeFileSync(outputFile, content);
+        console.log(`Decrypted ${filename} saved to ${outputFile}`);
+      });
+      return;
+    } catch (e) {
+      // Not master password result, fall through to single file
+    }
+  }
+
+  // Normal single-file decryption
+  fs.writeFileSync(outputPath, decryptedParts[0]);
+  console.log(`Decrypted commands saved to ${outputPath}`);
 }
 
 const action = process.argv[2];
@@ -144,19 +183,23 @@ const args = process.argv.slice(3);
 if (!action || !["encrypt", "decrypt"].includes(action)) {
   console.error(
     "Usage:\n" +
-      "  Encrypt: node encrypt-commands.js encrypt\n" +
+      "  Encrypt: node encrypt-commands.js encrypt [master_password]\n" +
       "  Decrypt: node encrypt-commands.js decrypt password output.js"
   );
   process.exit(1);
 }
 
 if (action === "encrypt") {
-  encryptCommands();
+  const masterPassword = args[0]; // Optional master password
+  encryptCommands(masterPassword);
 } else {
-  const [password, outputFile] = args;
-  if (!password || !outputFile) {
-    console.error("Decrypt requires password and output file");
+  const [password, outputPath] = args;
+  if (!password || !outputPath) {
+    console.error("Decrypt requires password and output path");
+    console.error(
+      "Use directory path ending with / for master password to recreate all files"
+    );
     process.exit(1);
   }
-  decryptCommands(password, outputFile);
+  decryptCommands(password, outputPath);
 }
