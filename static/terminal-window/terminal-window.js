@@ -33,6 +33,7 @@ class TerminalState {
   constructor() {
     this.active = false;
     this.awaitingPassword = false;
+    this.pendingUser = null;
     this.term = null;
     this.fitAddon = null;
     this.webglAddon = null;
@@ -73,6 +74,7 @@ class TerminalState {
 
     this.active = false;
     this.awaitingPassword = false;
+    this.pendingUser = null;
     this.commandBuffer = "";
     this.cursorPosition = 0;
     this.commandHistory = [];
@@ -357,15 +359,16 @@ document.addEventListener("DOMContentLoaded", () => {
       terminal.print("  help     - Show this help message");
       terminal.print("  clear    - Clear terminal screen");
       terminal.print("  exit     - Close terminal");
-      terminal.print("  access   - Request access to restricted area");
+      terminal.print("  su       - Switch user (su [username])");
     },
     clear: () => {
       terminal.clear();
     },
     exit: closeTerminal,
-    access: () => {
+    su: (args) => {
       state.awaitingPassword = true;
-      terminal.print("Password required:");
+      state.pendingUser = args[0] || "root"; // If no user specified, default to root
+      terminal.print(`Password for ${state.pendingUser}:`);
     },
   };
 
@@ -374,7 +377,9 @@ document.addEventListener("DOMContentLoaded", () => {
       terminal.print("Verifying access...");
       try {
         // Load and attempt to decrypt the secret commands
-        const response = await fetch("/terminal-window/secret-commands.js.enc");
+        const response = await fetch(
+          "/terminal-window/encrypted-commands.js.enc"
+        );
         if (!response.ok) {
           throw new Error(
             `Network error: Failed to load encrypted file (${response.status})`
@@ -385,18 +390,15 @@ document.addEventListener("DOMContentLoaded", () => {
         // Extract components (32B salt + 16B IV + encrypted + 16B tag)
         const salt = new Uint8Array(encryptedData.slice(0, 32));
         const iv = new Uint8Array(encryptedData.slice(32, 48));
-        const authTag = new Uint8Array(encryptedData.slice(-16));
-        const encrypted = new Uint8Array(encryptedData.slice(48, -16));
-
-        terminal.print(
-          `Loaded ${encryptedData.byteLength} bytes of encrypted data`
-        );
 
         // Import password for key derivation
         const encoder = new TextEncoder();
+        // Format: "su:username:password"
+        const passwordToTry = `su:${state.pendingUser}:${cmd}`;
+
         const keyMaterial = await crypto.subtle.importKey(
           "raw",
-          encoder.encode(cmd),
+          encoder.encode(passwordToTry),
           { name: "PBKDF2" },
           false,
           ["deriveBits", "deriveKey"]
@@ -416,36 +418,78 @@ document.addEventListener("DOMContentLoaded", () => {
           ["decrypt"]
         );
 
-        // Decrypt the commands
-        const decrypted = await crypto.subtle.decrypt(
-          { name: "AES-GCM", iv, tagLength: 128 },
-          key,
-          new Uint8Array([...encrypted, ...authTag])
-        );
+        // Try to decrypt each part
+        let offset = 48; // Skip salt and IV
+        let success = false;
 
-        const decodedText = new TextDecoder().decode(decrypted);
+        while (offset < encryptedData.byteLength) {
+          try {
+            // Read size of next encrypted part
+            const sizeView = new DataView(encryptedData, offset, 4);
+            const size = sizeView.getUint32(0);
+            offset += 4;
 
-        // If we get here, decryption was successful
-        terminal.print("Access granted...");
+            // Extract encrypted content and tag
+            const encrypted = new Uint8Array(
+              encryptedData.slice(offset, offset + size)
+            );
+            offset += size;
+            const authTag = new Uint8Array(
+              encryptedData.slice(offset, offset + 16)
+            );
+            offset += 16;
 
-        // Execute the decrypted code in a secure context
-        const secureExec = new Function("terminal", "commands", decodedText);
-        secureExec(terminal, commands);
+            // Try to decrypt this part
+            const decrypted = await crypto.subtle.decrypt(
+              { name: "AES-GCM", iv, tagLength: 128 },
+              key,
+              new Uint8Array([...encrypted, ...authTag])
+            );
 
-        terminal.print("Type 'help' to see available commands");
+            const decodedText = new TextDecoder().decode(decrypted);
+
+            // If we get here, decryption was successful
+            terminal.print(`Access granted for user ${state.pendingUser}...`);
+
+            // Execute the decrypted code in a secure context
+            const secureExec = new Function(
+              "terminal",
+              "commands",
+              decodedText
+            );
+            secureExec(terminal, commands);
+
+            terminal.print("Type 'help' to see available commands");
+            success = true;
+            break;
+          } catch (e) {
+            // Try next part
+            continue;
+          }
+        }
+
+        if (!success) {
+          throw new Error("No valid decryption found");
+        }
+
         state.awaitingPassword = false;
+        state.pendingUser = null;
         terminal.prompt();
       } catch (e) {
         let errorMessage = "Access denied: ";
         if (e.message.includes("Network error")) {
           errorMessage += "Could not load secret commands";
-        } else if (e.name === "OperationError") {
-          errorMessage += "Invalid password";
+        } else if (
+          e.name === "OperationError" ||
+          e.message === "No valid decryption found"
+        ) {
+          errorMessage += `Authentication failure for user ${state.pendingUser}`;
         } else {
           errorMessage += "Unknown error occurred";
         }
         terminal.print(errorMessage);
         state.awaitingPassword = false;
+        state.pendingUser = null;
         terminal.prompt();
       }
       return;

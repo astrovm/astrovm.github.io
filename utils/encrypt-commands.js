@@ -1,8 +1,8 @@
 // This script encrypts/decrypts your secret commands with multiple passwords
 // Each password will decrypt to different content
 // Run it with Node.js:
-// To encrypt: node encrypt-commands.js encrypt "password1:content1.js" "password2:content2.js" ...
-// To decrypt: node encrypt-commands.js decrypt "password" output.js
+// To encrypt: node encrypt-commands.js encrypt
+// To decrypt: node encrypt-commands.js decrypt "password" "output.js"
 
 const crypto = require("crypto");
 const path = require("path");
@@ -42,18 +42,21 @@ function encryptContent(content, password, salt, iv) {
   return { encrypted, authTag: cipher.getAuthTag() };
 }
 
-async function encryptCommands(passwordFiles) {
-  // Each entry should be in format "password:file"
-  const entries = passwordFiles.map((entry) => {
-    const [password, file] = entry.split(":");
-    if (!password || !file) {
-      throw new Error(
-        `Invalid entry ${entry}. Format should be "password:file"`
-      );
-    }
-    const content = fs.readFileSync(path.resolve(__dirname, file), "utf8");
+async function encryptCommands() {
+  const srcDir = path.resolve(__dirname, "src");
+  const files = fs.readdirSync(srcDir);
+
+  // Each file in src becomes a password:content pair
+  const entries = files.map((filename) => {
+    const password = path.parse(filename).name; // Use filename without extension as password
+    const file = path.resolve(srcDir, filename);
+    const content = fs.readFileSync(file, "utf8");
     return { password, content };
   });
+
+  if (entries.length === 0) {
+    throw new Error("No files found in src directory");
+  }
 
   // Use the same salt and IV for all encryptions
   const salt = crypto.randomBytes(CONFIG.saltLength);
@@ -138,17 +141,17 @@ async function decryptCommands(password, outputFile) {
 const action = process.argv[2];
 const args = process.argv.slice(3);
 
-if (!action || !args.length || !["encrypt", "decrypt"].includes(action)) {
+if (!action || !["encrypt", "decrypt"].includes(action)) {
   console.error(
     "Usage:\n" +
-      "  Encrypt: node encrypt-commands.js encrypt password1:file1.js password2:file2.js ...\n" +
+      "  Encrypt: node encrypt-commands.js encrypt\n" +
       "  Decrypt: node encrypt-commands.js decrypt password output.js"
   );
   process.exit(1);
 }
 
 if (action === "encrypt") {
-  encryptCommands(args);
+  encryptCommands();
 } else {
   const [password, outputFile] = args;
   if (!password || !outputFile) {
