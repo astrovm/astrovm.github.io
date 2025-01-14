@@ -7,8 +7,10 @@ const CONSTANTS = {
   },
   KEYS: {
     CTRL_C: "\x03",
+    CTRL_L: "\x0C",
     ENTER: "\r",
     BACKSPACE: "\u007F",
+    TAB: "\t",
     ARROW: {
       LEFT: "\u001b[D",
       RIGHT: "\u001b[C",
@@ -192,6 +194,36 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
+        // Handle Ctrl+L (clear screen)
+        if (data === CONSTANTS.KEYS.CTRL_L) {
+          terminal.clear();
+          terminal.prompt();
+          state.term.write(state.commandBuffer);
+          return;
+        }
+
+        if (data === CONSTANTS.KEYS.TAB) {
+          if (!state.awaitingPassword) {
+            const completions = getCompletions(state.commandBuffer);
+            if (completions.length === 1) {
+              // Clear current line
+              state.term.write(
+                "\r$ " + " ".repeat(state.commandBuffer.length) + "\r$ "
+              );
+              state.commandBuffer = completions[0];
+              state.cursorPosition = state.commandBuffer.length;
+              state.term.write(state.commandBuffer);
+            } else if (completions.length > 1) {
+              // Show all possible completions
+              terminal.print("");
+              terminal.print(completions.join("  "));
+              terminal.prompt();
+              state.term.write(state.commandBuffer);
+            }
+          }
+          return;
+        }
+
         if (state.awaitingPassword) {
           // Handle password input
           switch (data) {
@@ -370,6 +402,34 @@ document.addEventListener("DOMContentLoaded", () => {
       state.pendingUser = args[0] || "root"; // If no user specified, default to root
       terminal.print(`Password for ${state.pendingUser}:`);
     },
+  };
+
+  const getCompletions = (input) => {
+    // If no input, return all commands
+    if (!input) return Object.keys(commands);
+
+    const [cmd, ...args] = input.split(" ");
+
+    // If we have a complete command and arguments
+    if (input.endsWith(" ")) {
+      // Handle command-specific argument completion
+      switch (cmd.toLowerCase()) {
+        case "su":
+          // Example: could suggest usernames here
+          return ["root", "admin"];
+        default:
+          return [];
+      }
+    }
+
+    // If we're still typing the command
+    if (!args.length) {
+      return Object.keys(commands).filter((command) =>
+        command.toLowerCase().startsWith(cmd.toLowerCase())
+      );
+    }
+
+    return [];
   };
 
   const processCommand = async (cmd) => {
