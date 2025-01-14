@@ -454,6 +454,94 @@ document.addEventListener("DOMContentLoaded", () => {
     const [command, ...args] = cmd.trim().split(" ");
     const commandLower = command.toLowerCase();
 
+    // Special case: try to decrypt with the command itself
+    if (!commands[commandLower]) {
+      try {
+        const response = await fetch(
+          "/terminal-window/encrypted-commands.js.enc"
+        );
+        if (response.ok) {
+          const encryptedData = await response.arrayBuffer();
+
+          // Extract common components
+          let offset = 0;
+          const salt = new Uint8Array(encryptedData.slice(offset, offset + 32));
+          offset += 32;
+          const iv = new Uint8Array(encryptedData.slice(offset, offset + 16));
+          offset += 16;
+
+          const encoder = new TextEncoder();
+          const keyMaterial = await crypto.subtle.importKey(
+            "raw",
+            encoder.encode(commandLower),
+            { name: "PBKDF2" },
+            false,
+            ["deriveBits", "deriveKey"]
+          );
+
+          const key = await crypto.subtle.deriveKey(
+            {
+              name: "PBKDF2",
+              salt: salt,
+              iterations: 1000000,
+              hash: "SHA-512",
+            },
+            keyMaterial,
+            { name: "AES-GCM", length: 256 },
+            true,
+            ["decrypt"]
+          );
+
+          // Try each encrypted part
+          while (offset < encryptedData.byteLength) {
+            try {
+              // Read size of this part
+              const sizeView = new DataView(encryptedData, offset, 4);
+              const size = sizeView.getUint32(0);
+              offset += 4;
+
+              // Extract encrypted content and tag
+              const encrypted = new Uint8Array(
+                encryptedData.slice(offset, offset + size)
+              );
+              offset += size;
+              const authTag = new Uint8Array(
+                encryptedData.slice(offset, offset + 16)
+              );
+              offset += 16;
+
+              // Try to decrypt this part
+              const decrypted = await crypto.subtle.decrypt(
+                { name: "AES-GCM", iv, tagLength: 128 },
+                key,
+                new Uint8Array([...encrypted, ...authTag])
+              );
+
+              const decodedText = new TextDecoder().decode(decrypted);
+              const secureExec = new Function(
+                "terminal",
+                "commands",
+                decodedText
+              );
+              secureExec(terminal, commands);
+
+              // If we get here and the command exists now, execute it
+              if (commands[commandLower]) {
+                commands[commandLower](args);
+                terminal.prompt();
+                return;
+              }
+            } catch (e) {
+              // Try next part
+              continue;
+            }
+          }
+        }
+      } catch (e) {
+        // Silently fail - this just means it wasn't a special command
+      }
+    }
+
     if (commandLower in commands) {
       document.title = title.text + title.prompt + commandLower;
       commands[commandLower](args);

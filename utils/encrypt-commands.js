@@ -1,16 +1,16 @@
-// This script encrypts/decrypts your secret commands
+// This script encrypts/decrypts your secret commands with multiple passwords
+// Each password will decrypt to different content
 // Run it with Node.js:
-// To encrypt: node encrypt-commands.js encrypt "your-password"
-// To decrypt: node encrypt-commands.js decrypt "your-password"
+// To encrypt: node encrypt-commands.js encrypt "password1:content1.js" "password2:content2.js" ...
+// To decrypt: node encrypt-commands.js decrypt "password" output.js
 
 const crypto = require("crypto");
 const path = require("path");
 const fs = require("fs");
 
-const SOURCE_FILE = path.resolve(__dirname, "secret-commands-source.js");
 const ENCRYPTED_FILE = path.resolve(
   __dirname,
-  "../static/terminal-window/secret-commands.js.enc"
+  "../static/terminal-window/encrypted-commands.js.enc"
 );
 
 // Simplified encryption configuration
@@ -32,21 +32,50 @@ function deriveKey(password, salt) {
   );
 }
 
-async function encryptCommands(password) {
-  const secretCommands = fs.readFileSync(SOURCE_FILE, "utf8");
-  const salt = crypto.randomBytes(CONFIG.saltLength);
-  const iv = crypto.randomBytes(CONFIG.ivLength);
+function encryptContent(content, password, salt, iv) {
   const key = deriveKey(password, salt);
-
   const cipher = crypto.createCipheriv("aes-256-gcm", key, iv);
   const encrypted = Buffer.concat([
-    cipher.update(secretCommands, "utf8"),
+    cipher.update(content, "utf8"),
     cipher.final(),
   ]);
-  const authTag = cipher.getAuthTag();
+  return { encrypted, authTag: cipher.getAuthTag() };
+}
 
-  // Combine all components: [salt][iv][encrypted][tag]
-  const result = Buffer.concat([salt, iv, encrypted, authTag]);
+async function encryptCommands(passwordFiles) {
+  // Each entry should be in format "password:file"
+  const entries = passwordFiles.map((entry) => {
+    const [password, file] = entry.split(":");
+    if (!password || !file) {
+      throw new Error(
+        `Invalid entry ${entry}. Format should be "password:file"`
+      );
+    }
+    const content = fs.readFileSync(path.resolve(__dirname, file), "utf8");
+    return { password, content };
+  });
+
+  // Use the same salt and IV for all encryptions
+  const salt = crypto.randomBytes(CONFIG.saltLength);
+  const iv = crypto.randomBytes(CONFIG.ivLength);
+
+  // Encrypt each content with its password
+  const encryptedParts = entries.map(({ password, content }) => {
+    const { encrypted, authTag } = encryptContent(content, password, salt, iv);
+    return { encrypted, authTag };
+  });
+
+  // Combine all encrypted parts
+  // Format: [salt][iv][size1][enc1][tag1][size2][enc2][tag2]...
+  const parts = [salt, iv];
+  encryptedParts.forEach(({ encrypted, authTag }) => {
+    // Add 4-byte size header for each part
+    const sizeBuffer = Buffer.alloc(4);
+    sizeBuffer.writeUInt32BE(encrypted.length);
+    parts.push(sizeBuffer, encrypted, authTag);
+  });
+
+  const result = Buffer.concat(parts);
   fs.writeFileSync(ENCRYPTED_FILE, result);
 
   console.log(`Encrypted commands saved to ${ENCRYPTED_FILE}`);
@@ -58,46 +87,73 @@ async function encryptCommands(password) {
       CONFIG.ivLength * 8
     } bits`
   );
+  console.log(`- Number of encrypted parts: ${entries.length}`);
 }
 
-async function decryptCommands(password) {
+async function decryptCommands(password, outputFile) {
   const encryptedData = fs.readFileSync(ENCRYPTED_FILE);
 
-  // Extract components
+  // Extract common components
   let offset = 0;
   const salt = encryptedData.slice(offset, (offset += CONFIG.saltLength));
   const iv = encryptedData.slice(offset, (offset += CONFIG.ivLength));
-  const authTag = encryptedData.slice(-CONFIG.tagLength);
-  const encrypted = encryptedData.slice(offset, -CONFIG.tagLength);
 
   const key = deriveKey(password, salt);
 
-  try {
-    const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv);
-    decipher.setAuthTag(authTag);
-    const decrypted = Buffer.concat([
-      decipher.update(encrypted),
-      decipher.final(),
-    ]);
+  // Try to decrypt each part
+  while (offset < encryptedData.length) {
+    try {
+      // Read size of next encrypted part
+      const size = encryptedData.readUInt32BE(offset);
+      offset += 4;
 
-    fs.writeFileSync(SOURCE_FILE, decrypted);
-    console.log(`Decrypted commands saved to ${SOURCE_FILE}`);
-  } catch (error) {
-    console.error("Decryption failed. Invalid password or corrupted file.");
-    process.exit(1);
+      // Extract encrypted content and tag
+      const encrypted = encryptedData.slice(offset, offset + size);
+      offset += size;
+      const authTag = encryptedData.slice(offset, offset + CONFIG.tagLength);
+      offset += CONFIG.tagLength;
+
+      // Try to decrypt this part
+      const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv);
+      decipher.setAuthTag(authTag);
+      const decrypted = Buffer.concat([
+        decipher.update(encrypted),
+        decipher.final(),
+      ]);
+
+      // If we get here, decryption was successful
+      fs.writeFileSync(outputFile, decrypted);
+      console.log(`Decrypted commands saved to ${outputFile}`);
+      return;
+    } catch (error) {
+      // Try next part
+      continue;
+    }
   }
+
+  console.error("Decryption failed. Invalid password or corrupted file.");
+  process.exit(1);
 }
 
 const action = process.argv[2];
-const password = process.argv[3];
+const args = process.argv.slice(3);
 
-if (!action || !password || !["encrypt", "decrypt"].includes(action)) {
-  console.error("Usage: node encrypt-commands.js <encrypt|decrypt> <password>");
+if (!action || !args.length || !["encrypt", "decrypt"].includes(action)) {
+  console.error(
+    "Usage:\n" +
+      "  Encrypt: node encrypt-commands.js encrypt password1:file1.js password2:file2.js ...\n" +
+      "  Decrypt: node encrypt-commands.js decrypt password output.js"
+  );
   process.exit(1);
 }
 
 if (action === "encrypt") {
-  encryptCommands(password);
+  encryptCommands(args);
 } else {
-  decryptCommands(password);
+  const [password, outputFile] = args;
+  if (!password || !outputFile) {
+    console.error("Decrypt requires password and output file");
+    process.exit(1);
+  }
+  decryptCommands(password, outputFile);
 }
