@@ -99,28 +99,6 @@ const blinkTime = 530;
 document.title = blinkStates[0];
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Calculate scrollbar width and set CSS variable
-  const calculateScrollbarWidth = () => {
-    const outer = document.createElement("div");
-    outer.style.visibility = "hidden";
-    outer.style.overflow = "scroll";
-    document.body.appendChild(outer);
-
-    const inner = document.createElement("div");
-    outer.appendChild(inner);
-
-    const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
-    document.documentElement.style.setProperty(
-      "--scrollbar-width",
-      `${scrollbarWidth}px`
-    );
-
-    document.body.removeChild(outer);
-  };
-
-  calculateScrollbarWidth();
-  window.addEventListener("resize", calculateScrollbarWidth);
-
   const state = new TerminalState();
   const ui = new TerminalUI(state);
 
@@ -161,15 +139,20 @@ document.addEventListener("DOMContentLoaded", () => {
     state.fitAddon = new FitAddon.FitAddon();
     state.term.loadAddon(state.fitAddon);
 
-    // Initialize and load the WebGL addon
-    state.webglAddon = new WebglAddon.WebglAddon();
-    state.term.loadAddon(state.webglAddon);
+    // Try to initialize WebGL addon
+    try {
+      state.webglAddon = new WebglAddon.WebglAddon();
+      state.term.loadAddon(state.webglAddon);
 
-    // Handle WebGL addon errors
-    state.webglAddon.onContextLoss(() => {
-      state.webglAddon.dispose();
+      // Handle WebGL addon errors
+      state.webglAddon.onContextLoss(() => {
+        state.webglAddon.dispose();
+        state.webglAddon = null;
+      });
+    } catch (e) {
+      console.log("WebGL not available, falling back to canvas renderer");
       state.webglAddon = null;
-    });
+    }
   };
 
   const activateTerminal = () => {
@@ -187,7 +170,7 @@ document.addEventListener("DOMContentLoaded", () => {
       state.term.focus();
 
       // Fit terminal to container
-      ui.handleResize();
+      ui.handleResize(0);
 
       terminal.print("=== RESTRICTED ACCESS TERMINAL ===");
       terminal.print("Type 'help' to see available commands");
@@ -611,10 +594,40 @@ class TerminalUI {
     this.elem.classList.remove("dragging");
   }
 
-  handleResize() {
+  handleResize(timeout = CONSTANTS.TIMEOUT.TRANSITION) {
     if (this.state.active) {
       setTimeout(() => {
-        this.state.fitAddon.fit();
+        // Calculate scrollbar width
+        const calculateScrollbarWidth = () => {
+          const outer = document.createElement("div");
+          outer.style.visibility = "hidden";
+          outer.style.overflow = "scroll";
+          document.body.appendChild(outer);
+
+          const inner = document.createElement("div");
+          outer.appendChild(inner);
+
+          const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+
+          document.body.removeChild(outer);
+          return scrollbarWidth;
+        };
+        const scrollbarWidth = calculateScrollbarWidth();
+
+        // Fit the terminal with parameters
+        if (!this.elem.classList.contains("maximized")) {
+          this.state.fitAddon.fit({
+            scrollbarWidth,
+            sizePercent: 0.96,
+            isMaximized: false,
+          });
+        } else {
+          this.state.fitAddon.fit({
+            scrollbarWidth,
+            sizePercent: 1,
+            isMaximized: true,
+          });
+        }
 
         // Only reposition if not maximized and not dragging
         if (!this.elem.classList.contains("maximized") && !this.isDragging) {
@@ -632,7 +645,20 @@ class TerminalUI {
             this.elem.style.top = "50%";
           }
         }
-      }, CONSTANTS.TIMEOUT.TRANSITION);
+
+        // Get terminal dimensions before fitting
+        const dimensions = this.state.term._core._renderService.dimensions;
+
+        // Calculate the window size based on terminal dimensions
+        const cols = this.state.term.cols;
+        const rows = this.state.term.rows;
+        const cellWidth = dimensions.css.cell.width;
+        const cellHeight = dimensions.css.cell.height;
+
+        // Set window size to match terminal content + scrollbar
+        this.elem.style.width = `${cols * cellWidth + scrollbarWidth}px`;
+        this.elem.style.height = `${rows * cellHeight + 24}px`; // 24px for titlebar
+      }, timeout);
     }
   }
 
@@ -656,14 +682,11 @@ class TerminalUI {
   toggleMaximize() {
     if (this.elem.classList.contains("maximized")) {
       this.elem.classList.remove("maximized");
+    } else {
+      this.elem.classList.add("maximized");
       this.elem.style.transform = "translate(-50%, -50%)";
       this.elem.style.left = "50%";
       this.elem.style.top = "50%";
-    } else {
-      this.elem.classList.add("maximized");
-      this.elem.style.transform = "none";
-      this.elem.style.left = "0";
-      this.elem.style.top = "0";
     }
     this.handleResize();
   }
