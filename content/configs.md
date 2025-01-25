@@ -19,9 +19,6 @@ hideComments = true
 
 **Raspberry Pi 4 Model B**
 
-- OS: [Alpine Linux](https://www.alpinelinux.org/downloads/)
-- RAM: 8 GB
-
 **Apple MacBook Air M1 2020**
 
 **Samsung Galaxy S22 Ultra**
@@ -135,7 +132,39 @@ https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos
 ## Flatpaks
 
 ```bash
-flatpak install flathub com.github.k4zmu2a.spacecadetpinball com.github.tchx84.Flatseal com.jeffser.Alpaca com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.flattool.Warehouse it.mijorus.gearlever org.signal.Signal org.telegram.desktop
+flatpak install flathub \
+    com.brave.Browser \
+    com.github.Matoking.protontricks \
+    com.github.k4zmu2a.spacecadetpinball \
+    com.github.tchx84.Flatseal \
+    com.jeffser.Alpaca \
+    com.jeffser.Alpaca.Plugins.AMD \
+    com.obsproject.Studio \
+    com.obsproject.Studio.Plugin.GStreamerVaapi \
+    com.obsproject.Studio.Plugin.Gstreamer \
+    com.obsproject.Studio.Plugin.OBSVkCapture \
+    com.spotify.Client \
+    com.stremio.Stremio \
+    de.leopoldluley.Clapgrep \
+    dev.vencord.Vesktop \
+    io.github.dvlv.boxbuddyrs \
+    io.github.fastrizwaan.WineZGUI \
+    io.github.flattool.Warehouse \
+    it.mijorus.gearlever \
+    net.davidotek.pupgui2 \
+    org.gimp.GIMP \
+    org.kde.filelight \
+    org.kde.gwenview \
+    org.kde.haruna \
+    org.kde.kcalc \
+    org.kde.okular \
+    org.libreoffice.LibreOffice \
+    org.mozilla.firefox \
+    org.qbittorrent.qBittorrent \
+    org.signal.Signal \
+    org.telegram.desktop \
+    org.videolan.VLC \
+    org.virt_manager.virt-manager
 ```
 
 ## Speedy encryption on NVMe Devices
