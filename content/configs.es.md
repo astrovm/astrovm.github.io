@@ -39,7 +39,7 @@ hideComments = true
 
 - Añadir repositorio BlackArch:
 
-https://www.blackarch.org/downloads.html#install-repo
+<https://www.blackarch.org/downloads.html#install-repo>
 
 - Instalar AI SDK:
 

@@ -39,7 +39,7 @@ hideComments = true
 
 - Add BlackArch repo:
 
-https://www.blackarch.org/downloads.html#install-repo
+<https://www.blackarch.org/downloads.html#install-repo>
 
 - Install AI SDK:
 
@@ -97,11 +97,11 @@ http://localhost:11434
 
 - Add RPM Fusion repo:
 
-https://rpmfusion.org/Configuration
+<https://rpmfusion.org/Configuration>
 
 - Config codecs:
 
-https://rpmfusion.org/Howto/Multimedia
+<https://rpmfusion.org/Howto/Multimedia>
 
 - Install apps:
 
@@ -111,23 +111,23 @@ sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop b
 
 - Install Brave:
 
-https://brave.com/linux/
+<https://brave.com/linux/>
 
 - Install VSCode:
 
-https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions
+<https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions>
 
 - Install Docker:
 
-https://developer.fedoraproject.org/tools/docker/docker-installation.html
+<https://developer.fedoraproject.org/tools/docker/docker-installation.html>
 
 - Ubuntu fonts:
 
-https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/
+<https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/>
 
 - CachyOS Kernel:
 
-https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos
+<https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos>
 
 ## Flatpaks
 
@@ -254,11 +254,11 @@ game-performance %command%
 
 ## Sonic Adventure
 
-https://gamebanana.com/tuts/16934
+<https://gamebanana.com/tuts/16934>
 
 ## GTA IV
 
-https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix
+<https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix>
 
 - Launch options:
 
