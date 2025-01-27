@@ -149,6 +149,7 @@ flatpak install flathub \
     io.github.dvlv.boxbuddyrs \
     io.github.fastrizwaan.WineZGUI \
     io.github.flattool.Warehouse \
+    io.missioncenter.MissionCenter \
     it.mijorus.gearlever \
     net.davidotek.pupgui2 \
     org.DolphinEmu.dolphin-emu \
