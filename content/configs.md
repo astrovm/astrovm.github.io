@@ -35,6 +35,12 @@ hideComments = true
 
 # Linux stuff
 
+## Bazzite
+
+- Custom image:
+
+<https://github.com/astrovm/amyos>
+
 ## CachyOS GNOME / rEFInd / AMD GPU
 
 - Add BlackArch repo:
