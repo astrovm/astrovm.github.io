@@ -133,8 +133,6 @@ sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop b
 
 ```bash
 flatpak install flathub \
-    com.brave.Browser \
-    com.github.Matoking.protontricks \
     com.github.k4zmu2a.spacecadetpinball \
     com.github.tchx84.Flatseal \
     com.jeffser.Alpaca \
@@ -153,18 +151,9 @@ flatpak install flathub \
     it.mijorus.gearlever \
     net.davidotek.pupgui2 \
     org.gimp.GIMP \
-    org.kde.filelight \
-    org.kde.gwenview \
-    org.kde.haruna \
-    org.kde.kcalc \
-    org.kde.okular \
     org.libreoffice.LibreOffice \
-    org.mozilla.firefox \
-    org.qbittorrent.qBittorrent \
     org.signal.Signal \
-    org.telegram.desktop \
-    org.videolan.VLC \
-    org.virt_manager.virt-manager
+    org.telegram.desktop
 ```
 
 ## Speedy encryption on NVMe Devices
