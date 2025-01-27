@@ -143,6 +143,7 @@ flatpak install flathub \
     com.obsproject.Studio.Plugin.OBSVkCapture \
     com.spotify.Client \
     com.stremio.Stremio \
+    com.supermodel3.Supermodel \
     de.leopoldluley.Clapgrep \
     dev.vencord.Vesktop \
     io.github.dvlv.boxbuddyrs \
@@ -150,8 +151,15 @@ flatpak install flathub \
     io.github.flattool.Warehouse \
     it.mijorus.gearlever \
     net.davidotek.pupgui2 \
+    org.DolphinEmu.dolphin-emu \
+    org.blender.Blender \
+    org.duckstation.DuckStation \
+    org.flycast.Flycast \
     org.gimp.GIMP \
+    org.kde.krita \
     org.libreoffice.LibreOffice \
+    org.libretro.RetroArch \
+    org.scummvm.ScummVM \
     org.signal.Signal \
     org.telegram.desktop
 ```
