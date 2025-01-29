@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<opml xmlns:frss="https://freshrss.org/opml" version="2.0">
+  <head>
+    <title>Astro News</title>
+    <dateCreated>Wed, 29 Jan 2025 17:13:29 -0300</dateCreated>
+  </head>
+  <body>
+    <outline text="Linux">
+      <outline text="Arch Linux" type="rss" xmlUrl="https://archlinux.org/feeds/news/" htmlUrl="https://archlinux.org/news/"/>
+      <outline text="CachyOS" type="rss" xmlUrl="https://cachyos.org/rss.xml" htmlUrl="https://cachyos.org/"/>
+      <outline text="DistroWatch" type="rss" xmlUrl="https://distrowatch.com/news/dw.xml" htmlUrl="https://distrowatch.com/"/>
+      <outline text="MuyLinux" type="rss" xmlUrl="https://www.muylinux.com/feed/" htmlUrl="https://www.muylinux.com/"/>
+      <outline text="Phoronix" type="rss" xmlUrl="https://www.phoronix.com/rss.php" htmlUrl="https://www.phoronix.com/"/>
+      <outline text="System76" type="rss" xmlUrl="https://blog.system76.com/rss.xml" htmlUrl="https://blog.system76.com/"/>
+    </outline>
+  </body>
+</opml>
