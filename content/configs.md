@@ -135,42 +135,6 @@ sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop b
 
 <https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos>
 
-## Flatpaks
-
-```bash
-flatpak install flathub \
-    com.github.k4zmu2a.spacecadetpinball \
-    com.github.tchx84.Flatseal \
-    com.jeffser.Alpaca \
-    com.jeffser.Alpaca.Plugins.AMD \
-    com.obsproject.Studio \
-    com.obsproject.Studio.Plugin.GStreamerVaapi \
-    com.obsproject.Studio.Plugin.Gstreamer \
-    com.obsproject.Studio.Plugin.OBSVkCapture \
-    com.spotify.Client \
-    com.stremio.Stremio \
-    com.supermodel3.Supermodel \
-    de.leopoldluley.Clapgrep \
-    dev.vencord.Vesktop \
-    io.github.dvlv.boxbuddyrs \
-    io.github.fastrizwaan.WineZGUI \
-    io.github.flattool.Warehouse \
-    io.missioncenter.MissionCenter \
-    it.mijorus.gearlever \
-    net.davidotek.pupgui2 \
-    org.DolphinEmu.dolphin-emu \
-    org.blender.Blender \
-    org.duckstation.DuckStation \
-    org.flycast.Flycast \
-    org.gimp.GIMP \
-    org.kde.krita \
-    org.libreoffice.LibreOffice \
-    org.libretro.RetroArch \
-    org.scummvm.ScummVM \
-    org.signal.Signal \
-    org.telegram.desktop
-```
-
 ## Speedy encryption on NVMe Devices
 
 ```bash
