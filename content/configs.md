@@ -40,7 +40,7 @@ hideComments = true
 ```bash
 sudo dmsetup table
 
-sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --persistent refresh luks-blablabla
+sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
 
 ## GNOME VRR and fractional scaling
