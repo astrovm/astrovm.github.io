@@ -3,6 +3,8 @@ title = "proyectos"
 hideComments = true
 +++
 
+- [Amy OS](https://github.com/astrovm/amyos) Imagen personalizada de Fedora Atomic basada en Bazzite
+
 - [Anomalous](https://anomalous.xyz/) Sociedad de investigaciones anómalas
 
 - [Flash Collection](https://4st.li/flash/) Archivo de juegos Flash

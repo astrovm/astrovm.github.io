@@ -3,6 +3,8 @@ title = "projects"
 hideComments = true
 +++
 
+- [Amy OS](https://github.com/astrovm/amyos) A custom Fedora Atomic image built on top of Bazzite
+
 - [Anomalous](https://anomalous.xyz/) An Anomalous Research Society
 
 - [Flash Collection](https://4st.li/flash/) Flash games archive

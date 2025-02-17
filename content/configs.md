@@ -7,7 +7,7 @@ hideComments = true
 
 **PC Master Race**
 
-- OS: [Bazzite](https://bazzite.gg/)
+- OS: [Amy OS](https://github.com/astrovm/amyos)
 - CPU: AMD Ryzen 5 3600
 - GPU: AMD Radeon RX 6800 16 GB
 - RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)
@@ -34,106 +34,6 @@ hideComments = true
 - Customize fans speed to maximize silence
 
 # Linux stuff
-
-## Bazzite
-
-- Custom image:
-
-<https://github.com/astrovm/amyos>
-
-## CachyOS GNOME / rEFInd / AMD GPU
-
-- Add BlackArch repo:
-
-<https://www.blackarch.org/downloads.html#install-repo>
-
-- Install AI SDK:
-
-```bash
-sudo chwd --ai_sdk -i pci rocm-ai-sdk
-```
-
-- Install apps:
-
-```bash
-sudo pacman -Syu --needed android-tools apparmor aria2 audacious audacity bleachbit blender brave-bin btop burpsuite cachyos-gaming-meta cachyos-gnome-settings cachyos-snapper-support cachyos-zsh-config calf calibre clipgrab cmatrix curl dconf-editor ddcutil distrobox docker easyeffects extension-manager fastfetch file-roller flatpak fuse2 gimp gnome-break-timer gnome-calendar gnome-characters gnome-chess gnome-clocks gnome-connections gnome-contacts gnome-dictionary gnome-epub-thumbnailer gnome-font-viewer gnome-logs gnome-maps gnome-mines gnome-multi-writer gnome-nettool gnome-nibbles gnome-remote-desktop gnome-shell-extension-pop-shell-git gnome-sudoku gnome-user-share gnome-weather gnuchess gparted gufw gvfs-smb handbrake htop john jre21-openjdk kimageformats5 kitty krita krita-plugin-gmic kseexpr libheif libjxl libmypaint libreoffice-fresh lrzip lsp-plugins-lv2 mda.lv2 mpv mutter-cachyos nautilus-image-converter neovim net-tools nmap obs-studio obs-vaapi obs-vkcapture octopi ollama-rocm p7zip pamac-aur paru polkit-gnome poppler-qt5 proton-cachyos protontricks python-pyqt5 qbittorrent qemu-full rocm-smi-lib ryujinx scummvm shotcut shotwell sqlmap squashfs-tools stremio sushi tmux tree ttf-ubuntu-font-family unace unrar ventoy-bin virt-manager vlc wget wireshark-qt yelp yt-dlp zam-plugins-lv2
-```
-
-- Enable AppArmor:
-
-```bash
-sudo nvim /boot/refind_linux.conf
-```
-
-Add kernel params
-
-```bash
-lsm=landlock,lockdown,yama,integrity,apparmor,bpf
-```
-
-```bash
-sudo systemctl enable apparmor.service
-```
-
-Reboot and check
-
-```bash
-aa-enabled
-```
-
-- Install VSCode and Yaru from AUR:
-
-```bash
-paru -S --needed visual-studio-code-bin yaru-gnome-shell-theme yaru-gtk-theme yaru-icon-theme yaru-sound-theme
-```
-
-- Enable Ollama service:
-
-```bash
-sudo systemctl enable ollama.service
-```
-
-- Config Alpaca to use:
-
-```bash
-http://localhost:11434
-```
-
-## Fedora GNOME
-
-- Add RPM Fusion repo:
-
-<https://rpmfusion.org/Configuration>
-
-- Config codecs:
-
-<https://rpmfusion.org/Howto/Multimedia>
-
-- Install apps:
-
-```bash
-sudo dnf install android-tools aria2 audacious audacity bleachbit blender btop btrfs-assistant calibre cmatrix curl dconf-editor ddcutil distrobox easyeffects file-roller firewall-config flatpak fuse fuse-libs gimp gnome-calendar gnome-multi-writer gnome-tweaks gnome-weather gparted htop libreoffice lutris mpv fastfetch neovim net-tools nmap obs-studio obs-studio-plugin-vkcapture openssl protontricks qbittorrent scummvm shotwell simple-scan steam sushi tmux tor torbrowser-launcher torsocks tree util-linux virt-manager vlc wget yaru-theme yt-dlp
-```
-
-- Install Brave:
-
-<https://brave.com/linux/>
-
-- Install VSCode:
-
-<https://code.visualstudio.com/docs/setup/linux#_rhel-fedora-and-centos-based-distributions>
-
-- Install Docker:
-
-<https://developer.fedoraproject.org/tools/docker/docker-installation.html>
-
-- Ubuntu fonts:
-
-<https://copr.fedorainfracloud.org/coprs/atim/ubuntu-fonts/>
-
-- CachyOS Kernel:
-
-<https://copr.fedorainfracloud.org/coprs/bieszczaders/kernel-cachyos>
 
 ## Speedy encryption on NVMe Devices
 
@@ -167,34 +67,6 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 - [Window title is back](https://extensions.gnome.org/extension/6310/window-title-is-back/)
 - [Workspace Indicator](https://extensions.gnome.org/extension/21/workspace-indicator/)
 
-## Kitty
-
-```bash
-nvim ~/.config/kitty/kitty.conf
-```
-
-```bash
-linux_display_server x11
-map cmd+t new_tab_with_cwd
-font_family      UbuntuMono
-bold_font        auto
-italic_font      auto
-bold_italic_font auto
-font_size 14
-```
-
-## Zsh
-
-```bash
-nvim ~/.zshrc
-```
-
-```bash
-alias astrofetch="fastfetch -l arch -c neofetch"
-alias mikufetch="fastfetch --logo ~/Pictures/img_MIKU_us.png --logo-height 30"
-alias update="paru; flatpak update"
-```
-
 ## Steam tweaks
 
 - Enable Steam Play in Steam settings
@@ -210,9 +82,9 @@ or in CachyOS:
 game-performance %command%
 ```
 
-- Try [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonPlus
+- Try [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) with ProtonUp-Qt/ProtonPlus
 
-## CS2
+## Half-Life/Portal/Counter-Strike
 
 - Launch options:
 
@@ -250,12 +122,6 @@ cat ~/.ssh/id_ed25519.pub
 
 - Paste to [https://github.com/settings/ssh](https://github.com/settings/ssh)
 
-```bash
-git config --global user.signingkey CC39C6D77BDF0053
-
-git config --global commit.gpgsign true
-```
-
 ## NetworkManager randomize
 
 ```bash
@@ -285,8 +151,13 @@ sudo modprobe btusb
 
 # Brave extensions
 
+- [Augmented Steam](https://chromewebstore.google.com/detail/augmented-steam/dnhpnfgdlenaccegplpojghhmaamnnfp)
 - [DeArrow](https://chromewebstore.google.com/detail/dearrow-better-titles-and/enamippconapkdmgfgjchkhakpfinmaj)
-- [GSConnect](https://chromewebstore.google.com/detail/gsconnect/jfnifeihccihocjbfcfhicmmgpjicaec)
+- [Picture-in-Picture](https://chromewebstore.google.com/detail/picture-in-picture-extens/hkgfoiooedgoejojocmhlaklaeopbecg)
 - [Privacy Settings](https://chromewebstore.google.com/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj)
+- [Proton Pass](https://chromewebstore.google.com/detail/proton-pass-free-password/ghmbeldphafepmbegfdlkpapadhbakde)
+- [ProtonDB for Steam](https://chromewebstore.google.com/detail/protondb-for-steam/ngonfifpkpeefnhelnfdkficaiihklid)
 - [Rabby](https://chromewebstore.google.com/detail/rabby-wallet/acmacodkjbdgmoleebolmdjonilkdbch)
 - [SponsorBlock](https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone)
+- [Plasma Integration](https://chromewebstore.google.com/detail/plasma-integration/cimiefiiaegbelhefglklhhakcgmhkai) (KDE only)
+- [GSConnect](https://chromewebstore.google.com/detail/gsconnect/jfnifeihccihocjbfcfhicmmgpjicaec) (GNOME only)
