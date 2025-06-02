@@ -18,5 +18,3 @@ hideComments = true
 **self-hosted instances**
 
 - [FreshRSS](https://news.4st.li/) News aggregator
-
-- [PrivateBin](https://bin.4st.li/) Open source pastebin where the server has zero knowledge of pasted data
