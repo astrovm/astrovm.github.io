@@ -18,5 +18,3 @@ hideComments = true
 **instancias self-hosteadas**
 
 - [FreshRSS](https://news.4st.li/) Agregador de noticias
-
-- [PrivateBin](https://bin.4st.li/) Pastebin de código abierto donde el servidor no tiene conocimiento de los datos pegados
