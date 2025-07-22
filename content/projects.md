@@ -13,6 +13,8 @@ hideComments = true
 
 - [Respondedor de boludos](https://t.me/respondedorbot) Telegram bot with AI based on Argentina internet culture
 
+- [Tdarg](https://tdarg.4st.li/) A web with information about ADHD in Argentina
+
 - [YTMusicFS](https://github.com/astrovm/ytmusicfs) A FUSE filesystem for YT Music
 
 **self-hosted instances**
