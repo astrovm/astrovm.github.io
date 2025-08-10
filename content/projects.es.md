@@ -7,7 +7,7 @@ hideComments = true
 
 - [Anomalous](https://anomalous.xyz/) Sociedad de investigaciones anómalas
 
-- [Flash Collection](https://4st.li/flash/) Archivo de juegos Flash
+- [Flash Collection](https://flash.4st.li/) Archivo de juegos Flash
 
 - [Inside the firewall](https://4st.li/insidethefirewall) Juego que hice en 2013
 
