@@ -1,8 +1,8 @@
 // Encrypt/decrypt multi-part commands; binary-safe; auto-injects __SECRETS__
 // Usage:
-//   node encrypt-commands.js encrypt [master_password]
-//   node encrypt-commands.js decrypt password output.js        // single
-//   node encrypt-commands.js decrypt master_password src/      // restore all
+//   bun encrypt-commands.js encrypt [master_password]
+//   bun encrypt-commands.js decrypt password output.js        // single
+//   bun encrypt-commands.js decrypt master_password src/      // restore all
 
 const crypto = require("crypto");
 const path = require("path");
@@ -172,7 +172,7 @@ async function decryptCommands(password, outputPath) {
 const action = process.argv[2];
 const args = process.argv.slice(3);
 if (!["encrypt", "decrypt"].includes(action)) {
-  console.error("Usage:\n  node encrypt-commands.js encrypt [master_password]\n  node encrypt-commands.js decrypt password output.js\n  node encrypt-commands.js decrypt master_password src/");
+  console.error("Usage:\n  bun encrypt-commands.js encrypt [master_password]\n  bun encrypt-commands.js decrypt password output.js\n  bun encrypt-commands.js decrypt master_password src/");
   process.exit(1);
 }
 if (action === "encrypt") {
