@@ -18,18 +18,21 @@ This is a static website built with Hugo using the Terminal theme. The site is a
 ## Key Components
 
 ### Content Structure
+
 - `content/blog/` - Blog posts with subdirectories for each post
 - `content/` root - Main pages (projects, contact, configs, etc.)
 - Bilingual content with `.es.md` extension for Spanish versions
 
 ### Theme Customization
+
 - `layouts/partials/` - Custom HTML partials override theme defaults
 - `static/style.css` - Custom CSS overriding theme styles
 - `static/terminal-window/` - Interactive terminal components with encryption features
 - `static/oneko.js` - Desktop pet JavaScript animation
 
 ### Special Features
-- **Encrypted Commands**: `utils/encrypt-commands.js` provides multi-password encryption for terminal commands
+
+- **Encrypted Commands**: `utils/encrypt-commands.ts` provides multi-password encryption for terminal commands
 - **Terminal Theme**: Customized with "astro" color scheme and terminal aesthetic
 - **Interactive Elements**: Terminal window simulation and desktop pet
 
@@ -69,4 +72,4 @@ npm install
 
 ## Security Notes
 
-The `utils/encrypt-commands.js` script uses AES-256-GCM encryption with PBKDF2 key derivation (1M iterations) for the terminal command encryption feature.
+The `utils/encrypt-commands.ts` script uses AES-256-GCM encryption with PBKDF2 key derivation (1M iterations) for the terminal command encryption feature.
