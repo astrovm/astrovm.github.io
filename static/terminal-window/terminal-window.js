@@ -37,6 +37,7 @@ class TerminalState {
     this.awaitingPassword = false;
     this.pendingUser = null;
     this.term = null;
+    this.promptIssued = false;
     this.fitAddon = null;
     this.webglAddon = null;
     this.commandBuffer = "";
@@ -81,6 +82,7 @@ class TerminalState {
     this.cursorPosition = 0;
     this.commandHistory = [];
     this.historyIndex = -1;
+    this.promptIssued = false;
   }
 
   addInterval(interval) {
@@ -120,6 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     prompt: () => {
       document.title = title.text + title.prompt;
+      state.promptIssued = true;
       state.term.write("\r\n$ ");
     },
     minimize: () => ui.minimize(),
@@ -557,6 +560,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const [command, ...args] = cmd.trim().split(" ");
     const commandLower = command.toLowerCase();
+    state.promptIssued = false;
 
     // Special case: try to decrypt with the command itself
     if (!commands[commandLower]) {
@@ -631,8 +635,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
               // If we get here and the command exists now, execute it
               if (commands[commandLower]) {
-                commands[commandLower](args);
-                terminal.prompt();
+                await commands[commandLower](args);
+                if (
+                  !state.awaitingPassword &&
+                  commandLower !== "exit" &&
+                  !state.promptIssued
+                ) {
+                  terminal.prompt();
+                }
                 return;
               }
             } catch (e) {
@@ -648,8 +658,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (commandLower in commands) {
       document.title = title.text + title.prompt + commandLower;
-      commands[commandLower](args);
-      if (!state.awaitingPassword && commandLower !== "exit") {
+      await commands[commandLower](args);
+      if (
+        !state.awaitingPassword &&
+        commandLower !== "exit" &&
+        !state.promptIssued
+      ) {
         terminal.prompt();
       }
     } else {
