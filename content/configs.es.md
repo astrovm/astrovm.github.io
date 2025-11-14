@@ -7,7 +7,7 @@ hideComments = true
 
 **PC Master Race**
 
-- OS: [Amy OS](https://github.com/astrovm/amyos)
+- OS: [Debian 13 KDE](https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/)
 - CPU: AMD Ryzen 5 3600
 - GPU: AMD Radeon RX 6800 16 GB
 - RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)
