@@ -13,6 +13,8 @@ hideComments = true
 
 - [Respondedor de boludos](https://t.me/respondedorbot) Bot de Telegram con IA basada en la cultura de internet argentina
 
+- [Timba](https://timba.cc/) Juego de cara o cruz en Solana
+
 - [Tdarg](https://tdarg.4st.li/) Una web con información sobre TDAH en Argentina
 
 - [YTMusicFS](https://github.com/astrovm/ytmusicfs) Un sistema de archivos FUSE para YT Music
