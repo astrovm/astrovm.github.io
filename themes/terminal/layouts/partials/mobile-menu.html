@@ -7,7 +7,7 @@
           <li><a href="{{ .URL }}">{{ .Name }}</a></li>
         {{ end }}
       {{ end }}
-      {{ if and $.Site.Params.showLanguageSelector (len .Translations) }}
+      {{ if and $.Site.Params.showLanguageSelector (gt (len .AllTranslations) 1) }}
         <hr />
         {{ range .Translations }}
           <li>
