@@ -7,6 +7,8 @@ hideComments = true
 
 - [Anomalous](https://anomalous.xyz/) An Anomalous Research Society
 
+- [Crosstune](https://github.com/astrovm/crosstune) Open Spotify track links in YouTube Music or YouTube on Android
+
 - [Flash Collection](https://flash.4st.li/) Flash games archive
 
 - [Inside the firewall](https://4st.li/insidethefirewall) Videogame I made in 2013
