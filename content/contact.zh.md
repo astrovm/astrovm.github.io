@@ -1,0 +1,18 @@
++++
+title = "联系方式"
+hideComments = true
++++
+
+- 邮箱: [~@4st.li](mailto:~@4st.li)
+
+- signal: [astro.99](https://signal.me/#eu/Kz9MrSbPxZY4IWQmqVd4vob21mJnYvU-Ru9STNJErWZNOALb_8lJupYf9j9tOE0X)
+
+- telegram: [@astrolince](https://t.me/astrolince)
+
+**捐赠**
+
+- [bitcoin/lightning](https://checkout.opennode.com/p/32c4dcff-1ef4-44ba-908e-cccf7f564233)
+
+- ethereum/l2s: [astrolince.eth](https://app.zerion.io/0x70b9f12c83c1d7ae588682dc4787a30cdacfc4fd/overview?name=astrolince.eth)
+
+- [monero、solana、doge、tron等](https://trocador.app/anonpay/?ticker_to=xmr&network_to=Mainnet&address=8BVAgmF6bwQeW8Y6UEFut7YzKyQCE19UANt9avx64ZjsApwvCaaMhVZYd6LwqpKjsaRyJaVvTjxapK3chj3JUv4cUepKCjB&donation=True&simple_mode=True&description=Donation+to+4st.li&email=pay@4st.li&ticker_from=xmr&network_from=Mainnet&buttonbgcolor=f462c6&bgcolor=c3c3c3ff)

@@ -208,3 +208,51 @@ pagerSize = 5
         name = "rss"
         url = "/ja/blog/index.xml"
         weight = 5
+
+  [languages.zh]
+    languageName = "中文"
+    languageCode = "zh"
+    title = "astro@web"
+    subtitle = "为不可预见的后果做好准备。"
+    owner = "astro"
+    keywords = "加密货币, 比特币, 编程, 代码, Linux, 黑客"
+    menuMore = "显示更多"
+    readMore = "阅读更多"
+    readOtherPosts = "阅读其他文章"
+    newerPosts = "更新的文章"
+    olderPosts = "更早的文章"
+    missingContentMessage = "页面未找到..."
+    missingBackButtonLabel = "返回首页"
+    minuteReadingTime = "分钟阅读"
+    words = "字"
+
+    [languages.zh.params.logo]
+      logoText = "astro <(^^,)>"
+      logoHomeLink = "/zh"
+
+    [languages.zh.menu]
+      [[languages.zh.menu.main]]
+        identifier = "home"
+        name = "首页"
+        url = "/zh"
+        weight = 1
+      [[languages.zh.menu.main]]
+        identifier = "projects"
+        name = "项目"
+        url = "/zh/projects"
+        weight = 2
+      [[languages.zh.menu.main]]
+        identifier = "contact"
+        name = "联系方式"
+        url = "/zh/contact"
+        weight = 3
+      [[languages.zh.menu.main]]
+        identifier = "configs"
+        name = "配置"
+        url = "/zh/configs"
+        weight = 4
+      [[languages.zh.menu.main]]
+        identifier = "rss"
+        name = "rss"
+        url = "/zh/blog/index.xml"
+        weight = 5

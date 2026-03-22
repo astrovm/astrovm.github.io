@@ -26,7 +26,7 @@ Por ejemplo, si cuando alguien nace le donás 100 dólares todos los meses, poni
 
 Lo mejor que puede hacer alguien joven y sin capital es chocarse contra la pared, pero conscientemente. Tirar guita a problemas sin pensar no es la mejor idea. Así como recomendarle "ir a lo seguro" es una mala idea, también lo es chocarla porque sí.
 
-Los valores del ahorro y la inversión son útiles incluso sin tener nada. Si no pensás en eso antes de tener algo, cuando lo tengas no vas a saber gestionarlo (Investiga cómo termina la mayoría de los que ganan la lotería, o los países que tienen plata infinita en el piso y la chocan). Si no sabés nada de inversión y no tenés experiencia alguna, es cuestionable incluso que te sirva de algo trabajar. Así es como ves a gente que laburó 45 años, se jubila y siente que lo cagaron.
+Los valores del ahorro y la inversión son útiles incluso sin tener nada. Si no pensás en eso antes de tener algo, cuando lo tengas no vas a saber gestionarlo (investiga cómo termina la mayoría de los que ganan la lotería, o los países que tienen plata infinita en el piso y la chocan). Si no sabés nada de inversión y no tenés experiencia alguna, es cuestionable incluso que te sirva de algo trabajar. Así es como ves a gente que laburó 45 años, se jubila y siente que lo cagaron.
 
 ![Lain en el tren](171419.gif)
 
