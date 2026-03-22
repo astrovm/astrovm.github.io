@@ -8,6 +8,8 @@ Estaba leyendo Twitter Finanzas y vi que le hicieron la típica pregunta de "en 
 
 ![Lain en la compu](171294.gif)
 
+<!--more-->
+
 Voy a explicar por qué esa idea es absurda desde múltiples puntos de vista.
 
 Soy bastante pesimista con las recomendaciones en general porque no existen como tal. "¿Invierto en esto o en aquello?", "¿qué es más seguro, Android o iOS?", "¿es mejor usar apps o webs?", "¿tengo que usar VPN?" Todas estas son preguntas que son imposibles de responder en sí; la respuesta siempre es DEPENDE. Cada persona es única, y para cada individuo la respuesta es distinta. Además para la misma persona la respuesta puede cambiar mañana. Por eso en sistemas no aprendemos respuestas, sino el arte de entender los requerimientos y llegar a las soluciones posibles.

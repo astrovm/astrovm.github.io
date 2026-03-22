@@ -8,6 +8,8 @@ I was reading Finance Twitter and saw someone ask a well-known Twitter user the 
 
 ![Lain at the computer](171294.gif)
 
+<!--more-->
+
 I'll explain why this idea is absurd from multiple perspectives.
 
 I'm quite pessimistic about recommendations in general because they don't really exist as such. "Should I invest in this or that?", "what's safer, Android or iOS?", "are apps better than websites?", "should I use a VPN?" All these questions are impossible to answer by themselves; the answer is always IT DEPENDS. Each person is unique, and for each individual, the answer is different. Moreover, for the same person, the answer might change tomorrow. That's why in software engineering we don't learn answers, but rather the art of understanding requirements and reaching possible solutions.
