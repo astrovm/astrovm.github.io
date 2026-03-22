@@ -1,7 +1,7 @@
 +++
 title = "projects"
 hideComments = true
-aliases = ["/en/projects"]
+aliases = ["/projects"]
 +++
 
 - [Amy OS](https://github.com/astrovm/amyos) A custom Fedora Atomic image built on top of Bazzite

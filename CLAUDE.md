@@ -64,19 +64,19 @@ npm install
 
 ## URL Convention for English Content
 
-English is the default language and lives at the root (no `/en/` prefix). To also support `/en/` prefixed URLs (e.g. `https://4st.li/en/blog/slug/`), each English content file includes an `aliases` field in its front matter:
+English lives at `/en/` (same as other languages). To support root-level URLs without a language prefix (e.g. `https://4st.li/blog/slug/`), each English content file includes an `aliases` field in its front matter pointing to the path **without** the `/en/` prefix:
 
 ```toml
-aliases = ["/en/blog/my-post-slug/"]
+aliases = ["/blog/my-post-slug/"]
 ```
 
-Hugo generates a static redirect HTML at the alias path pointing to the canonical URL. **Every new English blog post must include this alias** to maintain consistency:
+Hugo generates a language-aware redirect page at the alias path (using `layouts/alias.html`). That page detects the user's preferred language via cookie or browser settings and redirects to the appropriate `/{lang}/blog/my-post-slug/`. **Every new English blog post must include this alias** to maintain consistency:
 
 ```toml
 +++
 title = "My Post"
 date = "..."
-aliases = ["/en/blog/my-post-slug/"]
+aliases = ["/blog/my-post-slug/"]
 +++
 ```
 

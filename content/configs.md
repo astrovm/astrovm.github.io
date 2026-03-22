@@ -1,7 +1,7 @@
 +++
 title = "configs"
 hideComments = true
-aliases = ["/en/configs"]
+aliases = ["/configs"]
 +++
 
 # Devices

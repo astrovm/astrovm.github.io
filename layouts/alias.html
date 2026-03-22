@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    (() => {
+      const LANGS = ["en", "es", "ja", "zh"];
+      const DEFAULT = "en";
+      const COOKIE_NAME = "preferredLanguage";
+      const cookie = document.cookie.split("; ").find(r => r.startsWith(COOKIE_NAME + "="));
+      const cookieLang = cookie?.split("=")[1];
+      const browserLang = navigator.language?.split("-")[0];
+      const lang = LANGS.includes(cookieLang) ? cookieLang
+                 : LANGS.includes(browserLang) ? browserLang
+                 : DEFAULT;
+      const canonical = "{{ .Permalink }}";
+      const url = new URL(canonical);
+      const trailing = url.pathname.endsWith("/") ? "/" : "";
+      const parts = url.pathname.replace(/^\//, "").split("/").filter(Boolean);
+      // Replace the first segment (language prefix like "en") with detected lang
+      const newPath = "/" + [lang, ...parts.slice(1)].join("/") + trailing;
+      window.location.replace(url.origin + newPath);
+    })();
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>

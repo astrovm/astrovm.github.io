@@ -2,7 +2,7 @@
 title = "Don't invest in yourself"
 date = "2024-05-12T09:03:20-03:00"
 readingTime = true
-aliases = ["/en/blog/invertir-en-vos/"]
+aliases = ["/blog/invertir-en-vos/"]
 +++
 
 I was reading Finance Twitter and saw someone ask a well-known Twitter user the typical "what should I invest in" question, clarifying he was young, to which he replied it was better not to think about that and "invest in yourself" instead.
