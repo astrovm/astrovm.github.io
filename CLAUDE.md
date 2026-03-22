@@ -62,6 +62,14 @@ npm install
 - Shows 5 posts per page
 - Menu configured for both languages with different URLs
 
+## URL Convention
+
+English lives at `/en/` (same as other languages). Additionally, the GitHub Actions workflow copies the entire `public/en/` directory to `public/` after the build, so all English content is also accessible at root-level paths (e.g. `https://4st.li/blog/slug/` mirrors `/en/blog/slug/`).
+
+**New English content does NOT need `aliases`** — the post-build copy handles root paths automatically.
+
+When a user visits a root-level path (e.g. `/blog/slug/`), `language.js` detects their preferred language and redirects to `/{lang}/blog/slug/`. Without JavaScript, the root path serves English content directly.
+
 ## File Organization
 
 - Root config controls site-wide settings and multilingual setup

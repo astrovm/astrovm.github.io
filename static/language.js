@@ -29,8 +29,8 @@ const getLanguage = () => {
 const path = window.location.pathname;
 const lang = getLanguage();
 const isOnLangPath = LANGUAGES.supported.some(
-  (l) => l !== LANGUAGES.default && path.startsWith(`/${l}/`)
+  (l) => path.startsWith(`/${l}/`) || path === `/${l}`
 );
-if (lang !== LANGUAGES.default && !isOnLangPath) {
+if (!isOnLangPath) {
   window.location.replace(`/${lang}${path}`);
 }
