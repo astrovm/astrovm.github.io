@@ -1,7 +1,13 @@
+{{ $title := .Title }}
+{{ range .AllTranslations }}
+  {{ if eq .Lang "en" }}
+    {{ $title = .Title }}
+  {{ end }}
+{{ end }}
 <script
   src="https://utteranc.es/client.js"
   repo="astrovm/astrovm.github.io"
-  issue-term="{{ .TranslationKey }}"
+  issue-term="{{ $title }}"
   label="blog-comment"
   theme="photon-dark"
   crossorigin="anonymous"
