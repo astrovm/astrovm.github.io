@@ -2,7 +2,6 @@
 title = "Run, Think, Shoot, Live"
 date = "2022-05-18T05:33:50-03:00"
 readingTime = true
-aliases = ["/blog/half-life/"]
 +++
 
 ![Train with G-Man and a scientist inside](train.jpg)

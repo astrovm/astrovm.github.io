@@ -62,23 +62,13 @@ npm install
 - Shows 5 posts per page
 - Menu configured for both languages with different URLs
 
-## URL Convention for English Content
+## URL Convention
 
-English lives at `/en/` (same as other languages). To support root-level URLs without a language prefix (e.g. `https://4st.li/blog/slug/`), each English content file includes an `aliases` field in its front matter pointing to the path **without** the `/en/` prefix:
+English lives at `/en/` (same as other languages). Additionally, the GitHub Actions workflow copies the entire `public/en/` directory to `public/` after the build, so all English content is also accessible at root-level paths (e.g. `https://4st.li/blog/slug/` mirrors `/en/blog/slug/`).
 
-```toml
-aliases = ["/blog/my-post-slug/"]
-```
+**New English content does NOT need `aliases`** — the post-build copy handles root paths automatically.
 
-Hugo generates a language-aware redirect page at the alias path (using `layouts/alias.html`). That page detects the user's preferred language via cookie or browser settings and redirects to the appropriate `/{lang}/blog/my-post-slug/`. **Every new English blog post must include this alias** to maintain consistency:
-
-```toml
-+++
-title = "My Post"
-date = "..."
-aliases = ["/blog/my-post-slug/"]
-+++
-```
+When a user visits a root-level path (e.g. `/blog/slug/`), `language.js` detects their preferred language and redirects to `/{lang}/blog/slug/`. Without JavaScript, the root path serves English content directly.
 
 ## File Organization
 

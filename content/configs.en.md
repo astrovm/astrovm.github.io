@@ -1,7 +1,6 @@
 +++
 title = "configs"
 hideComments = true
-aliases = ["/configs"]
 +++
 
 # Devices
