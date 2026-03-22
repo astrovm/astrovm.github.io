@@ -62,6 +62,24 @@ npm install
 - Shows 5 posts per page
 - Menu configured for both languages with different URLs
 
+## URL Convention for English Content
+
+English is the default language and lives at the root (no `/en/` prefix). To also support `/en/` prefixed URLs (e.g. `https://4st.li/en/blog/slug/`), each English content file includes an `aliases` field in its front matter:
+
+```toml
+aliases = ["/en/blog/my-post-slug/"]
+```
+
+Hugo generates a static redirect HTML at the alias path pointing to the canonical URL. **Every new English blog post must include this alias** to maintain consistency:
+
+```toml
++++
+title = "My Post"
+date = "..."
+aliases = ["/en/blog/my-post-slug/"]
++++
+```
+
 ## File Organization
 
 - Root config controls site-wide settings and multilingual setup

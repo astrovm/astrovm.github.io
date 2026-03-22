@@ -1,6 +1,7 @@
 +++
 title = "configs"
 hideComments = true
+aliases = ["/en/configs"]
 +++
 
 # Devices

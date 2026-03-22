@@ -1,6 +1,7 @@
 +++
 title = "contact"
 hideComments = true
+aliases = ["/en/contact"]
 +++
 
 - email: [~@4st.li](mailto:~@4st.li)
