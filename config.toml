@@ -160,3 +160,51 @@ pagerSize = 5
         name = "rss"
         url = "/es/blog/index.xml"
         weight = 5
+
+  [languages.ja]
+    languageName = "日本語"
+    languageCode = "ja"
+    title = "astro@web"
+    subtitle = "予期せぬ結果に備えよ。"
+    owner = "astro"
+    keywords = "暗号通貨, ビットコイン, プログラミング, コード, Linux, ハッキング"
+    menuMore = "もっと見る"
+    readMore = "続きを読む"
+    readOtherPosts = "他の記事を読む"
+    newerPosts = "新しい記事"
+    olderPosts = "古い記事"
+    missingContentMessage = "ページが見つかりません..."
+    missingBackButtonLabel = "ホームに戻る"
+    minuteReadingTime = "分で読めます"
+    words = "文字"
+
+    [languages.ja.params.logo]
+      logoText = "astro <(^^,)>"
+      logoHomeLink = "/ja"
+
+    [languages.ja.menu]
+      [[languages.ja.menu.main]]
+        identifier = "home"
+        name = "ホーム"
+        url = "/ja"
+        weight = 1
+      [[languages.ja.menu.main]]
+        identifier = "projects"
+        name = "プロジェクト"
+        url = "/ja/projects"
+        weight = 2
+      [[languages.ja.menu.main]]
+        identifier = "contact"
+        name = "連絡先"
+        url = "/ja/contact"
+        weight = 3
+      [[languages.ja.menu.main]]
+        identifier = "configs"
+        name = "設定"
+        url = "/ja/configs"
+        weight = 4
+      [[languages.ja.menu.main]]
+        identifier = "rss"
+        name = "rss"
+        url = "/ja/blog/index.xml"
+        weight = 5

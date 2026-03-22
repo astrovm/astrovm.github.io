@@ -36,7 +36,7 @@ En esa época, también me metí en la timba y las apuestas online, y gané y pe
 
 No le preguntes a alguien que ya ganó qué hacer, tus ventajas son otras. Experimentar es lo que más retorno tiene en la vida, y es ahora cuando más barato es para vos.
 
-Compra barato, vende caro.
+Comprá barato, vendé caro.
 
 La gente aprende las cosas viviéndolas en carne propia. En las sociedades donde la acumulación de capital no está protegida, el capital no existe, no porque la gente lo pierda, sino que ni siquiera llegan a intentarlo. Si no entendés cómo funciona el mercado, no vas a poder visualizar tu camino hacia lo que querés lograr y ni siquiera vas a saber lo que querés.
 

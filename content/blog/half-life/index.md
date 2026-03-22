@@ -38,9 +38,9 @@ And then I started defending myself. In Half-Life, combats are a puzzle to solve
 
 You are a man of science, not an assassin. If you see a threat, you first run to protect yourself, then think about how to leverage your tools, environment, and knowledge against the enemy. If you don't really need to kill anyone, you don't, but if you do, now you have a plan.
 
-The game has some interesting messages behind:
+The game has some interesting messages:
 
-- You probably will kill life by accident.
+- You will probably kill life by accident.
 - Your boss will run away if something really bad happens.
 - The government will not save you, and you shouldn't trust them.
 - An individual can have a real impact on the world, so you are important.

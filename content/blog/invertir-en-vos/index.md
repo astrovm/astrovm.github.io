@@ -26,13 +26,13 @@ For example, if when someone is born you donate 100 dollars every month, putting
 
 The best thing a young person without capital can do is hit the wall, but consciously. Throwing money at problems without thinking isn't the best idea. Just as recommending "playing it safe" is a bad idea, so is crashing it just because.
 
-The values of saving and investment are useful even without having anything. If you don't think about it before having something, when you have it you won't know how to manage it (Research how most lottery winners end up, or countries that have infinite money on the ground and crash it). If you know nothing about investment and have no experience, it's even questionable whether working will do you any good. That's how you see people who worked for 45 years, retire and feel they got screwed.
+The values of saving and investment are useful even without having anything. If you don't think about it before having something, when you have it you won't know how to manage it (research how most lottery winners end up, or countries that have infinite money on the ground and crash it). If you know nothing about investment and have no experience, it's even questionable whether working will do you any good. That's how you see people who worked for 45 years, retire and feel they got screwed.
 
 ![Lain on the train](171419.gif)
 
 At 13, I became very interested in economics and understanding why we had inflation. I was surprised to see that the problem was quite stupid. Looking for something that had stable emission and demand, I learned about gold and from that moment started buying gold, but then realized it was stupid for me to invest in that if I was only 13 and earning 50 dollars a month. I had no capital to protect. That's when I realized that the best thing was to bet everything on something risky, and put everything into Bitcoin. From that moment, every penny I earned I used to buy more Bitcoin, and it didn't matter if it went to 0, I just understood my advantage: I'm 13, nothing happens.
 
-During that time, I also got into gambling and online betting, and won and lost a lot of money. That's when I understood the wonderful thing that had happened to me: I had the feeling of a 50-year-old man who bet his house at the casino, but 40 years earlier and without shooting myself, which gave me a different ability to understand risks compared to my friends, invaluable knowledge, obtained much earlier and at an infinitely lower price.
+During that time, I also got into gambling and online betting, and won and lost a lot of money. That's when I understood the wonderful thing that had happened to me: I had the feeling of a 50-year-old man who bet his house at the casino, but 40 years earlier and without shooting himself, which gave me a different ability to understand risks compared to my friends, invaluable knowledge, obtained much earlier and at an infinitely lower price.
 
 Don't ask someone who's already won what to do, your advantages are different. Experimenting has the highest return in life, and now is when it's cheapest for you.
 

@@ -38,7 +38,7 @@ Y luego empecé a defenderme. En Half-Life, los combates son un rompecabezas par
 
 Sos un hombre de ciencia, no un asesino. Si ves una amenaza, primero corrés para protegerte, después pensás en cómo aprovechar tus herramientas, el entorno y el conocimiento contra el enemigo. Si realmente no necesitas matar a nadie, no lo hacés, pero si lo hacés, ahora tenés un plan.
 
-El juego tiene algunos mensajes interesantes detrás:
+El juego tiene algunos mensajes interesantes:
 
 - Probablemente vas a matar vida por accidente.
 - Tu jefe se va a tomar el palo si algo realmente malo sucede.
