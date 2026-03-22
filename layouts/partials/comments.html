@@ -1,7 +1,13 @@
+{{ $path := .RelPermalink }}
+{{ range .AllTranslations }}
+  {{ if eq .Lang "en" }}
+    {{ $path = .RelPermalink }}
+  {{ end }}
+{{ end }}
 <script
   src="https://utteranc.es/client.js"
   repo="astrovm/astrovm.github.io"
-  issue-term="og:title"
+  issue-term="{{ $path }}"
   label="blog-comment"
   theme="photon-dark"
   crossorigin="anonymous"
