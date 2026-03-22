@@ -1,5 +1,5 @@
 const LANGUAGES = {
-  supported: ["en", "es"],
+  supported: ["en", "es", "ja", "zh"],
   default: "en",
   cookieName: "preferredLanguage",
 };
@@ -25,8 +25,12 @@ const getLanguage = () => {
     : LANGUAGES.default;
 };
 
-// Handle Spanish redirection
+// Handle language redirection
 const path = window.location.pathname;
-if (getLanguage() === "es" && !path.startsWith("/es/")) {
-  window.location.replace(`/es${path}`);
+const lang = getLanguage();
+const isOnLangPath = LANGUAGES.supported.some(
+  (l) => l !== LANGUAGES.default && path.startsWith(`/${l}/`)
+);
+if (lang !== LANGUAGES.default && !isOnLangPath) {
+  window.location.replace(`/${lang}${path}`);
 }
