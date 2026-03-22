@@ -3,6 +3,7 @@ defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 theme = "terminal"
 pagerSize = 5
+hasCJKLanguage = true
 
 [markup.goldmark.renderer]
   unsafe = true
