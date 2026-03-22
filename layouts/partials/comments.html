@@ -1,7 +1,7 @@
 {{ $path := .RelPermalink }}
 {{ range .AllTranslations }}
   {{ if eq .Lang "en" }}
-    {{ $path = .RelPermalink }}
+    {{ $path = .RelPermalink | strings.TrimPrefix "/en" }}
   {{ end }}
 {{ end }}
 <script
