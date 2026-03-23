@@ -127,7 +127,7 @@ Injection sent. Waiting for listener...
 Listener is UP!
 ```
 
-`Listener is UP!`. It works. I've now confirmed I can get in. Now it's time to do it on the real phone, where there's no room for error.
+`Listener is UP!`. It works. I've now confirmed I can get in. Now I just need to do it on the real phone, where there's no room for error.
 
 ### Extracting the full dump
 
