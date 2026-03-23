@@ -20,7 +20,7 @@ The first thing I do in these cases is write everything down, any detail can be 
 
 I tell them to hit me with everything they remember about the password. Words, numbers, symbols, names, nicknames, family members, dates, patterns, anything that comes to mind. I open the app and try a few passwords manually. After a few attempts it locks me out for 1 hour.
 
-<img alt="TronLink Pro wallet creation screen showing password requirements" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 280px" />
+<img alt="TronLink Pro wallet creation screen showing password requirements" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 100%" />
 
 That route's a dead end, so the job splits into two:
 
@@ -76,7 +76,7 @@ These repos saved me a shitload of work:
 
 Before touching the real phone I spin up an emulator that simulates the same setup.
 
-<img alt="Android 12 (API 31) emulator with home screen ready for testing" src="/en/blog/tronlink-wallet-recovery/v04-fjag_lnomy9qjva_b.png" style="max-width: 280px" />
+<img alt="Android 12 (API 31) emulator with home screen ready for testing" src="/en/blog/tronlink-wallet-recovery/v04-fjag_lnomy9qjva_b.png" style="max-width: 100%" />
 
 I install the same version of TronLink, generate a test wallet, and start reproducing the whole exploit.
 
@@ -210,11 +210,11 @@ I set it running against Hashcat and go to sleep.
 uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json --recovery-root recovery
 ```
 
-<img alt="Hashcat running in Ethereum Wallet SCRYPT mode showing attack progress" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: 480px" />
+<img alt="Hashcat running in Ethereum Wallet SCRYPT mode showing attack progress" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: 100%" />
 
 After about 30 hours between validation, prior testing, and various runs... CRACKED.
 
-<img alt="Hashcat showing Cracked status after finding the correct password" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 480px" />
+<img alt="Hashcat showing Cracked status after finding the correct password" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 100%" />
 
 
 ```text

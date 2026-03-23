@@ -20,7 +20,7 @@ readingTime = true
 
 クライアントにパスワードについて覚えていることを全部聞き出す。単語、数字、記号、名前、ニックネーム、家族、日付、パターン、何でもいい。アプリを開いて手動でいくつか試すと、数回で1時間ロックされた。
 
-<img alt="TronLink Proのウォレット作成画面、パスワード要件が表示されている" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 280px" />
+<img alt="TronLink Proのウォレット作成画面、パスワード要件が表示されている" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 100%" />
 
 この方法では無理なので、作業を2つに分ける：
 
@@ -76,7 +76,7 @@ Galaxy A31はこのパッチを受け取っていないので、exploitが効く
 
 実機を触る前に、同じ環境を再現するエミュレータを立ち上げる。
 
-<img alt="Android 12 (API 31) エミュレータのホーム画面、テスト準備完了" src="/en/blog/tronlink-wallet-recovery/v04-fjag_lnomy9qjva_b.png" style="max-width: 280px" />
+<img alt="Android 12 (API 31) エミュレータのホーム画面、テスト準備完了" src="/en/blog/tronlink-wallet-recovery/v04-fjag_lnomy9qjva_b.png" style="max-width: 100%" />
 
 同じバージョンのTronLinkをインストールし、テスト用ウォレットを作成して、exploit全体を再現していく。
 
@@ -210,11 +210,11 @@ Hashcatに投げて、寝る。
 uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json --recovery-root recovery
 ```
 
-<img alt="Hashcat、Ethereum Wallet SCRYPTモードで攻撃の進捗を表示中" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: 480px" />
+<img alt="Hashcat、Ethereum Wallet SCRYPTモードで攻撃の進捗を表示中" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: 100%" />
 
 検証やテスト、各種実行を含めて約30時間後… CRACKED。
 
-<img alt="Hashcat、正しいパスワード発見後にCrackedステータスを表示" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 480px" />
+<img alt="Hashcat、正しいパスワード発見後にCrackedステータスを表示" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 100%" />
 
 
 ```text
