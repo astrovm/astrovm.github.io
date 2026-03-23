@@ -441,7 +441,7 @@ document.addEventListener("DOMContentLoaded", () => {
       try {
         // Load and attempt to decrypt the secret commands
         const response = await fetch(
-          "/terminal-window/encrypted-commands.js.enc"
+          window.__ENC_URL__ || "/terminal-window/encrypted-commands.js.enc"
         );
         if (!response.ok) {
           throw new Error(
@@ -566,7 +566,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!commands[commandLower]) {
       try {
         const response = await fetch(
-          "/terminal-window/encrypted-commands.js.enc"
+          window.__ENC_URL__ || "/terminal-window/encrypted-commands.js.enc"
         );
         if (response.ok) {
           const encryptedData = await response.arrayBuffer();
