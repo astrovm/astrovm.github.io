@@ -20,7 +20,7 @@ Lo primero que hago en estos casos es anotar todo, cualquier detalle puede ser c
 
 Le pido que me tire todo lo que recuerde sobre la contraseña. Palabras, números, símbolos, nombres, apodos, familiares, fechas, patrones, cualquier cosa que le venga a la cabeza. Abro la app y pruebo un par de contraseñas manualmente. A los pocos intentos me bloquea por 1 hora.
 
-<img alt="Pantalla de creación de wallet en TronLink Pro mostrando los requisitos de contraseña" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 100%" />
+<img alt="Pantalla de creación de wallet en TronLink Pro mostrando los requisitos de contraseña" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: min(280px, 100%)" />
 
 Seguir por ese camino va a ser imposible, así que el trabajo se parte en dos:
 
@@ -76,7 +76,7 @@ Estos repos me ahorraron un montón de laburo:
 
 Antes de tocar el teléfono real levanto un emulador que simule lo mismo.
 
-<img alt="Emulador Android 12 (API 31) con pantalla de inicio lista para pruebas" src="/en/blog/tronlink-wallet-recovery/v04-fjag_lnomy9qjva_b.png" style="max-width: 100%" />
+<img alt="Emulador Android 12 (API 31) con pantalla de inicio lista para pruebas" src="/en/blog/tronlink-wallet-recovery/v04-fjag_lnomy9qjva_b.png" style="max-width: min(280px, 100%)" />
 
 Le instalo la misma versión de TronLink, genero una wallet de prueba y me pongo a reproducir todo el exploit.
 
@@ -210,11 +210,11 @@ Lo pongo a correr contra Hashcat y me voy a dormir.
 uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json --recovery-root recovery
 ```
 
-<img alt="Hashcat corriendo en modo Ethereum Wallet SCRYPT mostrando progreso del ataque" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: 100%" />
+<img alt="Hashcat corriendo en modo Ethereum Wallet SCRYPT mostrando progreso del ataque" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: min(480px, 100%)" />
 
 Después de unas 30 horas entre validación, pruebas previas y distintas ejecuciones... CRACKED.
 
-<img alt="Hashcat mostrando estado Cracked tras encontrar la contraseña correcta" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 100%" />
+<img alt="Hashcat mostrando estado Cracked tras encontrar la contraseña correcta" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: min(480px, 100%)" />
 
 
 ```text
