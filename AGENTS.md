@@ -74,6 +74,14 @@ Translations are **localizations**, not literal translations. Each version must 
 7. **Technical terms stay in English** — `scrypt`, `hashcat`, `exploit`, `brute force`, `CVE`, `AES`, `adb` are not translated. App names, protocol names, and CLI commands are never localized.
 8. **Proofread for naturalness** — after translating, re-read each sentence and ask: "Would someone from NYC/Tokyo/Beijing actually say this?" If not, rewrite it.
 
+### Narrative Style (applies to all languages)
+
+Narrative posts (walkthroughs, stories, investigations) follow these additional rules:
+
+9. **First person, present tense** — write as if the reader is living the moment alongside the narrator. "I run the command and nothing happens" not "I ran the command and nothing happened." The reader should feel they're there, not reading a report after the fact.
+10. **No spoilers — respect the order of discovery** — don't reveal outcomes or conclusions before the narrative reaches them. If the post ends with "it worked," don't hint at success in the setup. Information appears in the same order it was discovered, not reordered for efficiency.
+11. **No repeated explanations** — each concept is explained once, at the point it's first introduced. Don't re-explain something already covered, and don't pre-explain something that will be introduced later. Trust the reader to remember.
+
 ## Security
 
 `utils/encrypt-commands.ts` uses AES-256-GCM with PBKDF2 (1M iterations) for terminal command encryption.
