@@ -224,29 +224,23 @@ Each family generates case variants (`carlitosmenem`, `CarlitosMenem`, `Carlitos
 
 I set it running against Hashcat and go to sleep.
 
+```bash
+uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json --recovery-root recovery
+```
+
 <img alt="Hashcat running in Ethereum Wallet SCRYPT mode showing attack progress" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: 480px" />
 
-After about 30 hours between validation, prior testing, and various runs... it hits. The family that nailed it:
-
-```text
-compose.name-extension-number
-```
-
-Nickname + second surname + number. "Turco" + "saul" + "7" = `Turcosaul7`.
+After about 30 hours between validation, prior testing, and various runs... CRACKED.
 
 <img alt="Hashcat showing Cracked status after finding the correct password" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 480px" />
-
-In the repo example, the full run looks like this:
-
-```bash
-$ uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json --recovery-root recovery
-```
 
 Output:
 
 ```text
 $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c5959bb12c*cc8bab0bc8701e9af687a4b4b6b527f962de582efb029b507fc90cfc393ecfd5*ffcf36eb0aaee16f676049a12307e247a868133dbd1d8c956cee6682f54b0704:Turcosaul7
 ```
+
+Nickname + second surname + number. "Turco" + "saul" + "7" = `Turcosaul7`.
 
 ## Phase 3: reconstructing the seed and recovering the funds
 

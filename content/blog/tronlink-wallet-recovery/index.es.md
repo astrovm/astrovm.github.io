@@ -224,29 +224,23 @@ Cada familia genera variantes de mayúsculas (`carlitosmenem`, `CarlitosMenem`, 
 
 Lo pongo a correr contra Hashcat y me voy a dormir.
 
+```bash
+uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json --recovery-root recovery
+```
+
 <img alt="Hashcat corriendo en modo Ethereum Wallet SCRYPT mostrando progreso del ataque" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: 480px" />
 
-Después de unas 30 horas entre validación, pruebas previas y distintas ejecuciones... sale. La familia que la pegó:
-
-```text
-compose.name-extension-number
-```
-
-Apodo + segundo apellido + número. "Turco" + "saul" + "7" = `Turcosaul7`.
+Después de unas 30 horas entre validación, pruebas previas y distintas ejecuciones... CRACKED.
 
 <img alt="Hashcat mostrando estado Cracked tras encontrar la contraseña correcta" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 480px" />
-
-En el ejemplo del repo, la ejecución completa queda así:
-
-```bash
-$ uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json --recovery-root recovery
-```
 
 Output:
 
 ```text
 $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c5959bb12c*cc8bab0bc8701e9af687a4b4b6b527f962de582efb029b507fc90cfc393ecfd5*ffcf36eb0aaee16f676049a12307e247a868133dbd1d8c956cee6682f54b0704:Turcosaul7
 ```
+
+Apodo + segundo apellido + número. "Turco" + "saul" + "7" = `Turcosaul7`.
 
 ## Fase 3: reconstruir la seed y recuperar los fondos
 

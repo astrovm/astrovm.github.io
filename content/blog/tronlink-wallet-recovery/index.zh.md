@@ -224,29 +224,23 @@ $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c595
 
 跑起来扔给 Hashcat，然后去睡觉了。
 
+```bash
+uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json --recovery-root recovery
+```
+
 <img alt="Hashcat 以 Ethereum Wallet SCRYPT 模式运行，显示攻击进度" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: 480px" />
 
-大概 30 个小时的验证、前期测试和各种跑批之后... 出来了。命中的模式族：
-
-```text
-compose.name-extension-number
-```
-
-昵称 + 第二个姓 + 数字。"Turco" + "saul" + "7" = `Turcosaul7`。
+大概 30 个小时的验证、前期测试和各种跑批之后... CRACKED。
 
 <img alt="Hashcat 显示 Cracked 状态，成功找到正确密码" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 480px" />
-
-在仓库的示例里，完整的执行是这样的：
-
-```bash
-$ uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json --recovery-root recovery
-```
 
 Output:
 
 ```text
 $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c5959bb12c*cc8bab0bc8701e9af687a4b4b6b527f962de582efb029b507fc90cfc393ecfd5*ffcf36eb0aaee16f676049a12307e247a868133dbd1d8c956cee6682f54b0704:Turcosaul7
 ```
+
+昵称 + 第二个姓 + 数字。"Turco" + "saul" + "7" = `Turcosaul7`。
 
 ## 第三阶段：恢复助记词并取回资金
 
