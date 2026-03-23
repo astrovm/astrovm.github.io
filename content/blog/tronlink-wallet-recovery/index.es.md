@@ -6,6 +6,10 @@ readingTime = true
 
 Me cae un cliente con un problema que se repite mucho: tiene una wallet de TRON en el celular, la seed phrase terminó en la basura hace años y no se acuerda la contraseña de la app. La plata sigue ahí, la puede ver en la blockchain, pero no la puede usar. Por suerte no perdió el celular ni borró nada en todo este tiempo. Acordamos un fee y me pongo a ver qué se puede hacer.
 
+![Nagato Yuki de Suzumiya Haruhi no Yuuutsu](nagato_yuuki.gif)
+
+<!--more-->
+
 Lo primero que hago en estos casos es anotar todo, cualquier detalle puede ser clave:
 
 - Modelo: Galaxy A31
@@ -14,9 +18,9 @@ Lo primero que hago en estos casos es anotar todo, cualquier detalle puede ser c
 - App: TronLink Pro
 - Regla de contraseña: mínimo 8 caracteres, una mayúscula, una minúscula y un número
 
-<img alt="Pantalla de creación de wallet en TronLink Pro mostrando los requisitos de contraseña" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 360px" />
-
 Le pido que me tire todo lo que recuerde sobre la contraseña. Palabras, números, símbolos, nombres, apodos, familiares, fechas, patrones, cualquier cosa que le venga a la cabeza. Abro la app y pruebo un par de contraseñas manualmente. A los pocos intentos me bloquea por 1 hora.
+
+<img alt="Pantalla de creación de wallet en TronLink Pro mostrando los requisitos de contraseña" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 360px" />
 
 Seguir por ese camino va a ser imposible, así que el trabajo se parte en dos:
 
@@ -46,6 +50,8 @@ Lo más lógico es buscar vulnerabilidades conocidas del sistema. Y acá tengo s
 Con la ayuda de Grok llego al **CVE-2024-31317**, un bug en `ZygoteProcess.java` que parchearon en junio de 2024. Este exploit te permite ejecutar código con la identidad de **cualquier app** del dispositivo. No necesitás root. Solo `adb`. Este mismo exploit lo usa software forense como Oxygen, que usan policías y agencias de inteligencia de todo el mundo para extraer datos de teléfonos.
 
 El Galaxy A31 nunca recibió ese parche, así que es explotable. Excelente. Me pongo a entender cómo funciona.
+
+![Viendo la Matrix](matrix.gif)
 
 ### Cómo funciona el exploit
 
@@ -136,6 +142,8 @@ En vez de ir archivo por archivo, comprimo todo y lo mando directo a la PC por `
 ```bash
 printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 127.0.0.1 1234 | base64 -d > recovery.tar.gz
 ```
+
+![File transfer](file_transfer.gif)
 
 Con eso me traigo todo el app data: `shared_prefs`, `databases`, todo. Para chequear que haya llegado bien:
 

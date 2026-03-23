@@ -6,6 +6,10 @@ readingTime = true
 
 有个客户找到我，这种问题其实遇到过很多次了：手机里有个 TRON 钱包，助记词早就不知道丢哪去了，app 的密码也忘了。钱还在那儿，区块链上看得到，但就是用不了。好在手机一直没丢也没清过数据。我们谈好了报酬，我开始研究能怎么搞。
 
+![凉宫春日的忧郁的长门有希](nagato_yuuki.gif)
+
+<!--more-->
+
 这种活我第一步就是把所有信息都记下来，任何细节都可能是关键：
 
 - 型号：Galaxy A31
@@ -14,9 +18,9 @@ readingTime = true
 - App：TronLink Pro
 - 密码规则：最少 8 个字符，至少一个大写字母、一个小写字母和一个数字
 
-<img alt="TronLink Pro 创建钱包界面，展示密码要求" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 360px" />
-
 我让客户把能想到的关于密码的一切都告诉我。单词、数字、符号、名字、昵称、家人、日期、规律，脑子里闪过什么就说什么。我打开 app 手动试了几个密码，试了没几次就被锁了 1 小时。
+
+<img alt="TronLink Pro 创建钱包界面，展示密码要求" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 360px" />
 
 这条路走下去肯定不行，所以整个工作分成两部分：
 
@@ -46,6 +50,8 @@ TronLink 把所有敏感数据存在 app 的私有目录下：
 借助 Grok，我找到了 **CVE-2024-31317**，这是 `ZygoteProcess.java` 里的一个 bug，在 2024 年 6 月的补丁里修复了。这个 exploit 能让你以设备上**任何 app** 的身份执行代码。不需要 root，只需要 `adb`。像 Oxygen 这种取证软件也用的同一个 exploit，全世界的警察和情报机构都拿它来提取手机数据。
 
 Galaxy A31 从来没收到过这个补丁，所以完全可以利用。太好了，我开始研究它是怎么工作的。
+
+![看见 Matrix](matrix.gif)
 
 ### Exploit 的原理
 
@@ -136,6 +142,8 @@ Listener is UP!
 ```bash
 printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 127.0.0.1 1234 | base64 -d > recovery.tar.gz
 ```
+
+![文件传输](file_transfer.gif)
 
 这样就把所有 app data 都拿到了：`shared_prefs`、`databases`，全部。检查一下传输是否完整：
 

@@ -6,6 +6,10 @@ readingTime = true
 
 A client comes to me with a problem I see a lot: they have a TRON wallet on their phone, the seed phrase ended up in the trash years ago, and they don't remember the app password. The money is still there, they can see it on the blockchain, but they can't use it. Luckily they didn't lose the phone or wipe anything in all this time. We agree on a fee and I start looking at what can be done.
 
+![Nagato Yuki from Suzumiya Haruhi no Yuuutsu](nagato_yuuki.gif)
+
+<!--more-->
+
 The first thing I do in these cases is write everything down, any detail can be key:
 
 - Model: Galaxy A31
@@ -14,9 +18,9 @@ The first thing I do in these cases is write everything down, any detail can be 
 - App: TronLink Pro
 - Password rule: minimum 8 characters, one uppercase, one lowercase, and one number
 
-<img alt="TronLink Pro wallet creation screen showing password requirements" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 360px" />
-
 I ask them to throw me everything they remember about the password. Words, numbers, symbols, names, nicknames, family members, dates, patterns, anything that comes to mind. I open the app and try a few passwords manually. After a few attempts it locks me out for 1 hour.
+
+<img alt="TronLink Pro wallet creation screen showing password requirements" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 360px" />
 
 Going down that path is going to be impossible, so the job splits into two:
 
@@ -46,6 +50,8 @@ The most logical approach is to look for known system vulnerabilities. And here 
 With Grok's help I land on **CVE-2024-31317**, a bug in `ZygoteProcess.java` that was patched in June 2024. This exploit lets you execute code with the identity of **any app** on the device. You don't need root. Just `adb`. This same exploit is used by forensic software like Oxygen, which is used by police and intelligence agencies around the world to extract data from phones.
 
 The Galaxy A31 never received that patch, so it's exploitable. Excellent. I start digging into how it works.
+
+![Seeing the Matrix](matrix.gif)
 
 ### How the exploit works
 
@@ -136,6 +142,8 @@ Instead of going file by file, I compress everything and send it straight to the
 ```bash
 printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 127.0.0.1 1234 | base64 -d > recovery.tar.gz
 ```
+
+![File transfer](file_transfer.gif)
 
 That pulls all the app data: `shared_prefs`, `databases`, everything. To check it arrived correctly:
 
