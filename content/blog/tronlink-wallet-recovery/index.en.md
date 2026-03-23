@@ -86,7 +86,6 @@ I confirm the emulator is visible to `adb`:
 $ adb devices
 ```
 
-Output:
 
 ```text
 List of devices attached
@@ -99,7 +98,6 @@ I get TronLink's UID:
 $ adb shell pm dump com.tronlinkpro.wallet | grep userId
 ```
 
-Output:
 
 ```text
     userId=10145
@@ -122,7 +120,6 @@ I put all of this into `repro.py`. It builds the payload with the padding for An
 $ uv run repro.py --uid 10145 --gid 10145
 ```
 
-Output:
 
 ```text
 Injecting payload for UID 10145 and package com.tronlinkpro.wallet...
@@ -181,7 +178,6 @@ $ uv run tools/extract_hash.py recovery/shared_prefs/carlitosmenem991.xml > targ
 $ cat target.hash
 ```
 
-Output:
 
 ```text
 $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c5959bb12c*cc8bab0bc8701e9af687a4b4b6b527f962de582efb029b507fc90cfc393ecfd5*ffcf36eb0aaee16f676049a12307e247a868133dbd1d8c956cee6682f54b0704
@@ -220,7 +216,6 @@ After about 30 hours between validation, prior testing, and various runs... CRAC
 
 <img alt="Hashcat showing Cracked status after finding the correct password" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 480px" />
 
-Output:
 
 ```text
 $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c5959bb12c*cc8bab0bc8701e9af687a4b4b6b527f962de582efb029b507fc90cfc393ecfd5*ffcf36eb0aaee16f676049a12307e247a868133dbd1d8c956cee6682f54b0704:Turcosaul7
@@ -239,7 +234,6 @@ I write `tools/decrypt_mnemonic.py` which reads the encrypted mnemonic from the 
 $ uv run tools/decrypt_mnemonic.py recovery/shared_prefs/carlitosmenem991.xml Turcosaul7
 ```
 
-Output:
 
 ```text
 stock dirt cat upset chat giraffe page blade face slush volcano dawn

@@ -57,7 +57,7 @@ npm install
 
 - Base URL: https://4st.li/
 - Theme color: "astro" (custom)
-- Languages: English (default) and Spanish
+- Languages: Spanish (canonical source), English, Simplified Chinese, Japanese
 - Content type: "blog" (shows on index)
 - Shows 5 posts per page
 - Menu configured for both languages with different URLs
@@ -77,6 +77,18 @@ When a user visits a root-level path (e.g. `/blog/slug/`), `language.js` detects
 - Static assets in `static/` are served directly
 - Custom layouts in `layouts/partials/` extend theme functionality
 - Theme assets and configurations are in `themes/terminal/`
+
+## Blog Content Voice
+
+The **Spanish (`index.es.md`) file is always the canonical source** for blog posts. It uses an informal Argentine internet/forum/tech register: voseo, punchy sentences, dry humor, technical and colloquial language mixed.
+
+Translations must NOT be literal. Each version targets a native speaker in a specific city/community:
+
+- **`index.en.md`** — Casual US tech-blog English (think NYC tech community). Direct, slightly informal, no stiff ESL phrasing.
+- **`index.zh.md`** — Simplified Chinese for mainland tech readers (V2EX / Zhihu style). Use local internet expressions, not textbook Mandarin.
+- **`index.ja.md`** — Casual Japanese tech-blog tone for Tokyo readers. だ/である調 is fine; prefer katakana loanwords for tech terms over obscure native equivalents.
+
+When propagating edits from ES to other languages, adapt the meaning and spirit, not the words. Find the culturally equivalent expression rather than translating literally.
 
 ## Security Notes
 
