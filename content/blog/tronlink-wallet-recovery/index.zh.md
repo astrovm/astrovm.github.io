@@ -144,21 +144,7 @@ $ printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 12
 
 ![文件传输](file_transfer.gif)
 
-这样就把所有 app data 都拿到了：`shared_prefs`、`databases`，全部。检查一下传输是否完整：
-
-```bash
-$ mkdir -p recovery
-$ tar -xzf recovery.tar.gz -C recovery
-$ ls -l recovery/shared_prefs/carlitosmenem991.xml
-```
-
-Output:
-
-```text
--rw-rw-r-- 1 astro astro 2738 Mar 21 02:34 recovery/shared_prefs/carlitosmenem991.xml
-```
-
-完美，数据都在。第一阶段完成。客户的手机一点没动，没 root，没解锁 bootloader，什么都没动。而我电脑上已经有了所需的一切。
+这样就把所有 app data 都拿到了：`shared_prefs`、`databases`，全部。第一阶段完成。客户的手机一点没动，没 root，没解锁 bootloader，什么都没动。而我电脑上已经有了所需的一切。
 
 ## 第二阶段：离线破解密码
 

