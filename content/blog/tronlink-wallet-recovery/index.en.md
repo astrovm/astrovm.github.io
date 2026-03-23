@@ -29,7 +29,7 @@ That route's a dead end, so the job splits into two:
 
 Everything I describe here is replicated in this repository:
 
-[https://github.com/astrovm/2026-03-tronlink-wallet-recovery-reference](https://github.com/astrovm/2026-03-tronlink-wallet-recovery-reference)
+<https://github.com/astrovm/2026-03-tronlink-wallet-recovery-reference>
 
 ## Phase 1: getting the wallet off the phone
 
@@ -69,8 +69,8 @@ For this to work you need Android 9-14 without the June 2024 patch, and `adb she
 
 These repos saved me a shitload of work:
 
-- [https://github.com/agg23/cve-2024-31317](https://github.com/agg23/cve-2024-31317)
-- [https://github.com/Anonymous941/zygote-injection-toolkit](https://github.com/Anonymous941/zygote-injection-toolkit)
+- <https://github.com/agg23/cve-2024-31317>
+- <https://github.com/Anonymous941/zygote-injection-toolkit>
 
 ### Testing it on an emulator first
 
