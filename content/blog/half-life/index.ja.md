@@ -52,7 +52,7 @@ D:
 - 最悪の敵は、仕事をオファーしたがる次元間の官僚のようだ。
 - 話すことはそれほど重要じゃない。
 
-<video src="/blog/half-life/mashup.webm" width="100%" preload autoplay muted playsinline loop></video>
+<video src="/en/blog/half-life/mashup.webm" width="100%" preload autoplay muted playsinline loop></video>
 
 多くの人がHalf-Lifeをプレイするのに苦労しているのを見てきた。ゲームが何をすべきか教えてくれることを期待して、教えてくれないと何もしない！このゲームは好奇心と新しいアイデアを試すことが全てで、それはストーリーをはるかに超えたところまで広がっている。
 

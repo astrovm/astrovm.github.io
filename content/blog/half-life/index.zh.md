@@ -52,7 +52,7 @@ D:
 - 你最大的敌人似乎是一个想给你工作的跨维度官僚。
 - 说话没那么重要。
 
-<video src="/blog/half-life/mashup.webm" width="100%" preload autoplay muted playsinline loop></video>
+<video src="/en/blog/half-life/mashup.webm" width="100%" preload autoplay muted playsinline loop></video>
 
 我见过很多人玩Half-Life很费劲，因为他们期待游戏告诉他们该做什么，如果游戏不说，他们就什么都不做！这个游戏的核心就是好奇心和尝试新想法，而这远远超出了故事本身。
 
