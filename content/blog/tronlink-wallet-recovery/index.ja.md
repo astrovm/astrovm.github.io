@@ -163,7 +163,7 @@ Output:
 
 ## フェーズ2: オフラインでパスワードをcrackする
 
-ここからが全てが無駄だったかどうかを決める段階だ。dumpを調べて、鍵となるファイルはこれ：
+ここからが全部パーだったかどうかを決める段階だ。dumpを調べて、鍵となるファイルはこれ：
 
 ```text
 recovery/shared_prefs/carlitosmenem991.xml

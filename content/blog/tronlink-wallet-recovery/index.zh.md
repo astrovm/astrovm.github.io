@@ -163,7 +163,7 @@ Output:
 
 ## 第二阶段：离线破解密码
 
-现在到了决定前面这些是不是白忙活的关键环节。我开始分析 dump，关键文件是这个：
+现在到了决定前面这些是不是全白干了的关键环节。我开始分析 dump，关键文件是这个：
 
 ```text
 recovery/shared_prefs/carlitosmenem991.xml

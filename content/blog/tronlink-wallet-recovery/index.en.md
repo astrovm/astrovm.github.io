@@ -45,7 +45,7 @@ In the early years of Android, manufacturers wouldn't let you unlock it and root
 
 ### Finding a way in without root
 
-The most logical approach is to look for known system vulnerabilities. And here I get lucky: the Galaxy A31's software is pretty outdated. Android 12, security patch from January 2024. That means there are 2 years of published vulnerabilities that were never patched on this device. The most fun part of doing this kind of work begins.
+The most logical approach is to look for known system vulnerabilities. And here I get lucky: the Galaxy A31's software is pretty outdated. Android 12, security patch from January 2024. That means there are 2 years of published vulnerabilities that were never patched on this device. The most fun part of doing this kind of gig begins.
 
 With Grok's help I land on **CVE-2024-31317**, a bug in `ZygoteProcess.java` that was patched in June 2024. This exploit lets you execute code with the identity of **any app** on the device. You don't need root. Just `adb`. This same exploit is used by forensic software like Oxygen, which is used by police and intelligence agencies around the world to extract data from phones.
 
@@ -67,7 +67,7 @@ To complicate things, on Android 12+ Google added `NativeCommandBuffer`, a buffe
 
 For this to work you need Android 9-14 without the June 2024 patch, and `adb shell` (which already has `WRITE_SECURE_SETTINGS` by default). Important note: if you leave the setting modified and the phone reboots, it enters a **boot loop**. So you always have to clean up afterwards, no exceptions.
 
-These repos saved me a ton of work:
+These repos saved me a shitload of work:
 
 - [https://github.com/agg23/cve-2024-31317](https://github.com/agg23/cve-2024-31317)
 - [https://github.com/Anonymous941/zygote-injection-toolkit](https://github.com/Anonymous941/zygote-injection-toolkit)
@@ -163,7 +163,7 @@ Perfect, everything's there. Phase 1 complete. The client's phone is left intact
 
 ## Phase 2: cracking the password offline
 
-Now comes the part that determines whether this was all for nothing. I start reviewing the dump and the key file is this one:
+Now comes the part that determines whether this was all for shit. I start reviewing the dump and the key file is this one:
 
 ```text
 recovery/shared_prefs/carlitosmenem991.xml

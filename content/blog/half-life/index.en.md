@@ -24,9 +24,9 @@ The (obviously pirated) CD actually included:
 
 ![Half-Life Counter-Strike CD Front Cover](cd.jpg)
 
-I installed everything and opened Half-Life first because I liked the aesthetics more. I started playing, and... A FREAKING TRAIN APPEARED. I'd never been on a moving train in a game before, and I love trains, so I liked it. The train took a lot of time to reach its destination, so I felt the game was chill about itself, and I loved that!
+I installed everything and opened Half-Life first because I liked the aesthetics more. I started playing, and... A DAMN TRAIN APPEARED. I'd never been on a moving train in a game before, and I love trains, so I liked it. The train took a lot of time to reach its destination, so I felt the game was chill about itself, and I loved that!
 
-A couple of minutes later, the world goes to hell D:! But the aesthetics are nice :D! So I was there running as something of a scientist with a cool "Hazardous Environment Suit," and IRL I was wearing a Spiderman suit, so I felt related.
+A couple of minutes later, the world goes to shit D:! But the aesthetics are nice :D! So I was there running as something of a scientist with a cool "Hazardous Environment Suit," and IRL I was wearing a Spiderman suit, so I felt related.
 
 I took a nice crowbar and pressed a button to call an elevator inadvertently causing a failure that killed a couple of fellow scientists :(
 
@@ -41,7 +41,7 @@ You are a man of science, not an assassin. If you see a threat, you first run to
 The game has some interesting messages:
 
 - You will probably kill life by accident.
-- Your boss will run away if something really bad happens.
+- Your boss will bail on you if something really bad happens.
 - The government will not save you, and you shouldn't trust them.
 - An individual can have a real impact on the world, so you are important.
 - The world is chaotic, and many events are not planned.
