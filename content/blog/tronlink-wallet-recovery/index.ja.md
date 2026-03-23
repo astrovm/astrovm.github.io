@@ -14,7 +14,7 @@ readingTime = true
 - アプリ: TronLink Pro
 - パスワードルール: 最低8文字、大文字1つ、小文字1つ、数字1つ
 
-![TronLink Proのウォレット作成画面、パスワード要件が表示されている](utj3xfqnnr_ttx7n2vfop.png)
+<img alt="TronLink Proのウォレット作成画面、パスワード要件が表示されている" src="/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 360px" />
 
 クライアントにパスワードについて覚えていることを全部聞き出す。単語、数字、記号、名前、ニックネーム、家族、日付、パターン、何でもいい。アプリを開いて手動でいくつか試すと、数回で1時間ロックされた。
 
@@ -70,7 +70,7 @@ Galaxy A31はこのパッチを受け取っていないので、exploitが効く
 
 実機を触る前に、同じ環境を再現するエミュレータを立ち上げる。
 
-![Android 12 (API 31) エミュレータのホーム画面、テスト準備完了](v04-fjag_lnomy9qjva_b.png)
+<img alt="Android 12 (API 31) エミュレータのホーム画面、テスト準備完了" src="/blog/tronlink-wallet-recovery/v04-fjag_lnomy9qjva_b.png" style="max-width: 360px" />
 
 同じバージョンのTronLinkをインストールし、テスト用ウォレットを作成して、exploit全体を再現していく。
 

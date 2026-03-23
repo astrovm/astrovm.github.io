@@ -14,7 +14,7 @@ The first thing I do in these cases is write everything down, any detail can be 
 - App: TronLink Pro
 - Password rule: minimum 8 characters, one uppercase, one lowercase, and one number
 
-![TronLink Pro wallet creation screen showing password requirements](utj3xfqnnr_ttx7n2vfop.png)
+<img alt="TronLink Pro wallet creation screen showing password requirements" src="/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 360px" />
 
 I ask them to throw me everything they remember about the password. Words, numbers, symbols, names, nicknames, family members, dates, patterns, anything that comes to mind. I open the app and try a few passwords manually. After a few attempts it locks me out for 1 hour.
 
@@ -70,7 +70,7 @@ These repos saved me a ton of work:
 
 Before touching the real phone I spin up an emulator that simulates the same setup.
 
-![Android 12 (API 31) emulator with home screen ready for testing](v04-fjag_lnomy9qjva_b.png)
+<img alt="Android 12 (API 31) emulator with home screen ready for testing" src="/blog/tronlink-wallet-recovery/v04-fjag_lnomy9qjva_b.png" style="max-width: 360px" />
 
 I install the same version of TronLink, generate a test wallet, and start reproducing the whole exploit.
 
