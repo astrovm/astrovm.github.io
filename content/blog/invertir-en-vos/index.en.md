@@ -4,17 +4,17 @@ date = "2024-05-12T09:03:20-03:00"
 readingTime = true
 +++
 
-I was reading Finance Twitter and saw someone ask a well-known Twitter user the typical "what should I invest in" question, clarifying he was young, to which he replied it was better not to think about that and "invest in yourself" instead.
+I was reading Finance Twitter and saw someone ask a well-known Twitter user the same tired "what should I invest in" question, clarifying he was young, to which he replied it was better not to think about that and "invest in yourself" instead.
 
 ![Lain at the computer](171294.gif)
 
 <!--more-->
 
-I'll explain why this idea is absurd from multiple perspectives.
+I'll explain why this idea is absurd on multiple levels.
 
 I'm quite pessimistic about recommendations in general because they don't really exist as such. "Should I invest in this or that?", "what's safer, Android or iOS?", "are apps better than websites?", "should I use a VPN?" All these questions are impossible to answer by themselves; the answer is always IT DEPENDS. Each person is unique, and for each individual, the answer is different. Moreover, for the same person, the answer might change tomorrow. That's why in CS we don't learn answers, but rather the art of understanding requirements and reaching possible solutions.
 
-I'll start questioning the idea of "investing in yourself" with a very basic concept: the amount of free knowledge on the internet is literally infinite. What's stopping you from using it? Knowing how to find and leverage it, and the fact that you only have one brain and 24 hours in a day. How much money can you really invest in yourself? Very little.
+I'll start questioning the idea of "investing in yourself" with a very basic concept: the amount of free knowledge on the internet is literally infinite. What's stopping you from using it? Knowing how to find it and actually use it, and the fact that you only have one brain and 24 hours in a day. How much money can you really invest in yourself? Very little.
 
 Let's take this to the absurd: if I give a 15-year-old one million dollars, how do they invest it in themselves? Do they look for the most expensive universities in the world and enroll in several degrees simultaneously? What would be the point of that? There's always a point where what you're paying for is no longer education, nor do you have the capacity to retain so much. Besides, the benefit of meeting people isn't for everyone; maybe it is for you, but not for many others. I mean, it's all nice, but don't let them take you for an idiot either.
 
@@ -26,9 +26,9 @@ Keeping a young person away from investing is criminal, because the time advanta
 
 For example, if when someone is born you donate 100 dollars every month, putting everything in stocks and Bitcoin, when they turn 18, thanks to compound interest, they'll have their own house. Imagine the edge a kid has when their only expenses for the rest of their life are food and internet.
 
-The best thing a young person with no money can do is crash and burn, but on purpose. Throwing money at problems without thinking isn't the best idea. Just as recommending "playing it safe" is a bad idea, so is blowing it all for no reason.
+The best thing a young person with no money can do is hit the wall, but on purpose. Throwing money at problems without thinking isn't the best idea. Just as recommending "playing it safe" is a bad idea, so is blowing it all for no reason.
 
-The values of saving and investment are useful even without having anything. If you don't think about it before having something, when you have it you won't know how to manage it (research how most lottery winners end up, or countries sitting on infinite natural resources that still manage to blow it). If you know nothing about investment and have no experience, it's even questionable whether working will do you any good. That's how you see people who worked for 45 years, retire and feel they got screwed.
+The values of saving and investment are useful even without having anything. If you don't think about it before having something, when you have it you won't know how to manage it (research how most lottery winners end up, or countries sitting on infinite natural resources that still manage to blow it). If you know nothing about investment and have no experience, it's even questionable whether working will do you any good. That's how you see people who worked for 45 years, retire and feel they got fucked over.
 
 ![Lain on the train](171419.gif)
 

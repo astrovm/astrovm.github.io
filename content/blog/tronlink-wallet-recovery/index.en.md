@@ -4,7 +4,7 @@ date = "2026-03-22T03:00:00-03:00"
 readingTime = true
 +++
 
-A client comes to me with a problem I see a lot: they have a TRON wallet on their phone, the seed phrase ended up in the trash years ago, and they don't remember the app password. The money is still there, they can see it on the blockchain, but they can't use it. Luckily they didn't lose the phone or wipe anything in all this time. We agree on a fee and I start looking at what can be done.
+Client shows up with a problem I see a lot: they have a TRON wallet on their phone, the seed phrase ended up in the trash years ago, and they don't remember the app password. The money is still there, they can see it on the blockchain, but they can't use it. Luckily they didn't lose the phone or wipe anything in all this time. We agree on a fee and I start looking at what can be done.
 
 ![Nagato Yuki from Suzumiya Haruhi no Yuuutsu](nagato_yuuki.gif)
 
@@ -22,7 +22,7 @@ I tell them to hit me with everything they remember about the password. Words, n
 
 <img alt="TronLink Pro wallet creation screen showing password requirements" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 280px" />
 
-Going down that path is going to be impossible, so the job splits into two:
+That route's a dead end, so the job splits into two:
 
 1. **Get the encrypted wallet off the phone without breaking anything**
 2. **Take it to a PC to crack the password offline**, without the UI's rate limit
@@ -49,7 +49,7 @@ The most logical approach is to look for known system vulnerabilities. And here 
 
 With Grok's help I land on **CVE-2024-31317**, a bug in `ZygoteProcess.java` that was patched in June 2024. This exploit lets you execute code with the identity of **any app** on the device. You don't need root. Just `adb`. This same exploit is used by forensic software like Oxygen, which is used by police and intelligence agencies around the world to extract data from phones.
 
-The Galaxy A31 never received that patch, so it's exploitable. Excellent. I start digging into how it works.
+The Galaxy A31 never received that patch, so it's exploitable. Perfect. I start digging into how it works.
 
 ![Seeing the Matrix](matrix.gif)
 
@@ -245,7 +245,7 @@ I import the wallet on another device and withdraw the funds.
 
 In the end, everything came together because a bunch of things broke my way: the phone survived over time, Android wasn't patched, the exploit worked without breaking anything, the password followed a predictable human pattern, and the client remembered enough clues to narrow down the search space.
 
-If any of those things had been different, the money would still be stuck there forever. So take care of your seeds, because there might not be a CVE to save you.
+If any of those things had been different, the money would still be stuck there forever. So back up your seeds, because next time there might not be a CVE to bail you out.
 
 ## References
 

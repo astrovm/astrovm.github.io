@@ -26,3 +26,7 @@ a {
 .navigation-menu {
   margin-bottom: 0;
 }
+
+.container {
+  overflow-x: hidden;
+}

@@ -25,7 +25,7 @@ readingTime = true
 这条路走下去肯定不行，所以整个工作分成两部分：
 
 1. **在不搞坏任何东西的前提下，把加密的钱包从手机里弄出来**
-2. **拿到电脑上离线 crack 密码**，绕过 UI 的频率限制
+2. **拿到电脑上离线 crack 密码**，绕开 UI 的速率限制
 
 我这里讲的所有内容都在这个仓库里有复现：
 
@@ -145,7 +145,7 @@ $ printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 12
 
 ## 第二阶段：离线破解密码
 
-现在就是决定前面这些是不是全白干了的时候。我开始分析 dump，关键文件是这个：
+现在就看前面这些是不是全TM白忙活了。我开始分析 dump，关键文件是这个：
 
 ```text
 recovery/shared_prefs/carlitosmenem991.xml
@@ -167,7 +167,7 @@ recovery/shared_prefs/carlitosmenem991.xml
 
 TronLink 用的是跟以太坊钱包一样的方案（V3 keystore）。密码先经过 **scrypt**（n=16384, r=8, p=1，故意设计得又慢又吃内存），输出 32 字节：前 16 字节用 **AES-128-CTR** 加密私钥，后 16 字节生成一个 **MAC**（keccak256），保存在 keystore 里。
 
-验证一个候选密码的流程是：跑 scrypt，算 MAC，跟存的那个比。问题在于 scrypt 本身就是设计成很重的：好一点的 GPU 也就每秒几千次尝试，不是像 MD5 那样几十亿次。所以选择试哪些密码非常重要。
+想验证一个密码：跑 scrypt，算 MAC，跟存的那个对比一下就知道了。问题在于 scrypt 本身就是设计成很重的：好一点的 GPU 也就每秒几千次尝试，不是像 MD5 那样几十亿次。所以选择试哪些密码非常重要。
 
 ### 提取 hash 给 Hashcat
 
@@ -212,7 +212,7 @@ uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json
 
 <img alt="Hashcat 以 Ethereum Wallet SCRYPT 模式运行，显示攻击进度" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: 480px" />
 
-前前后后跑了差不多 30 个小时，验证、测试、各种跑批之后... CRACKED。
+前前后后跑了差不多 30 个小时，验证、测试、各种跑法试了个遍... CRACKED。
 
 <img alt="Hashcat 显示 Cracked 状态，成功找到正确密码" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 480px" />
 
@@ -228,7 +228,7 @@ $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c595
 密码拿到手，剩下的就是走个流程。同一个密码同时保护 keystore 和 mnemonic，所以有了密码就什么都有了。
 
 
-我写了 `tools/decrypt_mnemonic.py`，读取 XML 里加密的 mnemonic，用密码解密，输出助记词。
+我写了 `tools/decrypt_mnemonic.py`，读取 XML 里加密的 mnemonic，用密码解密，seed phrase 就出来了。
 
 ```bash
 $ uv run tools/decrypt_mnemonic.py recovery/shared_prefs/carlitosmenem991.xml Turcosaul7
