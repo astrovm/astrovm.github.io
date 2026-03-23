@@ -29,7 +29,7 @@ readingTime = true
 
 ここで書いている内容はすべてこのリポジトリに再現してある：
 
-[https://github.com/astrovm/2026-03-tronlink-wallet-recovery-reference](https://github.com/astrovm/2026-03-tronlink-wallet-recovery-reference)
+<https://github.com/astrovm/2026-03-tronlink-wallet-recovery-reference>
 
 ## フェーズ1: スマホからウォレットを抜き出す
 
@@ -69,8 +69,8 @@ Galaxy A31はこのパッチを受け取っていないので、exploitが効く
 
 このリポジトリにはめちゃくちゃ助けられた：
 
-- [https://github.com/agg23/cve-2024-31317](https://github.com/agg23/cve-2024-31317)
-- [https://github.com/Anonymous941/zygote-injection-toolkit](https://github.com/Anonymous941/zygote-injection-toolkit)
+- <https://github.com/agg23/cve-2024-31317>
+- <https://github.com/Anonymous941/zygote-injection-toolkit>
 
 ### まずエミュレータで試す
 
