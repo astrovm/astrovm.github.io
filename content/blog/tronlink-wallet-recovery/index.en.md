@@ -20,7 +20,7 @@ The first thing I do in these cases is write everything down, any detail can be 
 
 I tell them to hit me with everything they remember about the password. Words, numbers, symbols, names, nicknames, family members, dates, patterns, anything that comes to mind. I open the app and try a few passwords manually. After a few attempts it locks me out for 1 hour.
 
-<img alt="TronLink Pro wallet creation screen showing password requirements" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 360px" />
+<img alt="TronLink Pro wallet creation screen showing password requirements" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 280px" />
 
 Going down that path is going to be impossible, so the job splits into two:
 
@@ -76,7 +76,7 @@ These repos saved me a shitload of work:
 
 Before touching the real phone I spin up an emulator that simulates the same setup.
 
-<img alt="Android 12 (API 31) emulator with home screen ready for testing" src="/en/blog/tronlink-wallet-recovery/v04-fjag_lnomy9qjva_b.png" style="max-width: 360px" />
+<img alt="Android 12 (API 31) emulator with home screen ready for testing" src="/en/blog/tronlink-wallet-recovery/v04-fjag_lnomy9qjva_b.png" style="max-width: 280px" />
 
 I install the same version of TronLink, generate a test wallet, and start reproducing the whole exploit.
 
@@ -115,7 +115,7 @@ With Gemini's help I tweak `zygote-injection-toolkit` to fix a couple of bugs an
 - `--is-top-app`
 - `--seinfo=default:targetSdkVersion=30:complete`
 
-![Code from the repro.py script configuring Zygote injection arguments](mdearw0spwcfgp1bmuwmk.png)
+<img alt="Code from the repro.py script configuring Zygote injection arguments" src="/en/blog/tronlink-wallet-recovery/mdearw0spwcfgp1bmuwmk.png" style="max-width: 480px" />
 
 I put all of this into `repro.py`. It builds the payload with the padding for Android 12+, injects it via `adb shell`, forces Settings to restart to trigger the read, and waits for a netcat listener to come up on localhost. If it works, you get a reverse shell with TronLink's identity. If it fails, it cleans up the setting so the phone isn't left in a bad state.
 
@@ -212,7 +212,7 @@ From the client I got proper names, nicknames, and family surnames: carlos, carl
 
 With Codex's help I build a Python framework, `smart_recovery/`, that takes all those seeds and generates wordlists ordered from most likely to least likely. It also discards everything that doesn't meet the wallet's rules (8+ characters, uppercase, lowercase, and number), so it doesn't waste time on combinations that would never work anyway.
 
-![Pattern family definitions in the smart_recovery framework](poisgvilcbwqkcnpfhzbi.png)
+<img alt="Pattern family definitions in the smart_recovery framework" src="/en/blog/tronlink-wallet-recovery/poisgvilcbwqkcnpfhzbi.png" style="max-width: 480px" />
 
 The idea is to generate pattern families by priority and exhaust the most likely ones before falling back to brute force. Some families:
 
@@ -227,7 +227,7 @@ Each family generates case variants (`carlitosmenem`, `CarlitosMenem`, `Carlitos
 
 I set it running against Hashcat and go to sleep.
 
-![Hashcat running in Ethereum Wallet SCRYPT mode showing attack progress](qzcle-ah0fwm-svkgj1mj.png)
+<img alt="Hashcat running in Ethereum Wallet SCRYPT mode showing attack progress" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: 480px" />
 
 After about 30 hours between validation, prior testing, and various runs... it hits. The family that nailed it:
 
@@ -237,7 +237,7 @@ compose.name-extension-number
 
 Nickname + second surname + number. "Turco" + "saul" + "7" = `Turcosaul7`.
 
-![Hashcat showing "Cracked" status after finding the correct password](wylrwidwumnnrpsmqpcxr.png)
+<img alt="Hashcat showing Cracked status after finding the correct password" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 480px" />
 
 In the repo example, the full run looks like this:
 
@@ -255,7 +255,7 @@ $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c595
 
 With the password in hand, the rest is just a formality. The same password protects both the keystore and the mnemonic, so if you have one, you have everything.
 
-![Code from decrypt_mnemonic.py for decrypting the seed phrase with the recovered password](rngs7c2j_mic2_3hs81ay.png)
+<img alt="Code from decrypt_mnemonic.py for decrypting the seed phrase with the recovered password" src="/en/blog/tronlink-wallet-recovery/rngs7c2j_mic2_3hs81ay.png" style="max-width: 480px" />
 
 I write `tools/decrypt_mnemonic.py` which reads the encrypted mnemonic from the XML, decrypts it with the password, and gives you the seed phrase.
 
