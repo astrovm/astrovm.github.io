@@ -74,6 +74,37 @@ Translations are **localizations**, not literal translations. Each version must 
 7. **Technical terms stay in English** — `scrypt`, `hashcat`, `exploit`, `brute force`, `CVE`, `AES`, `adb` are not translated. App names, protocol names, and CLI commands are never localized.
 8. **Proofread for naturalness** — after translating, re-read each sentence and ask: "Would someone from NYC/Tokyo/Beijing actually say this?" If not, rewrite it.
 
+### Anti-AI patterns (applies to all languages)
+
+AI-generated text has recognizable tells. Any of these in a draft is a red flag — rewrite the sentence.
+
+**Universal**
+- No em dashes (—). Use a comma, a period, or restructure the sentence. `"X — which is important — because"` → `"X, which matters because"` or just split into two sentences.
+- No AI filler transitions: "furthermore", "moreover", "additionally", "it's worth noting", "in conclusion", "to summarize", "it is important to highlight", "it's important to remember"
+- No formulaic openers: don't start multiple paragraphs with the same structure
+- Active voice by default. Passive only when the agent genuinely doesn't matter.
+- Don't over-explain. If something is obvious from context, cut it.
+- Vary sentence length. AI defaults to uniform medium-length sentences. Mix short punchy ones with longer ones.
+- No unnatural symmetry. AI loves balanced parallel structures that humans don't naturally write.
+
+**Spanish**
+- No: "es importante destacar", "cabe señalar", "en este sentido", "a su vez", "asimismo", "por ende", "no obstante", "en definitiva", "cabe mencionar"
+- No: mid-sentence em dash elaborations ("algo —que resulta interesante— porque")
+
+**English**
+- No: "delve into", "leverage" (as a verb), "navigate the complexities of", "tap into", "shed light on", "it's worth noting", "this allows us to"
+- No: mid-sentence em dash elaborations ("this is key — and often overlooked — because")
+
+**Chinese**
+- No rigid 首先/其次/再次/最后 structure for every paragraph
+- No: 值得注意的是, 综上所述, 总的来说, 毋庸置疑 — too formal, AI-default
+- Avoid overusing 此外, 然而, 因此 as paragraph openers
+
+**Japanese**
+- No rigid まず/次に/そして/最後に structure
+- Avoid overusing なお, また, さらに, したがって as sentence openers
+- Prefer short verb forms: できる not することができる, わかる not 理解することができる
+
 ### Narrative Style (applies to all languages)
 
 Narrative posts (walkthroughs, stories, investigations) follow these additional rules:

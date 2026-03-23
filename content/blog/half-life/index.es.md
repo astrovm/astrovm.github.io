@@ -6,7 +6,7 @@ readingTime = true
 
 ![Tren con G-Man y un científico adentro](train.jpg)
 
-Half-Life cambia la forma en que pensás sobre la vida; no es un shooter en primera persona normal. Como alguien que creció jugando Doom, la primera vez que jugué Half-Life tuve una de las realizaciones más importantes de mi infancia: no necesitas tanta habilidad si realmente pensás, y huir de los problemas es muy útil y aceptable a veces (una de las razones por las que también me encantaba jugar Resident Evil en la Play 1 en ese entonces, pero me asustaba mucho).
+Half-Life cambia la forma en que pensás sobre la vida; no es un shooter en primera persona normal. Como alguien que creció jugando Doom, la primera vez que jugué Half-Life tuve una de las revelaciones más importantes de mi infancia: no necesitas tanta habilidad si realmente pensás, y huir de los problemas es muy útil y aceptable a veces (una de las razones por las que también me encantaba jugar Resident Evil en la Play 1 en ese entonces, pero me asustaba mucho).
 
 Era un domingo soleado; tenía alrededor de 4 años, y mi hermano me dijo que vaya al local de juegos (sí, caminando físicamente) y comprara Counter-Strike (era el juego más popular en los cibers de Buenos Aires). Así que fui con mi papá. En ese momento, había 2 Counter-Strike disponibles (normal y Condition Zero), así que traje ambos a casa, inserté el primer disco en la compu, y apareció una pantalla de Half-Life.
 
@@ -34,7 +34,7 @@ D:
 
 :((( Qué acabo de hacer??
 
-Y luego empecé a defenderme. En Half-Life, los combates son un rompecabezas para resolver; no es como esos juegos donde tenés que morir para saber algo y luego reintentarlo, pasándolos con fuerza bruta (siempre me pregunté cómo sabés esas cosas sin morir primero). En Half-Life, realmente tenés que valorar tu vida y tratarla como lo más importante que tenés.
+Y luego empecé a defenderme. En Half-Life, los combates son un rompecabezas para resolver; no es como esos juegos donde tenés que morir para saber algo y luego reintentarlo, pasándolos a base de fuerza bruta (siempre me pregunté cómo sabés esas cosas sin morir primero). En Half-Life, realmente tenés que valorar tu vida y tratarla como lo más importante que tenés.
 
 Sos un hombre de ciencia, no un asesino. Si ves una amenaza, primero corrés para protegerte, después pensás en cómo aprovechar tus herramientas, el entorno y el conocimiento contra el enemigo. Si realmente no necesitas matar a nadie, no lo hacés, pero si lo hacés, ahora tenés un plan.
 
