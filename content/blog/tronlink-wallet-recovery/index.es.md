@@ -127,7 +127,7 @@ Injection sent. Waiting for listener...
 Listener is UP!
 ```
 
-`Listener is UP!`. Funciona. Ya tengo confirmado que puedo entrar. Ahora toca hacerlo en el teléfono real, donde no hay margen de error.
+`Listener is UP!`. Funciona. Ya tengo confirmado que puedo entrar. Ahora falta hacerlo en el teléfono real, donde no hay margen de error.
 
 ### Extraer el dump completo
 
