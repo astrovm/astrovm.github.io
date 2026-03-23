@@ -4,92 +4,79 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a static website built with Hugo using the Terminal theme. The site is a personal website (astroweb) with bilingual support (English/Spanish) and includes blog posts, projects, contact information, and configurations.
+Hugo static site with Terminal theme. Personal website with multilingual content (ES canonical, EN/ZH/JA translations). Live at https://4st.li/
 
-## Architecture
+## Project Structure
 
-- **Framework**: Hugo static site generator with Terminal theme
-- **Structure**: Content-based with multilingual support
-- **Theme**: Located in `themes/terminal/` - a Git submodule with terminal/hacker aesthetic
-- **Content**: Markdown files in `content/` directory with language-specific versions (.md for English, .es.md for Spanish)
-- **Configuration**: Hugo configuration in `config.toml` with multilingual settings
-- **Static Assets**: Custom styling, JavaScript, and resources in `static/`
+| Directory | Purpose |
+|-----------|---------|
+| `config.toml` | Hugo site configuration (languages, menus, params) |
+| `content/` | Markdown pages and blog posts |
+| `content/blog/` | Blog posts (subdirectory per post) |
+| `layouts/partials/` | Theme overrides (takes precedence over `themes/terminal/`) |
+| `static/` | Static assets (CSS, JS, images, favicons) |
+| `themes/terminal/` | Terminal theme (git submodule) |
+| `utils/` | TypeScript utilities (encrypt-commands.ts) |
+| `public/` | Built output (untracked) |
 
-## Key Components
-
-### Content Structure
-
-- `content/blog/` - Blog posts with subdirectories for each post
-- `content/` root - Main pages (projects, contact, configs, etc.)
-- Bilingual content with `.es.md` extension for Spanish versions
-
-### Theme Customization
-
-- `layouts/partials/` - Custom HTML partials override theme defaults
-- `static/style.css` - Custom CSS overriding theme styles
-- `static/terminal-window/` - Interactive terminal components with encryption features
-- `static/oneko.js` - Desktop pet JavaScript animation
-
-### Special Features
-
-- **Encrypted Commands**: `utils/encrypt-commands.ts` provides multi-password encryption for terminal commands
-- **Terminal Theme**: Customized with "astro" color scheme and terminal aesthetic
-- **Interactive Elements**: Terminal window simulation and desktop pet
-
-## Development Commands
-
-Since Hugo is not installed locally, development requires:
+## Build & Development Commands
 
 ```bash
-# Install Hugo (method depends on system)
-# Then run development server:
-hugo server -D
-
-# Build static site:
-hugo
-
-# Theme development (if needed):
-cd themes/terminal/
-npm install
+bun install                      # Install TypeScript dependencies
+hugo server -D                   # Live preview with drafts
+hugo --gc --minify               # Production build
+hugo server --panicOnWarning     # Pre-PR validation (catch broken links)
+hugo --templateMetrics           # Find unused template blocks
 ```
-
-## Configuration Notes
-
-- Base URL: https://4st.li/
-- Theme color: "astro" (custom)
-- Languages: Spanish (canonical source), English, Simplified Chinese, Japanese
-- Content type: "blog" (shows on index)
-- Shows 5 posts per page
-- Menu configured for both languages with different URLs
 
 ## URL Convention
 
-English lives at `/en/` (same as other languages). Additionally, the GitHub Actions workflow copies the entire `public/en/` directory to `public/` after the build, so all English content is also accessible at root-level paths (e.g. `https://4st.li/blog/slug/` mirrors `/en/blog/slug/`).
+English content lives at `/en/`. After build, GitHub Actions copies `public/en/` → `public/` so English is also at root paths.
 
-**New English content does NOT need `aliases`** — the post-build copy handles root paths automatically.
+- **New English content does NOT need `aliases`** — the copy handles root paths automatically.
+- `language.js` detects browser preference and redirects `/{path}` → `/{lang}/{path}`.
 
-When a user visits a root-level path (e.g. `/blog/slug/`), `language.js` detects their preferred language and redirects to `/{lang}/blog/slug/`. Without JavaScript, the root path serves English content directly.
+## Coding Style
 
-## File Organization
+- Front matter keys: `kebab-case`
+- One H1 per file; headings descend sequentially
+- TypeScript: 2-space indentation, follow `tsconfig.json`
+- Keep templates lean; prefer Hugo partials/shortcodes
 
-- Root config controls site-wide settings and multilingual setup
-- Content files use Hugo front matter for metadata
-- Static assets in `static/` are served directly
-- Custom layouts in `layouts/partials/` extend theme functionality
-- Theme assets and configurations are in `themes/terminal/`
+## Testing
 
-## Blog Content Voice
+Manual verification via Hugo:
+1. Run `hugo server -D` and check multiple viewports
+2. Review terminal output for warnings
+3. For structural changes, check `public/` HTML output
 
-The **Spanish (`index.es.md`) file is always the canonical source** for blog posts. It uses an informal Argentine internet/forum/tech register: voseo, punchy sentences, dry humor, technical and colloquial language mixed.
+## Content & Translation Guidelines
 
-Translations must NOT be literal. Each version targets a native speaker in a specific city/community:
+### Source Language
+**Spanish (`index.es.md`) is canonical** — informal Argentine internet/tech register: voseo (`tenés`, `podés`), short punchy sentences, dry humor, technical jargon mixed with slang. Never formalize.
 
-- **`index.en.md`** — Casual US tech-blog English (think NYC tech community). Direct, slightly informal, no stiff ESL phrasing.
-- **`index.zh.md`** — Simplified Chinese for mainland tech readers (V2EX / Zhihu style). Use local internet expressions, not textbook Mandarin.
-- **`index.ja.md`** — Casual Japanese tech-blog tone for Tokyo readers. だ/である調 is fine; prefer katakana loanwords for tech terms over obscure native equivalents.
+### Translation Philosophy
+Translations must read native, not literal:
 
-When propagating edits from ES to other languages, adapt the meaning and spirit, not the words. Find the culturally equivalent expression rather than translating literally.
+| File | Target | Style |
+|------|--------|-------|
+| `index.es.md` | Argentine Spanish | Informal foro/internet tech (source) |
+| `index.en.md` | US English | Casual tech-blog, direct (NYC style) |
+| `index.zh.md` | Mainland China | V2EX/Zhihu style, simplified Chinese |
+| `index.ja.md` | Japan | Casual tech-blog (だ/である調 OK, prefer katakana loanwords) |
 
-## Security Notes
+**Rules:**
+- Preserve spirit and tone, not word-for-word
+- Use local internet idioms, not textbook equivalents
+- Find culturally equivalent expressions for slang
 
-The `utils/encrypt-commands.ts` script uses AES-256-GCM encryption with PBKDF2 key derivation (1M iterations) for the terminal command encryption feature.
+## Security
+
+`utils/encrypt-commands.ts` uses AES-256-GCM with PBKDF2 (1M iterations) for terminal command encryption.
+
+## Commits & Pull Requests
+
+- Concise, imperative subjects: `Add social icon overrides`
+- Group related changes; add body context for multi-section edits
+- PRs: describe change, link issues, note config updates
+- Visual changes in `layouts/` or `static/`: attach screenshots

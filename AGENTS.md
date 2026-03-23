@@ -1,37 +1,80 @@
 # Repository Guidelines
 
-## Project Structure & Module Organization
-The Hugo site configuration lives in `config.toml`, while content pages and blog posts belong in `content/`. Layout overrides and partials are stored in `layouts/`, which take precedence over the Terminal theme inside `themes/terminal/`. Static assets such as images or favicons go in `static/`. Built artifacts land in `public/` and should remain untracked. TypeScript utilities that support shortcodes live under `utils/`.
+## Project Overview
 
-## Build, Test, and Development Commands
-Run `bun install` after pulling to ensure TypeScript definitions stay current. Start a live preview with `hugo server -D`, which watches for changes and includes drafts. Produce an optimized build with `hugo --gc --minify`, cleaning unused resources and writing to `public/`. Use `hugo server --panicOnWarning` before opening a PR to surface broken links or templates.
+Hugo static site with Terminal theme. Personal website with multilingual content (ES canonical, EN/ZH/JA translations). Live at https://4st.li/
 
-## Coding Style & Naming Conventions
-Author Markdown content with front matter keys in `kebab-case` to match existing pages. Favor short titles and one H1 per file; subsequent headings should descend sequentially. Keep templates lean, using Hugo partials or shortcodes defined in `layouts/partials/`. Format TypeScript helpers with 2-space indentation and align with the project's `tsconfig.json`.
+## Project Structure
 
-## Testing Guidelines
-The project relies on manual verification through Hugo. Before submitting changes, load the site in multiple viewports using `hugo server -D` and review the terminal output for warnings. For structural edits, run `hugo --templateMetrics` to spot unused blocks, and skim the generated HTML in `public/` to confirm data renders as expected.
+| Directory | Purpose |
+|-----------|---------|
+| `config.toml` | Hugo site configuration (languages, menus, params) |
+| `content/` | Markdown pages and blog posts |
+| `content/blog/` | Blog posts (subdirectory per post) |
+| `layouts/partials/` | Theme overrides (takes precedence over `themes/terminal/`) |
+| `static/` | Static assets (CSS, JS, images, favicons) |
+| `themes/terminal/` | Terminal theme (git submodule) |
+| `utils/` | TypeScript utilities (encrypt-commands.ts) |
+| `public/` | Built output (untracked) |
 
-## Content Writing & Translation Guidelines
+## Build & Development Commands
 
-### Voice & Tone (source language: Spanish)
-The canonical source for all blog posts is the **Spanish (`index.es.md`) version**. It is written in an **informal Argentine internet/forum/tech register**: voseo (`tenés`, `podés`), direct and punchy sentences, technical jargon mixed with slang, first-person narration, and a dry/ironic tone common in niche tech communities. This voice must be preserved as the reference; never formalize or soften it.
+```bash
+bun install                      # Install TypeScript dependencies
+hugo server -D                   # Live preview with drafts
+hugo --gc --minify               # Production build
+hugo server --panicOnWarning     # Pre-PR validation (catch broken links)
+hugo --templateMetrics           # Find unused template blocks
+```
+
+## URL Convention
+
+English content lives at `/en/`. After build, GitHub Actions copies `public/en/` → `public/` so English is also at root paths.
+
+- **New English content does NOT need `aliases`** — the copy handles root paths automatically.
+- `language.js` detects browser preference and redirects `/{path}` → `/{lang}/{path}`.
+
+## Coding Style
+
+- Front matter keys: `kebab-case`
+- One H1 per file; headings descend sequentially
+- TypeScript: 2-space indentation, follow `tsconfig.json`
+- Keep templates lean; prefer Hugo partials/shortcodes
+
+## Testing
+
+Manual verification via Hugo:
+1. Run `hugo server -D` and check multiple viewports
+2. Review terminal output for warnings
+3. For structural changes, check `public/` HTML output
+
+## Content & Translation Guidelines
+
+### Source Language
+**Spanish (`index.es.md`) is canonical** — informal Argentine internet/tech register: voseo (`tenés`, `podés`), short punchy sentences, dry humor, technical jargon mixed with slang. Never formalize.
 
 ### Translation Philosophy
-Translations are **not literal**. Each target language must read as if written natively by a local tech person in that city/community:
+Translations must read native, not literal:
 
-| File | Target audience | Register target |
-|---|---|---|
-| `index.es.md` | Argentine Spanish (source) | Informal foro/internet tech |
-| `index.en.md` | New York / US English | Casual tech-blog English, direct and slightly informal |
-| `index.zh.md` | Mainland China / Mandarin | Simplified Chinese as used in Chinese tech communities (e.g. V2EX, Zhihu style) |
-| `index.ja.md` | Tokyo / Japanese | Casual Japanese tech-blog style (だ/である調 allowed, tech loanwords preferred over native equivalents) |
+| File | Target | Style |
+|------|--------|-------|
+| `index.es.md` | Argentine Spanish | Informal foro/internet tech (source) |
+| `index.en.md` | US English | Casual tech-blog, direct (NYC style) |
+| `index.zh.md` | Mainland China | V2EX/Zhihu style, simplified Chinese |
+| `index.ja.md` | Japan | Casual tech-blog (だ/である調 OK, prefer katakana loanwords) |
 
 **Rules:**
-- Never use formally translated expressions that sound unnatural to a native speaker.
-- Prefer local internet/tech idioms and expressions over word-for-word equivalents.
-- Keep the spirit and rhythm of the original: short punchy sentences, casual asides, dry humor.
-- When the ES version uses Argentine slang with no equivalent, find the closest culturally equivalent expression in the target language rather than explaining it.
+- Preserve spirit and tone, not word-for-word
+- Use local internet idioms, not textbook equivalents
+- Find culturally equivalent expressions for slang
 
-## Commit & Pull Request Guidelines
-Follow the existing log by writing concise, imperative commit subjects (e.g., `Add social icon overrides`). Group related changes per commit and include brief body context when touching multiple sections. Pull requests should describe the change, link any tracked issues, note configuration updates, and attach screenshots for visual tweaks, especially when modifying `layouts/` or `static/` assets.
+## Security
+
+`utils/encrypt-commands.ts` uses AES-256-GCM with PBKDF2 (1M iterations) for terminal command encryption.
+
+## Commits & Pull Requests
+
+- Concise, imperative subjects: `Add social icon overrides`
+- Group related changes; add body context for multi-section edits
+- PRs: describe change, link issues, note config updates
+- Visual changes in `layouts/` or `static/`: attach screenshots
