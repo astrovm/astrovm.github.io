@@ -70,7 +70,7 @@ Translations are **localizations**, not literal translations. Each version must 
 1. **Preserve vulgarity level** — if the Spanish says "al pedo" (pointless/for nothing), don't translate to "in vain." Use "for shit" (EN), 全白干了 (ZH), 全部パー (JA).
 2. **Use local idioms, not textbook equivalents** — "boludo" → "idiot" (EN), 傻子 (ZH), バカ (JA). Not "fool", not 愚人.
 3. **Find culturally equivalent expressions** — Argentine "me pegó un corchazo" (shot himself) → "blew his brains out" (EN), 一枪崩了自己 (ZH), 自分の頭を撃ち抜いた (JA).
-4. **Never mix registers** — don't combine formal grammar with slang. If a sentence uses クソ, the verb should be colloquial too (崩壊する → ぶっ壊れる). If Chinese uses 他妈, don't pair it with 出现了 — use 出现了 with a comma pause or restructure.
+4. **Never mix registers** — don't combine formal grammar with slang. If a sentence uses クソ, the verb should be colloquial too (崩壊する → ぶっ壊れる). For Chinese, don't flow directly from slang into a neutral verb without a pause — e.g., don't write 他妈出现了; either add a comma (他妈，出现了...) or restructure the sentence entirely.
 5. **Split sentences when the target language needs it** — Spanish and English tolerate long compound sentences. Chinese and Japanese often need them broken into 2-3 shorter ones to sound natural.
 6. **Avoid literal calques** — don't translate Spanish structure into the target language. "La parte más divertida de este tipo de laburos empieza" ≠ "The most fun part of doing this kind of gig begins." → "This is where the fun part of these gigs kicks in."
 7. **Technical terms stay in English** — `scrypt`, `hashcat`, `exploit`, `brute force`, `CVE`, `AES`, `adb` are not translated. App names, protocol names, and CLI commands are never localized.
@@ -80,8 +80,8 @@ Translations are **localizations**, not literal translations. Each version must 
 
 Narrative posts (walkthroughs, stories, investigations) follow these additional rules:
 
-9. **First person, present tense** — write as if the reader is living the moment alongside the narrator. "I run the command and nothing happens" not "I ran the command and nothing happened." The reader should feel they're there, not reading a report after the fact.
-10. **No spoilers — respect the order of discovery** — don't reveal outcomes or conclusions before the narrative reaches them. If the post ends with "it worked," don't hint at success in the setup. Information appears in the same order it was discovered, not reordered for efficiency.
+9. **First person, present tense** — present tense applies to the flow of discovery and action. Framing, retrospective commentary, and essay structure can use past tense where it sounds natural. "I run the command and nothing happens" not "I ran the command and nothing happened." The reader should feel they're there, not reading a report after the fact.
+10. **No spoilers — respect the order of discovery** — don't reveal outcomes or conclusions before the narrative reaches them. Structural signposting in technical posts is fine ("the work splits into two phases") — the restriction is about hinting at outcomes before the narrative gets there. If the post ends with "it worked," don't hint at success in the setup. Information appears in the same order it was discovered, not reordered for efficiency.
 11. **No repeated explanations** — each concept is explained once, at the point it's first introduced. Don't re-explain something already covered, and don't pre-explain something that will be introduced later. Trust the reader to remember.
 
 ## Security
