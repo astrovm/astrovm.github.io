@@ -24,7 +24,7 @@ The (obviously pirated) CD actually included:
 
 ![Half-Life Counter-Strike CD Front Cover](cd.jpg)
 
-I installed everything and opened Half-Life first because I liked the aesthetics more. I started playing, and... A DAMN TRAIN APPEARED. I'd never been on a moving train in a game before, and I love trains, so I liked it. The train took a lot of time to reach its destination, so I felt the game was in no rush, and I loved that!
+I installed everything and opened Half-Life first because I liked the aesthetics more. I started playing, and... A FUCKING TRAIN APPEARED. I'd never been on a moving train in a game before, and I love trains, so I liked it. The train took a lot of time to reach its destination, so I felt the game was in no rush, and I loved that!
 
 A couple of minutes later, the world goes to shit D:! But the game's aesthetics are gorgeous :D! So I was there running as something of a scientist with a cool "Hazardous Environment Suit," and IRL I was wearing a Spiderman suit, so I could relate.
 

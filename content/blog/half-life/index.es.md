@@ -26,7 +26,7 @@ El CD (obviamente pirateado) incluía en realidad:
 
 Instalé todo y abrí el Half-Life primero porque me gustaba más la estética. Empecé a jugar, y... APARECIÓ UN PUTO TREN. Nunca había estado en un tren en movimiento en un juego antes, y me encantan los trenes, así que me gustó. El tren tardó mucho tiempo en llegar a destino, así que sentí que el juego no tenía apuro y eso me encantó.
 
-Un par de minutos después, ¡el mundo se va a la mierda D:! ¡Pero la estética del juego es preciosa :D!. Así que ahí estaba, corriendo como una especie de científico con un "Hazardous Environment Suit" genial, y en la vida real llevaba un traje de Spiderman, así que me sentí identificado.
+Un par de minutos después, ¡el mundo se va a la mierda D:! ¡Pero la estética del juego es preciosa :D! Así que ahí estaba, corriendo como una especie de científico con un "Hazardous Environment Suit" genial, y en la vida real llevaba un traje de Spiderman, así que me sentí identificado.
 
 Agarré una buena palanca y apreté un botón para llamar un ascensor, inadvertidamente causando una falla que mató a un par de compañeros científicos :(
 
