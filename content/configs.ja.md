@@ -128,7 +128,7 @@ cat ~/.ssh/id_ed25519.pub
 sudo nvim /etc/NetworkManager/conf.d/99-randomize-mac-address.conf
 ```
 
-```bash
+```ini
 [device-mac-randomization]
 wifi.scan-rand-mac-address=yes
 

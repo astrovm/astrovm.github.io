@@ -12,7 +12,7 @@ I was reading Finance Twitter and saw someone ask a well-known Twitter user the 
 
 I'll explain why this idea is absurd on multiple levels.
 
-I'm quite pessimistic about recommendations in general because they don't really exist as such. "Should I invest in this or that?", "what's safer, Android or iOS?", "are apps better than websites?", "should I use a VPN?" All these questions are impossible to answer by themselves; the answer is always IT DEPENDS. Each person is unique, and for each individual, the answer is different. Moreover, for the same person, the answer might change tomorrow. That's why in CS we don't learn answers, but rather the art of understanding requirements and reaching possible solutions.
+I'm quite pessimistic about recommendations in general because they don't really exist as such. "Should I invest in this or that?", "what's safer, Android or iOS?", "are apps better than websites?", "should I use a VPN?" All these questions are impossible to answer by themselves; the answer is always IT DEPENDS. Each person is unique, and for each individual, the answer is different. And for the same person, the answer might change tomorrow. That's why in CS we don't learn answers, but rather the art of understanding requirements and reaching possible solutions.
 
 I'll start questioning the idea of "investing in yourself" with a very basic concept: the amount of free knowledge on the internet is literally infinite. What's stopping you from using it? Knowing how to find it and actually use it, and the fact that you only have one brain and 24 hours in a day. How much money can you really invest in yourself? Very little.
 
