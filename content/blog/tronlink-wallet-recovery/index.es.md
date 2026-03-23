@@ -144,21 +144,7 @@ $ printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 12
 
 ![File transfer](file_transfer.gif)
 
-Con eso me traigo todo el app data: `shared_prefs`, `databases`, todo. Para chequear que haya llegado bien:
-
-```bash
-$ mkdir -p recovery
-$ tar -xzf recovery.tar.gz -C recovery
-$ ls -l recovery/shared_prefs/carlitosmenem991.xml
-```
-
-Output:
-
-```text
--rw-rw-r-- 1 astro astro 2738 Mar 21 02:34 recovery/shared_prefs/carlitosmenem991.xml
-```
-
-Perfecto, ahí está todo. Fase 1 completa. El teléfono del cliente queda intacto, sin root, sin bootloader desbloqueado, sin nada roto. Y yo tengo todo lo que necesito en mi PC.
+Con eso me traigo todo el app data: `shared_prefs`, `databases`, todo. Fase 1 completa. El teléfono del cliente queda intacto, sin root, sin bootloader desbloqueado, sin nada roto. Y yo tengo todo lo que necesito en mi PC.
 
 ## Fase 2: crackear la contraseña offline
 
