@@ -114,7 +114,7 @@ Con la ayuda de Gemini toco `zygote-injection-toolkit` para arreglar un par de e
 - `--seinfo=default:targetSdkVersion=30:complete`
 
 
-Todo esto lo meto en `repro.py`. Arma el payload con el padding para Android 12+, lo inyecta vía `adb shell`, fuerza el reinicio de Settings para triggerear la lectura, y espera a que un netcat se levante en localhost. Si funciona, tenés una reverse shell con la identidad de TronLink. Si falla, limpia el setting para no dejar el teléfono en mal estado.
+Todo esto lo meto en `repro.py`, que arma el payload con el padding para Android 12+, lo inyecta vía `adb shell`, fuerza el reinicio de Settings para triggerear la lectura, y espera a que un netcat se levante en localhost. Si funciona, tenés una reverse shell con la identidad de TronLink. Si falla, limpia el setting para no dejar el teléfono en mal estado.
 
 ```bash
 $ uv run repro.py --uid 10145 --gid 10145

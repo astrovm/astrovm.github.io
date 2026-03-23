@@ -12,7 +12,7 @@ Estaba leyendo Twitter Finanzas y vi que le hicieron la típica pregunta de "en 
 
 Voy a explicar por qué esa idea es absurda desde múltiples puntos de vista.
 
-Soy bastante pesimista con las recomendaciones en general porque no existen como tal. "¿Invierto en esto o en aquello?", "¿qué es más seguro, Android o iOS?", "¿es mejor usar apps o webs?", "¿tengo que usar VPN?" Todas estas son preguntas que son imposibles de responder en sí; la respuesta siempre es DEPENDE. Cada persona es única, y para cada individuo la respuesta es distinta. Además para la misma persona la respuesta puede cambiar mañana. Por eso en sistemas no aprendemos respuestas, sino el arte de entender los requerimientos y llegar a las soluciones posibles.
+Soy bastante pesimista con las recomendaciones en general porque no existen como tal. "¿Invierto en esto o en aquello?", "¿qué es más seguro, Android o iOS?", "¿es mejor usar apps o webs?", "¿tengo que usar VPN?" Todas son preguntas imposibles de responder en sí; la respuesta siempre es DEPENDE. Cada persona es única, y para cada individuo la respuesta es distinta. Además para la misma persona la respuesta puede cambiar mañana. Por eso en sistemas no aprendemos respuestas, sino el arte de entender los requerimientos y llegar a las soluciones posibles.
 
 Voy a comenzar cuestionando la idea de "invertir en vos mismo" con una idea muy básica: la cantidad de conocimiento gratuito en internet es literalmente infinita. ¿Qué te impide utilizarlo? Saber cómo encontrarlo y aprovecharlo, y el hecho de que solo tenés un cerebro y 24 horas al día. ¿Cuánto dinero podés invertir en vos mismo realmente? Bastante poco.
 
