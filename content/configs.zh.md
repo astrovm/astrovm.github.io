@@ -120,7 +120,7 @@ ssh-keygen -t ed25519 -C "~@4st.li"
 cat ~/.ssh/id_ed25519.pub
 ```
 
-- 粘贴到 [https://github.com/settings/ssh](https://github.com/settings/ssh)
+- 粘贴到 <https://github.com/settings/ssh>
 
 ## NetworkManager MAC地址随机化
 

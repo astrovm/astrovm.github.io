@@ -72,15 +72,15 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 - Habilitar Steam Play en la configuración de Steam
 - Configurar opciones de lanzamiento (por juego) a:
 
-  ```bash
-  gamemoderun %command%
-  ```
+```bash
+gamemoderun %command%
+```
 
-  o en CachyOS:
+o en CachyOS:
 
-  ```bash
-  game-performance %command%
-  ```
+```bash
+game-performance %command%
+```
 
 - Probar [Proton-GE-Custom](https://github.com/gloriouseggroll/proton-ge-custom) con ProtonUp-Qt/ProtonPlus
 
@@ -88,23 +88,23 @@ gsettings set org.gnome.mutter experimental-features "['variable-refresh-rate','
 
 - Opciones de lanzamiento:
 
-  ```bash
-  -vulkan -novid -fullscreen
-  ```
+```bash
+-vulkan -novid -fullscreen
+```
 
 ## Sonic Adventure
 
-[https://gamebanana.com/tuts/16934](https://gamebanana.com/tuts/16934)
+<https://gamebanana.com/tuts/16934>
 
 ## GTA IV
 
-[https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix](https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix)
+<https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix>
 
 - Opciones de lanzamiento:
 
-  ```bash
-  WINEDLLOVERRIDES="dinput8=n,b" %command%
-  ```
+```bash
+WINEDLLOVERRIDES="dinput8=n,b" %command%
+```
 
 ## Git
 
@@ -120,7 +120,7 @@ ssh-keygen -t ed25519 -C "~@4st.li"
 cat ~/.ssh/id_ed25519.pub
 ```
 
-- Pegar en [https://github.com/settings/ssh](https://github.com/settings/ssh)
+- Pegar en <https://github.com/settings/ssh>
 
 ## Randomización de MAC
 
