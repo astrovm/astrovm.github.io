@@ -48,7 +48,7 @@ The game has some interesting messages:
 - Nobody is really sure about what's going on.
 - Don't expect someone to tell you what you have to do; think, try, and break stuff.
 - When everything goes to hell, you may have your friends to help you, but if you don't, you are alone with yourself and maybe some cool weapons.
-- Your search for freedom may never end.
+- Your search for freedom may never come to an end.
 - Your worst enemy seems to be an inter-dimensional bureaucrat who wants to give you a job.
 - Talking is not so important.
 
