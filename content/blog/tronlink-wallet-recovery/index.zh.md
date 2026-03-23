@@ -115,7 +115,6 @@ Output:
 - `--is-top-app`
 - `--seinfo=default:targetSdkVersion=30:complete`
 
-<img alt="repro.py 脚本代码，配置 Zygote 注入参数" src="/en/blog/tronlink-wallet-recovery/mdearw0spwcfgp1bmuwmk.png" style="max-width: 480px" />
 
 这些全写进 `repro.py`。它组装带 Android 12+ padding 的 payload，通过 `adb shell` 注入，强制重启 Settings 来触发读取，然后等 localhost 上的 netcat 起来。如果成功了，你就得到了一个拥有 TronLink 身份的 reverse shell。如果失败了，它会清理 setting 以免手机变砖。
 
@@ -255,7 +254,6 @@ $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c595
 
 密码拿到手，剩下的就是走个流程。同一个密码同时保护 keystore 和 mnemonic，所以有了密码就什么都有了。
 
-<img alt="decrypt_mnemonic.py 代码，用恢复的密码解密助记词" src="/en/blog/tronlink-wallet-recovery/rngs7c2j_mic2_3hs81ay.png" style="max-width: 480px" />
 
 我写了 `tools/decrypt_mnemonic.py`，读取 XML 里加密的 mnemonic，用密码解密，输出助记词。
 

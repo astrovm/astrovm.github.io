@@ -115,7 +115,6 @@ With Gemini's help I tweak `zygote-injection-toolkit` to fix a couple of bugs an
 - `--is-top-app`
 - `--seinfo=default:targetSdkVersion=30:complete`
 
-<img alt="Code from the repro.py script configuring Zygote injection arguments" src="/en/blog/tronlink-wallet-recovery/mdearw0spwcfgp1bmuwmk.png" style="max-width: 480px" />
 
 I put all of this into `repro.py`. It builds the payload with the padding for Android 12+, injects it via `adb shell`, forces Settings to restart to trigger the read, and waits for a netcat listener to come up on localhost. If it works, you get a reverse shell with TronLink's identity. If it fails, it cleans up the setting so the phone isn't left in a bad state.
 
@@ -255,7 +254,6 @@ $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c595
 
 With the password in hand, the rest is just a formality. The same password protects both the keystore and the mnemonic, so if you have one, you have everything.
 
-<img alt="Code from decrypt_mnemonic.py for decrypting the seed phrase with the recovered password" src="/en/blog/tronlink-wallet-recovery/rngs7c2j_mic2_3hs81ay.png" style="max-width: 480px" />
 
 I write `tools/decrypt_mnemonic.py` which reads the encrypted mnemonic from the XML, decrypts it with the password, and gives you the seed phrase.
 
