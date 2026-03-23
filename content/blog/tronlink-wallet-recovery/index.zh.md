@@ -191,9 +191,9 @@ $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c595
 
 从客户那里拿到了名字、昵称和家人的姓氏：carlos、carlitos、turco、zulemita、menem、saul。可能有意义的数字：7、91、991、1991。常用符号：#、.、!、@。从 dump 里已经知道钱包名是 `carlitosmenem991`。
 
-借助 Codex 搞了一个 Python 框架 `smart_recovery/`，把这些种子词输入进去，按从最可能到最不可能的顺序生成 wordlist。同时会过滤掉所有不满足钱包密码规则（8 个字符以上、大写、小写、数字）的组合，不在不可能的东西上浪费时间。
+借助 Codex 搞了一个 Python 框架 `smart_recovery/`，把这些种子词输入进去，按从最可能到最不可能的顺序生成 wordlist。同时会过滤掉所有不满足钱包密码规则（8 个字符以上、大写、小写、数字）的组合，免得在根本不可能的组合上浪费时间。
 
-思路是按优先级生成模式族，先把最可能的穷尽，再往下走到 brute force。部分模式族：
+思路是按优先级生成模式族，先把最可能的跑完，再往下走到 brute force。部分模式族：
 
 | 模式族 | 模式 | 示例 |
 |---|---|---|
@@ -212,7 +212,7 @@ uv run -m smart_recovery run --hash-file target.hash --seed-file note_seeds.json
 
 <img alt="Hashcat 以 Ethereum Wallet SCRYPT 模式运行，显示攻击进度" src="/en/blog/tronlink-wallet-recovery/qzcle-ah0fwm-svkgj1mj.png" style="max-width: 480px" />
 
-大概 30 个小时的验证、前期测试和各种跑批之后... CRACKED。
+前前后后跑了差不多 30 个小时，验证、测试、各种跑批之后... CRACKED。
 
 <img alt="Hashcat 显示 Cracked 状态，成功找到正确密码" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: 480px" />
 
@@ -243,9 +243,9 @@ stock dirt cat upset chat giraffe page blade face slush volcano dawn
 
 ---
 
-最后所有事情能成是因为一连串巧合都对上了：手机经受住了时间的考验，Android 没打补丁，exploit 没搞坏任何东西，密码符合可预测的人类模式，客户记得足够多的线索把搜索空间缩到了可行的范围。
+最后所有事情能成是因为一连串巧合都对上了：手机这么多年居然没出问题，Android 没打补丁，exploit 没搞坏任何东西，密码符合可预测的人类模式，客户记得足够多的线索把搜索空间缩到了可行的范围。
 
-如果其中任何一个环节不一样，这笔钱就永远锁在那里了。所以好好保管你们的助记词吧，因为不一定有个 CVE 能救你们。
+如果其中任何一个环节不一样，这笔钱就永远锁在那里了。各位，助记词一定要保管好，下次可不一定有个 CVE 能救你。
 
 ## 参考
 

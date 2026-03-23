@@ -51,22 +51,28 @@ Manual verification via Hugo:
 ## Content & Translation Guidelines
 
 ### Source Language
-**Spanish (`index.es.md`) is canonical** — informal Argentine internet/tech register: voseo (`tenés`, `podés`), short punchy sentences, dry humor, technical jargon mixed with slang. Never formalize.
+**Spanish (`index.es.md`) is canonical** — informal Argentine internet/tech register: voseo (`tenés`, `podés`), short punchy sentences, dry humor, vulgar when appropriate, technical jargon mixed with slang. Never formalize. The Spanish originals contain profanity (`al pedo`, `la verga`, `boludo`, `corchazo`, `guita`) — translations must match that register, not sanitize it.
 
 ### Translation Philosophy
-Translations must read native, not literal:
+Translations are **localizations**, not literal translations. Each version must read as if a native speaker from the target city wrote it directly. A reader should never think "this was translated."
 
-| File | Target | Style |
-|------|--------|-------|
-| `index.es.md` | Argentine Spanish | Informal foro/internet tech (source) |
-| `index.en.md` | US English | Casual tech-blog, direct (NYC style) |
-| `index.zh.md` | Mainland China | V2EX/Zhihu style, simplified Chinese |
-| `index.ja.md` | Japan | Casual tech-blog (だ/である調 OK, prefer katakana loanwords) |
+| File | Target locale | Voice & register |
+|------|---------------|------------------|
+| `index.es.md` | Buenos Aires | Foro/internet tech, voseo, lunfardo OK (source) |
+| `index.en.md` | New York City | Casual US tech-blog — direct, blunt, profanity where the original has it ("shit", "what the fuck", "blowing his brains out"). Think HN comment or personal blog, not Medium. |
+| `index.zh.md` | Beijing/Shanghai | V2EX/Zhihu style, simplified Chinese — 口语化, internet slang OK (他妈, 牛逼, 白干, 折腾, 碰壁). Avoid literary/academic Chinese (经受住了时间的考验, 毫发无损, 由于, 穷尽). Split long sentences that feel unnatural in Chinese. |
+| `index.ja.md` | Tokyo | Casual tech-blog — だ/である調, prefer katakana loanwords (アドバンテージ, ウォールドガーデン). Use colloquial forms (めちゃくちゃ, ヤバい, ぶっ壊れる, トンズラ). Avoid mixing formal vocabulary with slang in the same sentence. |
 
-**Rules:**
-- Preserve spirit and tone, not word-for-word
-- Use local internet idioms, not textbook equivalents
-- Find culturally equivalent expressions for slang
+### Localization rules
+
+1. **Preserve vulgarity level** — if the Spanish says "al pedo" (pointless/for nothing), don't translate to "in vain." Use "for shit" (EN), 全白干了 (ZH), 全部パー (JA).
+2. **Use local idioms, not textbook equivalents** — "boludo" → "idiot" (EN), 傻子 (ZH), バカ (JA). Not "fool", not 愚人.
+3. **Find culturally equivalent expressions** — Argentine "me pegó un corchazo" (shot himself) → "blew his brains out" (EN), 一枪崩了自己 (ZH), 自分の頭を撃ち抜いた (JA).
+4. **Never mix registers** — don't combine formal grammar with slang. If a sentence uses クソ, the verb should be colloquial too (崩壊する → ぶっ壊れる). If Chinese uses 他妈, don't pair it with 出現了 — use a comma pause or restructure.
+5. **Split sentences when the target language needs it** — Spanish and English tolerate long compound sentences. Chinese and Japanese often need them broken into 2-3 shorter ones to sound natural.
+6. **Avoid literal calques** — don't translate Spanish structure into the target language. "La parte más divertida de este tipo de laburos empieza" ≠ "The most fun part of doing this kind of gig begins." → "This is where the fun part of these gigs kicks in."
+7. **Technical terms stay in English** — `scrypt`, `hashcat`, `exploit`, `brute force`, `CVE`, `AES`, `adb` are not translated. App names, protocol names, and CLI commands are never localized.
+8. **Proofread for naturalness** — after translating, re-read each sentence and ask: "Would someone from NYC/Tokyo/Beijing actually say this?" If not, rewrite it.
 
 ## Security
 
