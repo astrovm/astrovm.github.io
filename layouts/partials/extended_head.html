@@ -1,8 +1,18 @@
-<link rel="stylesheet" href="/xterm/xterm.css" />
-<link rel="stylesheet" href="/terminal-window/terminal-window.css" />
-<script src="/xterm/xterm.js" defer></script>
-<script src="/xterm/addon-fit.js" defer></script>
-<script src="/xterm/addon-webgl.js" defer></script>
-<script src="/terminal-window/terminal-window.js" defer></script>
-<script src="/language.js" defer></script>
-<script src="/oneko.js" defer></script>
+{{ $xtermCSS := resources.Get "xterm/xterm.css" | fingerprint }}
+{{ $twCSS := resources.Get "terminal-window/terminal-window.css" | fingerprint }}
+{{ $xtermJS := resources.Get "xterm/xterm.js" | fingerprint }}
+{{ $fitJS := resources.Get "xterm/addon-fit.js" | fingerprint }}
+{{ $webglJS := resources.Get "xterm/addon-webgl.js" | fingerprint }}
+{{ $twJS := resources.Get "terminal-window/terminal-window.js" | fingerprint }}
+{{ $langJS := resources.Get "language.js" | fingerprint }}
+{{ $onekoJS := resources.Get "oneko.js" | fingerprint }}
+{{ $enc := resources.Get "terminal-window/encrypted-commands.js.enc" | fingerprint }}
+<script>window.__ENC_URL__="{{ $enc.Permalink }}";</script>
+<link rel="stylesheet" href="{{ $xtermCSS.Permalink }}" />
+<link rel="stylesheet" href="{{ $twCSS.Permalink }}" />
+<script src="{{ $xtermJS.Permalink }}" defer></script>
+<script src="{{ $fitJS.Permalink }}" defer></script>
+<script src="{{ $webglJS.Permalink }}" defer></script>
+<script src="{{ $twJS.Permalink }}" defer></script>
+<script src="{{ $langJS.Permalink }}" defer></script>
+<script src="{{ $onekoJS.Permalink }}" defer></script>
