@@ -3,7 +3,7 @@ title = "プロジェクト"
 hideComments = true
 +++
 
-- [Amy OS](https://github.com/astrovm/amyos) Bazziteをベースにしたカスタムのフェドラ Atomic イメージ
+- [Amy OS](https://github.com/astrovm/amyos) Bazziteをベースにしたカスタムの Fedora Atomic イメージ
 
 - [Anomalous](https://anomalous.xyz/) 異常研究協会
 
