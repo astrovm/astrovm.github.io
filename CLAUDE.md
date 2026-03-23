@@ -86,3 +86,4 @@ Translations are **localizations**, not literal translations. Each version must 
 - Group related changes; add body context for multi-section edits
 - PRs: describe change, link issues, note config updates
 - Visual changes in `layouts/` or `static/`: attach screenshots
+- **Never push without explicit confirmation** — always ask before every `git push`, even if the user just asked to commit
