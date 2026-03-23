@@ -211,8 +211,6 @@ From the client I got proper names, nicknames, and family surnames: carlos, carl
 
 With Codex's help I build a Python framework, `smart_recovery/`, that takes all those seeds and generates wordlists ordered from most likely to least likely. It also discards everything that doesn't meet the wallet's rules (8+ characters, uppercase, lowercase, and number), so it doesn't waste time on combinations that would never work anyway.
 
-<img alt="Pattern family definitions in the smart_recovery framework" src="/en/blog/tronlink-wallet-recovery/poisgvilcbwqkcnpfhzbi.png" style="max-width: 480px" />
-
 The idea is to generate pattern families by priority and exhaust the most likely ones before falling back to brute force. Some families:
 
 | Family | Pattern | Examples |

@@ -211,8 +211,6 @@ Del cliente saqué nombres propios, apodos y apellidos de la familia: carlos, ca
 
 Con ayuda de Codex me armo un framework en Python, `smart_recovery/`, que toma todas esas semillas y genera wordlists ordenadas de más probable a menos probable. También descarta todo lo que no cumpla las reglas de la wallet (8+ caracteres, mayúscula, minúscula y número), así no pierde tiempo con combinaciones que nunca podrían ser.
 
-<img alt="Definición de familias de patrones en el framework smart_recovery" src="/en/blog/tronlink-wallet-recovery/poisgvilcbwqkcnpfhzbi.png" style="max-width: 480px" />
-
 La idea es generar familias de patrones por prioridad y que agote lo más probable antes de caer en fuerza bruta. Algunas familias:
 
 | Familia | Patrón | Ejemplos |

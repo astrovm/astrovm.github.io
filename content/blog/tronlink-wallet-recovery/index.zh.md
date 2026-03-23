@@ -211,8 +211,6 @@ $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c595
 
 借助 Codex 搞了一个 Python 框架 `smart_recovery/`，把这些种子词输入进去，按从最可能到最不可能的顺序生成 wordlist。同时会过滤掉所有不满足钱包密码规则（8 个字符以上、大写、小写、数字）的组合，不在不可能的东西上浪费时间。
 
-<img alt="smart_recovery 框架中的模式族定义" src="/en/blog/tronlink-wallet-recovery/poisgvilcbwqkcnpfhzbi.png" style="max-width: 480px" />
-
 思路是按优先级生成模式族，先把最可能的穷尽，再往下走到 brute force。部分模式族：
 
 | 模式族 | 模式 | 示例 |

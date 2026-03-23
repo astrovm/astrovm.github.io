@@ -211,8 +211,6 @@ scryptがある以上、純粋なbrute forceは現実的でない。全組み合
 
 Codexの助けを借りてPythonのフレームワーク`smart_recovery/`を構築。これらの種（seed）を全て受け取り、確率が高い順にソートされたwordlistを生成する。ウォレットのルール（8文字以上、大文字・小文字・数字）を満たさないものは除外するので、あり得ない組み合わせに時間を無駄にしない。
 
-<img alt="smart_recoveryフレームワークにおけるパターンファミリーの定義" src="/en/blog/tronlink-wallet-recovery/poisgvilcbwqkcnpfhzbi.png" style="max-width: 480px" />
-
 考え方としては、優先度別にパターンファミリーを生成し、確率の高いものから消化してからbrute forceに落ちるようにする。いくつかのファミリー：
 
 | ファミリー | パターン | 例 |
