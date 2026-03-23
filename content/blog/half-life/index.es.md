@@ -34,7 +34,7 @@ D:
 
 :((( Qué acabo de hacer??
 
-Y luego empecé a defenderme. En Half-Life, los combates son un rompecabezas para resolver; no es como esos juegos donde tenés que morir para saber algo y luego reintentarlo, pasándolos a pura fuerza bruta (siempre me pregunté cómo sabés esas cosas sin morir primero). En Half-Life, realmente tenés que valorar tu vida y tratarla como lo más importante que tenés.
+Y luego empecé a defenderme. En Half-Life, los combates son un rompecabezas para resolver; no es como esos juegos donde tenés que morir para saber algo y luego reintentarlo, pasándolos a base de fuerza bruta (siempre me pregunté cómo sabés esas cosas sin morir primero). En Half-Life, realmente tenés que valorar tu vida y tratarla como lo más importante que tenés.
 
 Sos un hombre de ciencia, no un asesino. Si ves una amenaza, primero corrés para protegerte, después pensás en cómo aprovechar tus herramientas, el entorno y el conocimiento contra el enemigo. Si realmente no necesitas matar a nadie, no lo hacés, pero si lo hacés, ahora tenés un plan.
 
