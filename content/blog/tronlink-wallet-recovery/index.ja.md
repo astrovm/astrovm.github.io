@@ -235,7 +235,7 @@ Hashcatに投げて、寝る。
 compose.name-extension-number
 ```
 
-ニックネーム + ミドルネーム + 数字。"Turco" + "saul" + "7" = `Turcosaul7`。
+ニックネーム + 二番目の姓 + 数字。"Turco" + "saul" + "7" = `Turcosaul7`。
 
 ![Hashcat、正しいパスワード発見後に"Cracked"ステータスを表示](wylrwidwumnnrpsmqpcxr.png)
 
