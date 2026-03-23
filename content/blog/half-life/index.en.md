@@ -24,9 +24,9 @@ The (obviously pirated) CD actually included:
 
 ![Half-Life Counter-Strike CD Front Cover](cd.jpg)
 
-I installed everything and opened Half-Life first because I liked the aesthetics more. I started playing, and... A DAMN TRAIN APPEARED. I'd never been on a moving train in a game before, and I love trains, so I liked it. The train took a lot of time to reach its destination, so I felt the game was chill about itself, and I loved that!
+I installed everything and opened Half-Life first because I liked the aesthetics more. I started playing, and... A DAMN TRAIN APPEARED. I'd never been on a moving train in a game before, and I love trains, so I liked it. The train took a lot of time to reach its destination, so I felt the game was in no rush, and I loved that!
 
-A couple of minutes later, the world goes to shit D:! But the aesthetics are nice :D! So I was there running as something of a scientist with a cool "Hazardous Environment Suit," and IRL I was wearing a Spiderman suit, so I felt related.
+A couple of minutes later, the world goes to shit D:! But the aesthetics are nice :D! So I was there running as something of a scientist with a cool "Hazardous Environment Suit," and IRL I was wearing a Spiderman suit, so I could relate.
 
 I took a nice crowbar and pressed a button to call an elevator inadvertently causing a failure that killed a couple of fellow scientists :(
 
@@ -60,7 +60,7 @@ The game is full of mods and a community trying weird shit, and Valve (the compa
 
 If you didn't play Half-Life, try it. The list of games is:
 
-- [Half-Life](https://store.steampowered.com/app/70/HalfLife/) (there's an amazing remake called [Black Mesa](https://store.steampowered.com/app/362890/Black_Mesa/))
+- [Half-Life](https://store.steampowered.com/app/70/HalfLife/) (there's an insane remake called [Black Mesa](https://store.steampowered.com/app/362890/Black_Mesa/))
 - [Half-Life 2](https://store.steampowered.com/app/220/HalfLife_2/)
 - [Half-Life 2: Episode One](https://store.steampowered.com/app/380/HalfLife_2_Episode_One/)
 - [Half-Life 2: Episode Two](https://store.steampowered.com/app/420/HalfLife_2_Episode_Two/)

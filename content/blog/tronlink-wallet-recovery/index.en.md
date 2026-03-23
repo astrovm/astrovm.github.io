@@ -18,7 +18,7 @@ The first thing I do in these cases is write everything down, any detail can be 
 - App: TronLink Pro
 - Password rule: minimum 8 characters, one uppercase, one lowercase, and one number
 
-I ask them to throw me everything they remember about the password. Words, numbers, symbols, names, nicknames, family members, dates, patterns, anything that comes to mind. I open the app and try a few passwords manually. After a few attempts it locks me out for 1 hour.
+I tell them to hit me with everything they remember about the password. Words, numbers, symbols, names, nicknames, family members, dates, patterns, anything that comes to mind. I open the app and try a few passwords manually. After a few attempts it locks me out for 1 hour.
 
 <img alt="TronLink Pro wallet creation screen showing password requirements" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: 360px" />
 
@@ -41,11 +41,11 @@ TronLink stores all sensitive data inside the app's private directory:
 
 Only the app and root can access that directory. And of course, the phone isn't rooted. Rooting it isn't an option either because on many Samsung devices unlocking the bootloader wipes everything.
 
-In the early years of Android, manufacturers wouldn't let you unlock it and rooting depended on version-specific vulnerabilities, so it was common to root without losing data. Nowadays official methods are used that wipe everything by default.
+In the early years of Android, manufacturers wouldn't let you unlock it and rooting depended on version-specific vulnerabilities, so it was common to root without losing data. These days the official methods wipe everything by default.
 
 ### Finding a way in without root
 
-The most logical approach is to look for known system vulnerabilities. And here I get lucky: the Galaxy A31's software is pretty outdated. Android 12, security patch from January 2024. That means there are 2 years of published vulnerabilities that were never patched on this device. The most fun part of doing this kind of gig begins.
+The most logical approach is to look for known system vulnerabilities. And here I get lucky: the Galaxy A31's software is pretty outdated. Android 12, security patch from January 2024. That means there are 2 years of published vulnerabilities that were never patched on this device. This is where the fun part of these gigs kicks in.
 
 With Grok's help I land on **CVE-2024-31317**, a bug in `ZygoteProcess.java` that was patched in June 2024. This exploit lets you execute code with the identity of **any app** on the device. You don't need root. Just `adb`. This same exploit is used by forensic software like Oxygen, which is used by police and intelligence agencies around the world to extract data from phones.
 
@@ -159,7 +159,7 @@ Output:
 -rw-rw-r-- 1 astro astro 2738 Mar 21 02:34 recovery/shared_prefs/carlitosmenem991.xml
 ```
 
-Perfect, everything's there. Phase 1 complete. The client's phone is left intact, no root, no unlocked bootloader, nothing broken. And I have everything I need on my PC.
+Perfect, everything's there. Phase 1 complete. The client's phone stays intact, no root, no unlocked bootloader, nothing broken. And I have everything I need on my PC.
 
 ## Phase 2: cracking the password offline
 
@@ -206,11 +206,11 @@ Before working with the real data, I test the whole flow with the test wallet fr
 
 ### Attacking human patterns
 
-With scrypt in the mix, a pure brute force is unviable. Trying all possible combinations would take literally years. Luckily people don't come up with random passwords: they use names, dates, nicknames, things that mean something to them. So I take everything the client told me and combine it with what I pulled from the XMLs.
+With scrypt in the mix, straight brute force isn't gonna cut it. Trying all possible combinations would take literally years. Luckily people don't come up with random passwords: they use names, dates, nicknames, things that mean something to them. So I take everything the client told me and combine it with what I pulled from the XMLs.
 
 From the client I got proper names, nicknames, and family surnames: carlos, carlitos, turco, zulemita, menem, saul. Numbers that could have meaning: 7, 91, 991, 1991. And common symbols: #, ., !, @. From the dump I already had the wallet name (`carlitosmenem991`).
 
-With Codex's help I build a Python framework, `smart_recovery/`, that takes all those seeds and generates wordlists ordered from most likely to least likely. It also discards everything that doesn't meet the wallet's rules (8+ characters, uppercase, lowercase, and number), so it doesn't waste time on combinations that could never be valid.
+With Codex's help I build a Python framework, `smart_recovery/`, that takes all those seeds and generates wordlists ordered from most likely to least likely. It also discards everything that doesn't meet the wallet's rules (8+ characters, uppercase, lowercase, and number), so it doesn't waste time on combinations that would never work anyway.
 
 ![Pattern family definitions in the smart_recovery framework](poisgvilcbwqkcnpfhzbi.png)
 
@@ -253,7 +253,7 @@ $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c595
 
 ## Phase 3: reconstructing the seed and recovering the funds
 
-With the password in hand, the rest is straightforward. The same password protects both the keystore and the mnemonic, so if you have one, you have everything.
+With the password in hand, the rest is just a formality. The same password protects both the keystore and the mnemonic, so if you have one, you have everything.
 
 ![Code from decrypt_mnemonic.py for decrypting the seed phrase with the recovered password](rngs7c2j_mic2_3hs81ay.png)
 
@@ -273,7 +273,7 @@ I import the wallet on another device and withdraw the funds.
 
 ---
 
-In the end it all came together because of a chain of things that went right: the phone survived over time, Android wasn't patched, the exploit worked without breaking anything, the password followed a predictable human pattern, and the client remembered enough clues to narrow down the search space.
+In the end, everything came together because a bunch of things broke my way: the phone survived over time, Android wasn't patched, the exploit worked without breaking anything, the password followed a predictable human pattern, and the client remembered enough clues to narrow down the search space.
 
 If any of those things had been different, the money would still be stuck there forever. So take care of your seeds, because there might not be a CVE to save you.
 
