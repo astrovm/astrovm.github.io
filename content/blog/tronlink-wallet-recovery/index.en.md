@@ -144,7 +144,7 @@ $ printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 12
 
 ![File transfer](file_transfer.gif)
 
-That pulls all the app data: `shared_prefs`, `databases`, everything. Phase 1 complete. The client's phone stays intact, no root, no unlocked bootloader, nothing broken. And I have everything I need on my PC.
+That pulls the full app data dump: `shared_prefs`, `databases`, etc. Phase 1 complete. The client's phone stays intact, no root, no unlocked bootloader, nothing broken. And I have what I need on my PC.
 
 ## Phase 2: cracking the password offline
 
