@@ -54,7 +54,7 @@ El juego tiene algunos mensajes interesantes:
 
 <video src="/en/blog/half-life/mashup.webm" width="100%" preload autoplay muted playsinline loop></video>
 
-Vi a mucha gente con problemas para jugar Half-Life porque esperaban que el juego les dijera qué hacer, y si el juego no lo hace, ¡no hacen nada! El juego se trata de curiosidad y de probar nuevas ideas, y eso se extiende a mucho más que la historia.
+He visto a mucha gente tener problemas para jugar Half-Life porque esperan que el juego les diga qué hacer, y si el juego no lo hace, ¡no hacen nada! El juego se trata de curiosidad y de probar nuevas ideas, y eso se extiende a mucho más que la historia.
 
 El juego está lleno de mods y de una comunidad que intenta cosas raras, y Valve (la empresa detrás de Half-Life) lo permite y lo promueve, desatando mucha creatividad artística y posibilidades. Por eso tenemos muchos juegos basados en Half-Life. Siento que gran parte de eso se ha perdido, y estamos encerrados en walled gardens.
 
