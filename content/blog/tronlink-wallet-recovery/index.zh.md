@@ -111,7 +111,7 @@ $ adb shell pm dump com.tronlinkpro.wallet | grep userId
 - `--is-top-app`
 - `--seinfo=default:targetSdkVersion=30:complete`
 
-这些全写进 `repro.py`。它组装带 Android 12+ padding 的 payload，通过 `adb shell` 注入，强制重启 Settings 来触发读取，然后等 localhost 上的 netcat 起来。如果成功了，你就得到了一个拥有 TronLink 身份的 reverse shell。如果失败了，它会清理 setting 以免手机变砖。
+这些全写进 `repro.py`。它组装带 Android 12+ padding 的 payload，通过 `adb shell` 注入，强制重启 Settings 来触发读取，然后等 localhost 上的 netcat 起来。如果成功了，你就得到了一个拥有 TronLink 身份的 reverse shell。如果失败了，它会清理 setting，免得手机出状况。
 
 ```bash
 $ uv run repro.py --uid 10145 --gid 10145
