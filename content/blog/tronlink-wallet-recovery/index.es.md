@@ -47,7 +47,7 @@ En los primeros años de Android los fabricantes no te dejaban desbloquearlo y e
 
 Lo más lógico es buscar vulnerabilidades conocidas del sistema. Y acá tengo suerte: el software del Galaxy A31 viene bastante atrasado. Android 12, parche de seguridad de enero de 2024. Eso significa que hay 2 años de vulnerabilidades publicadas que nunca fueron parcheadas en este equipo. Arranca la parte más divertida de hacer este tipo de laburos.
 
-Con la ayuda de Grok llego al **CVE-2024-31317**, un bug en `ZygoteProcess.java` que parchearon en junio de 2024. Este exploit te permite ejecutar código con la identidad de **cualquier app** del dispositivo. No necesitás root. Solo `adb`. Este mismo exploit lo usa software forense como Oxygen, que usan policías y agencias de inteligencia de todo el mundo para extraer datos de teléfonos.
+Con la ayuda de Grok llego al **CVE-2024-31317**, un bug en `ZygoteProcess.java` que parchearon en junio de 2024. Te permite ejecutar código con la identidad de **cualquier app** del dispositivo, incluso las del sistema. No necesitás root. Solo `adb`. Este mismo exploit lo usa software forense como Oxygen, que usan policías y agencias de inteligencia de todo el mundo para extraer datos de teléfonos.
 
 El Galaxy A31 nunca recibió ese parche, así que es explotable. Excelente. Me pongo a entender cómo funciona.
 
@@ -86,7 +86,6 @@ Confirmo que el emulador esté visible por `adb`:
 $ adb devices
 ```
 
-
 ```text
 List of devices attached
 emulator-5554   device
@@ -97,7 +96,6 @@ Saco el UID de TronLink:
 ```bash
 $ adb shell pm dump com.tronlinkpro.wallet | grep userId
 ```
-
 
 ```text
     userId=10145
@@ -113,13 +111,11 @@ Con la ayuda de Gemini toco `zygote-injection-toolkit` para arreglar un par de e
 - `--is-top-app`
 - `--seinfo=default:targetSdkVersion=30:complete`
 
-
 Todo esto lo meto en `repro.py`. El script arma el payload con el padding para Android 12+, lo inyecta vía `adb shell`, fuerza el reinicio de Settings para triggerear la lectura, y espera a que un netcat se levante en localhost. Si funciona, tenés una reverse shell con la identidad de TronLink. Si falla, limpia el setting para no dejar el teléfono en mal estado.
 
 ```bash
 $ uv run repro.py --uid 10145 --gid 10145
 ```
-
 
 ```text
 Injecting payload for UID 10145 and package com.tronlinkpro.wallet...
@@ -178,7 +174,6 @@ $ uv run tools/extract_hash.py recovery/shared_prefs/carlitosmenem991.xml > targ
 $ cat target.hash
 ```
 
-
 ```text
 $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c5959bb12c*cc8bab0bc8701e9af687a4b4b6b527f962de582efb029b507fc90cfc393ecfd5*ffcf36eb0aaee16f676049a12307e247a868133dbd1d8c956cee6682f54b0704
 ```
@@ -216,7 +211,6 @@ Después de unas 30 horas entre validación, pruebas previas y distintas ejecuci
 
 <img alt="Hashcat mostrando estado Cracked tras encontrar la contraseña correcta" src="/en/blog/tronlink-wallet-recovery/wylrwidwumnnrpsmqpcxr.png" style="max-width: min(480px, 100%)" />
 
-
 ```text
 $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c5959bb12c*cc8bab0bc8701e9af687a4b4b6b527f962de582efb029b507fc90cfc393ecfd5*ffcf36eb0aaee16f676049a12307e247a868133dbd1d8c956cee6682f54b0704:Turcosaul7
 ```
@@ -227,13 +221,11 @@ Apodo + segundo apellido + número. "Turco" + "saul" + "7" = `Turcosaul7`.
 
 Con la contraseña en la mano, el resto es un trámite. La misma contraseña protege tanto el keystore como el mnemonic, así que si tenés una, tenés todo.
 
-
 Me armo `tools/decrypt_mnemonic.py` que lee el mnemonic cifrado del XML, lo descifra con la contraseña y te tira la seed phrase.
 
 ```bash
 $ uv run tools/decrypt_mnemonic.py recovery/shared_prefs/carlitosmenem991.xml Turcosaul7
 ```
-
 
 ```text
 stock dirt cat upset chat giraffe page blade face slush volcano dawn
@@ -246,12 +238,3 @@ Importo la wallet en otro dispositivo y retiro los fondos.
 Al final todo se dio por una cadena de cosas que salieron bien: el teléfono sobrevivió al tiempo, Android no estaba parcheado, el exploit funcionó sin romper nada, la password seguía un patrón humano predecible, y el cliente se acordaba de suficientes pistas como para acotar el espacio de búsqueda.
 
 Si cualquiera de esas cosas hubiera sido diferente, la plata seguiría ahí trabada para siempre. Así que cuiden sus seeds, porque capaz no hay un CVE que los salve.
-
-## Referencias
-
-- [Android Security Bulletin junio 2024](https://source.android.com/docs/security/bulletin/2024-06-01)
-- [CVE-2024-31317 en NVD](https://nvd.nist.gov/vuln/detail/CVE-2024-31317)
-- [Patch de AOSP](https://android.googlesource.com/platform/frameworks/base/+/e25a0e394bbfd6143a557e1019bb7ad992d11985)
-- [Recopilación sobre CVE-2024-31317 en GitHub](https://github.com/agg23/cve-2024-31317)
-- [Zygote Injection Toolkit](https://github.com/Anonymous941/zygote-injection-toolkit)
-- [Repo de este caso con ejemplo y herramientas](https://github.com/astrovm/2026-03-tronlink-wallet-recovery-reference)
