@@ -5,6 +5,8 @@ hideComments = true
 
 - [Amy OS](https://github.com/astrovm/amyos) Bazziteをベースにしたカスタムの Fedora Atomic イメージ
 
+- [AdventureMods](https://github.com/astrovm/AdventureMods) LinuxでSonic Adventure DXとSonic Adventure 2のMod環境をセットアップする
+
 - [Anomalous](https://anomalous.xyz/) 異常研究協会
 
 - [Crosstune](https://github.com/astrovm/crosstune) AndroidでSpotifyの曲リンクをYouTube MusicまたはYouTubeで開く

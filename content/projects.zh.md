@@ -5,6 +5,8 @@ hideComments = true
 
 - [Amy OS](https://github.com/astrovm/amyos) 基于Bazzite的自定义Fedora Atomic镜像
 
+- [AdventureMods](https://github.com/astrovm/AdventureMods) 在Linux上为Sonic Adventure DX和Sonic Adventure 2配置模组
+
 - [Anomalous](https://anomalous.xyz/) 异常研究协会
 
 - [Crosstune](https://github.com/astrovm/crosstune) 在Android上将Spotify歌曲链接用YouTube Music或YouTube打开
