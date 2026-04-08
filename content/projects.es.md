@@ -5,7 +5,7 @@ hideComments = true
 
 - [Amy OS](https://github.com/astrovm/amyos) Imagen personalizada de Fedora Atomic basada en Bazzite
 
-- [AdventureMods](https://github.com/astrovm/AdventureMods) Configura mods para Sonic Adventure DX y Sonic Adventure 2 en Linux
+- [Adventure Mods](https://github.com/astrovm/AdventureMods) Configura mods para Sonic Adventure DX y Sonic Adventure 2 en Linux
 
 - [Anomalous](https://anomalous.xyz/) Sociedad de investigaciones anómalas
 
