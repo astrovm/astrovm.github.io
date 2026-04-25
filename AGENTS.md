@@ -34,12 +34,55 @@ English content lives at `/en/`. After build, GitHub Actions copies `public/en/`
 - **New English content does NOT need `aliases`** — the copy handles root paths automatically.
 - `language.js` detects browser preference and redirects `/{path}` → `/{lang}/{path}`.
 
+## Approach
+
+- Read before editing. Test before declaring done.
+- Prefer small edits over rewrites.
+- Reproduce before fixing runtime or external issues.
+- Unproven concerns are risks, not bugs. Say so if not reproduced.
+- Simplest working solution. No over-engineering, speculative features, or single-use abstractions.
+
 ## Coding Style
 
 - Front matter keys: `kebab-case`
 - One H1 per file; headings descend sequentially
 - TypeScript: 2-space indentation, follow `tsconfig.json`
 - Keep templates lean; prefer Hugo partials/shortcodes
+- Remove unused imports, variables, parameters, dead branches, and dead functions from edited files.
+- All imports at top of file. None inside functions unless strictly required to break circular dependencies.
+- Code and comments in English. User-facing strings stay in their original language.
+
+## Output
+
+- Code first. Explain only non-obvious logic.
+- No filler, boilerplate, or out-of-scope suggestions.
+
+## Debugging
+
+- Read code before explaining. Prove with direct evidence: failing test, reproduced run, or concrete probe.
+- State what you found, where, and the fix. If unclear, say so.
+
+## Verification
+
+- Smallest proof first, then broader checks.
+- Use the standard toolchain. Default checks: format, lint (warnings as errors), tests. Skip only with stated reason.
+- No "fixed/safe/ready" claims without fresh command output.
+- Fix every issue you encounter. There are no pre-existing bugs or errors to ignore.
+
+## Maintenance
+
+- Remove old code when introducing replacements. No backward compatibility shims without explicit authorization.
+- Do not preserve feature flags for shipped features or abstractions that serve a single caller.
+
+## Configuration
+
+- Environment variables only for secrets and external credentials.
+- Prioritize sane defaults, zero-config, and easy maintenance. Hardcode sensible defaults for internal URLs, ports, and feature flags.
+- When adding a dependency, verify the actual latest version from the registry or official source. Never rely on model memory.
+
+## Formatting
+
+- Plain hyphens and straight quotes only. No decorative Unicode. Code output copy-paste safe.
 
 ## Testing
 
