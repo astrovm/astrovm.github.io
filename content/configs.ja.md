@@ -7,7 +7,7 @@ hideComments = true
 
 **PC Master Race**
 
-- OS: [Debian 13 KDE](https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/)
+- OS: [Kubuntu 26.04 LTS](https://kubuntu.org/)
 - CPU: AMD Ryzen 5 3600
 - GPU: AMD Radeon RX 6800 16 GB
 - RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)
@@ -35,13 +35,130 @@ hideComments = true
 
 # Linuxの設定
 
-## NVMeデバイスの高速暗号化
+## カーネルパラメータ (GRUB)
 
 ```bash
-sudo dmsetup table
+sudo nano /etc/default/grub
+```
 
+```ini
+GRUB_CMDLINE_LINUX_DEFAULT='preempt=full pcie_aspm=off cryptdevice=UUID=blablabla:luks-blablabla root=/dev/mapper/luks-blablabla splash'
+```
+
+```bash
+sudo update-grub
+```
+
+- `preempt=full` — スケジューリングレイテンシを下げてデスクトップのレスポンスを良くする (CONFIG_PREEMPT_DYNAMICが必要)
+- `pcie_aspm=off` — Intel AX200 WiFiがD3cold電力状態でスタックする問題を修正
+
+## LUKS暗号化パフォーマンス
+
+```bash
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
+
+LUKSヘッダーに永続化されるフラグ: `discards no_read_workqueue no_write_workqueue`
+
+## Btrfsマウントオプション
+
+```ini
+/dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
+/dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
+```
+
+- `noatime` — アクセスタイムスタンプの更新をスキップ、SSDの書き込みを節約
+- `compress=zstd` — 透過的圧縮、書き込みとIOを削減 (圧縮できないデータは自動的にスキップ)
+
+## パフォーマンスsysctl
+
+```bash
+sudo tee /etc/sysctl.d/99-performance.conf > /dev/null << 'EOF'
+kernel.nmi_watchdog = 0
+kernel.watchdog = 0
+net.ipv4.tcp_fastopen = 3
+vm.dirty_ratio = 10
+vm.dirty_background_ratio = 5
+EOF
+```
+
+- `nmi_watchdog=0` / `watchdog=0` — AMDでマイクロスタッターを引き起こす定期タイマー割り込みを削除
+- `tcp_fastopen=3` — クライアントとサーバーのTCP Fast Openを有効化
+- `dirty_ratio=10` / `dirty_background_ratio=5` — 32GB RAM + NVMeでスムーズなライトバック
+
+## zramスワップsysctl
+
+```bash
+sudo tee /etc/sysctl.d/99-vm-zram.conf > /dev/null << 'EOF'
+vm.swappiness = 150
+vm.vfs_cache_pressure = 50
+vm.page-cluster = 0
+vm.watermark_scale_factor = 100
+vm.compaction_proactiveness = 50
+EOF
+```
+
+- `swappiness=150` — キャッシュを捨てるよりzramを優先 (zramは圧縮RAM、遅いディスクじゃない)
+- `page-cluster=0` — スワップのリードアヘッドなし (RAMベースのスワップでは無意味)
+
+## CPUとメモリ
+
+```bash
+powerprofilesctl set performance
+```
+
+- `amd-pstate active` + governor `performance` + EPP `performance`
+- `transparent_hugepage=madvise` (安全なデフォルト)
+- NVMeスケジューラ `none` (NVMeは内部スケジューリングを持ってる)
+
+## WiFi (Intel AX200)
+
+```bash
+sudo tee /etc/modprobe.d/iwlwifi-fix.conf > /dev/null << 'EOF'
+options iwlwifi power_save=0
+options iwlmvm power_scheme=1
+EOF
+```
+
+```bash
+sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf > /dev/null << 'EOF'
+[connection]
+wifi.powersave=2
+EOF
+```
+
+## KWin AMDGPU (KDEのみ)
+
+```bash
+echo 'KWIN_DRM_DEVICES=/dev/dri/card1' | sudo tee -a /etc/environment
+```
+
+```bash
+sudo mkdir -p /etc/systemd/system/sddm.service.d
+sudo tee /etc/systemd/system/sddm.service.d/restart-limits.conf > /dev/null << 'EOF'
+[Unit]
+StartLimitIntervalSec=30
+StartLimitBurst=5
+
+[Service]
+ExecStartPre=/usr/bin/sleep 3
+Restart=on-failure
+RestartSec=2
+EOF
+sudo systemctl daemon-reload
+```
+
+- `KWIN_DRM_DEVICES` — KWinをAMD GPUに固定、他のDRMデバイスのプローブを回避
+- `sleep 3` — KWinがDRM atomic modesetを試す前にAMDGPUの初期化時間を確保
+- スタート制限で無限クラッシュループを防止
+
+## NetworkManager-wait-onlineの無効化
+
+```bash
+sudo systemctl disable --now NetworkManager-wait-online.service
+```
+
+ブート時間を~5秒短縮。デスクトップアプリはネットワーク待機なしで問題なく動く。
 
 ## GNOME VRRとフラクショナルスケーリング
 

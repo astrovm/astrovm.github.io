@@ -7,7 +7,7 @@ hideComments = true
 
 **PC Master Race**
 
-- 操作系统: [Debian 13 KDE](https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/)
+- 操作系统: [Kubuntu 26.04 LTS](https://kubuntu.org/)
 - CPU: AMD Ryzen 5 3600
 - GPU: AMD Radeon RX 6800 16 GB
 - 内存: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)

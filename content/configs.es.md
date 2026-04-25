@@ -7,7 +7,7 @@ hideComments = true
 
 **PC Master Race**
 
-- OS: [Debian 13 KDE](https://cdimage.debian.org/debian-cd/current-live/amd64/iso-hybrid/)
+- OS: [Kubuntu 26.04 LTS](https://kubuntu.org/)
 - CPU: AMD Ryzen 5 3600
 - GPU: AMD Radeon RX 6800 16 GB
 - RAM: 32 GB (4 x Geil Super Luce 8 GB DDR4 3200MHz)
@@ -35,13 +35,130 @@ hideComments = true
 
 # Cosas de Linux
 
-## Cifrado rápido en discos NVMe
+## Parámetros del kernel (GRUB)
 
 ```bash
-sudo dmsetup table
+sudo nano /etc/default/grub
+```
 
+```ini
+GRUB_CMDLINE_LINUX_DEFAULT='preempt=full pcie_aspm=off cryptdevice=UUID=blablabla:luks-blablabla root=/dev/mapper/luks-blablabla splash'
+```
+
+```bash
+sudo update-grub
+```
+
+- `preempt=full` — menor latencia de scheduling para un escritorio más responsivo (requiere CONFIG_PREEMPT_DYNAMIC)
+- `pcie_aspm=off` — arregla la WiFi Intel AX200 trabada en estado D3cold
+
+## Rendimiento del cifrado LUKS
+
+```bash
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
+
+Flags persistentes guardadas en el header LUKS: `discards no_read_workqueue no_write_workqueue`
+
+## Opciones de montaje Btrfs
+
+```ini
+/dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
+/dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
+```
+
+- `noatime` — no actualiza el timestamp de acceso, ahorra escrituras en el SSD
+- `compress=zstd` — compresión transparente, reduce escrituras e IO (saltea datos incompribles automáticamente)
+
+## sysctl de rendimiento
+
+```bash
+sudo tee /etc/sysctl.d/99-performance.conf > /dev/null << 'EOF'
+kernel.nmi_watchdog = 0
+kernel.watchdog = 0
+net.ipv4.tcp_fastopen = 3
+vm.dirty_ratio = 10
+vm.dirty_background_ratio = 5
+EOF
+```
+
+- `nmi_watchdog=0` / `watchdog=0` — elimina interrupciones periódicas que causan micro-cortes en AMD
+- `tcp_fastopen=3` — habilita TCP Fast Open para cliente y servidor
+- `dirty_ratio=10` / `dirty_background_ratio=5` — writeback más suave con 32GB RAM + NVMe
+
+## sysctl de zram swap
+
+```bash
+sudo tee /etc/sysctl.d/99-vm-zram.conf > /dev/null << 'EOF'
+vm.swappiness = 150
+vm.vfs_cache_pressure = 50
+vm.page-cluster = 0
+vm.watermark_scale_factor = 100
+vm.compaction_proactiveness = 50
+EOF
+```
+
+- `swappiness=150` — prefiero zram antes que dropear caches (zram es RAM comprimida, no un disco lento)
+- `page-cluster=0` — sin readahead de swap (no tiene sentido con swap en RAM)
+
+## CPU y memoria
+
+```bash
+powerprofilesctl set performance
+```
+
+- `amd-pstate active` + governor `performance` + EPP `performance`
+- `transparent_hugepage=madvise` (default seguro)
+- NVMe scheduler `none` (el NVMe tiene scheduling interno)
+
+## WiFi (Intel AX200)
+
+```bash
+sudo tee /etc/modprobe.d/iwlwifi-fix.conf > /dev/null << 'EOF'
+options iwlwifi power_save=0
+options iwlmvm power_scheme=1
+EOF
+```
+
+```bash
+sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf > /dev/null << 'EOF'
+[connection]
+wifi.powersave=2
+EOF
+```
+
+## KWin AMDGPU (solo KDE)
+
+```bash
+echo 'KWIN_DRM_DEVICES=/dev/dri/card1' | sudo tee -a /etc/environment
+```
+
+```bash
+sudo mkdir -p /etc/systemd/system/sddm.service.d
+sudo tee /etc/systemd/system/sddm.service.d/restart-limits.conf > /dev/null << 'EOF'
+[Unit]
+StartLimitIntervalSec=30
+StartLimitBurst=5
+
+[Service]
+ExecStartPre=/usr/bin/sleep 3
+Restart=on-failure
+RestartSec=2
+EOF
+sudo systemctl daemon-reload
+```
+
+- `KWIN_DRM_DEVICES` — fija KWin a la GPU AMD, evita probar otros dispositivos DRM
+- `sleep 3` — le da tiempo a AMDGPU a inicializarse antes de que KWin intente el atomic modeset
+- Los límites de start previenen loops de crasheo infinitos
+
+## Deshabilitar NetworkManager-wait-online
+
+```bash
+sudo systemctl disable --now NetworkManager-wait-online.service
+```
+
+Ahorra ~5s en el booteo. Las apps del escritorio funcionan bien sin esperar a la red.
 
 ## GNOME VRR y escalado fraccional
 
