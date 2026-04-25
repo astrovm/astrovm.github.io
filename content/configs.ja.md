@@ -105,7 +105,7 @@ EOF
 
 - `swappiness=150` — キャッシュを捨てるよりzramを優先 (zramは圧縮RAM、遅いディスクじゃない)。デフォルトは`60`。
 - `vfs_cache_pressure=50` — 100未満の値にすると、カーネルはdentry/inodeキャッシュを再利用せず保持しやすくなる。デスクトップのレスポンス向上。デフォルトは`100`。
-- `page-cluster=0` — スワップのリードアヘッドなし (RAMベースのスワップでは無意味)。デフォルトは`4`。
+- `page-cluster=0` — スワップのリードアヘッドなし (RAMベースのスワップでは無意味)。デフォルトは`3`。
 - `watermark_scale_factor=100` — kswapdの起床閾値を上げる (デフォルト`10`)。メモリ回収が小刻みな中断ではなく、大きくて頻度の少ないバッチで行われる。
 - `compaction_proactiveness=50` — スワップにフォールバックする前のメモリコンパクションをより積極的に (デフォルト`20`)。負荷時のTHPデフラグメンテーションストールを減らす。
 
@@ -115,7 +115,7 @@ EOF
 powerprofilesctl set performance
 ```
 
-- `amd-pstate active` + governor `performance` + EPP `performance`
+- `amd-pstate active` + governor `performance` + EPP `performance` — 省電力のためにクロックをバランスさせず、CPUを性能優先の動きに寄せる。アイドル時の消費電力は増えるが、レイテンシは下がる。
 - `transparent_hugepage=madvise` — Kubuntu 26.04ではすでにデフォルト。`madvise()`で明示的に要求したアプリだけTHPを使う。変更していなければ対応不要。
 - NVMeスケジューラ `none` (no-op) — NVMeドライブではすでにデフォルト。NVMeは内部スケジューリングを持っており、カーネルスケジューラはオーバーヘッドを増やすだけ。対応不要。
 
@@ -128,7 +128,7 @@ options iwlmvm power_scheme=1
 EOF
 ```
 
-- `power_save=0` — WiFiカードのPCIeリンク電源管理を無効化。すでにデフォルトだが、念のため記載。
+- `power_save=0` — iwlwifiドライバの省電力を無効化。すでにデフォルトだが、念のため記載。
 - `power_scheme=1` — アクティブ電力モードを強制 (デフォルトは`2` = バランス)。カードが低電力状態に入ってレイテンシスパイクや接続切れを起こすのを防ぐ。
 
 ```bash

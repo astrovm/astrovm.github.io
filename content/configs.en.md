@@ -62,7 +62,7 @@ sudo dmsetup table
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
 
-- `no_read_workqueue` / `no_write_workqueue` — bypasses kernel workqueues for encrypt/decrypt, lower latency on NVMe
+- `no_read_workqueue` / `no_write_workqueue` — bypasses kernel workqueues for encryption/decryption, lower latency on NVMe
 - `allow-discards` — lets TRIM commands pass through to the SSD. **Tradeoff**: TRIM can reveal filesystem allocation patterns (which blocks are free) on the physical disk. Not a concern on single-user desktops with FDE.
 
 ## Btrfs mount options
@@ -105,7 +105,7 @@ EOF
 
 - `swappiness=150` — prefer zram over dropping caches (zram is compressed RAM, not a slow disk). Default is `60`.
 - `vfs_cache_pressure=50` — values below 100 make the kernel prefer keeping dentry/inode caches over reclaiming them. Helps desktop responsiveness. Default is `100`.
-- `page-cluster=0` — no swap readahead (pointless for RAM-based swap). Default is `4`.
+- `page-cluster=0` — no swap readahead (pointless for RAM-based swap). Default is `3`.
 - `watermark_scale_factor=100` — increases kswapd wake-up threshold (default `10`), so memory reclamation happens in larger, less frequent batches instead of many small interruptions.
 - `compaction_proactiveness=50` — more aggressive memory compaction before falling back to swap (default `20`). Reduces THP defragmentation stalls under load.
 
@@ -115,7 +115,7 @@ EOF
 powerprofilesctl set performance
 ```
 
-- `amd-pstate active` + governor `performance` + EPP `performance`
+- `amd-pstate active` + governor `performance` + EPP `performance` — pins the CPU to the fast path instead of balancing clocks for power saving. Higher idle power, lower latency.
 - `transparent_hugepage=madvise` — already the Kubuntu 26.04 default. Only apps that explicitly request THP via `madvise()` get huge pages. No action needed unless you changed it.
 - NVMe scheduler `none` (no-op) — already the default for NVMe drives. NVMe has internal scheduling, the kernel scheduler just adds overhead. No action needed.
 
@@ -128,7 +128,7 @@ options iwlmvm power_scheme=1
 EOF
 ```
 
-- `power_save=0` — disables PCIe link power management for the WiFi card. Already the default, listed for completeness.
+- `power_save=0` — disables iwlwifi driver power saving. Already the default, listed for completeness.
 - `power_scheme=1` — forces active power mode (default is `2` = balanced). Prevents the card from entering low-power states that cause latency spikes and dropped connections.
 
 ```bash

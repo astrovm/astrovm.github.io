@@ -105,7 +105,7 @@ EOF
 
 - `swappiness=150` — 优先用zram而不是丢缓存 (zram是压缩内存，不是慢盘)。默认是`60`。
 - `vfs_cache_pressure=50` — 低于100的值让内核更倾向于保留dentry/inode缓存而不是回收。提升桌面响应。默认是`100`。
-- `page-cluster=0` — 不做swap预读 (基于RAM的swap没必要)。默认是`4`。
+- `page-cluster=0` — 不做swap预读 (基于RAM的swap没必要)。默认是`3`。
 - `watermark_scale_factor=100` — 提高kswapd唤醒阈值 (默认`10`)，让内存回收以更大、更低频的batch进行，而不是频繁的小中断。
 - `compaction_proactiveness=50` — 在回退到swap之前更积极地做内存规整 (默认`20`)。减少负载下的THP碎片化卡顿。
 
@@ -115,7 +115,7 @@ EOF
 powerprofilesctl set performance
 ```
 
-- `amd-pstate active` + governor `performance` + EPP `performance`
+- `amd-pstate active` + governor `performance` + EPP `performance` — 让CPU走性能优先路线，而不是为了省电去平衡频率。待机功耗更高，延迟更低。
 - `transparent_hugepage=madvise` — Kubuntu 26.04的默认值。只有通过`madvise()`显式请求THP的应用才会用大页。没改过就不用管。
 - NVMe调度器 `none` (no-op) — NVMe的默认值。NVMe自带内部调度，内核调度器只会加开销。不用管。
 
@@ -128,7 +128,7 @@ options iwlmvm power_scheme=1
 EOF
 ```
 
-- `power_save=0` — 禁用WiFi卡的PCIe链路电源管理。已经是默认值，写出来是为了完整性。
+- `power_save=0` — 禁用 iwlwifi 驱动的省电。已经是默认值，写出来是为了完整性。
 - `power_scheme=1` — 强制活跃电源模式 (默认是`2` = 均衡)。防止网卡进入低功耗状态导致延迟飙升和掉线。
 
 ```bash
