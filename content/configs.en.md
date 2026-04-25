@@ -55,10 +55,15 @@ sudo update-grub
 ## LUKS encryption performance
 
 ```bash
+# Find your device name
+sudo dmsetup table
+
+# Apply performance flags (persistent, stored in LUKS header)
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
 
-Persistent flags stored in LUKS header: `discards no_read_workqueue no_write_workqueue`
+- `no_read_workqueue` / `no_write_workqueue` — bypasses kernel workqueues for encrypt/decrypt, lower latency on NVMe
+- `allow-discards` — lets TRIM commands pass through to the SSD. **Tradeoff**: TRIM can reveal filesystem allocation patterns (which blocks are free) on the physical disk. Not a concern on single-user desktops with FDE.
 
 ## Btrfs mount options
 
@@ -83,8 +88,8 @@ EOF
 ```
 
 - `nmi_watchdog=0` / `watchdog=0` — removes periodic timer interrupts that cause micro-stutters on AMD. **Tradeoff**: disables hard/soft lockup crash diagnostics. Only use on desktops where you prioritize latency over crash debugging.
-- `tcp_fastopen=3` — enables TCP Fast Open for client and server
-- `dirty_ratio=10` / `dirty_background_ratio=5` — smoother writeback on 32GB RAM + NVMe
+- `tcp_fastopen=3` — enables TCP Fast Open for both client and server (default is `1`, client only). Reduces connection latency on repeat visits.
+- `dirty_ratio=10` / `dirty_background_ratio=5` — lowers thresholds from defaults (`20`/`10`) so writeback starts earlier and in smaller bursts. Smoother on 32GB RAM + NVMe where large dirty pages cause micro-stutters.
 
 ## zram swap sysctl
 
@@ -98,8 +103,11 @@ vm.compaction_proactiveness = 50
 EOF
 ```
 
-- `swappiness=150` — prefer zram over dropping caches (zram is compressed RAM, not a slow disk)
-- `page-cluster=0` — no swap readahead (pointless for RAM-based swap)
+- `swappiness=150` — prefer zram over dropping caches (zram is compressed RAM, not a slow disk). Default is `60`.
+- `vfs_cache_pressure=50` — values below 100 make the kernel prefer keeping dentry/inode caches over reclaiming them. Helps desktop responsiveness. Default is `100`.
+- `page-cluster=0` — no swap readahead (pointless for RAM-based swap). Default is `4`.
+- `watermark_scale_factor=100` — increases kswapd wake-up threshold (default `10`), so memory reclamation happens in larger, less frequent batches instead of many small interruptions.
+- `compaction_proactiveness=50` — more aggressive memory compaction before falling back to swap (default `20`). Reduces THP defragmentation stalls under load.
 
 ## CPU and memory
 
@@ -108,8 +116,8 @@ powerprofilesctl set performance
 ```
 
 - `amd-pstate active` + governor `performance` + EPP `performance`
-- `transparent_hugepage=madvise` (safe default)
-- NVMe scheduler `none` (NVMe has internal scheduling)
+- `transparent_hugepage=madvise` — already the Kubuntu 26.04 default. Only apps that explicitly request THP via `madvise()` get huge pages. No action needed unless you changed it.
+- NVMe scheduler `none` (no-op) — already the default for NVMe drives. NVMe has internal scheduling, the kernel scheduler just adds overhead. No action needed.
 
 ## WiFi (Intel AX200)
 
@@ -120,12 +128,17 @@ options iwlmvm power_scheme=1
 EOF
 ```
 
+- `power_save=0` — disables PCIe link power management for the WiFi card. Already the default, listed for completeness.
+- `power_scheme=1` — forces active power mode (default is `2` = balanced). Prevents the card from entering low-power states that cause latency spikes and dropped connections.
+
 ```bash
 sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf > /dev/null << 'EOF'
 [connection]
 wifi.powersave=2
 EOF
 ```
+
+- `wifi.powersave=2` — disables WiFi powersave at the NetworkManager level (`2` = disable, `3` = enable). Matches the driver-level settings above.
 
 ## KWin AMDGPU (KDE only, only if you get black screens on boot)
 

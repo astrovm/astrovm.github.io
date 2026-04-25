@@ -55,10 +55,15 @@ sudo update-grub
 ## LUKS暗号化パフォーマンス
 
 ```bash
+# デバイス名を確認
+sudo dmsetup table
+
+# パフォーマンスフラグを適用 (永続的、LUKSヘッダーに保存)
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
 
-LUKSヘッダーに永続化されるフラグ: `discards no_read_workqueue no_write_workqueue`
+- `no_read_workqueue` / `no_write_workqueue` — カーネルのワークキューをバイパスして暗号化/復号、NVMeでレイテンシが下がる
+- `allow-discards` — TRIMコマンドをSSDに通す。**トレードオフ**: TRIMは物理ディスク上のファイルシステムの割り当てパターン (どのブロックが空きか) を漏洩する可能性がある。FDEを使ってるシングルユーザーのデスクトップなら気にする必要ない。
 
 ## Btrfsマウントオプション
 
@@ -83,8 +88,8 @@ EOF
 ```
 
 - `nmi_watchdog=0` / `watchdog=0` — AMDでマイクロスタッターを引き起こす定期タイマー割り込みを削除。**トレードオフ**: ハード/ソフトロックアップのクラッシュ診断を無効化。クラッシュデバッグよりレイテンシを優先するデスクトップでのみ使用。
-- `tcp_fastopen=3` — クライアントとサーバーのTCP Fast Openを有効化
-- `dirty_ratio=10` / `dirty_background_ratio=5` — 32GB RAM + NVMeでスムーズなライトバック
+- `tcp_fastopen=3` — クライアントとサーバーの両方でTCP Fast Openを有効化 (デフォルトは`1`、クライアントのみ)。再訪時の接続レイテンシを削減。
+- `dirty_ratio=10` / `dirty_background_ratio=5` — デフォルト (`20`/`10`) から閾値を下げ、ライトバックを早めに小さいバーストで開始。32GB RAM + NVMeで大きなダーティページがマイクロスタッターを引き起こすのを防ぐ。
 
 ## zramスワップsysctl
 
@@ -98,8 +103,11 @@ vm.compaction_proactiveness = 50
 EOF
 ```
 
-- `swappiness=150` — キャッシュを捨てるよりzramを優先 (zramは圧縮RAM、遅いディスクじゃない)
-- `page-cluster=0` — スワップのリードアヘッドなし (RAMベースのスワップでは無意味)
+- `swappiness=150` — キャッシュを捨てるよりzramを優先 (zramは圧縮RAM、遅いディスクじゃない)。デフォルトは`60`。
+- `vfs_cache_pressure=50` — 100未満の値にすると、カーネルはdentry/inodeキャッシュを再利用せず保持しやすくなる。デスクトップのレスポンス向上。デフォルトは`100`。
+- `page-cluster=0` — スワップのリードアヘッドなし (RAMベースのスワップでは無意味)。デフォルトは`4`。
+- `watermark_scale_factor=100` — kswapdの起床閾値を上げる (デフォルト`10`)。メモリ回収が小刻みな中断ではなく、大きくて頻度の少ないバッチで行われる。
+- `compaction_proactiveness=50` — スワップにフォールバックする前のメモリコンパクションをより積極的に (デフォルト`20`)。負荷時のTHPデフラグメンテーションストールを減らす。
 
 ## CPUとメモリ
 
@@ -108,8 +116,8 @@ powerprofilesctl set performance
 ```
 
 - `amd-pstate active` + governor `performance` + EPP `performance`
-- `transparent_hugepage=madvise` (安全なデフォルト)
-- NVMeスケジューラ `none` (NVMeは内部スケジューリングを持ってる)
+- `transparent_hugepage=madvise` — Kubuntu 26.04ではすでにデフォルト。`madvise()`で明示的に要求したアプリだけTHPを使う。変更していなければ対応不要。
+- NVMeスケジューラ `none` (no-op) — NVMeドライブではすでにデフォルト。NVMeは内部スケジューリングを持っており、カーネルスケジューラはオーバーヘッドを増やすだけ。対応不要。
 
 ## WiFi (Intel AX200)
 
@@ -120,12 +128,17 @@ options iwlmvm power_scheme=1
 EOF
 ```
 
+- `power_save=0` — WiFiカードのPCIeリンク電源管理を無効化。すでにデフォルトだが、念のため記載。
+- `power_scheme=1` — アクティブ電力モードを強制 (デフォルトは`2` = バランス)。カードが低電力状態に入ってレイテンシスパイクや接続切れを起こすのを防ぐ。
+
 ```bash
 sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf > /dev/null << 'EOF'
 [connection]
 wifi.powersave=2
 EOF
 ```
+
+- `wifi.powersave=2` — NetworkManagerレベルでWiFi省電力を無効化 (`2` = 無効、`3` = 有効)。上記のドライバレベルの設定と合わせてる。
 
 ## KWin AMDGPU (KDEのみ、ブート時の黒画面が発生する場合のみ)
 

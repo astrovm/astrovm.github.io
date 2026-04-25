@@ -55,10 +55,15 @@ sudo update-grub
 ## Rendimiento del cifrado LUKS
 
 ```bash
+# Encontrá el nombre de tu dispositivo
+sudo dmsetup table
+
+# Aplicar flags de rendimiento (persistentes, se guardan en el header LUKS)
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
 
-Flags persistentes guardadas en el header LUKS: `discards no_read_workqueue no_write_workqueue`
+- `no_read_workqueue` / `no_write_workqueue` — bypasa los workqueues del kernel para encriptar/descifrar, menos latencia en NVMe
+- `allow-discards` — deja pasar los comandos TRIM al SSD. **Tradeoff**: TRIM puede revelar patrones de asignación del filesystem (qué bloques están libres) en el disco físico. No es un problema en un escritorio de un solo usuario con FDE.
 
 ## Opciones de montaje Btrfs
 
@@ -83,8 +88,8 @@ EOF
 ```
 
 - `nmi_watchdog=0` / `watchdog=0` — elimina interrupciones periódicas que causan micro-cortes en AMD. **Tradeoff**: deshabilita diagnósticos de hard/soft lockup en crasheos. Usá solo si priorizás latencia sobre debug de crasheos.
-- `tcp_fastopen=3` — habilita TCP Fast Open para cliente y servidor
-- `dirty_ratio=10` / `dirty_background_ratio=5` — writeback más suave con 32GB RAM + NVMe
+- `tcp_fastopen=3` — habilita TCP Fast Open para cliente y servidor (el default es `1`, solo cliente). Reduce la latencia de conexión en visitas repetidas.
+- `dirty_ratio=10` / `dirty_background_ratio=5` — baja los umbrales desde los defaults (`20`/`10`) para que el writeback arranque antes y en burst más chicos. Más suave con 32GB RAM + NVMe donde las dirty pages grandes causan micro-cortes.
 
 ## sysctl de zram swap
 
@@ -98,8 +103,11 @@ vm.compaction_proactiveness = 50
 EOF
 ```
 
-- `swappiness=150` — prefiero zram antes que dropear caches (zram es RAM comprimida, no un disco lento)
-- `page-cluster=0` — sin readahead de swap (no tiene sentido con swap en RAM)
+- `swappiness=150` — prefiero zram antes que dropear caches (zram es RAM comprimida, no un disco lento). Default es `60`.
+- `vfs_cache_pressure=50` — valores menores a 100 hacen que el kernel prefiera mantener los caches de dentry/inode en vez de reclamarlos. Ayuda a la responsividad del escritorio. Default es `100`.
+- `page-cluster=0` — sin readahead de swap (no tiene sentido con swap en RAM). Default es `4`.
+- `watermark_scale_factor=100` — sube el umbral de activación de kswapd (default `10`), así la reclama de memoria pasa en batches más grandes y menos frecuentes en vez de muchas interrupciones chicas.
+- `compaction_proactiveness=50` — compactación de memoria más agresiva antes de caer en swap (default `20`). Reduce los stalls de defragmentación de THP bajo carga.
 
 ## CPU y memoria
 
@@ -108,8 +116,8 @@ powerprofilesctl set performance
 ```
 
 - `amd-pstate active` + governor `performance` + EPP `performance`
-- `transparent_hugepage=madvise` (default seguro)
-- NVMe scheduler `none` (el NVMe tiene scheduling interno)
+- `transparent_hugepage=madvise` — ya es el default en Kubuntu 26.04. Solo las apps que piden THP explícitamente vía `madvise()` obtienen huge pages. No hace falta tocar nada a menos que lo hayas cambiado.
+- NVMe scheduler `none` (no-op) — ya es el default para NVMe. El NVMe tiene scheduling interno, el scheduler del kernel solo agrega overhead. No hace falta tocar nada.
 
 ## WiFi (Intel AX200)
 
@@ -120,12 +128,17 @@ options iwlmvm power_scheme=1
 EOF
 ```
 
+- `power_save=0` — deshabilita la gestión de energía del PCIe link para la placa WiFi. Ya es el default, está puesto para completitud.
+- `power_scheme=1` — fuerza modo de energía activo (el default es `2` = balanceado). Evita que la placa entre en estados de baja energía que causan picos de latencia y desconexiones.
+
 ```bash
 sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf > /dev/null << 'EOF'
 [connection]
 wifi.powersave=2
 EOF
 ```
+
+- `wifi.powersave=2` — deshabilita el ahorro de energía WiFi a nivel NetworkManager (`2` = deshabilitar, `3` = habilitar). Concide con la config a nivel driver de arriba.
 
 ## KWin AMDGPU (solo KDE, solo si te sale pantalla negra al bootear)
 

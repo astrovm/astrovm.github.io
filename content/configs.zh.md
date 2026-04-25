@@ -55,10 +55,15 @@ sudo update-grub
 ## LUKS加密性能
 
 ```bash
+# 查看设备名
+sudo dmsetup table
+
+# 应用性能标志 (持久化，存储在LUKS头中)
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
 
-持久化标志存储在LUKS头中: `discards no_read_workqueue no_write_workqueue`
+- `no_read_workqueue` / `no_write_workqueue` — 绕过内核工作队列做加密/解密，NVMe上延迟更低
+- `allow-discards` — 让TRIM命令穿透到SSD。**取舍**: TRIM可能在物理盘上泄露文件系统的分配模式 (哪些块是空的)。单用户FDE桌面不用担心这个。
 
 ## Btrfs挂载选项
 
@@ -83,8 +88,8 @@ EOF
 ```
 
 - `nmi_watchdog=0` / `watchdog=0` — 去掉AMD上导致微卡顿的定时器中断。**取舍**: 会禁用硬/软死锁的崩溃诊断。只在你更在乎延迟而不是崩溃调试的桌面上用。
-- `tcp_fastopen=3` — 客户端和服务器都启用TCP Fast Open
-- `dirty_ratio=10` / `dirty_background_ratio=5` — 32GB内存+NVMe下写回更平滑
+- `tcp_fastopen=3` — 客户端和服务器都启用TCP Fast Open (默认是`1`，只有客户端)。降低重复访问的连接延迟。
+- `dirty_ratio=10` / `dirty_background_ratio=5` — 从默认值 (`20`/`10`) 调低阈值，让写回更早启动、burst更小。32GB内存+NVMe下大dirty page会导致微卡顿，这样更平滑。
 
 ## zram交换sysctl
 
@@ -98,8 +103,11 @@ vm.compaction_proactiveness = 50
 EOF
 ```
 
-- `swappiness=150` — 优先用zram而不是丢缓存 (zram是压缩内存，不是慢盘)
-- `page-cluster=0` — 不做swap预读 (基于RAM的swap没必要)
+- `swappiness=150` — 优先用zram而不是丢缓存 (zram是压缩内存，不是慢盘)。默认是`60`。
+- `vfs_cache_pressure=50` — 低于100的值让内核更倾向于保留dentry/inode缓存而不是回收。提升桌面响应。默认是`100`。
+- `page-cluster=0` — 不做swap预读 (基于RAM的swap没必要)。默认是`4`。
+- `watermark_scale_factor=100` — 提高kswapd唤醒阈值 (默认`10`)，让内存回收以更大、更低频的batch进行，而不是频繁的小中断。
+- `compaction_proactiveness=50` — 在回退到swap之前更积极地做内存规整 (默认`20`)。减少负载下的THP碎片化卡顿。
 
 ## CPU和内存
 
@@ -108,8 +116,8 @@ powerprofilesctl set performance
 ```
 
 - `amd-pstate active` + governor `performance` + EPP `performance`
-- `transparent_hugepage=madvise` (安全的默认值)
-- NVMe调度器 `none` (NVMe自带内部调度)
+- `transparent_hugepage=madvise` — Kubuntu 26.04的默认值。只有通过`madvise()`显式请求THP的应用才会用大页。没改过就不用管。
+- NVMe调度器 `none` (no-op) — NVMe的默认值。NVMe自带内部调度，内核调度器只会加开销。不用管。
 
 ## WiFi (Intel AX200)
 
@@ -120,12 +128,17 @@ options iwlmvm power_scheme=1
 EOF
 ```
 
+- `power_save=0` — 禁用WiFi卡的PCIe链路电源管理。已经是默认值，写出来是为了完整性。
+- `power_scheme=1` — 强制活跃电源模式 (默认是`2` = 均衡)。防止网卡进入低功耗状态导致延迟飙升和掉线。
+
 ```bash
 sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf > /dev/null << 'EOF'
 [connection]
 wifi.powersave=2
 EOF
 ```
+
+- `wifi.powersave=2` — 在NetworkManager层面禁用WiFi省电 (`2` = 禁用，`3` = 启用)。跟上面的驱动层设置一致。
 
 ## KWin AMDGPU (仅KDE，仅在开机黑屏时才需要)
 
