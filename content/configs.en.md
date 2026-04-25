@@ -105,12 +105,10 @@ EOF
 
 ```bash
 powerprofilesctl set performance
-echo 'kernel.numa_balancing=0' | sudo tee -a /etc/sysctl.d/99-performance.conf
 ```
 
 - `amd-pstate active` + governor `performance` + EPP `performance`
 - `transparent_hugepage=madvise` (safe default)
-- `kernel.numa_balancing=0` (single-socket desktop, no NUMA benefit)
 - NVMe scheduler `none` (NVMe has internal scheduling)
 
 ## WiFi (Intel AX200)
