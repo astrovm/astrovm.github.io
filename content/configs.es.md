@@ -211,7 +211,7 @@ game-performance %command%
 
 ## Sonic Adventure
 
-<https://gamebanana.com/tuts/16934>
+<https://github.com/astrovm/AdventureMods>
 
 ## GTA IV
 
