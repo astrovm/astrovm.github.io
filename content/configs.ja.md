@@ -15,7 +15,7 @@ hideComments = true
 - マザーボード: ASUS TUF Gaming X570-PRO (Wi-Fi)
 - マウス: Logitech G305
 - キーボード: HyperX Alloy Origins Core (Razer Pink PBTキーキャップ付き)
-- ヘッドホン: Audio-Technica ATH-M50x (FiiO BTA10付き) と Sony Inzone H9
+- ヘッドホン: Audio-Technica ATH-M50x (FiiO BTA10付き) とSony Inzone H9
 
 **Raspberry Pi 4 Model B**
 

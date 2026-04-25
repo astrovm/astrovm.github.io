@@ -14,8 +14,8 @@ hideComments = true
 - NVMe: 1 TB (2 x Adata XPG Spectrix S40G 512 GB)
 - 主板: ASUS TUF Gaming X570-PRO (Wi-Fi)
 - 鼠标: Logitech G305
-- 键盘: HyperX Alloy Origins Core (配Razer Pink PBT键帽)
-- 耳机: Audio-Technica ATH-M50x (配FiiO BTA10) 和 Sony Inzone H9
+- 键盘: HyperX Alloy Origins Core (配 Razer Pink PBT 键帽)
+- 耳机: Audio-Technica ATH-M50x (配 FiiO BTA10) 和 Sony Inzone H9
 
 **Raspberry Pi 4 Model B**
 
