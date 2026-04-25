@@ -50,7 +50,7 @@ sudo update-grub
 ```
 
 - `preempt=full` — 降低调度延迟，桌面更跟手 (需要 CONFIG_PREEMPT_DYNAMIC)
-- `pcie_aspm=off` — 修复Intel AX200 WiFi卡在D3cold电源状态的问题
+- `pcie_aspm=off` — **仅作临时方案**: 修复Intel AX200 WiFi卡在D3cold电源状态的问题。没有这个问题就别加。
 
 ## LUKS加密性能
 
@@ -82,7 +82,7 @@ vm.dirty_background_ratio = 5
 EOF
 ```
 
-- `nmi_watchdog=0` / `watchdog=0` — 去掉AMD上导致微卡顿的定时器中断
+- `nmi_watchdog=0` / `watchdog=0` — 去掉AMD上导致微卡顿的定时器中断。**取舍**: 会禁用硬/软死锁的崩溃诊断。只在你更在乎延迟而不是崩溃调试的桌面上用。
 - `tcp_fastopen=3` — 客户端和服务器都启用TCP Fast Open
 - `dirty_ratio=10` / `dirty_background_ratio=5` — 32GB内存+NVMe下写回更平滑
 
@@ -127,10 +127,14 @@ wifi.powersave=2
 EOF
 ```
 
-## KWin AMDGPU (仅KDE)
+## KWin AMDGPU (仅KDE，仅在开机黑屏时才需要)
 
 ```bash
-echo 'KWIN_DRM_DEVICES=/dev/dri/card1' | sudo tee -a /etc/environment
+# 查看GPU的稳定路径
+ls -l /dev/dri/by-path/
+
+# 用by-path符号链接，别用 /dev/dri/cardN (编号每次开机可能变)
+echo 'KWIN_DRM_DEVICES=/dev/dri/by-path/pci-0000:0c:00.0-card' | sudo tee -a /etc/environment
 ```
 
 ```bash
@@ -148,9 +152,10 @@ EOF
 sudo systemctl daemon-reload
 ```
 
-- `KWIN_DRM_DEVICES` — 把KWin固定到AMD GPU上，避免探测其他DRM设备
-- `sleep 3` — 给AMDGPU留初始化时间，免得KWin抢DRM atomic modeset失败
-- 启动限制防止无限崩溃循环
+- 只有KWin开机时拿不到DRM master才需要 (Mesa/KWin竞态条件)。如果只有一张GPU且没黑屏过，直接跳过。
+- `KWIN_DRM_DEVICES` — 通过稳定的by-path符号链接把KWin固定到特定GPU。**别用 `/dev/dri/cardN`** — 编号每次开机可能变。
+- `sleep 3` — 临时方案: 给AMDGPU留初始化时间，免得KWin抢DRM atomic modeset失败。
+- 启动限制防止无限崩溃循环。
 
 ## 禁用NetworkManager-wait-online
 

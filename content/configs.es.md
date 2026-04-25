@@ -50,7 +50,7 @@ sudo update-grub
 ```
 
 - `preempt=full` — menor latencia de scheduling para un escritorio más responsivo (requiere CONFIG_PREEMPT_DYNAMIC)
-- `pcie_aspm=off` — arregla la WiFi Intel AX200 trabada en estado D3cold
+- `pcie_aspm=off` — **solo workaround**: arregla la WiFi Intel AX200 trabada en estado D3cold. No lo apliques si no tenés este problema.
 
 ## Rendimiento del cifrado LUKS
 
@@ -68,7 +68,7 @@ Flags persistentes guardadas en el header LUKS: `discards no_read_workqueue no_w
 ```
 
 - `noatime` — no actualiza el timestamp de acceso, ahorra escrituras en el SSD
-- `compress=zstd` — compresión transparente, reduce escrituras e IO (saltea datos incompribles automáticamente)
+- `compress=zstd` — compresión transparente, reduce escrituras e IO (saltea datos incompresibles automáticamente)
 
 ## sysctl de rendimiento
 
@@ -82,7 +82,7 @@ vm.dirty_background_ratio = 5
 EOF
 ```
 
-- `nmi_watchdog=0` / `watchdog=0` — elimina interrupciones periódicas que causan micro-cortes en AMD
+- `nmi_watchdog=0` / `watchdog=0` — elimina interrupciones periódicas que causan micro-cortes en AMD. **Tradeoff**: deshabilita diagnósticos de hard/soft lockup en crasheos. Usá solo si priorizás latencia sobre debug de crasheos.
 - `tcp_fastopen=3` — habilita TCP Fast Open para cliente y servidor
 - `dirty_ratio=10` / `dirty_background_ratio=5` — writeback más suave con 32GB RAM + NVMe
 
@@ -127,10 +127,14 @@ wifi.powersave=2
 EOF
 ```
 
-## KWin AMDGPU (solo KDE)
+## KWin AMDGPU (solo KDE, solo si te sale pantalla negra al bootear)
 
 ```bash
-echo 'KWIN_DRM_DEVICES=/dev/dri/card1' | sudo tee -a /etc/environment
+# Fijate la ruta estable de tu GPU
+ls -l /dev/dri/by-path/
+
+# Usá el symlink by-path, NO /dev/dri/cardN (los números pueden cambiar entre booteos)
+echo 'KWIN_DRM_DEVICES=/dev/dri/by-path/pci-0000:0c:00.0-card' | sudo tee -a /etc/environment
 ```
 
 ```bash
@@ -148,9 +152,10 @@ EOF
 sudo systemctl daemon-reload
 ```
 
-- `KWIN_DRM_DEVICES` — fija KWin a la GPU AMD, evita probar otros dispositivos DRM
-- `sleep 3` — le da tiempo a AMDGPU a inicializarse antes de que KWin intente el atomic modeset
-- Los límites de start previenen loops de crasheo infinitos
+- Solo necesario si KWin no puede adquirir DRM master al bootear (race condition de Mesa/KWin). Si tenés una sola GPU y no te sale pantalla negra, salteá esto.
+- `KWIN_DRM_DEVICES` — fija KWin a una GPU específica vía symlink by-path estable. **No uses `/dev/dri/cardN`** — el número puede cambiar entre booteos.
+- `sleep 3` — workaround: le da tiempo a AMDGPU a inicializarse antes de que KWin intente el atomic modeset.
+- Los límites de start previenen loops de crasheo infinitos.
 
 ## Deshabilitar NetworkManager-wait-online
 

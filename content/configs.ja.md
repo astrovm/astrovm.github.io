@@ -50,7 +50,7 @@ sudo update-grub
 ```
 
 - `preempt=full` — スケジューリングレイテンシを下げてデスクトップのレスポンスを良くする (CONFIG_PREEMPT_DYNAMICが必要)
-- `pcie_aspm=off` — Intel AX200 WiFiがD3cold電力状態でスタックする問題を修正
+- `pcie_aspm=off` — **ワークアラウンドのみ**: Intel AX200 WiFiがD3cold電力状態でスタックする問題を修正。この問題がない場合は適用しないこと。
 
 ## LUKS暗号化パフォーマンス
 
@@ -82,7 +82,7 @@ vm.dirty_background_ratio = 5
 EOF
 ```
 
-- `nmi_watchdog=0` / `watchdog=0` — AMDでマイクロスタッターを引き起こす定期タイマー割り込みを削除
+- `nmi_watchdog=0` / `watchdog=0` — AMDでマイクロスタッターを引き起こす定期タイマー割り込みを削除。**トレードオフ**: ハード/ソフトロックアップのクラッシュ診断を無効化。クラッシュデバッグよりレイテンシを優先するデスクトップでのみ使用。
 - `tcp_fastopen=3` — クライアントとサーバーのTCP Fast Openを有効化
 - `dirty_ratio=10` / `dirty_background_ratio=5` — 32GB RAM + NVMeでスムーズなライトバック
 
@@ -127,10 +127,14 @@ wifi.powersave=2
 EOF
 ```
 
-## KWin AMDGPU (KDEのみ)
+## KWin AMDGPU (KDEのみ、ブート時の黒画面が発生する場合のみ)
 
 ```bash
-echo 'KWIN_DRM_DEVICES=/dev/dri/card1' | sudo tee -a /etc/environment
+# GPUの安定パスを確認
+ls -l /dev/dri/by-path/
+
+# by-pathシンボリックリンクを使うこと。/dev/dri/cardNは使わない (番号はブートごとに変わる可能性あり)
+echo 'KWIN_DRM_DEVICES=/dev/dri/by-path/pci-0000:0c:00.0-card' | sudo tee -a /etc/environment
 ```
 
 ```bash
@@ -148,9 +152,10 @@ EOF
 sudo systemctl daemon-reload
 ```
 
-- `KWIN_DRM_DEVICES` — KWinをAMD GPUに固定、他のDRMデバイスのプローブを回避
-- `sleep 3` — KWinがDRM atomic modesetを試す前にAMDGPUの初期化時間を確保
-- スタート制限で無限クラッシュループを防止
+- KWinがブート時にDRMマスターを取得できない場合のみ必要 (Mesa/KWinの競合状態)。GPUが1枚で黒画面が出ないなら、これは不要。
+- `KWIN_DRM_DEVICES` — 安定なby-pathシンボリックリンクでKWinを特定GPUに固定。**`/dev/dri/cardN`は使わない** — 番号はブートごとに変わる。
+- `sleep 3` — ワークアラウンド: KWinがDRM atomic modesetを試す前にAMDGPUの初期化時間を確保。
+- スタート制限で無限クラッシュループを防止。
 
 ## NetworkManager-wait-onlineの無効化
 

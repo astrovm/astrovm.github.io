@@ -31,7 +31,7 @@ hideComments = true
 - Enable virtualization
 - Enable Secure Boot
 - Disable CSM
-- Customize fans speed to maximize silence
+- Customize fan speed to maximize silence
 
 # Linux stuff
 
@@ -50,7 +50,7 @@ sudo update-grub
 ```
 
 - `preempt=full` — lower scheduling latency for snappier desktop (requires CONFIG_PREEMPT_DYNAMIC)
-- `pcie_aspm=off` — fixes Intel AX200 WiFi stuck in D3cold power state
+- `pcie_aspm=off` — **workaround only**: fixes Intel AX200 WiFi stuck in D3cold power state. Do not apply unless you have this specific issue.
 
 ## LUKS encryption performance
 
@@ -82,7 +82,7 @@ vm.dirty_background_ratio = 5
 EOF
 ```
 
-- `nmi_watchdog=0` / `watchdog=0` — removes periodic timer interrupts that cause micro-stutters on AMD
+- `nmi_watchdog=0` / `watchdog=0` — removes periodic timer interrupts that cause micro-stutters on AMD. **Tradeoff**: disables hard/soft lockup crash diagnostics. Only use on desktops where you prioritize latency over crash debugging.
 - `tcp_fastopen=3` — enables TCP Fast Open for client and server
 - `dirty_ratio=10` / `dirty_background_ratio=5` — smoother writeback on 32GB RAM + NVMe
 
@@ -127,10 +127,14 @@ wifi.powersave=2
 EOF
 ```
 
-## KWin AMDGPU (KDE only)
+## KWin AMDGPU (KDE only, only if you get black screens on boot)
 
 ```bash
-echo 'KWIN_DRM_DEVICES=/dev/dri/card1' | sudo tee -a /etc/environment
+# Check your GPU's stable path
+ls -l /dev/dri/by-path/
+
+# Use the by-path symlink, NOT /dev/dri/cardN (card numbers can change across boots)
+echo 'KWIN_DRM_DEVICES=/dev/dri/by-path/pci-0000:0c:00.0-card' | sudo tee -a /etc/environment
 ```
 
 ```bash
@@ -148,9 +152,10 @@ EOF
 sudo systemctl daemon-reload
 ```
 
-- `KWIN_DRM_DEVICES` — pins KWin to the AMD GPU, avoids probing other DRM devices
-- `sleep 3` — gives AMDGPU time to initialize before KWin tries DRM atomic modeset
-- Start limits prevent infinite crash loops
+- Only needed if KWin fails to acquire DRM master on boot (Mesa/KWin race condition). If you have a single GPU and no black screens, skip this entirely.
+- `KWIN_DRM_DEVICES` — pins KWin to a specific GPU via stable by-path symlink. **Do not use `/dev/dri/cardN`** — the number can change across boots.
+- `sleep 3` — workaround: gives AMDGPU time to initialize before KWin tries DRM atomic modeset.
+- Start limits prevent infinite crash loops.
 
 ## Disable NetworkManager-wait-online
 
