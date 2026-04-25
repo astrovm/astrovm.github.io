@@ -35,13 +35,130 @@ hideComments = true
 
 # Linux相关
 
-## NVMe设备的快速加密
+## 内核参数 (GRUB)
 
 ```bash
-sudo dmsetup table
+sudo nano /etc/default/grub
+```
 
+```ini
+GRUB_CMDLINE_LINUX_DEFAULT='preempt=full pcie_aspm=off cryptdevice=UUID=blablabla:luks-blablabla root=/dev/mapper/luks-blablabla splash'
+```
+
+```bash
+sudo update-grub
+```
+
+- `preempt=full` — 降低调度延迟，桌面更跟手 (需要 CONFIG_PREEMPT_DYNAMIC)
+- `pcie_aspm=off` — 修复Intel AX200 WiFi卡在D3cold电源状态的问题
+
+## LUKS加密性能
+
+```bash
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
+
+持久化标志存储在LUKS头中: `discards no_read_workqueue no_write_workqueue`
+
+## Btrfs挂载选项
+
+```ini
+/dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
+/dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
+```
+
+- `noatime` — 不更新访问时间戳，省SSD写入
+- `compress=zstd` — 透明压缩，减少写入和IO (自动跳过不可压缩的数据)
+
+## 性能sysctl
+
+```bash
+sudo tee /etc/sysctl.d/99-performance.conf > /dev/null << 'EOF'
+kernel.nmi_watchdog = 0
+kernel.watchdog = 0
+net.ipv4.tcp_fastopen = 3
+vm.dirty_ratio = 10
+vm.dirty_background_ratio = 5
+EOF
+```
+
+- `nmi_watchdog=0` / `watchdog=0` — 去掉AMD上导致微卡顿的定时器中断
+- `tcp_fastopen=3` — 客户端和服务器都启用TCP Fast Open
+- `dirty_ratio=10` / `dirty_background_ratio=5` — 32GB内存+NVMe下写回更平滑
+
+## zram交换sysctl
+
+```bash
+sudo tee /etc/sysctl.d/99-vm-zram.conf > /dev/null << 'EOF'
+vm.swappiness = 150
+vm.vfs_cache_pressure = 50
+vm.page-cluster = 0
+vm.watermark_scale_factor = 100
+vm.compaction_proactiveness = 50
+EOF
+```
+
+- `swappiness=150` — 优先用zram而不是丢缓存 (zram是压缩内存，不是慢盘)
+- `page-cluster=0` — 不做swap预读 (基于RAM的swap没必要)
+
+## CPU和内存
+
+```bash
+powerprofilesctl set performance
+```
+
+- `amd-pstate active` + governor `performance` + EPP `performance`
+- `transparent_hugepage=madvise` (安全的默认值)
+- NVMe调度器 `none` (NVMe自带内部调度)
+
+## WiFi (Intel AX200)
+
+```bash
+sudo tee /etc/modprobe.d/iwlwifi-fix.conf > /dev/null << 'EOF'
+options iwlwifi power_save=0
+options iwlmvm power_scheme=1
+EOF
+```
+
+```bash
+sudo tee /etc/NetworkManager/conf.d/default-wifi-powersave-on.conf > /dev/null << 'EOF'
+[connection]
+wifi.powersave=2
+EOF
+```
+
+## KWin AMDGPU (仅KDE)
+
+```bash
+echo 'KWIN_DRM_DEVICES=/dev/dri/card1' | sudo tee -a /etc/environment
+```
+
+```bash
+sudo mkdir -p /etc/systemd/system/sddm.service.d
+sudo tee /etc/systemd/system/sddm.service.d/restart-limits.conf > /dev/null << 'EOF'
+[Unit]
+StartLimitIntervalSec=30
+StartLimitBurst=5
+
+[Service]
+ExecStartPre=/usr/bin/sleep 3
+Restart=on-failure
+RestartSec=2
+EOF
+sudo systemctl daemon-reload
+```
+
+- `KWIN_DRM_DEVICES` — 把KWin固定到AMD GPU上，避免探测其他DRM设备
+- `sleep 3` — 给AMDGPU留初始化时间，免得KWin抢DRM atomic modeset失败
+- 启动限制防止无限崩溃循环
+
+## 禁用NetworkManager-wait-online
+
+```bash
+sudo systemctl disable --now NetworkManager-wait-online.service
+```
+
+开机快~5秒。桌面应用不需要等网络也能正常用。
 
 ## GNOME VRR和分数缩放
 
