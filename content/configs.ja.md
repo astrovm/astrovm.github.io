@@ -348,15 +348,15 @@ flatpak install flathub \
 
 - **ProtonPlus** - Steam向けProtonバージョンマネージャ。
 - **Warehouse** - Flatpakマネージャ。
-- **Pinta** - lightweight image editing.
-- **Podman Desktop** - container GUI.
+- **Pinta** - 軽量な画像編集。
+- **Podman Desktop** - container用GUI。
 - **Gear Lever** - AppImageマネージャ。
-- **Spotify** - music streaming.
+- **Spotify** - 音楽ストリーミング。
 - **Stremio** - メディアストリーミング。
 - **Vesktop** - Discordクライアント。
 - **LocalSend** - ローカルファイル共有。
-- **Signal** - private messaging.
-- **Telegram** - messaging.
+- **Signal** - プライベートメッセージング。
+- **Telegram** - メッセージング。
 
 ## スクリプトインストール
 
