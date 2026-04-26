@@ -326,8 +326,9 @@ sudo apt install unattended-upgrades
 ```bash
 sudo tee /etc/apt/apt.conf.d/20auto-upgrades > /dev/null << 'EOF'
 APT::Periodic::Update-Package-Lists "1";
-APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
 APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
 EOF
 ```
 
@@ -341,8 +342,9 @@ ls /var/log/unattended-upgrades/
 
 - **unattended-upgrades** - instala updates de seguridad automáticamente.
 - `Update-Package-Lists "1"` - actualiza listas de paquetes una vez por día.
-- `Unattended-Upgrade "1"` - corre unattended-upgrades una vez por día.
+- `Download-Upgradeable-Packages "1"` - descarga paquetes actualizables en background.
 - `AutocleanInterval "7"` - limpia paquetes/cache viejos cada 7 días.
+- `Unattended-Upgrade "1"` - corre unattended-upgrades una vez por día.
 - No uso auto-reboot porque en desktop/gaming/dev prefiero controlar cuándo reinicia.
 
 ## Ubuntu Pro
