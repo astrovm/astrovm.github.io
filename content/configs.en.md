@@ -569,6 +569,38 @@ Download the `.deb` from [google.com/chrome](https://www.google.com/chrome/) and
 sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
+### Android Studio
+
+Download the `.tar.gz` from [developer.android.com/studio](https://developer.android.com/studio), extract it to `/opt` and symlink the `studio` launcher:
+
+```bash
+cd /tmp
+tar -xzf android-studio-*-linux.tar.gz
+sudo rm -rf /opt/android-studio
+sudo mv android-studio /opt/android-studio
+
+mkdir -p ~/.local/bin
+ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
+```
+
+Run:
+
+```bash
+studio
+```
+
+After that, inside Android Studio:
+
+```text
+Tools > Create Desktop Entry
+```
+
+- **Android Studio** - official IDE for Android development.
+- The recommended launcher is `studio`.
+- The Setup Wizard downloads the Android SDK and required components.
+- To use the emulator, make sure virtualization is enabled in BIOS.
+- `~/.local/bin` is added to `PATH` in the `.bashrc` section.
+
 ### Visual Studio Code
 
 Download the `.deb` from [code.visualstudio.com](https://code.visualstudio.com/) and install it:
@@ -642,6 +674,12 @@ if command -v atuin >/dev/null; then
     eval "$(atuin init bash)"
   fi
 fi
+
+# local bin
+case ":$PATH:" in
+  *":$HOME/.local/bin:"*) ;;
+  *) export PATH="$HOME/.local/bin:$PATH" ;;
+esac
 
 # bun
 export BUN_INSTALL="$HOME/.bun"

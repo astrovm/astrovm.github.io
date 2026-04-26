@@ -569,6 +569,38 @@ rm steam.deb
 sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
+### Android Studio
+
+从 [developer.android.com/studio](https://developer.android.com/studio) 下载 `.tar.gz`，解压到 `/opt`，然后 link `studio` launcher：
+
+```bash
+cd /tmp
+tar -xzf android-studio-*-linux.tar.gz
+sudo rm -rf /opt/android-studio
+sudo mv android-studio /opt/android-studio
+
+mkdir -p ~/.local/bin
+ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
+```
+
+运行：
+
+```bash
+studio
+```
+
+然后，在 Android Studio 里：
+
+```text
+Tools > Create Desktop Entry
+```
+
+- **Android Studio** - Android 开发官方 IDE。
+- 推荐的 launcher 是 `studio`。
+- Setup Wizard 会下载 Android SDK 和必要组件。
+- 要用模拟器的话，确保 BIOS 里开了虚拟化。
+- `~/.local/bin` 会在 `.bashrc` 部分加到 `PATH`。
+
 ### Visual Studio Code
 
 从 [code.visualstudio.com](https://code.visualstudio.com/) 下载 `.deb` 然后安装：
@@ -642,6 +674,12 @@ if command -v atuin >/dev/null; then
     eval "$(atuin init bash)"
   fi
 fi
+
+# local bin
+case ":$PATH:" in
+  *":$HOME/.local/bin:"*) ;;
+  *) export PATH="$HOME/.local/bin:$PATH" ;;
+esac
 
 # bun
 export BUN_INSTALL="$HOME/.bun"

@@ -569,6 +569,38 @@ rm steam.deb
 sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
+### Android Studio
+
+[developer.android.com/studio](https://developer.android.com/studio) から`.tar.gz`をダウンロードし、`/opt`へ展開して`studio`ランチャーをsymlinkする：
+
+```bash
+cd /tmp
+tar -xzf android-studio-*-linux.tar.gz
+sudo rm -rf /opt/android-studio
+sudo mv android-studio /opt/android-studio
+
+mkdir -p ~/.local/bin
+ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
+```
+
+起動：
+
+```bash
+studio
+```
+
+その後、Android Studioの中で：
+
+```text
+Tools > Create Desktop Entry
+```
+
+- **Android Studio** - Android開発の公式IDE。
+- 推奨ランチャーは`studio`。
+- Setup WizardがAndroid SDKと必要コンポーネントをダウンロードする。
+- エミュレータを使うなら、BIOSで仮想化が有効になっていることを確認。
+- `~/.local/bin`は`.bashrc`セクションで`PATH`に追加される。
+
 ### Visual Studio Code
 
 [code.visualstudio.com](https://code.visualstudio.com/) から `.deb` を落としてインストール：
@@ -642,6 +674,12 @@ if command -v atuin >/dev/null; then
     eval "$(atuin init bash)"
   fi
 fi
+
+# local bin
+case ":$PATH:" in
+  *":$HOME/.local/bin:"*) ;;
+  *) export PATH="$HOME/.local/bin:$PATH" ;;
+esac
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
