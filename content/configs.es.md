@@ -246,7 +246,7 @@ sudo modprobe btusb
 ## apt (repos de Ubuntu)
 
 ```bash
-sudo apt install android-tools-adb android-tools-fastboot atuin audacity bleachbit blender build-essential easyeffects buildah criu docker-compose-v2 ffmpeg fzf gamemode ghostty gimp golang-go gwenview handbrake hashcat hugo kcalc kdenlive krita libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular openrgb pinta podman podman-docker qbittorrent qemu-kvm starship systemd-zram-generator thefuck torbrowser-launcher tree ufw virt-manager vlc wireshark yakuake yt-dlp zoxide
+sudo apt install adb atuin audacity bleachbit blender build-essential buildah criu docker-compose-v2 easyeffects fastboot ffmpeg fzf gamemode ghostty gimp golang-go gwenview handbrake hashcat hugo kcalc kdenlive krita libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular openrgb podman podman-docker qbittorrent qemu-system-x86 starship systemd-zram-generator thefuck torbrowser-launcher tree ufw virt-manager vlc wireshark yakuake yt-dlp zoxide
 ```
 
 ## Homebrew
@@ -264,11 +264,12 @@ brew install fnm topgrade uv
 ## Flatpak
 
 ```bash
-flatpak install flathub com.spotify.Client com.stremio.Stremio com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.flattool.Warehouse io.podman_desktop.PodmanDesktop it.mijorus.gearlever org.localsend.localsend_app org.signal.Signal org.telegram.desktop
+flatpak install flathub com.github.PintaProject.Pinta com.spotify.Client com.stremio.Stremio com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.flattool.Warehouse io.podman_desktop.PodmanDesktop it.mijorus.gearlever org.localsend.localsend_app org.signal.Signal org.telegram.desktop
 ```
 
 - **ProtonPlus** - version manager de Proton para Steam.
 - **Warehouse** - manager de Flatpak.
+- **Pinta** - edición liviana de imágenes.
 - **Podman Desktop** - GUI para containers.
 - **Gear Lever** - manager de AppImage.
 - **Spotify** - música en streaming.
