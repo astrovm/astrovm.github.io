@@ -188,27 +188,6 @@ sudo btrfs inspect-internal map-swapfile /swap/swapfile
 
 El swap en disco queda como fallback cuando zram se llena. Baja prioridad, así zram se usa primero.
 
-## Snapshots con Timeshift
-
-Uso Timeshift para snapshots del sistema en Btrfs:
-
-```bash
-sudo timeshift-gtk
-```
-
-Config recomendada:
-
-- Tipo: Btrfs
-- Ubicación: mismo disco Btrfs del sistema
-- Schedule: diario + boot
-- Mantener: 3 diarios, 3 boot, 2 semanales
-- `/home`: no incluir datos de usuario
-
-- **Timeshift** - rollback del sistema. Sirve para volver atrás después de updates, drivers rotos o configs malas.
-- No reemplaza backups reales: no está pensado para guardar proyectos, fotos, documentos ni claves.
-- En Btrfs funciona mejor con layout tipo Ubuntu: subvolúmenes `/@` y `/@home`.
-- Prefiero no incluir `/home` para evitar que un rollback del sistema pise archivos personales.
-
 ## CPU y memoria
 
 ```bash
@@ -341,9 +320,9 @@ sudo apt install \
   handbrake hashcat hugo kcalc kde-config-flatpak kdenlive krita \
   libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular \
   openrgb plasma-discover-backend-flatpak podman podman-docker python3 \
-  python3-full python3-dev python3-pip python3-venv qbittorrent \
+  python3-dev python3-full python3-pip python3-venv qbittorrent \
   qemu-system-x86 ripgrep starship systemd-zram-generator thefuck \
-  timeshift torbrowser-launcher tree tmux ufw unrar unzip virt-manager \
+  timeshift tmux torbrowser-launcher tree ufw unrar unzip virt-manager \
   vlc wget wireshark yakuake yt-dlp zoxide
 ```
 
@@ -486,6 +465,44 @@ firefox --version
 - **Firefox** - instalado como `.deb` desde el repo oficial de Mozilla, no Snap.
 - El pin evita que APT prefiera el paquete transitional/snap de Ubuntu.
 
+## Tailscale
+
+```bash
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
+  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
+  | sudo tee /etc/apt/sources.list.d/tailscale.list
+
+sudo apt-get update
+sudo apt-get install tailscale
+
+sudo tailscale up
+```
+
+- **Tailscale** - VPN mesh basada en WireGuard. Peer-to-peer entre dispositivos sin configurar puertos manualmente.
+- Lo instalo por APT para que actualice con el sistema.
+
+## Antigravity
+
+```bash
+sudo mkdir -p /etc/apt/keyrings
+
+curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
+  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
+  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
+
+sudo apt update
+sudo apt install antigravity
+```
+
+- **Antigravity** - IDE agentic de Google.
+- Lo instalo por APT para que actualice con el sistema.
+
 ## Homebrew
 
 ```bash
@@ -586,7 +603,7 @@ eval "$(fnm env --use-on-cd --shell bash)"
 fnm install --lts --use
 fnm default "$(fnm current)"
 
-npm install -g @openai/codex @google/gemini-cli opencode-ai
+npm install -g @google/gemini-cli @openai/codex opencode-ai
 ```
 
 Verificar:
@@ -602,24 +619,6 @@ opencode --version
 - **Codex CLI** - agente de coding de OpenAI en terminal.
 - **Gemini CLI** - agente de coding de Google en terminal.
 - **OpenCode** - agente de coding open source en terminal.
-
-## Antigravity
-
-```bash
-sudo mkdir -p /etc/apt/keyrings
-
-curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
-  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
-
-echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
-  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
-
-sudo apt update
-sudo apt install antigravity
-```
-
-- **Antigravity** - IDE agentic de Google.
-- Lo instalo por APT para que actualice con el sistema.
 
 ## Nerd Fonts
 
@@ -679,26 +678,6 @@ flatpak install flathub \
 - **LocalSend** - transferencia local de archivos.
 - **Signal** - mensajería privada.
 - **Telegram** - mensajería.
-
-## Tailscale
-
-```bash
-sudo mkdir -p --mode=0755 /usr/share/keyrings
-
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
-  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
-
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
-  | sudo tee /etc/apt/sources.list.d/tailscale.list
-
-sudo apt-get update
-sudo apt-get install tailscale
-
-sudo tailscale up
-```
-
-- **Tailscale** - VPN mesh basada en WireGuard. Peer-to-peer entre dispositivos sin configurar puertos manualmente.
-- Lo instalo por APT para que actualice con el sistema.
 
 ## Installs por script
 
@@ -778,6 +757,27 @@ sudo apt install ./code_*.deb
 
 Descargar [Trezor Suite](https://trezor.io/trezor-suite) como AppImage. Manejarlo con Gear Lever.
 
+## Snapshots con Timeshift
+
+Uso Timeshift para snapshots del sistema en Btrfs:
+
+```bash
+sudo timeshift-gtk
+```
+
+Config recomendada:
+
+- Tipo: Btrfs
+- Ubicación: mismo disco Btrfs del sistema
+- Schedule: diario + boot
+- Mantener: 3 diarios, 3 boot, 2 semanales
+- `/home`: no incluir datos de usuario
+
+- **Timeshift** - rollback del sistema. Sirve para volver atrás después de updates, drivers rotos o configs malas.
+- No reemplaza backups reales: no está pensado para guardar proyectos, fotos, documentos ni claves.
+- En Btrfs funciona mejor con layout tipo Ubuntu: subvolúmenes `/@` y `/@home`.
+- Prefiero no incluir `/home` para evitar que un rollback del sistema pise archivos personales.
+
 # Shell y terminal
 
 ## Ghostty
@@ -819,6 +819,38 @@ Agregar arriba de todo:
 Agregar la config normal después:
 
 ```bash
+# path helper
+path_prepend() {
+  [[ -d "$1" ]] || return
+  case ":$PATH:" in
+    *":$1:"*) ;;
+    *) export PATH="$1:$PATH" ;;
+  esac
+}
+
+# local bin
+path_prepend "$HOME/.local/bin"
+
+# android sdk
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+path_prepend "$ANDROID_HOME/cmdline-tools/latest/bin"
+path_prepend "$ANDROID_HOME/emulator"
+path_prepend "$ANDROID_HOME/platform-tools"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+path_prepend "$BUN_INSTALL/bin"
+
+# homebrew
+[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# fnm: Node.js version manager
+command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
+
+# rust/cargo
+[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+
 # starship prompt
 command -v starship >/dev/null && eval "$(starship init bash)"
 
@@ -827,6 +859,9 @@ command -v thefuck >/dev/null && eval "$(thefuck --alias)"
 
 # fzf
 command -v fzf >/dev/null && eval "$(fzf --bash)"
+
+# zoxide
+command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
 
 # atuin: shell history sync, with ble.sh integration
 [[ -f /usr/share/bash-preexec/bash-preexec.sh ]] && source /usr/share/bash-preexec/bash-preexec.sh
@@ -839,33 +874,6 @@ if command -v atuin >/dev/null; then
     eval "$(atuin init bash)"
   fi
 fi
-
-# local bin
-case ":$PATH:" in
-  *":$HOME/.local/bin:"*) ;;
-  *) export PATH="$HOME/.local/bin:$PATH" ;;
-esac
-
-# android sdk
-export ANDROID_HOME="$HOME/Android/Sdk"
-export ANDROID_SDK_ROOT="$ANDROID_HOME"
-export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# homebrew
-[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-# fnm: Node.js version manager
-command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
-
-# zoxide
-command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
-
-# rust/cargo
-[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 ```
 
 Agregar al final de todo:
