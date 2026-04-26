@@ -23,6 +23,16 @@ hideComments = true
 
 **Samsung Galaxy S22 Ultra**
 
+# Base installation
+
+Kubuntu 26.04 installed in UEFI mode with:
+
+- Filesystem: Btrfs
+- Swap: swap file
+- Encryption: LUKS enabled
+
+Many configs below assume Btrfs with subvols like `/@` and `/@home`, swap file at `/swap/swapfile` and disk encrypted with LUKS. If you use ext4, separate swap partition or unencrypted install, adjust the examples to your layout.
+
 # BIOS config
 
 - Load optimized defaults
@@ -178,6 +188,27 @@ sudo btrfs inspect-internal map-swapfile /swap/swapfile
 
 Disk swap stays as a fallback when zram fills up. Low priority, so zram gets used first.
 
+## Snapshots with Timeshift
+
+I use Timeshift for system snapshots on Btrfs:
+
+```bash
+sudo timeshift-gtk
+```
+
+Recommended config:
+
+- Type: Btrfs
+- Location: same Btrfs disk as system
+- Schedule: daily + boot
+- Keep: 3 daily, 3 boot, 2 weekly
+- `/home`: do not include user data
+
+- **Timeshift** - system rollback. Lets you go back after broken updates, drivers or bad configs.
+- Not a replacement for real backups: not meant to store projects, photos, documents or keys.
+- Works best on Btrfs with Ubuntu-style layout: subvols `/@` and `/@home`.
+- I prefer not to include `/home` to avoid system rollback overwriting personal files.
+
 ## CPU and memory
 
 ```bash
@@ -306,16 +337,29 @@ sudo modprobe btusb
 sudo apt install \
   7zip adb atuin audacity bleachbit blender build-essential buildah \
   ca-certificates criu curl docker-compose-v2 easyeffects fastboot ffmpeg \
-  fzf gamemode ghostty gimp git gnupg golang-go gwenview handbrake hashcat \
-  hugo kcalc kdenlive krita libvirt-daemon-system libreoffice mpv neovim \
-  nmap obs-studio okular openrgb podman podman-docker python3 python3-full \
-  python3-dev python3-pip python3-venv qbittorrent qemu-system-x86 ripgrep \
-  starship systemd-zram-generator thefuck torbrowser-launcher tree tmux ufw \
-  unrar unzip virt-manager vlc wget wireshark yakuake yt-dlp zoxide
+  flatpak fzf gamemode ghostty gimp git gnupg golang-go gwenview \
+  handbrake hashcat hugo kcalc kde-config-flatpak kdenlive krita \
+  libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular \
+  openrgb plasma-discover-backend-flatpak podman podman-docker python3 \
+  python3-full python3-dev python3-pip python3-venv qbittorrent \
+  qemu-system-x86 ripgrep starship systemd-zram-generator thefuck \
+  timeshift torbrowser-launcher tree tmux ufw unrar unzip virt-manager \
+  vlc wget wireshark yakuake yt-dlp zoxide
 ```
 
 - `podman-docker` makes the `docker` command point to Podman. Nice for compatibility, but it changes what `docker` means on the machine.
 - If you want real Docker Engine, do not install `podman-docker`.
+
+## User permissions
+
+```bash
+sudo usermod -aG kvm,libvirt,wireshark "$USER"
+```
+
+Log out and back in for groups to take effect.
+
+- `kvm` / `libvirt` - use VMs, virt-manager and emulators with acceleration without wrestling with permissions.
+- `wireshark` - capture packets without running the whole GUI as root.
 
 ## APT security auto-updates
 
@@ -595,6 +639,18 @@ fc-match "UbuntuMono Nerd Font"
 - **UbuntuMono Nerd Font** - the font used in the Ghostty config below.
 - Nerd Fonts add glyphs/icons for prompts, statuslines, Neovim, tmux, Starship, etc.
 
+## Flatpak setup
+
+```bash
+flatpak remote-add --if-not-exists flathub \
+  https://flathub.org/repo/flathub.flatpakrepo
+```
+
+- **flatpak** - sandboxed app runtime.
+- **plasma-discover-backend-flatpak** - Discover integration.
+- **kde-config-flatpak** - KDE System Settings integration.
+- **Flathub** - main Flatpak apps repo.
+
 ## Flatpak
 
 ```bash
@@ -708,7 +764,7 @@ Tools > Create Desktop Entry
 - The recommended launcher is `studio`.
 - The Setup Wizard downloads the Android SDK and required components.
 - To use the emulator, make sure virtualization is enabled in BIOS.
-- `~/.local/bin` is added to `PATH` in the `.bashrc` section.
+- The SDK normally goes in `~/Android/Sdk`; the `.bashrc` adds `platform-tools`, `emulator` and `cmdline-tools` to `PATH`.
 
 ### Visual Studio Code
 

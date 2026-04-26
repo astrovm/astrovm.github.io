@@ -23,6 +23,16 @@ hideComments = true
 
 **Samsung Galaxy S22 Ultra**
 
+# 基础安装
+
+Kubuntu 26.04 用 UEFI 模式安装：
+
+- 文件系统: Btrfs
+- Swap: swap file
+- 加密: 启用 LUKS
+
+下面的很多配置假设 Btrfs 带子卷像 `/@` 和 `/@home`，swap file 在 `/swap/swapfile`，磁盘用 LUKS 加密。如果你用 ext4、单独 swap 分区或不加密安装，按你的布局调整例子。
+
 # BIOS配置
 
 - 加载优化默认值
@@ -178,6 +188,27 @@ sudo btrfs inspect-internal map-swapfile /swap/swapfile
 
 磁盘 swap 留作 zram 满了之后的 fallback。低优先级，所以先用 zram。
 
+## Timeshift 快照
+
+我用 Timeshift 做 Btrfs 上的系统快照：
+
+```bash
+sudo timeshift-gtk
+```
+
+推荐配置：
+
+- 类型: Btrfs
+- 位置: 和系统同一个 Btrfs 磁盘
+- 调度: 每日 + 启动时
+- 保留: 3 个每日、3 个启动、2 个每周
+- `/home`: 不包含用户数据
+
+- **Timeshift** - 系统回滚。用来在更新失败、驱动问题或配置搞砸之后回退。
+- 不能替代真正的备份: 不是用来存项目、照片、文档或密钥的。
+- 在 Btrfs 上配合 Ubuntu 风格布局最好: 子卷 `/@` 和 `/@home`。
+- 我选择不包含 `/home`，免得系统回滚覆盖个人文件。
+
 ## CPU和内存
 
 ```bash
@@ -306,16 +337,29 @@ sudo modprobe btusb
 sudo apt install \
   7zip adb atuin audacity bleachbit blender build-essential buildah \
   ca-certificates criu curl docker-compose-v2 easyeffects fastboot ffmpeg \
-  fzf gamemode ghostty gimp git gnupg golang-go gwenview handbrake hashcat \
-  hugo kcalc kdenlive krita libvirt-daemon-system libreoffice mpv neovim \
-  nmap obs-studio okular openrgb podman podman-docker python3 python3-full \
-  python3-dev python3-pip python3-venv qbittorrent qemu-system-x86 ripgrep \
-  starship systemd-zram-generator thefuck torbrowser-launcher tree tmux ufw \
-  unrar unzip virt-manager vlc wget wireshark yakuake yt-dlp zoxide
+  flatpak fzf gamemode ghostty gimp git gnupg golang-go gwenview \
+  handbrake hashcat hugo kcalc kde-config-flatpak kdenlive krita \
+  libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular \
+  openrgb plasma-discover-backend-flatpak podman podman-docker python3 \
+  python3-full python3-dev python3-pip python3-venv qbittorrent \
+  qemu-system-x86 ripgrep starship systemd-zram-generator thefuck \
+  timeshift torbrowser-launcher tree tmux ufw unrar unzip virt-manager \
+  vlc wget wireshark yakuake yt-dlp zoxide
 ```
 
 - `podman-docker` 让 `docker` 命令指向 Podman。兼容性方便，但会改变这台机器上 `docker` 的含义。
 - 如果你想要真正的 Docker Engine，就别装 `podman-docker`。
+
+## 用户权限
+
+```bash
+sudo usermod -aG kvm,libvirt,wireshark "$USER"
+```
+
+注销重新登录后生效。
+
+- `kvm` / `libvirt` - 用 VM、virt-manager 和模拟器时不用跟权限较劲。
+- `wireshark` - 不用开 root 也能抓包。
 
 ## APT安全自动更新
 
@@ -595,6 +639,18 @@ fc-match "UbuntuMono Nerd Font"
 - **UbuntuMono Nerd Font** - 下面 Ghostty 配置里用的字体。
 - Nerd Fonts 加了 glyphs/图标，给 prompt、statusline、Neovim、tmux、Starship 等用。
 
+## Flatpak 配置
+
+```bash
+flatpak remote-add --if-not-exists flathub \
+  https://flathub.org/repo/flathub.flatpakrepo
+```
+
+- **flatpak** - sandboxed 应用运行时。
+- **plasma-discover-backend-flatpak** - Discover 集成。
+- **kde-config-flatpak** - KDE 系统设置集成。
+- **Flathub** - 主要的 Flatpak 应用仓库。
+
 ## Flatpak
 
 ```bash
@@ -707,8 +763,8 @@ Tools > Create Desktop Entry
 - **Android Studio** - Android 开发官方 IDE。
 - 推荐的 launcher 是 `studio`。
 - Setup Wizard 会下载 Android SDK 和必要组件。
-- 要用模拟器的话，确保 BIOS 里开了虚拟化。
-- `~/.local/bin` 会在 `.bashrc` 部分加到 `PATH`。
+- 要用模拟器的话确保 BIOS 里开了虚拟化。
+- SDK 通常在 `~/Android/Sdk`；`.bashrc` 会把 `platform-tools`、`emulator` 和 `cmdline-tools` 加到 `PATH`。
 
 ### Visual Studio Code
 

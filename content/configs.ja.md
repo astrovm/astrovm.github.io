@@ -23,6 +23,16 @@ hideComments = true
 
 **Samsung Galaxy S22 Ultra**
 
+# ベースインストール
+
+Kubuntu 26.04をUEFIモードでインストール：
+
+- ファイルシステム: Btrfs
+- Swap: swap file
+- 暗号化: LUKS有効
+
+以降の多くの設定はBtrfsで`/@`や`@home`のようなサブボリューム、swap fileは`/swap/swapfile`、ディスクはLUKS加密を前提としている。ext4、 отдельный swapパーティション、または暗号化なしインストールを使っている場合は、自分のレイアウトに合わせて調整すること。
+
 # BIOS設定
 
 - 最適化デフォルトを読み込む
@@ -178,6 +188,27 @@ sudo btrfs inspect-internal map-swapfile /swap/swapfile
 
 ディスクswapはzramが埋まった時のfallback。低優先度なのでzramが先に使われる。
 
+## Timeshiftスナップショット
+
+BtrfsでTimeshiftを使ってシステムスナップショットを作成：
+
+```bash
+sudo timeshift-gtk
+```
+
+推奨設定：
+
+- タイプ: Btrfs
+- ロケーション: システムと同じBtrfsディスク
+- スケジュール: 毎日+ブート時
+- 保持: 3個の毎日、3個のブート、2個の毎週
+- `/home`: ユーザーデータは含まない
+
+- **Timeshift** - システムロールバック。アップデートやドライバ、不正な設定の後に元に戻せる。
+- 本当のバックアップの代わりにならない: プロジェクト、写真はファイル、秘密鍵などを保存するものではない。
+- UbuntuスタイルレイアウトのBtrfsで最好に動作: サブボリューム`/@`と`@home`。
+- `/home`を含まない方がいい。システムロールバックで個人ファイルが上書きされるのを避けられる。
+
 ## CPUとメモリ
 
 ```bash
@@ -306,16 +337,29 @@ sudo modprobe btusb
 sudo apt install \
   7zip adb atuin audacity bleachbit blender build-essential buildah \
   ca-certificates criu curl docker-compose-v2 easyeffects fastboot ffmpeg \
-  fzf gamemode ghostty gimp git gnupg golang-go gwenview handbrake hashcat \
-  hugo kcalc kdenlive krita libvirt-daemon-system libreoffice mpv neovim \
-  nmap obs-studio okular openrgb podman podman-docker python3 python3-full \
-  python3-dev python3-pip python3-venv qbittorrent qemu-system-x86 ripgrep \
-  starship systemd-zram-generator thefuck torbrowser-launcher tree tmux ufw \
-  unrar unzip virt-manager vlc wget wireshark yakuake yt-dlp zoxide
+  flatpak fzf gamemode ghostty gimp git gnupg golang-go gwenview \
+  handbrake hashcat hugo kcalc kde-config-flatpak kdenlive krita \
+  libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular \
+  openrgb plasma-discover-backend-flatpak podman podman-docker python3 \
+  python3-full python3-dev python3-pip python3-venv qbittorrent \
+  qemu-system-x86 ripgrep starship systemd-zram-generator thefuck \
+  timeshift torbrowser-launcher tree tmux ufw unrar unzip virt-manager \
+  vlc wget wireshark yakuake yt-dlp zoxide
 ```
 
 - `podman-docker` は `docker` コマンドをPodmanへ向ける。互換性には便利だが、このマシンでの `docker` の意味が変わる。
-- 本物のDocker Engineが欲しいなら、`podman-docker`は入れない。
+- 本物のDocker Engine欲しいなら、`podman-docker`は入れない。
+
+## ユーザーパーミッション
+
+```bash
+sudo usermod -aG kvm,libvirt,wireshark "$USER"
+```
+
+ログアウトして再度ログインするとグループが適用される。
+
+- `kvm` / `libvirt` - VMやvirt-manager、エミュレータをパーミッションで悩まずに使える。
+- `wireshark` - GUI全体をrootで実行せずパケットをキャプチャできる。
 
 ## APTセキュリティ自動更新
 
@@ -595,6 +639,18 @@ fc-match "UbuntuMono Nerd Font"
 - **UbuntuMono Nerd Font** - 下のGhostty設定で使っているフォント。
 - Nerd Fontsはglyph/アイコンを追加する。prompt、statusline、Neovim、tmux、Starshipなどで使える。
 
+## Flatpakセットアップ
+
+```bash
+flatpak remote-add --if-not-exists flathub \
+  https://flathub.org/repo/flathub.flatpakrepo
+```
+
+- **flatpak** - sandboxedアプリランタイム。
+- **plasma-discover-backend-flatpak** - Discover統合。
+- **kde-config-flatpak** - KDEシステム設定統合。
+- **Flathub** - メインのFlatpakアプリrepo。
+
 ## Flatpak
 
 ```bash
@@ -708,7 +764,7 @@ Tools > Create Desktop Entry
 - 推奨ランチャーは`studio`。
 - Setup WizardがAndroid SDKと必要コンポーネントをダウンロードする。
 - エミュレータを使うなら、BIOSで仮想化が有効になっていることを確認。
-- `~/.local/bin`は`.bashrc`セクションで`PATH`に追加される。
+- SDKは通常`~/Android/Sdk`にあり、`.bashrc`は`platform-tools`、`emulator`、`cmdline-tools`を`PATH`に追加する。
 
 ### Visual Studio Code
 
