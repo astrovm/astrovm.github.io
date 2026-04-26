@@ -317,6 +317,36 @@ sudo apt install \
 - `podman-docker` は `docker` コマンドをPodmanへ向ける。互換性には便利だが、このマシンでの `docker` の意味が変わる。
 - 本物のDocker Engineが欲しいなら、`podman-docker`は入れない。
 
+## APTセキュリティ自動更新
+
+```bash
+sudo apt install unattended-upgrades
+```
+
+```bash
+sudo tee /etc/apt/apt.conf.d/20auto-upgrades > /dev/null << 'EOF'
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
+EOF
+```
+
+確認:
+
+```bash
+systemctl status unattended-upgrades
+systemctl list-timers 'apt*'
+ls /var/log/unattended-upgrades/
+```
+
+- **unattended-upgrades** - セキュリティアップデートを自動インストールする。
+- `Update-Package-Lists "1"` - 1日1回パッケージリストを更新する。
+- `Download-Upgradeable-Packages "1"` - バックグラウンドでアップグレード可能なパッケージをダウンロードする。
+- `AutocleanInterval "7"` - 7日ごとに古いパッケージ/キャッシュを削除する。
+- `Unattended-Upgrade "1"` - 1日1回 unattended-upgrades を実行する。
+- デスクトップ/ゲーム/開発機なので自動再起動は切っている。再起動のタイミングは自分で決めたい。
+
 ## Ubuntu Pro
 
 任意：
@@ -344,7 +374,7 @@ sudo apt update
 sudo apt install brave-browser
 ```
 
-- **Brave** - メインブラウザ。
+- **Brave** - Chromiumベースのブラウザ。
 - 公式APT repoから入れて、システムと一緒に更新させる。
 
 ## Firefox
@@ -424,14 +454,93 @@ brew install fnm topgrade uv
 - **topgrade** - 全体更新を1コマンドでやるやつ。
 - **uv** - Python package/project manager。
 
+## Topgrade自動更新
+
+任意。APTとSnapを除き、Topgradeが検出したものをすべて自動更新する。
+
+```bash
+mkdir -p ~/.config
+
+cat > ~/.config/topgrade.toml << 'EOF'
+[misc]
+assume_yes = true
+cleanup = true
+no_retry = true
+notify_end = "on_failure"
+disable = ["system", "snap"]
+EOF
+```
+
+```bash
+mkdir -p ~/.config/systemd/user
+
+cat > ~/.config/systemd/user/topgrade.service << 'EOF'
+[Unit]
+Description=Update user-level packages with Topgrade
+
+[Service]
+Type=oneshot
+Environment=PATH=%h/.local/bin:%h/.bun/bin:%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/home/linuxbrew/.linuxbrew/bin/topgrade
+EOF
+```
+
+```bash
+cat > ~/.config/systemd/user/topgrade.timer << 'EOF'
+[Unit]
+Description=Run Topgrade automatically
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
+EOF
+```
+
+```bash
+systemctl --user daemon-reload
+systemctl --user enable --now topgrade.timer
+```
+
+確認：
+
+```bash
+systemctl --user status topgrade.timer
+systemctl --user list-timers
+```
+
+手動実行：
+
+```bash
+systemctl --user start topgrade.service
+journalctl --user -u topgrade.service
+```
+
+ドライラン（実際には実行しない）：
+
+```bash
+topgrade --dry-run
+```
+
+- `assume_yes = true` - 確認を自動で承認する。
+- `cleanup = true` - 更新後にキャッシュと古いバージョンを削除する。
+- `no_retry = true` - ステップが失敗しても、そこで止まって聞いてこない。
+- `notify_end = "on_failure"` - 失敗があった時だけ通知する。
+- `disable = ["system", "snap"]` - APTとSnapは触らない。
+- `OnCalendar=weekly` - 週1回実行する。
+- `Persistent=true` - PCが落ちていた場合、起動後に補完実行する。
+- `RandomizedDelaySec=1h` - 毎回まったく同じ時刻に起動するのを避ける。
+
 ## npm global
 
 ```bash
 eval "$(fnm env --use-on-cd --shell bash)"
 
-fnm install --lts
-fnm default lts-latest
-fnm use lts-latest
+fnm install --lts --use
+fnm default "$(fnm current)"
 
 npm install -g @openai/codex @google/gemini-cli opencode-ai
 ```
@@ -483,7 +592,7 @@ fc-match "UbuntuMono Nerd Font"
 ```
 
 - **Hack Nerd Font** - ターミナル/開発用として悪くない選択。
-- **UbuntuMono Nerd Font** - Ghosttyでのデフォルト。
+- **UbuntuMono Nerd Font** - 下のGhostty設定で使っているフォント。
 - Nerd Fontsはglyph/アイコンを追加する。prompt、statusline、Neovim、tmux、Starshipなどで使える。
 
 ## Flatpak

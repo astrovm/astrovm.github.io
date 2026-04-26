@@ -317,6 +317,36 @@ sudo apt install \
 - `podman-docker` 让 `docker` 命令指向 Podman。兼容性方便，但会改变这台机器上 `docker` 的含义。
 - 如果你想要真正的 Docker Engine，就别装 `podman-docker`。
 
+## APT安全自动更新
+
+```bash
+sudo apt install unattended-upgrades
+```
+
+```bash
+sudo tee /etc/apt/apt.conf.d/20auto-upgrades > /dev/null << 'EOF'
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Download-Upgradeable-Packages "1";
+APT::Periodic::AutocleanInterval "7";
+APT::Periodic::Unattended-Upgrade "1";
+EOF
+```
+
+验证：
+
+```bash
+systemctl status unattended-upgrades
+systemctl list-timers 'apt*'
+ls /var/log/unattended-upgrades/
+```
+
+- **unattended-upgrades** - 自动安装安全更新。
+- `Update-Package-Lists "1"` - 每天更新一次包列表。
+- `Download-Upgradeable-Packages "1"` - 在后台下载可升级包。
+- `AutocleanInterval "7"` - 每7天清理旧包/缓存。
+- `Unattended-Upgrade "1"` - 每天跑一次 unattended-upgrades。
+- 不开自动重启，桌面/游戏/开发机我想自己决定什么时候重启。
+
 ## Ubuntu Pro
 
 可选：
@@ -344,7 +374,7 @@ sudo apt update
 sudo apt install brave-browser
 ```
 
-- **Brave** - 主力浏览器。
+- **Brave** - 基于 Chromium 的浏览器。
 - 用官方 APT repo 装，跟着系统一起更新。
 
 ## Firefox
@@ -424,14 +454,93 @@ brew install fnm topgrade uv
 - **topgrade** - 一条命令更新全系统。
 - **uv** - Python 包/项目管理器。
 
+## Topgrade自动更新
+
+可选。自动更新 Topgrade 检测到的所有东西，APT 和 Snap 除外。
+
+```bash
+mkdir -p ~/.config
+
+cat > ~/.config/topgrade.toml << 'EOF'
+[misc]
+assume_yes = true
+cleanup = true
+no_retry = true
+notify_end = "on_failure"
+disable = ["system", "snap"]
+EOF
+```
+
+```bash
+mkdir -p ~/.config/systemd/user
+
+cat > ~/.config/systemd/user/topgrade.service << 'EOF'
+[Unit]
+Description=Update user-level packages with Topgrade
+
+[Service]
+Type=oneshot
+Environment=PATH=%h/.local/bin:%h/.bun/bin:%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/home/linuxbrew/.linuxbrew/bin/topgrade
+EOF
+```
+
+```bash
+cat > ~/.config/systemd/user/topgrade.timer << 'EOF'
+[Unit]
+Description=Run Topgrade automatically
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
+EOF
+```
+
+```bash
+systemctl --user daemon-reload
+systemctl --user enable --now topgrade.timer
+```
+
+验证：
+
+```bash
+systemctl --user status topgrade.timer
+systemctl --user list-timers
+```
+
+手动运行：
+
+```bash
+systemctl --user start topgrade.service
+journalctl --user -u topgrade.service
+```
+
+模拟运行，不实际执行：
+
+```bash
+topgrade --dry-run
+```
+
+- `assume_yes = true` - 自动接受确认。
+- `cleanup = true` - 更新后清理缓存和旧版本。
+- `no_retry = true` - 某步失败了不会卡在那里问怎么办。
+- `notify_end = "on_failure"` - 只在有东西失败时通知。
+- `disable = ["system", "snap"]` - 不动 APT 和 Snap。
+- `OnCalendar=weekly` - 每周跑一次。
+- `Persistent=true` - 电脑之前关着的话，开机后补跑。
+- `RandomizedDelaySec=1h` - 避免每次都在完全相同的时间点触发。
+
 ## npm 全局
 
 ```bash
 eval "$(fnm env --use-on-cd --shell bash)"
 
-fnm install --lts
-fnm default lts-latest
-fnm use lts-latest
+fnm install --lts --use
+fnm default "$(fnm current)"
 
 npm install -g @openai/codex @google/gemini-cli opencode-ai
 ```
@@ -483,7 +592,7 @@ fc-match "UbuntuMono Nerd Font"
 ```
 
 - **Hack Nerd Font** - 终端/开发的好选择。
-- **UbuntuMono Nerd Font** - 我 Ghostty 里的默认字体。
+- **UbuntuMono Nerd Font** - 下面 Ghostty 配置里用的字体。
 - Nerd Fonts 加了 glyphs/图标，给 prompt、statusline、Neovim、tmux、Starship 等用。
 
 ## Flatpak
