@@ -329,6 +329,24 @@ brew install fnm topgrade uv
 - **topgrade** - actualizador de todo el sistema con un solo comando.
 - **uv** - package/project manager de Python.
 
+## Nerd Fonts
+
+```bash
+brew install --cask font-hack-nerd-font font-ubuntu-mono-nerd-font
+fc-cache -fv
+```
+
+Verificar:
+
+```bash
+fc-match "Hack Nerd Font"
+fc-match "UbuntuMono Nerd Font"
+```
+
+- **Hack Nerd Font** - alternativa buena para terminal/dev.
+- **UbuntuMono Nerd Font** - mi default en Ghostty.
+- Las Nerd Fonts agregan glyphs/iconos para prompts, statuslines, Neovim, tmux, Starship, etc.
+
 ## Flatpak
 
 ```bash
@@ -399,8 +417,8 @@ mkdir -p ~/.config/ghostty
 
 tee ~/.config/ghostty/config.ghostty > /dev/null << 'EOF'
 background-opacity = "0.9"
-font-family = "Ubuntu Mono"
-font-size = "12"
+font-family = "UbuntuMono Nerd Font"
+font-size = "14"
 theme = "Dark Pastel"
 window-height = "32"
 window-width = "100"
