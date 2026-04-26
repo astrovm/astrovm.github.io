@@ -70,7 +70,7 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 ```
 
 - `no_read_workqueue` / `no_write_workqueue` - 加密/解密时绕过内核 workqueue。NVMe 上延迟更低。
-- `allow-discards` - 让 TRIM 传到 SSD。代价是可能暴露文件系统分配模式，但个人桌面加 FDE 通常可以接受。
+- `allow-discards` - 让 TRIM 传到 SSD。代价是可能暴露文件系统分配模式，但个人 PC 用 LUKS 通常可以接受。
 
 ## Btrfs挂载选项
 
@@ -415,12 +415,22 @@ EOF
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
 ```
 
+编辑 `~/.bashrc`:
+
 ```bash
-tee -a ~/.bashrc > /dev/null << 'EOF'
+nvim ~/.bashrc
+```
 
+加到文件最上面:
+
+```bash
 # ble.sh - Bash Line Editor. Load first, attach last.
-[[ $- == *i* && -f ~/.local/share/blesh/ble.sh ]] && source -- ~/.local/share/blesh/ble.sh --attach=none
+[[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
+```
 
+然后加正常配置:
+
+```bash
 # starship prompt
 command -v starship >/dev/null && eval "$(starship init bash)"
 
@@ -456,13 +466,16 @@ command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
 
 # rust/cargo
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
-
-# ble.sh attach. Must be last.
-[[ ! ${BLE_VERSION-} ]] || ble-attach
-EOF
 ```
 
-- **ble.sh** - Bash 里更好的补全和编辑。先用 `--attach=none` 加载，最后 attach，这样 Atuin 能绑定 `C-r`。
+最后加到文件最下面:
+
+```bash
+# ble.sh attach. Must be last.
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+```
+
+- **ble.sh** - Bash 里更好的补全和编辑。在最上面用 `--attach=none` 加载，最后用 `ble-attach` 附加。
 - **starship** - 快速跨 shell prompt。
 - **atuin** - 同步 shell 历史，带 fuzzy 搜索。
 - **thefuck** - 修正上一条命令。

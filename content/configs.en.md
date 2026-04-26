@@ -70,7 +70,7 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 ```
 
 - `no_read_workqueue` / `no_write_workqueue` - bypasses kernel workqueues for encryption/decryption. Lower latency on NVMe.
-- `allow-discards` - lets TRIM pass through to the SSD. Tradeoff: it can reveal filesystem allocation patterns, but on a personal desktop with FDE it is usually acceptable.
+- `allow-discards` - lets TRIM pass through to the SSD. Tradeoff: it can reveal filesystem allocation patterns, but on a personal PC with LUKS it is usually acceptable.
 
 ## Btrfs mount options
 
@@ -415,12 +415,22 @@ Install ble.sh from [GitHub](https://github.com/akinomyoga/ble.sh):
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
 ```
 
+Edit `~/.bashrc`:
+
 ```bash
-tee -a ~/.bashrc > /dev/null << 'EOF'
+nvim ~/.bashrc
+```
 
+Add at the very top:
+
+```bash
 # ble.sh - Bash Line Editor. Load first, attach last.
-[[ $- == *i* && -f ~/.local/share/blesh/ble.sh ]] && source -- ~/.local/share/blesh/ble.sh --attach=none
+[[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
+```
 
+Add the normal config after that:
+
+```bash
 # starship prompt
 command -v starship >/dev/null && eval "$(starship init bash)"
 
@@ -456,13 +466,16 @@ command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
 
 # rust/cargo
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
-
-# ble.sh attach. Must be last.
-[[ ! ${BLE_VERSION-} ]] || ble-attach
-EOF
 ```
 
-- **ble.sh** - better completion and editing in Bash. Loads first with `--attach=none`, then attaches last so Atuin can bind `C-r`.
+Add at the very end:
+
+```bash
+# ble.sh attach. Must be last.
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+```
+
+- **ble.sh** - better completion and editing in Bash. Loads at the top with `--attach=none` and attaches at the end with `ble-attach`.
 - **starship** - fast cross-shell prompt.
 - **atuin** - synced shell history with fuzzy search.
 - **thefuck** - corrects the last command.

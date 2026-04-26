@@ -70,7 +70,7 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 ```
 
 - `no_read_workqueue` / `no_write_workqueue` - 暗号化/復号でカーネルworkqueueをバイパスする。NVMeでレイテンシが下がる。
-- `allow-discards` - TRIMをSSDへ通す。トレードオフとしてファイルシステムの割り当てパターンが漏れる可能性があるが、個人デスクトップのFDEならだいたい許容範囲。
+- `allow-discards` - TRIMをSSDへ通す。トレードオフとしてファイルシステムの割り当てパターンが漏れる可能性があるが、個人PCのLUKSならだいたい許容範囲。
 
 ## Btrfsマウントオプション
 
@@ -415,12 +415,22 @@ EOF
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
 ```
 
+`~/.bashrc`を編集する:
+
 ```bash
-tee -a ~/.bashrc > /dev/null << 'EOF'
+nvim ~/.bashrc
+```
 
+一番上に追加:
+
+```bash
 # ble.sh - Bash Line Editor. Load first, attach last.
-[[ $- == *i* && -f ~/.local/share/blesh/ble.sh ]] && source -- ~/.local/share/blesh/ble.sh --attach=none
+[[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
+```
 
+通常の設定をその後に追加:
+
+```bash
 # starship prompt
 command -v starship >/dev/null && eval "$(starship init bash)"
 
@@ -456,13 +466,16 @@ command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
 
 # rust/cargo
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
-
-# ble.sh attach. Must be last.
-[[ ! ${BLE_VERSION-} ]] || ble-attach
-EOF
 ```
 
-- **ble.sh** - Bashの補完と編集を強化する。最初に`--attach=none`でloadし、最後にattachする。Atuinが`C-r`をbindできるようにするため。
+一番最後に追加:
+
+```bash
+# ble.sh attach. Must be last.
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+```
+
+- **ble.sh** - Bashの補完と編集を強化する。一番上で`--attach=none`付きでloadし、一番最後で`ble-attach`する。
 - **starship** - 高速なcross-shell prompt。
 - **atuin** - fuzzy検索付きの同期shell履歴。
 - **thefuck** - 直前のコマンドを修正する。
