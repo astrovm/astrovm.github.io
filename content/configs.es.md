@@ -70,7 +70,7 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 ```
 
 - `no_read_workqueue` / `no_write_workqueue` - bypassea los workqueues del kernel para encriptar/descifrar. Menos latencia en NVMe.
-- `allow-discards` - deja pasar TRIM al SSD. Tradeoff: puede revelar patrones de asignación del filesystem, pero en un desktop personal con FDE suele ser aceptable.
+- `allow-discards` - deja pasar TRIM al SSD. Tradeoff: puede revelar patrones de asignación del filesystem, pero en una PC personal con LUKS suele ser aceptable.
 
 ## Opciones de montaje Btrfs
 
@@ -415,12 +415,22 @@ Instalar ble.sh desde [GitHub](https://github.com/akinomyoga/ble.sh):
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
 ```
 
+Editar `~/.bashrc`:
+
 ```bash
-tee -a ~/.bashrc > /dev/null << 'EOF'
+nvim ~/.bashrc
+```
 
+Agregar arriba de todo:
+
+```bash
 # ble.sh - Bash Line Editor. Load first, attach last.
-[[ $- == *i* && -f ~/.local/share/blesh/ble.sh ]] && source -- ~/.local/share/blesh/ble.sh --attach=none
+[[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
+```
 
+Agregar la config normal después:
+
+```bash
 # starship prompt
 command -v starship >/dev/null && eval "$(starship init bash)"
 
@@ -456,13 +466,16 @@ command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
 
 # rust/cargo
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
-
-# ble.sh attach. Must be last.
-[[ ! ${BLE_VERSION-} ]] || ble-attach
-EOF
 ```
 
-- **ble.sh** - mejor completion y edición en Bash. Carga primero con `--attach=none` y se adjunta al final para que Atuin pueda bindear `C-r`.
+Agregar al final de todo:
+
+```bash
+# ble.sh attach. Must be last.
+[[ ! ${BLE_VERSION-} ]] || ble-attach
+```
+
+- **ble.sh** - mejor completion y edición en Bash. Carga arriba con `--attach=none` y se adjunta al final con `ble-attach`.
 - **starship** - prompt rápido multi-shell.
 - **atuin** - historial de shell sincronizado con búsqueda fuzzy.
 - **thefuck** - corrige el último comando.
