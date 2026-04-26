@@ -23,6 +23,16 @@ hideComments = true
 
 **Samsung Galaxy S22 Ultra**
 
+# Instalación base
+
+Kubuntu 26.04 instalado en modo UEFI con:
+
+- Filesystem: Btrfs
+- Swap: swap file
+- Cifrado: LUKS activado
+
+Varias configs de abajo asumen Btrfs con subvolúmenes tipo `/@` y `/@home`, swap file en `/swap/swapfile` y disco cifrado con LUKS. Si usás ext4, partición swap separada o instalación sin cifrado, ajustá los ejemplos a tu layout.
+
 # Configuración de BIOS
 
 - Cargar valores predeterminados optimizados
@@ -178,6 +188,27 @@ sudo btrfs inspect-internal map-swapfile /swap/swapfile
 
 El swap en disco queda como fallback cuando zram se llena. Baja prioridad, así zram se usa primero.
 
+## Snapshots con Timeshift
+
+Uso Timeshift para snapshots del sistema en Btrfs:
+
+```bash
+sudo timeshift-gtk
+```
+
+Config recomendada:
+
+- Tipo: Btrfs
+- Ubicación: mismo disco Btrfs del sistema
+- Schedule: diario + boot
+- Mantener: 3 diarios, 3 boot, 2 semanales
+- `/home`: no incluir datos de usuario
+
+- **Timeshift** - rollback del sistema. Sirve para volver atrás después de updates, drivers rotos o configs malas.
+- No reemplaza backups reales: no está pensado para guardar proyectos, fotos, documentos ni claves.
+- En Btrfs funciona mejor con layout tipo Ubuntu: subvolúmenes `/@` y `/@home`.
+- Prefiero no incluir `/home` para evitar que un rollback del sistema pise archivos personales.
+
 ## CPU y memoria
 
 ```bash
@@ -306,16 +337,29 @@ sudo modprobe btusb
 sudo apt install \
   7zip adb atuin audacity bleachbit blender build-essential buildah \
   ca-certificates criu curl docker-compose-v2 easyeffects fastboot ffmpeg \
-  fzf gamemode ghostty gimp git gnupg golang-go gwenview handbrake hashcat \
-  hugo kcalc kdenlive krita libvirt-daemon-system libreoffice mpv neovim \
-  nmap obs-studio okular openrgb podman podman-docker python3 python3-full \
-  python3-dev python3-pip python3-venv qbittorrent qemu-system-x86 ripgrep \
-  starship systemd-zram-generator thefuck torbrowser-launcher tree tmux ufw \
-  unrar unzip virt-manager vlc wget wireshark yakuake yt-dlp zoxide
+  flatpak fzf gamemode ghostty gimp git gnupg golang-go gwenview \
+  handbrake hashcat hugo kcalc kde-config-flatpak kdenlive krita \
+  libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular \
+  openrgb plasma-discover-backend-flatpak podman podman-docker python3 \
+  python3-full python3-dev python3-pip python3-venv qbittorrent \
+  qemu-system-x86 ripgrep starship systemd-zram-generator thefuck \
+  timeshift torbrowser-launcher tree tmux ufw unrar unzip virt-manager \
+  vlc wget wireshark yakuake yt-dlp zoxide
 ```
 
 - `podman-docker` hace que el comando `docker` apunte a Podman. Cómodo para compatibilidad, pero cambia qué significa `docker` en la máquina.
 - Si querés Docker Engine real, no instales `podman-docker`.
+
+## Permisos de usuario
+
+```bash
+sudo usermod -aG kvm,libvirt,wireshark "$USER"
+```
+
+Cerrar sesión y volver a entrar para que apliquen los grupos.
+
+- `kvm` / `libvirt` - usar VMs, virt-manager y emuladores con aceleración sin pelearse con permisos.
+- `wireshark` - capturar paquetes sin correr toda la GUI como root.
 
 ## APT security auto-updates
 
@@ -595,6 +639,18 @@ fc-match "UbuntuMono Nerd Font"
 - **UbuntuMono Nerd Font** - fuente usada en la config de Ghostty de abajo.
 - Las Nerd Fonts agregan glyphs/iconos para prompts, statuslines, Neovim, tmux, Starship, etc.
 
+## Flatpak setup
+
+```bash
+flatpak remote-add --if-not-exists flathub \
+  https://flathub.org/repo/flathub.flatpakrepo
+```
+
+- **flatpak** - runtime de apps sandboxed.
+- **plasma-discover-backend-flatpak** - integración con Discover.
+- **kde-config-flatpak** - integración con System Settings de KDE.
+- **Flathub** - repo principal de apps Flatpak.
+
 ## Flatpak
 
 ```bash
@@ -708,7 +764,7 @@ Tools > Create Desktop Entry
 - El launcher recomendado es `studio`.
 - El Setup Wizard descarga el Android SDK y los componentes necesarios.
 - Para usar el emulador, asegurate de tener virtualización habilitada en BIOS.
-- `~/.local/bin` queda agregado al `PATH` en la sección de `.bashrc`.
+- El SDK queda normalmente en `~/Android/Sdk`; el `.bashrc` agrega `platform-tools`, `emulator` y `cmdline-tools` al `PATH`.
 
 ### Visual Studio Code
 
@@ -789,6 +845,11 @@ case ":$PATH:" in
   *":$HOME/.local/bin:"*) ;;
   *) export PATH="$HOME/.local/bin:$PATH" ;;
 esac
+
+# android sdk
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+export PATH="$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$ANDROID_HOME/cmdline-tools/latest/bin:$PATH"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
