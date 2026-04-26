@@ -317,6 +317,101 @@ sudo apt install \
 - `podman-docker` hace que el comando `docker` apunte a Podman. Cómodo para compatibilidad, pero cambia qué significa `docker` en la máquina.
 - Si querés Docker Engine real, no instales `podman-docker`.
 
+## Ubuntu Pro
+
+Opcional:
+
+```bash
+sudo pro attach
+pro status
+```
+
+- **Ubuntu Pro** - habilita ESM y servicios extra de Canonical.
+- No es obligatorio para usar Kubuntu.
+
+## Brave
+
+```bash
+sudo apt install curl
+
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
+  https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+
+sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources \
+  https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
+
+sudo apt update
+sudo apt install brave-browser
+```
+
+- **Brave** - browser principal.
+- Lo instalo por repo APT oficial para que actualice con el sistema.
+
+## Firefox
+
+Remover Firefox/Thunderbird si estaban instalados por Snap:
+
+```bash
+snap list firefox >/dev/null 2>&1 && sudo snap remove firefox
+snap list thunderbird >/dev/null 2>&1 && sudo snap remove thunderbird
+```
+
+Agregar repo APT oficial de Mozilla:
+
+```bash
+sudo install -d -m 0755 /etc/apt/keyrings
+
+wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
+  | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+```
+
+Verificar fingerprint:
+
+```bash
+gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc \
+  | awk '/pub/{getline; gsub(/^ +| +$/,""); if($0 == "35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3") print "\nThe key fingerprint matches ("$0").\n"; else print "\nVerification failed: the fingerprint ("$0") does not match the expected one.\n"}'
+```
+
+Agregar repo:
+
+```bash
+cat <<EOF | sudo tee /etc/apt/sources.list.d/mozilla.sources
+Types: deb
+URIs: https://packages.mozilla.org/apt
+Suites: mozilla
+Components: main
+Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
+EOF
+```
+
+Priorizar paquetes de Mozilla:
+
+```bash
+cat <<EOF | sudo tee /etc/apt/preferences.d/mozilla
+Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000
+EOF
+```
+
+Instalar Firefox `.deb`:
+
+```bash
+sudo apt update
+sudo apt install firefox
+```
+
+Verificar:
+
+```bash
+apt policy firefox
+which firefox
+firefox --version
+```
+
+- **Firefox** - instalado como `.deb` desde el repo oficial de Mozilla, no Snap.
+- El pin evita que APT prefiera el paquete transitional/snap de Ubuntu.
+
 ## Homebrew
 
 ```bash
@@ -338,7 +433,7 @@ fnm install --lts
 fnm default lts-latest
 fnm use lts-latest
 
-npm install -g @openai/codex @google/gemini-cli
+npm install -g @openai/codex @google/gemini-cli opencode-ai
 ```
 
 Verificar:
@@ -348,10 +443,12 @@ node --version
 npm --version
 codex --version
 gemini --version
+opencode --version
 ```
 
 - **Codex CLI** - agente de coding de OpenAI en terminal.
 - **Gemini CLI** - agente de coding de Google en terminal.
+- **OpenCode** - agente de coding open source en terminal.
 
 ## Antigravity
 
@@ -418,6 +515,26 @@ flatpak install flathub \
 - **Signal** - mensajería privada.
 - **Telegram** - mensajería.
 
+## Tailscale
+
+```bash
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
+  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
+  | sudo tee /etc/apt/sources.list.d/tailscale.list
+
+sudo apt-get update
+sudo apt-get install tailscale
+
+sudo tailscale up
+```
+
+- **Tailscale** - VPN mesh basada en WireGuard. Peer-to-peer entre dispositivos sin configurar puertos manualmente.
+- Lo instalo por APT para que actualice con el sistema.
+
 ## Installs por script
 
 ```bash
@@ -426,19 +543,10 @@ curl -fsSL https://bun.sh/install | bash
 
 # Rust / Cargo
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# Tailscale
-curl -fsSL https://tailscale.com/install.sh | sh
-sudo tailscale up
-
-# OpenCode
-curl -fsSL https://opencode.ai/install | bash
 ```
 
-- **Tailscale** - VPN mesh basada en WireGuard. Peer-to-peer entre dispositivos sin configurar puertos manualmente.
 - **Bun** - runtime/toolkit JavaScript.
 - **Rustup** - installer oficial de Rust/Cargo.
-- **OpenCode** - agente CLI de coding.
 
 ## Installs manuales
 
@@ -451,6 +559,14 @@ cd /tmp
 wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
 sudo apt install ./steam.deb
 rm steam.deb
+```
+
+### Google Chrome
+
+Descargar el `.deb` desde [google.com/chrome](https://www.google.com/chrome/) e instalarlo:
+
+```bash
+sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
 ### Visual Studio Code
