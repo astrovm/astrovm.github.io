@@ -304,14 +304,14 @@ sudo modprobe btusb
 
 ```bash
 sudo apt install \
-  adb atuin audacity bleachbit blender build-essential buildah criu \
-  docker-compose-v2 easyeffects fastboot ffmpeg fzf gamemode ghostty \
-  gimp git golang-go gwenview handbrake hashcat hugo kcalc kdenlive \
-  krita libvirt-daemon-system libreoffice mpv neovim nmap obs-studio \
-  okular openrgb podman podman-docker python3 python3-full python3-dev \
-  python3-pip python3-venv qbittorrent qemu-system-x86 starship \
-  systemd-zram-generator thefuck torbrowser-launcher tree tmux ufw \
-  virt-manager vlc wireshark yakuake yt-dlp zoxide
+  7zip adb atuin audacity bleachbit blender build-essential buildah \
+  ca-certificates criu curl docker-compose-v2 easyeffects fastboot ffmpeg \
+  fzf gamemode ghostty gimp git gnupg golang-go gwenview handbrake hashcat \
+  hugo kcalc kdenlive krita libvirt-daemon-system libreoffice mpv neovim \
+  nmap obs-studio okular openrgb podman podman-docker python3 python3-full \
+  python3-dev python3-pip python3-venv qbittorrent qemu-system-x86 ripgrep \
+  starship systemd-zram-generator thefuck torbrowser-launcher tree tmux ufw \
+  unrar unzip virt-manager vlc wget wireshark yakuake yt-dlp zoxide
 ```
 
 - `podman-docker` hace que el comando `docker` apunte a Podman. Cómodo para compatibilidad, pero cambia qué significa `docker` en la máquina.
@@ -328,6 +328,48 @@ brew install fnm topgrade uv
 - **fnm** - version manager de Node.js.
 - **topgrade** - actualizador de todo el sistema con un solo comando.
 - **uv** - package/project manager de Python.
+
+## npm global
+
+```bash
+eval "$(fnm env --use-on-cd --shell bash)"
+
+fnm install --lts
+fnm default lts-latest
+fnm use lts-latest
+
+npm install -g @openai/codex @google/gemini-cli
+```
+
+Verificar:
+
+```bash
+node --version
+npm --version
+codex --version
+gemini --version
+```
+
+- **Codex CLI** - agente de coding de OpenAI en terminal.
+- **Gemini CLI** - agente de coding de Google en terminal.
+
+## Antigravity
+
+```bash
+sudo mkdir -p /etc/apt/keyrings
+
+curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
+  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
+  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
+
+sudo apt update
+sudo apt install antigravity
+```
+
+- **Antigravity** - IDE agentic de Google.
+- Lo instalo por APT para que actualice con el sistema.
 
 ## Nerd Fonts
 
@@ -400,11 +442,26 @@ curl -fsSL https://opencode.ai/install | bash
 
 ## Installs manuales
 
+### Steam
+
+Descargar el `.deb` oficial e instalarlo:
+
+```bash
+cd /tmp
+wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+sudo apt install ./steam.deb
+rm steam.deb
+```
+
+### Visual Studio Code
+
 Descargar el `.deb` desde [code.visualstudio.com](https://code.visualstudio.com/) e instalarlo:
 
 ```bash
 sudo apt install ./code_*.deb
 ```
+
+### Trezor Suite
 
 Descargar [Trezor Suite](https://trezor.io/trezor-suite) como AppImage. Manejarlo con Gear Lever.
 
@@ -460,6 +517,7 @@ command -v fzf >/dev/null && eval "$(fzf --bash)"
 
 # atuin: shell history sync, with ble.sh integration
 [[ -f /usr/share/bash-preexec/bash-preexec.sh ]] && source /usr/share/bash-preexec/bash-preexec.sh
+
 if command -v atuin >/dev/null; then
   if [[ ${BLE_VERSION-} ]]; then
     eval "$(atuin init bash --disable-up-arrow)"
@@ -493,7 +551,7 @@ Agregar al final de todo:
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 ```
 
-- **ble.sh** - mejor completion y edición en Bash. Carga arriba con `--attach=none` y se adjunta al final con `ble-attach`.
+- **ble.sh** - mejor completion y edición en Bash. Carga arriba con `--attach=none` y se adjunta al final con `ble-attach`, como recomienda upstream.
 - **starship** - prompt rápido multi-shell.
 - **atuin** - historial de shell sincronizado con búsqueda fuzzy.
 - **thefuck** - corrige el último comando.
@@ -526,6 +584,7 @@ KDE Connect usa los puertos 1714-1764 TCP/UDP. El app profile `kdeconnect` viene
 
 ## Steam
 
+- Instalar Steam con el `.deb` oficial.
 - Habilitar Steam Play en la configuración de Steam.
 - Configurar opciones de lanzamiento por juego:
 
