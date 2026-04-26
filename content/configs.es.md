@@ -317,6 +317,34 @@ sudo apt install \
 - `podman-docker` hace que el comando `docker` apunte a Podman. Cómodo para compatibilidad, pero cambia qué significa `docker` en la máquina.
 - Si querés Docker Engine real, no instales `podman-docker`.
 
+## APT security auto-updates
+
+```bash
+sudo apt install unattended-upgrades
+```
+
+```bash
+sudo tee /etc/apt/apt.conf.d/20auto-upgrades > /dev/null << 'EOF'
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+APT::Periodic::AutocleanInterval "7";
+EOF
+```
+
+Verificar:
+
+```bash
+systemctl status unattended-upgrades
+systemctl list-timers 'apt*'
+ls /var/log/unattended-upgrades/
+```
+
+- **unattended-upgrades** - instala updates de seguridad automáticamente.
+- `Update-Package-Lists "1"` - actualiza listas de paquetes una vez por día.
+- `Unattended-Upgrade "1"` - corre unattended-upgrades una vez por día.
+- `AutocleanInterval "7"` - limpia paquetes/cache viejos cada 7 días.
+- No uso auto-reboot porque en desktop/gaming/dev prefiero controlar cuándo reinicia.
+
 ## Ubuntu Pro
 
 Opcional:
@@ -344,7 +372,7 @@ sudo apt update
 sudo apt install brave-browser
 ```
 
-- **Brave** - browser principal.
+- **Brave** - navegador basado en Chromium.
 - Lo instalo por repo APT oficial para que actualice con el sistema.
 
 ## Firefox
@@ -424,14 +452,93 @@ brew install fnm topgrade uv
 - **topgrade** - actualizador de todo el sistema con un solo comando.
 - **uv** - package/project manager de Python.
 
+## Topgrade auto-update
+
+Opcional. Actualiza automáticamente todo lo que Topgrade detecte, excepto APT y Snap.
+
+```bash
+mkdir -p ~/.config
+
+cat > ~/.config/topgrade.toml << 'EOF'
+[misc]
+assume_yes = true
+cleanup = true
+no_retry = true
+notify_end = "on_failure"
+disable = ["system", "snap"]
+EOF
+```
+
+```bash
+mkdir -p ~/.config/systemd/user
+
+cat > ~/.config/systemd/user/topgrade.service << 'EOF'
+[Unit]
+Description=Update user-level packages with Topgrade
+
+[Service]
+Type=oneshot
+Environment=PATH=%h/.local/bin:%h/.bun/bin:%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin
+ExecStart=/home/linuxbrew/.linuxbrew/bin/topgrade
+EOF
+```
+
+```bash
+cat > ~/.config/systemd/user/topgrade.timer << 'EOF'
+[Unit]
+Description=Run Topgrade automatically
+
+[Timer]
+OnCalendar=weekly
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
+EOF
+```
+
+```bash
+systemctl --user daemon-reload
+systemctl --user enable --now topgrade.timer
+```
+
+Verificar:
+
+```bash
+systemctl --user status topgrade.timer
+systemctl --user list-timers
+```
+
+Correr manualmente:
+
+```bash
+systemctl --user start topgrade.service
+journalctl --user -u topgrade.service
+```
+
+Probar qué haría sin ejecutar:
+
+```bash
+topgrade --dry-run
+```
+
+- `assume_yes = true` - acepta confirmaciones automáticamente.
+- `cleanup = true` - limpia caches/versiones viejas después de actualizar.
+- `no_retry = true` - no se queda preguntando qué hacer si falla un step.
+- `notify_end = "on_failure"` - notifica solo si algo falló.
+- `disable = ["system", "snap"]` - no toca APT ni Snap.
+- `OnCalendar=weekly` - corre una vez por semana.
+- `Persistent=true` - si la PC estaba apagada, corre cuando vuelva.
+- `RandomizedDelaySec=1h` - evita correr siempre exactamente al mismo segundo.
+
 ## npm global
 
 ```bash
 eval "$(fnm env --use-on-cd --shell bash)"
 
-fnm install --lts
-fnm default lts-latest
-fnm use lts-latest
+fnm install --lts --use
+fnm default "$(fnm current)"
 
 npm install -g @openai/codex @google/gemini-cli opencode-ai
 ```
@@ -483,7 +590,7 @@ fc-match "UbuntuMono Nerd Font"
 ```
 
 - **Hack Nerd Font** - alternativa buena para terminal/dev.
-- **UbuntuMono Nerd Font** - mi default en Ghostty.
+- **UbuntuMono Nerd Font** - fuente usada en la config de Ghostty de abajo.
 - Las Nerd Fonts agregan glyphs/iconos para prompts, statuslines, Neovim, tmux, Starship, etc.
 
 ## Flatpak
