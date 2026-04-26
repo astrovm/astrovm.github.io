@@ -304,18 +304,113 @@ sudo modprobe btusb
 
 ```bash
 sudo apt install \
-  adb atuin audacity bleachbit blender build-essential buildah criu \
-  docker-compose-v2 easyeffects fastboot ffmpeg fzf gamemode ghostty \
-  gimp git golang-go gwenview handbrake hashcat hugo kcalc kdenlive \
-  krita libvirt-daemon-system libreoffice mpv neovim nmap obs-studio \
-  okular openrgb podman podman-docker python3 python3-full python3-dev \
-  python3-pip python3-venv qbittorrent qemu-system-x86 starship \
-  systemd-zram-generator thefuck torbrowser-launcher tree tmux ufw \
-  virt-manager vlc wireshark yakuake yt-dlp zoxide
+  7zip adb atuin audacity bleachbit blender build-essential buildah \
+  ca-certificates criu curl docker-compose-v2 easyeffects fastboot ffmpeg \
+  fzf gamemode ghostty gimp git gnupg golang-go gwenview handbrake hashcat \
+  hugo kcalc kdenlive krita libvirt-daemon-system libreoffice mpv neovim \
+  nmap obs-studio okular openrgb podman podman-docker python3 python3-full \
+  python3-dev python3-pip python3-venv qbittorrent qemu-system-x86 ripgrep \
+  starship systemd-zram-generator thefuck torbrowser-launcher tree tmux ufw \
+  unrar unzip virt-manager vlc wget wireshark yakuake yt-dlp zoxide
 ```
 
 - `podman-docker` makes the `docker` command point to Podman. Nice for compatibility, but it changes what `docker` means on the machine.
 - If you want real Docker Engine, do not install `podman-docker`.
+
+## Ubuntu Pro
+
+Optional:
+
+```bash
+sudo pro attach
+pro status
+```
+
+- **Ubuntu Pro** - enables ESM and extra services from Canonical.
+- Not required to use Kubuntu.
+
+## Brave
+
+```bash
+sudo apt install curl
+
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
+  https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+
+sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources \
+  https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
+
+sudo apt update
+sudo apt install brave-browser
+```
+
+- **Brave** - main browser.
+- Installed from the official APT repo so it updates with the system.
+
+## Firefox
+
+Remove Firefox/Thunderbird if they were installed as Snap:
+
+```bash
+snap list firefox >/dev/null 2>&1 && sudo snap remove firefox
+snap list thunderbird >/dev/null 2>&1 && sudo snap remove thunderbird
+```
+
+Add the official Mozilla APT repo:
+
+```bash
+sudo install -d -m 0755 /etc/apt/keyrings
+
+wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
+  | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+```
+
+Verify fingerprint:
+
+```bash
+gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc \
+  | awk '/pub/{getline; gsub(/^ +| +$/,""); if($0 == "35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3") print "\nThe key fingerprint matches ("$0").\n"; else print "\nVerification failed: the fingerprint ("$0") does not match the expected one.\n"}'
+```
+
+Add repo:
+
+```bash
+cat <<EOF | sudo tee /etc/apt/sources.list.d/mozilla.sources
+Types: deb
+URIs: https://packages.mozilla.org/apt
+Suites: mozilla
+Components: main
+Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
+EOF
+```
+
+Prioritize Mozilla packages:
+
+```bash
+cat <<EOF | sudo tee /etc/apt/preferences.d/mozilla
+Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000
+EOF
+```
+
+Install Firefox `.deb`:
+
+```bash
+sudo apt update
+sudo apt install firefox
+```
+
+Verify:
+
+```bash
+apt policy firefox
+which firefox
+firefox --version
+```
+
+- **Firefox** - installed as `.deb` from the official Mozilla repo, not Snap.
+- The pin prevents APT from preferring the Ubuntu transitional/snap package.
 
 ## Homebrew
 
@@ -328,6 +423,68 @@ brew install fnm topgrade uv
 - **fnm** - Node.js version manager.
 - **topgrade** - one-command whole-system updater.
 - **uv** - Python package/project manager.
+
+## npm global
+
+```bash
+eval "$(fnm env --use-on-cd --shell bash)"
+
+fnm install --lts
+fnm default lts-latest
+fnm use lts-latest
+
+npm install -g @openai/codex @google/gemini-cli opencode-ai
+```
+
+Verify:
+
+```bash
+node --version
+npm --version
+codex --version
+gemini --version
+opencode --version
+```
+
+- **Codex CLI** - OpenAI coding agent for the terminal.
+- **Gemini CLI** - Google coding agent for the terminal.
+- **OpenCode** - open source coding agent for the terminal.
+
+## Antigravity
+
+```bash
+sudo mkdir -p /etc/apt/keyrings
+
+curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
+  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
+  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
+
+sudo apt update
+sudo apt install antigravity
+```
+
+- **Antigravity** - agentic IDE from Google.
+- Installed via APT so it updates with the system.
+
+## Nerd Fonts
+
+```bash
+brew install --cask font-hack-nerd-font font-ubuntu-mono-nerd-font
+fc-cache -fv
+```
+
+Verify:
+
+```bash
+fc-match "Hack Nerd Font"
+fc-match "UbuntuMono Nerd Font"
+```
+
+- **Hack Nerd Font** - solid choice for terminal/dev work.
+- **UbuntuMono Nerd Font** - my default in Ghostty.
+- Nerd Fonts add glyphs/icons for prompts, statuslines, Neovim, tmux, Starship, etc.
 
 ## Flatpak
 
@@ -358,6 +515,26 @@ flatpak install flathub \
 - **Signal** - private messaging.
 - **Telegram** - messaging.
 
+## Tailscale
+
+```bash
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
+  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
+  | sudo tee /etc/apt/sources.list.d/tailscale.list
+
+sudo apt-get update
+sudo apt-get install tailscale
+
+sudo tailscale up
+```
+
+- **Tailscale** - WireGuard-based mesh VPN. Peer-to-peer between devices without manually configuring ports.
+- Installed via APT so it updates with the system.
+
 ## Script installs
 
 ```bash
@@ -366,27 +543,41 @@ curl -fsSL https://bun.sh/install | bash
 
 # Rust / Cargo
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# Tailscale
-curl -fsSL https://tailscale.com/install.sh | sh
-sudo tailscale up
-
-# OpenCode
-curl -fsSL https://opencode.ai/install | bash
 ```
 
-- **Tailscale** - WireGuard-based mesh VPN. Peer-to-peer between devices without manually configuring ports.
 - **Bun** - JavaScript runtime/toolkit.
 - **Rustup** - official Rust/Cargo installer.
-- **OpenCode** - coding CLI agent.
 
 ## Manual installs
+
+### Steam
+
+Download the official `.deb` and install it:
+
+```bash
+cd /tmp
+wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+sudo apt install ./steam.deb
+rm steam.deb
+```
+
+### Google Chrome
+
+Download the `.deb` from [google.com/chrome](https://www.google.com/chrome/) and install it:
+
+```bash
+sudo apt install ./google-chrome-stable_current_amd64.deb
+```
+
+### Visual Studio Code
 
 Download the `.deb` from [code.visualstudio.com](https://code.visualstudio.com/) and install it:
 
 ```bash
 sudo apt install ./code_*.deb
 ```
+
+### Trezor Suite
 
 Download [Trezor Suite](https://trezor.io/trezor-suite) as an AppImage. Manage it with Gear Lever.
 
@@ -399,8 +590,8 @@ mkdir -p ~/.config/ghostty
 
 tee ~/.config/ghostty/config.ghostty > /dev/null << 'EOF'
 background-opacity = "0.9"
-font-family = "Ubuntu Mono"
-font-size = "12"
+font-family = "UbuntuMono Nerd Font"
+font-size = "14"
 theme = "Dark Pastel"
 window-height = "32"
 window-width = "100"
@@ -442,6 +633,7 @@ command -v fzf >/dev/null && eval "$(fzf --bash)"
 
 # atuin: shell history sync, with ble.sh integration
 [[ -f /usr/share/bash-preexec/bash-preexec.sh ]] && source /usr/share/bash-preexec/bash-preexec.sh
+
 if command -v atuin >/dev/null; then
   if [[ ${BLE_VERSION-} ]]; then
     eval "$(atuin init bash --disable-up-arrow)"
@@ -475,7 +667,7 @@ Add at the very end:
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 ```
 
-- **ble.sh** - better completion and editing in Bash. Loads at the top with `--attach=none` and attaches at the end with `ble-attach`.
+- **ble.sh** - better completion and editing in Bash. Loads at the top with `--attach=none` and attaches at the end with `ble-attach`, as recommended upstream.
 - **starship** - fast cross-shell prompt.
 - **atuin** - synced shell history with fuzzy search.
 - **thefuck** - corrects the last command.
@@ -508,6 +700,7 @@ KDE Connect uses ports 1714-1764 TCP/UDP. The `kdeconnect` app profile ships wit
 
 ## Steam
 
+- Install Steam with the official `.deb`.
 - Enable Steam Play in Steam settings.
 - Set launch options per game:
 

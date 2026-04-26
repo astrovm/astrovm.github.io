@@ -304,18 +304,113 @@ sudo modprobe btusb
 
 ```bash
 sudo apt install \
-  adb atuin audacity bleachbit blender build-essential buildah criu \
-  docker-compose-v2 easyeffects fastboot ffmpeg fzf gamemode ghostty \
-  gimp git golang-go gwenview handbrake hashcat hugo kcalc kdenlive \
-  krita libvirt-daemon-system libreoffice mpv neovim nmap obs-studio \
-  okular openrgb podman podman-docker python3 python3-full python3-dev \
-  python3-pip python3-venv qbittorrent qemu-system-x86 starship \
-  systemd-zram-generator thefuck torbrowser-launcher tree tmux ufw \
-  virt-manager vlc wireshark yakuake yt-dlp zoxide
+  7zip adb atuin audacity bleachbit blender build-essential buildah \
+  ca-certificates criu curl docker-compose-v2 easyeffects fastboot ffmpeg \
+  fzf gamemode ghostty gimp git gnupg golang-go gwenview handbrake hashcat \
+  hugo kcalc kdenlive krita libvirt-daemon-system libreoffice mpv neovim \
+  nmap obs-studio okular openrgb podman podman-docker python3 python3-full \
+  python3-dev python3-pip python3-venv qbittorrent qemu-system-x86 ripgrep \
+  starship systemd-zram-generator thefuck torbrowser-launcher tree tmux ufw \
+  unrar unzip virt-manager vlc wget wireshark yakuake yt-dlp zoxide
 ```
 
 - `podman-docker` 让 `docker` 命令指向 Podman。兼容性方便，但会改变这台机器上 `docker` 的含义。
 - 如果你想要真正的 Docker Engine，就别装 `podman-docker`。
+
+## Ubuntu Pro
+
+可选：
+
+```bash
+sudo pro attach
+pro status
+```
+
+- **Ubuntu Pro** - 启用 ESM 和 Canonical 额外服务。
+- 不是用 Kubuntu 的前提。
+
+## Brave
+
+```bash
+sudo apt install curl
+
+sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
+  https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+
+sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources \
+  https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
+
+sudo apt update
+sudo apt install brave-browser
+```
+
+- **Brave** - 主力浏览器。
+- 用官方 APT repo 装，跟着系统一起更新。
+
+## Firefox
+
+如果 Firefox/Thunderbird 是 Snap 装的，先卸掉：
+
+```bash
+snap list firefox >/dev/null 2>&1 && sudo snap remove firefox
+snap list thunderbird >/dev/null 2>&1 && sudo snap remove thunderbird
+```
+
+添加 Mozilla 官方 APT repo：
+
+```bash
+sudo install -d -m 0755 /etc/apt/keyrings
+
+wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
+  | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
+```
+
+验证指纹：
+
+```bash
+gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc \
+  | awk '/pub/{getline; gsub(/^ +| +$/,""); if($0 == "35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3") print "\nThe key fingerprint matches ("$0").\n"; else print "\nVerification failed: the fingerprint ("$0") does not match the expected one.\n"}'
+```
+
+添加 repo：
+
+```bash
+cat <<EOF | sudo tee /etc/apt/sources.list.d/mozilla.sources
+Types: deb
+URIs: https://packages.mozilla.org/apt
+Suites: mozilla
+Components: main
+Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
+EOF
+```
+
+给 Mozilla 包设高优先级：
+
+```bash
+cat <<EOF | sudo tee /etc/apt/preferences.d/mozilla
+Package: *
+Pin: origin packages.mozilla.org
+Pin-Priority: 1000
+EOF
+```
+
+安装 Firefox `.deb`：
+
+```bash
+sudo apt update
+sudo apt install firefox
+```
+
+验证：
+
+```bash
+apt policy firefox
+which firefox
+firefox --version
+```
+
+- **Firefox** - 用 `.deb` 从 Mozilla 官方 repo 装的，不是 Snap。
+- pin 防止 APT 优先选 Ubuntu 的 transitional/snap 包。
 
 ## Homebrew
 
@@ -328,6 +423,68 @@ brew install fnm topgrade uv
 - **fnm** - Node.js 版本管理器。
 - **topgrade** - 一条命令更新全系统。
 - **uv** - Python 包/项目管理器。
+
+## npm 全局
+
+```bash
+eval "$(fnm env --use-on-cd --shell bash)"
+
+fnm install --lts
+fnm default lts-latest
+fnm use lts-latest
+
+npm install -g @openai/codex @google/gemini-cli opencode-ai
+```
+
+验证：
+
+```bash
+node --version
+npm --version
+codex --version
+gemini --version
+opencode --version
+```
+
+- **Codex CLI** - OpenAI 的终端 coding agent。
+- **Gemini CLI** - Google 的终端 coding agent。
+- **OpenCode** - 开源的终端 coding agent。
+
+## Antigravity
+
+```bash
+sudo mkdir -p /etc/apt/keyrings
+
+curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
+  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
+  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
+
+sudo apt update
+sudo apt install antigravity
+```
+
+- **Antigravity** - Google 的 agentic IDE。
+- 用 APT 装，跟着系统更新。
+
+## Nerd Fonts
+
+```bash
+brew install --cask font-hack-nerd-font font-ubuntu-mono-nerd-font
+fc-cache -fv
+```
+
+验证：
+
+```bash
+fc-match "Hack Nerd Font"
+fc-match "UbuntuMono Nerd Font"
+```
+
+- **Hack Nerd Font** - 终端/开发的好选择。
+- **UbuntuMono Nerd Font** - 我 Ghostty 里的默认字体。
+- Nerd Fonts 加了 glyphs/图标，给 prompt、statusline、Neovim、tmux、Starship 等用。
 
 ## Flatpak
 
@@ -358,6 +515,26 @@ flatpak install flathub \
 - **Signal** - 私密聊天。
 - **Telegram** - 聊天。
 
+## Tailscale
+
+```bash
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
+  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
+  | sudo tee /etc/apt/sources.list.d/tailscale.list
+
+sudo apt-get update
+sudo apt-get install tailscale
+
+sudo tailscale up
+```
+
+- **Tailscale** - 基于 WireGuard 的 mesh VPN。设备之间点对点，不用手动配端口。
+- 用 APT 装，跟着系统更新。
+
 ## 脚本安装
 
 ```bash
@@ -366,27 +543,41 @@ curl -fsSL https://bun.sh/install | bash
 
 # Rust / Cargo
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-
-# Tailscale
-curl -fsSL https://tailscale.com/install.sh | sh
-sudo tailscale up
-
-# OpenCode
-curl -fsSL https://opencode.ai/install | bash
 ```
 
-- **Tailscale** - 基于 WireGuard 的 mesh VPN。设备之间点对点，不用手动配端口。
 - **Bun** - JavaScript runtime/toolkit。
 - **Rustup** - 官方 Rust/Cargo installer。
-- **OpenCode** - coding CLI agent。
 
 ## 手动安装
 
-从 [code.visualstudio.com](https://code.visualstudio.com/) 下载 `.deb` 然后安装:
+### Steam
+
+下载官方 `.deb` 然后安装：
+
+```bash
+cd /tmp
+wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
+sudo apt install ./steam.deb
+rm steam.deb
+```
+
+### Google Chrome
+
+从 [google.com/chrome](https://www.google.com/chrome/) 下载 `.deb` 然后安装：
+
+```bash
+sudo apt install ./google-chrome-stable_current_amd64.deb
+```
+
+### Visual Studio Code
+
+从 [code.visualstudio.com](https://code.visualstudio.com/) 下载 `.deb` 然后安装：
 
 ```bash
 sudo apt install ./code_*.deb
 ```
+
+### Trezor Suite
 
 把 [Trezor Suite](https://trezor.io/trezor-suite) 下载成 AppImage。用 Gear Lever 管。
 
@@ -399,8 +590,8 @@ mkdir -p ~/.config/ghostty
 
 tee ~/.config/ghostty/config.ghostty > /dev/null << 'EOF'
 background-opacity = "0.9"
-font-family = "Ubuntu Mono"
-font-size = "12"
+font-family = "UbuntuMono Nerd Font"
+font-size = "14"
 theme = "Dark Pastel"
 window-height = "32"
 window-width = "100"
@@ -415,20 +606,20 @@ EOF
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
 ```
 
-编辑 `~/.bashrc`:
+编辑 `~/.bashrc`：
 
 ```bash
 nvim ~/.bashrc
 ```
 
-加到文件最上面:
+加到文件最上面：
 
 ```bash
 # ble.sh - Bash Line Editor. Load first, attach last.
 [[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
 ```
 
-然后加正常配置:
+然后加正常配置：
 
 ```bash
 # starship prompt
@@ -442,6 +633,7 @@ command -v fzf >/dev/null && eval "$(fzf --bash)"
 
 # atuin: shell history sync, with ble.sh integration
 [[ -f /usr/share/bash-preexec/bash-preexec.sh ]] && source /usr/share/bash-preexec/bash-preexec.sh
+
 if command -v atuin >/dev/null; then
   if [[ ${BLE_VERSION-} ]]; then
     eval "$(atuin init bash --disable-up-arrow)"
@@ -468,14 +660,14 @@ command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 ```
 
-最后加到文件最下面:
+最后加到文件最下面：
 
 ```bash
 # ble.sh attach. Must be last.
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 ```
 
-- **ble.sh** - Bash 里更好的补全和编辑。在最上面用 `--attach=none` 加载，最后用 `ble-attach` 附加。
+- **ble.sh** - Bash 里更好的补全和编辑。在最上面用 `--attach=none` 加载，最后用 `ble-attach` 附加，upstream 推荐的做法。
 - **starship** - 快速跨 shell prompt。
 - **atuin** - 同步 shell 历史，带 fuzzy 搜索。
 - **thefuck** - 修正上一条命令。
@@ -508,8 +700,9 @@ KDE Connect 使用 1714-1764 TCP/UDP 端口。`kdeconnect` app profile 随包提
 
 ## Steam
 
+- 用官方 `.deb` 安装 Steam。
 - 在Steam设置中启用Steam Play。
-- 每个游戏设置启动选项:
+- 每个游戏设置启动选项：
 
 ```bash
 gamemoderun %command%
@@ -519,7 +712,7 @@ gamemoderun %command%
 
 ## Half-Life / Portal / Counter-Strike
 
-启动选项:
+启动选项：
 
 ```bash
 -vulkan -novid -fullscreen
@@ -533,7 +726,7 @@ gamemoderun %command%
 
 <https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix>
 
-启动选项:
+启动选项：
 
 ```bash
 WINEDLLOVERRIDES="dinput8=n,b" %command%
