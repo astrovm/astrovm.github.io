@@ -542,7 +542,7 @@ sudo apt install ./code_*.deb
 
 ### Trezor Suite
 
-[Trezor Suite](https://trezor.io/trezor-suite) をAppImageでダウンロードしてGear Leverで管理する。
+[Trezor Suite](https://trezor.io/trezor-suite)をAppImageでダウンロードしてGear Leverで管理する。
 
 ## Timeshift
 

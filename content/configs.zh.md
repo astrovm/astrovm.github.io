@@ -31,7 +31,7 @@ Kubuntu 26.04 用 UEFI 模式安装：
 - Swap file
 - 启用 LUKS
 
-布局: 子卷 `/@` 和 `/@home`，swap file 在 `/swap/swapfile`，磁盘用 LUKS 加密。
+布局：子卷 `/@` 和 `/@home`，swap file 在 `/swap/swapfile`，磁盘用 LUKS 加密。
 
 # BIOS
 
@@ -500,7 +500,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### Android Studio
 
-从 [developer.android.com/studio](https://developer.android.com/studio) 下载 `.tar.gz`，解压到 `/opt`，然后给 launcher 建个 symlink:
+从 [developer.android.com/studio](https://developer.android.com/studio) 下载 `.tar.gz`，解压到 `/opt`，然后给 launcher 建个 symlink：
 
 ```bash
 cd /tmp
@@ -512,7 +512,7 @@ mkdir -p ~/.local/bin
 ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
 ```
 
-第一次运行:
+第一次运行：
 
 ```bash
 ~/.local/bin/studio
@@ -550,12 +550,12 @@ sudo apt install ./code_*.deb
 sudo timeshift-gtk
 ```
 
-配置:
+配置：
 
-- 类型: Btrfs
-- 位置: 和系统同一个 Btrfs 磁盘
-- 调度: 每日 + 启动时
-- 保留: 3 个每日、3 个启动、2 个每周
+- 类型：Btrfs
+- 位置：和系统同一个 Btrfs 磁盘
+- 调度：每日 + 启动时
+- 保留：3 个每日、3 个启动、2 个每周
 - `/home`: 不包含用户数据
 
 # Shell和终端
@@ -577,26 +577,26 @@ EOF
 
 ## bashrc
 
-安装 ble.sh:
+安装 ble.sh：
 
 ```bash
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
 ```
 
-编辑 `~/.bashrc`:
+编辑 `~/.bashrc`：
 
 ```bash
 nvim ~/.bashrc
 ```
 
-加到最上面:
+加到最上面：
 
 ```bash
 # ble.sh - load first, attach last
 [[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
 ```
 
-正常配置:
+正常配置：
 
 ```bash
 # path helper
@@ -656,7 +656,7 @@ if command -v atuin >/dev/null; then
 fi
 ```
 
-加到最后:
+加到最后：
 
 ```bash
 # ble.sh attach
