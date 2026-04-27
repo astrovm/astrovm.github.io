@@ -143,6 +143,13 @@ sudo swapon /swap/swapfile
 
 Disk swap stays as a fallback when zram fills up.
 
+## OOM
+
+```bash
+sudo apt install systemd-oomd
+sudo systemctl enable --now systemd-oomd.service
+```
+
 ## CPU
 
 ```bash
@@ -290,6 +297,8 @@ sudo pro attach
 pro status
 ```
 
+# External repos
+
 ## Brave
 
 ```bash
@@ -372,6 +381,8 @@ sudo apt update
 sudo apt install antigravity
 ```
 
+# Package managers and runtimes
+
 ## Homebrew
 
 ```bash
@@ -440,6 +451,18 @@ fnm default "$(fnm current)"
 npm install -g @google/gemini-cli @openai/codex opencode-ai
 ```
 
+## Script installs
+
+```bash
+# Bun
+curl -fsSL https://bun.sh/install | bash
+
+# Rust / Cargo
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+# Apps
+
 ## Nerd Fonts
 
 ```bash
@@ -469,19 +492,7 @@ flatpak install flathub \
   org.telegram.desktop
 ```
 
-## Script installs
-
-```bash
-# Bun
-curl -fsSL https://bun.sh/install | bash
-
-# Rust / Cargo
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-
-## Manual installs
-
-### Steam
+## Steam
 
 ```bash
 cd /tmp
@@ -490,7 +501,7 @@ sudo apt install ./steam.deb
 rm steam.deb
 ```
 
-### Google Chrome
+## Google Chrome
 
 Download the `.deb` from [google.com/chrome](https://www.google.com/chrome/) and install it:
 
@@ -498,7 +509,7 @@ Download the `.deb` from [google.com/chrome](https://www.google.com/chrome/) and
 sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
-### Android Studio
+## Android Studio
 
 Download the `.tar.gz` from [developer.android.com/studio](https://developer.android.com/studio), extract it to `/opt` and symlink the launcher:
 
@@ -532,7 +543,7 @@ Tools > Create Desktop Entry
 
 The Setup Wizard downloads the SDK to `~/Android/Sdk`.
 
-### Visual Studio Code
+## Visual Studio Code
 
 Download the `.deb` from [code.visualstudio.com](https://code.visualstudio.com/) and install it:
 
@@ -540,11 +551,11 @@ Download the `.deb` from [code.visualstudio.com](https://code.visualstudio.com/)
 sudo apt install ./code_*.deb
 ```
 
-### Trezor Suite
+## Trezor Suite
 
 Download [Trezor Suite](https://trezor.io/trezor-suite) as an AppImage and manage it with Gear Lever.
 
-## Timeshift
+# Timeshift
 
 ```bash
 sudo timeshift-gtk
@@ -663,19 +674,23 @@ At the very end:
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 ```
 
-# Containers
+# Services and networking
+
+## Podman socket
 
 ```bash
 systemctl --user enable --now podman.socket
 ```
 
-# Networking & security
-
 ## UFW
 
 ```bash
+sudo apt install openssh-server
+sudo systemctl enable --now ssh
+
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
+sudo ufw allow OpenSSH
 sudo ufw allow kdeconnect
 sudo ufw enable
 ```

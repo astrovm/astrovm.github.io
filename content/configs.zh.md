@@ -143,6 +143,13 @@ sudo swapon /swap/swapfile
 
 磁盘 swap 留作 zram 满了之后的 fallback。
 
+## OOM
+
+```bash
+sudo apt install systemd-oomd
+sudo systemctl enable --now systemd-oomd.service
+```
+
 ## CPU
 
 ```bash
@@ -290,6 +297,8 @@ sudo pro attach
 pro status
 ```
 
+# 外部仓库
+
 ## Brave
 
 ```bash
@@ -372,6 +381,8 @@ sudo apt update
 sudo apt install antigravity
 ```
 
+# 包管理器和运行时
+
 ## Homebrew
 
 ```bash
@@ -440,6 +451,18 @@ fnm default "$(fnm current)"
 npm install -g @google/gemini-cli @openai/codex opencode-ai
 ```
 
+## 脚本安装
+
+```bash
+# Bun
+curl -fsSL https://bun.sh/install | bash
+
+# Rust / Cargo
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+# 应用
+
 ## Nerd Fonts
 
 ```bash
@@ -469,19 +492,7 @@ flatpak install flathub \
   org.telegram.desktop
 ```
 
-## 脚本安装
-
-```bash
-# Bun
-curl -fsSL https://bun.sh/install | bash
-
-# Rust / Cargo
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-
-## 手动安装
-
-### Steam
+## Steam
 
 ```bash
 cd /tmp
@@ -490,7 +501,7 @@ sudo apt install ./steam.deb
 rm steam.deb
 ```
 
-### Google Chrome
+## Google Chrome
 
 从 [google.com/chrome](https://www.google.com/chrome/) 下载 `.deb` 然后安装：
 
@@ -498,7 +509,7 @@ rm steam.deb
 sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
-### Android Studio
+## Android Studio
 
 从 [developer.android.com/studio](https://developer.android.com/studio) 下载 `.tar.gz`，解压到 `/opt`，然后给 launcher 建个 symlink：
 
@@ -532,7 +543,7 @@ Tools > Create Desktop Entry
 
 Setup Wizard 会把 SDK 下载到 `~/Android/Sdk`。
 
-### Visual Studio Code
+## Visual Studio Code
 
 从 [code.visualstudio.com](https://code.visualstudio.com/) 下载 `.deb` 然后安装：
 
@@ -540,11 +551,11 @@ Setup Wizard 会把 SDK 下载到 `~/Android/Sdk`。
 sudo apt install ./code_*.deb
 ```
 
-### Trezor Suite
+## Trezor Suite
 
 把 [Trezor Suite](https://trezor.io/trezor-suite) 下载成 AppImage，用 Gear Lever 管理。
 
-## Timeshift
+# Timeshift
 
 ```bash
 sudo timeshift-gtk
@@ -663,19 +674,23 @@ fi
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 ```
 
-# 容器
+# 服务和网络
+
+## Podman socket
 
 ```bash
 systemctl --user enable --now podman.socket
 ```
 
-# 网络和安全
-
 ## UFW
 
 ```bash
+sudo apt install openssh-server
+sudo systemctl enable --now ssh
+
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
+sudo ufw allow OpenSSH
 sudo ufw allow kdeconnect
 sudo ufw enable
 ```

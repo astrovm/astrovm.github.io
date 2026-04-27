@@ -143,6 +143,13 @@ sudo swapon /swap/swapfile
 
 ディスクswapはzramが埋まった時のfallback。
 
+## OOM
+
+```bash
+sudo apt install systemd-oomd
+sudo systemctl enable --now systemd-oomd.service
+```
+
 ## CPU
 
 ```bash
@@ -290,6 +297,8 @@ sudo pro attach
 pro status
 ```
 
+# 外部リポジトリ
+
 ## Brave
 
 ```bash
@@ -372,6 +381,8 @@ sudo apt update
 sudo apt install antigravity
 ```
 
+# パッケージマネージャーとランタイム
+
 ## Homebrew
 
 ```bash
@@ -440,6 +451,18 @@ fnm default "$(fnm current)"
 npm install -g @google/gemini-cli @openai/codex opencode-ai
 ```
 
+## スクリプトインストール
+
+```bash
+# Bun
+curl -fsSL https://bun.sh/install | bash
+
+# Rust / Cargo
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+# アプリ
+
 ## Nerd Fonts
 
 ```bash
@@ -469,19 +492,7 @@ flatpak install flathub \
   org.telegram.desktop
 ```
 
-## スクリプトインストール
-
-```bash
-# Bun
-curl -fsSL https://bun.sh/install | bash
-
-# Rust / Cargo
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-```
-
-## 手動インストール
-
-### Steam
+## Steam
 
 ```bash
 cd /tmp
@@ -490,7 +501,7 @@ sudo apt install ./steam.deb
 rm steam.deb
 ```
 
-### Google Chrome
+## Google Chrome
 
 `.deb`を[google.com/chrome](https://www.google.com/chrome/)からダウンロードしてインストール：
 
@@ -498,7 +509,7 @@ rm steam.deb
 sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
-### Android Studio
+## Android Studio
 
 `.tar.gz`を[developer.android.com/studio](https://developer.android.com/studio)からダウンロードし、`/opt`へ展開してランチャーをsymlink:
 
@@ -532,7 +543,7 @@ Tools > Create Desktop Entry
 
 Setup WizardがSDKを`~/Android/Sdk`へダウンロードする。
 
-### Visual Studio Code
+## Visual Studio Code
 
 `.deb`を[code.visualstudio.com](https://code.visualstudio.com/)からダウンロードしてインストール：
 
@@ -540,11 +551,11 @@ Setup WizardがSDKを`~/Android/Sdk`へダウンロードする。
 sudo apt install ./code_*.deb
 ```
 
-### Trezor Suite
+## Trezor Suite
 
 [Trezor Suite](https://trezor.io/trezor-suite)をAppImageでダウンロードしてGear Leverで管理する。
 
-## Timeshift
+# Timeshift
 
 ```bash
 sudo timeshift-gtk
@@ -663,19 +674,23 @@ fi
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 ```
 
-# コンテナ
+# サービスとネットワーク
+
+## Podman socket
 
 ```bash
 systemctl --user enable --now podman.socket
 ```
 
-# ネットワークとセキュリティ
-
 ## UFW
 
 ```bash
+sudo apt install openssh-server
+sudo systemctl enable --now ssh
+
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
+sudo ufw allow OpenSSH
 sudo ufw allow kdeconnect
 sudo ufw enable
 ```
