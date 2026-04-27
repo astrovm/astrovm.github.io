@@ -31,7 +31,7 @@ Kubuntu 26.04 用 UEFI 模式安装：
 - Swap file
 - 启用 LUKS
 
-Layout: 子卷 `/@` 和 `/@home`，swap file 在 `/swap/swapfile`，磁盘用 LUKS 加密。
+布局: 子卷 `/@` 和 `/@home`，swap file 在 `/swap/swapfile`，磁盘用 LUKS 加密。
 
 # BIOS
 
@@ -64,9 +64,9 @@ GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=blablabla:luks-blablabla root=/dev/
 sudo update-grub
 ```
 
-- `preempt=full` - 降低调度延迟.
-- `pcie_aspm=off` - 修 Intel AX200 WiFi 卡在 D3cold 的问题.
-- 不用 `quiet` 因为我想开机时看到更多信息.
+- `preempt=full` - 降低调度延迟。
+- `pcie_aspm=off` - 修 Intel AX200 WiFi 卡在 D3cold 的问题。
+- 不用 `quiet`，因为我想开机时看到更多信息。
 - `cryptdevice=...` 和 `root=...` 每台机器都不一样。
 
 ## LUKS performance
@@ -77,7 +77,7 @@ sudo dmsetup table
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
 
-- `no_read_workqueue` / `no_write_workqueue` - NVMe 上延迟更低.
+- `no_read_workqueue` / `no_write_workqueue` - NVMe 上延迟更低。
 - `allow-discards` - 在 SSD 上启用 TRIM。
 
 ## Btrfs mounts
@@ -87,8 +87,8 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 /dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
 ```
 
-- `noatime` - 少写点.
-- `compress=zstd` - 透明压缩.
+- `noatime` - 少写点。
+- `compress=zstd` - 透明压缩。
 
 ## sysctl
 
@@ -141,7 +141,7 @@ sudo btrfs filesystem mkswapfile --size 4G /swap/swapfile
 sudo swapon /swap/swapfile
 ```
 
-磁盘 swap 留作 zram 满了之后的 fallback.
+磁盘 swap 留作 zram 满了之后的 fallback。
 
 ## CPU
 
@@ -173,7 +173,7 @@ sudo systemctl restart NetworkManager
 
 ## KWin AMDGPU
 
-仅 KDE。只有开机黑屏时才需要.
+仅 KDE。只有开机黑屏时才需要。
 
 ```bash
 ls -l /dev/dri/by-path/
@@ -257,7 +257,7 @@ sudo apt install \
 sudo usermod -aG kvm,libvirt,wireshark "$USER"
 ```
 
-注销重新登录.
+注销重新登录。
 
 ## ROCm
 
@@ -266,7 +266,7 @@ sudo apt install rocm rocm-podman-support
 sudo usermod -aG render,video "$USER"
 ```
 
-注销重新登录.
+注销重新登录。
 
 ## APT security auto-updates
 
@@ -500,7 +500,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### Android Studio
 
-从 [developer.android.com/studio](https://developer.android.com/studio) 下载 `.tar.gz`，解压到 `/opt`，然后 link 一下 launcher：
+从 [developer.android.com/studio](https://developer.android.com/studio) 下载 `.tar.gz`，解压到 `/opt`，然后给 launcher 建个 symlink:
 
 ```bash
 cd /tmp

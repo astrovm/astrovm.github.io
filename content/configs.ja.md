@@ -31,7 +31,7 @@ Kubuntu 26.04をUEFIモードでインストール：
 - Swap file
 - LUKS有効
 
-Layout: サブボリューム`/@`と`/@home`、swap fileは`/swap/swapfile`、ディスクはLUKSで暗号化。
+レイアウト: サブボリューム`/@`と`/@home`、swap fileは`/swap/swapfile`、ディスクはLUKSで暗号化。
 
 # BIOS
 
@@ -64,8 +64,8 @@ GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=blablabla:luks-blablabla root=/dev/
 sudo update-grub
 ```
 
-- `preempt=full` - スケジューリングレイテンシを下げる.
-- `pcie_aspm=off` - Intel AX200 WiFiがD3coldで固まる問題のワークアラウンド.
+- `preempt=full` - スケジューリングレイテンシを下げる。
+- `pcie_aspm=off` - Intel AX200 WiFiがD3coldで固まる問題のワークアラウンド。
 - `quiet` は使わない。boot時にもっと情報を見たいので。
 - `cryptdevice=...` と `root=...` はインストールごとに違う。
 
@@ -77,7 +77,7 @@ sudo dmsetup table
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
 
-- `no_read_workqueue` / `no_write_workqueue` - NVMeでレイテンシが下がる.
+- `no_read_workqueue` / `no_write_workqueue` - NVMeでレイテンシが下がる。
 - `allow-discards` - SSDでTRIMを有効化。
 
 ## Btrfs mounts
@@ -87,8 +87,8 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 /dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
 ```
 
-- `noatime` - 書き込みを減らす.
-- `compress=zstd` - 透過圧縮.
+- `noatime` - 書き込みを減らす。
+- `compress=zstd` - 透過圧縮。
 
 ## sysctl
 
@@ -141,7 +141,7 @@ sudo btrfs filesystem mkswapfile --size 4G /swap/swapfile
 sudo swapon /swap/swapfile
 ```
 
-ディスクswapはzramが埋まった時のfallback.
+ディスクswapはzramが埋まった時のfallback。
 
 ## CPU
 
@@ -173,7 +173,7 @@ sudo systemctl restart NetworkManager
 
 ## KWin AMDGPU
 
-KDEのみ。boot時に黒画面が出る場合だけ.
+KDEのみ。boot時に黒画面が出る場合だけ。
 
 ```bash
 ls -l /dev/dri/by-path/
@@ -257,7 +257,7 @@ sudo apt install \
 sudo usermod -aG kvm,libvirt,wireshark "$USER"
 ```
 
-ログアウトして再度ログイン.
+ログアウトして再度ログイン。
 
 ## ROCm
 
@@ -266,7 +266,7 @@ sudo apt install rocm rocm-podman-support
 sudo usermod -aG render,video "$USER"
 ```
 
-ログアウトして再度ログイン.
+ログアウトして再度ログイン。
 
 ## APT security auto-updates
 
@@ -500,7 +500,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### Android Studio
 
-`.tar.gz`を[developer.android.com/studio](https://developer.android.com/studio)からダウンロードし、`/opt`へ展開してランチャーをsymlink：
+`.tar.gz`を[developer.android.com/studio](https://developer.android.com/studio)からダウンロードし、`/opt`へ展開してランチャーをsymlink:
 
 ```bash
 cd /tmp
