@@ -179,6 +179,8 @@ Solo KDE. Solo si aparece pantalla negra al bootear.
 ls -l /dev/dri/by-path/
 ```
 
+Usar la ruta real que salga en `/dev/dri/by-path/`.
+
 ```bash
 sudo mkdir -p /etc/environment.d
 
@@ -244,9 +246,9 @@ sudo apt install \
   libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular \
   openrgb plasma-discover-backend-flatpak podman podman-docker python3 \
   python3-dev python3-full python3-pip python3-venv qbittorrent \
-  qemu-system-x86 ripgrep starship systemd-zram-generator thefuck \
-  timeshift tmux torbrowser-launcher tree ufw unrar unzip virt-manager \
-  vlc wget wireshark yakuake yt-dlp zoxide
+  qemu-system-x86 ripgrep starship thefuck timeshift tmux \
+  torbrowser-launcher tree ufw unrar unzip virt-manager vlc wget \
+  wireshark yakuake yt-dlp zoxide
 ```
 
 ## Permisos de usuario
@@ -281,7 +283,7 @@ APT::Periodic::Unattended-Upgrade "1";
 EOF
 ```
 
-## Ubuntu Pro
+## Ubuntu Pro opcional
 
 ```bash
 sudo pro attach
