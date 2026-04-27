@@ -1,5 +1,5 @@
 +++
-title = "設定"
+title = "configs"
 hideComments = true
 +++
 
@@ -10,12 +10,12 @@ hideComments = true
 - OS: [Kubuntu 26.04 LTS](https://kubuntu.org/)
 - CPU: AMD Ryzen 5 3600
 - GPU: AMD Radeon RX 6800 16 GB
-- RAM: 32 GB (4x8 GB GeIL Super Luce DDR4 3200 MHz)
-- NVMe: 1 TB (2x512 GB Adata XPG Spectrix S40G)
-- マザーボード: ASUS TUF Gaming X570-PRO (Wi-Fi)
-- マウス: Logitech G305
-- キーボード: HyperX Alloy Origins Core、Razer Pink PBTキーキャップ付き
-- ヘッドホン: Audio-Technica ATH-M50x (FiiO BTA10付き) と Sony Inzone H9
+- RAM: 32 GB (4×8 GB GeIL Super Luce DDR4 3200 MHz)
+- NVMe: 1 TB (2×512 GB Adata XPG Spectrix S40G)
+- Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi)
+- Mouse: Logitech G305
+- Teclado: HyperX Alloy Origins Core con keycaps Razer Pink PBT
+- Auriculares: Audio-Technica ATH-M50x con FiiO BTA10 y Sony Inzone H9
 
 **Raspberry Pi 4 Model B**
 
@@ -27,34 +27,34 @@ hideComments = true
 
 Kubuntu 26.04をUEFIモードでインストール：
 
-- ファイルシステム: Btrfs
-- Swap: swap file
-- 暗号化: LUKS有効
+- Btrfs
+- Swap file
+- LUKS有効
 
-以降の多くの設定はBtrfsで`/@`や`@home`のようなサブボリューム、swap fileは`/swap/swapfile`、ディスクはLUKS加密を前提としている。ext4、 отдельный swapパーティション、または暗号化なしインストールを使っている場合は、自分のレイアウトに合わせて調整すること。
+Layout: サブボリューム `/@` y `/@home`, swap file en `/swap/swapfile`, ディスクはLUKSで暗号化.
 
-# BIOS設定
+# BIOS
 
 - 最適化デフォルトを読み込む
 - DOCP/XMPでRAMを3200 MHzに設定
 - Above 4G Decodingを有効化
 - Resizable BARを有効化
-- 仮想化を有効化: SVM Mode / AMD-V
+- SVM Mode / AMD-Vを有効化
 - Secure Bootを有効化
-- CSMを無効化して純UEFIにする
+- CSMを無効化
 - ファンカーブを静音寄りに調整
 
-# Linux設定
+# Linux
 
-## カーネルパラメータ (GRUB)
+## GRUB
 
 ```bash
 sudo nvim /etc/default/grub
 ```
 
-既存のパラメータを消さずに、`GRUB_CMDLINE_LINUX_DEFAULT`へ`preempt=full pcie_aspm=off`を追加する。
+追加する `preempt=full pcie_aspm=off` a `GRUB_CMDLINE_LINUX_DEFAULT`, 既存のものを消さずに.
 
-LUKSインストール例:
+LUKSインストール例：
 
 ```ini
 GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=blablabla:luks-blablabla root=/dev/mapper/luks-blablabla splash preempt=full pcie_aspm=off"
@@ -64,35 +64,33 @@ GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=blablabla:luks-blablabla root=/dev/
 sudo update-grub
 ```
 
-- `preempt=full` - スケジューリングレイテンシを下げて、デスクトップをキビキビさせる。`CONFIG_PREEMPT_DYNAMIC`付きカーネルが必要。
-- `pcie_aspm=off` - **応急処置専用**: Intel AX200 WiFiがD3coldで固まる問題を直す。この問題がないなら使わない。
-- `quiet` はbootメッセージを隠す。起動中の情報を見たいので使わない。
-- `cryptdevice=...` と `root=...` はインストールごとに違う。自分の値を残し、この値をそのままコピーしない。
+- `preempt=full` - スケジューリングレイテンシを下げる.
+- `pcie_aspm=off` - Intel AX200 WiFiがD3coldで固まる問題のワークアラウンド.
+- 使わない `quiet` 起動時にもっと情報を見たいので.
+- `cryptdevice=...` y `root=...` インストールごとに違う.
 
-## LUKS暗号化パフォーマンス
+## LUKS performance
 
 ```bash
-# デバイス名を確認
 sudo dmsetup table
 
-# 永続的なパフォーマンスフラグを適用
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
 
-- `no_read_workqueue` / `no_write_workqueue` - 暗号化/復号でカーネルworkqueueをバイパスする。NVMeでレイテンシが下がる。
-- `allow-discards` - TRIMをSSDへ通す。トレードオフとしてファイルシステムの割り当てパターンが漏れる可能性があるが、個人PCのLUKSならだいたい許容範囲。
+- `no_read_workqueue` / `no_write_workqueue` - NVMeでレイテンシが下がる.
+- `allow-discards` - SSDでTRIMを有効化.
 
-## Btrfsマウントオプション
+## Btrfs mounts
 
 ```ini
 /dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
 /dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
 ```
 
-- `noatime` - アクセスタイムスタンプ更新をスキップし、SSD書き込みを減らす。
-- `compress=zstd` - 透過圧縮。書き込みとI/Oを減らし、明らかに圧縮できないデータは自動でスキップする。
+- `noatime` - 書き込みを減らす.
+- `compress=zstd` - 透過圧縮.
 
-## パフォーマンスsysctl
+## sysctl
 
 ```bash
 sudo tee /etc/sysctl.d/99-performance.conf > /dev/null << 'EOF'
@@ -103,16 +101,6 @@ vm.dirty_ratio = 10
 vm.dirty_background_ratio = 5
 EOF
 
-sudo sysctl --system
-```
-
-- `nmi_watchdog=0` / `watchdog=0` - lockup watchdogを無効化する。わずかなoverheadは減るが、カーネルが固まった時の診断も減る。debugよりレイテンシ優先の時だけ使う。
-- `tcp_fastopen=3` - client/server両方でTCP Fast Openを有効化。純デスクトップでは大きく変わらない。対応サービスを動かすなら効く。
-- `dirty_ratio=10` / `dirty_background_ratio=5` - 典型的なデフォルト (`20`/`10`) から閾値を下げ、writebackを早めに小さいburstで始める。
-
-## zram swap sysctl
-
-```bash
 sudo tee /etc/sysctl.d/99-vm-zram.conf > /dev/null << 'EOF'
 vm.swappiness = 150
 vm.vfs_cache_pressure = 50
@@ -124,15 +112,7 @@ EOF
 sudo sysctl --system
 ```
 
-- `swappiness=150` - cacheを捨てるよりzramを優先する。zramは圧縮RAMで、遅いディスクではないので筋がいい。デフォルトは`60`。
-- `vfs_cache_pressure=50` - dentry/inode cacheを多めに残す。デスクトップのレスポンス改善に効くことがある。デフォルトは`100`。
-- `page-cluster=0` - swap readaheadを無効化する。zramは圧縮RAMなのでこれでいい。デフォルトは`3`。
-- `watermark_scale_factor=100` - `kswapd`を早めに、余裕を持って反応させる。万能の改善ではない。
-- `compaction_proactiveness=50` - デフォルト`20`より積極的にメモリコンパクションする。THPやhigher-order allocationに効くことがあるが、stutterを感じたら`20`へ戻す。
-
-## zram-generator
-
-`systemd-zram-generator`をインストールし、設定を明示的に書く:
+## zram
 
 ```bash
 sudo apt install systemd-zram-generator
@@ -147,30 +127,12 @@ swap-priority = 100
 EOF
 ```
 
-有効化するサービスはない。`zram-generator`はboot時に走り、設定を読んでswapデバイスを自動作成する。
-
-再起動なしで適用する:
-
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl start dev-zram0.swap
 ```
 
-確認:
-
-```bash
-swapon --show
-zramctl
-cat /sys/block/zram0/comp_algorithm
-```
-
-- `zram-size = ram / 2` - 32 GB RAMなら論理16 GBのzram。
-- `compression-algorithm = zstd` - 圧縮率が良く速度も悪くない。`lz4`は速いが圧縮率は低い。
-- `swap-priority = 100` - swap fileより優先度が高いので、zramが先に使われる。
-
 ## Btrfs swap file
-
-Kubuntu 26.04はインストール時にBtrfs subvol上へswap fileを自動作成するが、小さい。4 GBへリサイズする:
 
 ```bash
 sudo swapoff /swap/swapfile
@@ -179,45 +141,17 @@ sudo btrfs filesystem mkswapfile --size 4G /swap/swapfile
 sudo swapon /swap/swapfile
 ```
 
-確認:
+ディスクswapはzramが埋まった時のfallback.
 
-```bash
-swapon --show
-sudo btrfs inspect-internal map-swapfile /swap/swapfile
-```
-
-ディスクswapはzramが埋まった時のfallback。低優先度なのでzramが先に使われる。
-
-## Timeshiftスナップショット
-
-BtrfsでTimeshiftを使ってシステムスナップショットを作成：
-
-```bash
-sudo timeshift-gtk
-```
-
-推奨設定：
-
-- タイプ: Btrfs
-- ロケーション: システムと同じBtrfsディスク
-- スケジュール: 毎日+ブート時
-- 保持: 3個の毎日、3個のブート、2個の毎週
-- `/home`: ユーザーデータは含まない
-
-- **Timeshift** - システムロールバック。アップデートやドライバ、不正な設定の後に元に戻せる。
-- 本当のバックアップの代わりにならない: プロジェクト、写真はファイル、秘密鍵などを保存するものではない。
-- UbuntuスタイルレイアウトのBtrfsで最好に動作: サブボリューム`/@`と`@home`。
-- `/home`を含まない方がいい。システムロールバックで個人ファイルが上書きされるのを避けられる。
-
-## CPUとメモリ
+## CPU
 
 ```bash
 powerprofilesctl set performance
 ```
 
-- `amd-pstate active` + governor `performance` + EPP `performance` - 省電力のためにclockをバランスさせず、CPUを高速側に寄せる。idle消費電力は増えるがレイテンシは下がる。
-- `transparent_hugepage=madvise` - Kubuntu 26.04ではすでにデフォルト。`madvise()`で明示的にTHPを要求したappだけhuge pagesを使う。
-- NVMe scheduler `none` - NVMeでは通常すでにデフォルト。NVMeは内部スケジューリングを持つので、カーネルschedulerはだいたいoverheadになる。
+- `amd-pstate active` + governor `performance` + EPP `performance`
+- `transparent_hugepage=madvise` ya es default.
+- NVMe scheduler `none` ya es default normal para NVMe.
 
 ## Intel AX200 WiFi
 
@@ -228,17 +162,6 @@ options iwlmvm power_scheme=1
 EOF
 ```
 
-- `power_save=0` - `iwlwifi` driverの省電力を無効化する。
-- `power_scheme=1` - `iwlmvm`をactive modeに固定する。レイテンシスパイクや切断を起こす低電力状態を避ける。
-
-Kubuntuにはこのファイルが入っている場合がある:
-
-```bash
-/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
-```
-
-中身が`wifi.powersave=3`の場合がある。削除も編集もせず、後から読まれる設定で上書きする:
-
 ```bash
 sudo tee /etc/NetworkManager/conf.d/99-disable-wifi-powersave.conf > /dev/null << 'EOF'
 [connection]
@@ -248,19 +171,15 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-- `wifi.powersave=2` - NetworkManagerレベルでWiFi省電力を無効化する。
-- `2` = 無効、`3` = 有効。
-
 ## KWin AMDGPU
 
-KDEのみ。boot時に黒画面が出る場合だけ。
+KDEのみ。boot時に黒画面が出る場合だけ.
 
 ```bash
-# GPUの安定パスを確認
 ls -l /dev/dri/by-path/
 ```
 
-`/dev/dri/cardN`ではなく`by-path` symlinkを使う。番号はbootごとに変わる可能性がある。
+実際のパスを使う `/dev/dri/by-path/`.
 
 ```bash
 sudo mkdir -p /etc/environment.d
@@ -286,22 +205,11 @@ EOF
 sudo systemctl daemon-reload
 ```
 
-- Mesa/KWin/AMDGPUのrace conditionで、boot時にKWinがDRM masterを取れない場合だけ必要。
-- `KWIN_DRM_DEVICES` - 安定symlink経由でKWinを特定GPUに固定する。
-- `sleep 3` - 応急処置。KWinがatomic modesetを試す前にAMDGPUの初期化時間を稼ぐ。
-- start limitで無限クラッシュループを防ぐ。
-
-## NetworkManager-wait-onlineの無効化
+## NetworkManager
 
 ```bash
 sudo systemctl disable --now NetworkManager-wait-online.service
 ```
-
-boot時間を短縮する。desktop appはネットワーク待ちなしでも普通に動く。
-
-起動前にネットワークが必要なサービスがあるなら無効化しない。
-
-## NetworkManager MAC address policy
 
 ```bash
 sudo tee /etc/NetworkManager/conf.d/99-mac-address-policy.conf > /dev/null << 'EOF'
@@ -316,11 +224,7 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-- `wifi.scan-rand-mac-address=yes` - WiFiカードがネットワークをscanする間、MACをランダム化する。
-- `wifi.cloned-mac-address=stable` - WiFiネットワークごとに偽だが安定したMACを使う。DHCP、captive portal、固定デバイス名を壊しにくく、privacyも上がる。
-- `ethernet.cloned-mac-address=preserve` - Ethernetでは本物のMACを維持する。DHCP予約、router rule、Wake-on-LAN、allowlistを壊さない。
-
-## Bluetooth再起動
+## Bluetooth restart
 
 ```bash
 sudo rfkill unblock all
@@ -341,14 +245,11 @@ sudo apt install \
   handbrake hashcat hugo kcalc kde-config-flatpak kdenlive krita \
   libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular \
   openrgb plasma-discover-backend-flatpak podman podman-docker python3 \
-  python3-full python3-dev python3-pip python3-venv qbittorrent \
-  qemu-system-x86 ripgrep starship systemd-zram-generator thefuck \
-  timeshift torbrowser-launcher tree tmux ufw unrar unzip virt-manager \
-  vlc wget wireshark yakuake yt-dlp zoxide
+  python3-dev python3-full python3-pip python3-venv qbittorrent \
+  qemu-system-x86 ripgrep starship thefuck timeshift tmux \
+  torbrowser-launcher tree ufw unrar unzip virt-manager vlc wget \
+  wireshark yakuake yt-dlp zoxide
 ```
-
-- `podman-docker` は `docker` コマンドをPodmanへ向ける。互換性には便利だが、このマシンでの `docker` の意味が変わる。
-- 本物のDocker Engine欲しいなら、`podman-docker`は入れない。
 
 ## ユーザーパーミッション
 
@@ -356,12 +257,18 @@ sudo apt install \
 sudo usermod -aG kvm,libvirt,wireshark "$USER"
 ```
 
-ログアウトして再度ログインするとグループが適用される。
+ログアウトして再度ログイン.
 
-- `kvm` / `libvirt` - VMやvirt-manager、エミュレータをパーミッションで悩まずに使える。
-- `wireshark` - GUI全体をrootで実行せずパケットをキャプチャできる。
+## ROCm
 
-## APTセキュリティ自動更新
+```bash
+sudo apt install rocm rocm-podman-support
+sudo usermod -aG render,video "$USER"
+```
+
+ログアウトして再度ログイン.
+
+## APT security auto-updates
 
 ```bash
 sudo apt install unattended-upgrades
@@ -376,38 +283,16 @@ APT::Periodic::Unattended-Upgrade "1";
 EOF
 ```
 
-確認:
-
-```bash
-systemctl status unattended-upgrades
-systemctl list-timers 'apt*'
-ls /var/log/unattended-upgrades/
-```
-
-- **unattended-upgrades** - セキュリティアップデートを自動インストールする。
-- `Update-Package-Lists "1"` - 1日1回パッケージリストを更新する。
-- `Download-Upgradeable-Packages "1"` - バックグラウンドでアップグレード可能なパッケージをダウンロードする。
-- `AutocleanInterval "7"` - 7日ごとに古いパッケージ/キャッシュを削除する。
-- `Unattended-Upgrade "1"` - 1日1回 unattended-upgrades を実行する。
-- デスクトップ/ゲーム/開発機なので自動再起動は切っている。再起動のタイミングは自分で決めたい。
-
 ## Ubuntu Pro
-
-任意：
 
 ```bash
 sudo pro attach
 pro status
 ```
 
-- **Ubuntu Pro** - ESMやCanonicalの追加サービスを有効化する。
-- Kubuntuを使う上では必須ではない。
-
 ## Brave
 
 ```bash
-sudo apt install curl
-
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
   https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 
@@ -418,19 +303,13 @@ sudo apt update
 sudo apt install brave-browser
 ```
 
-- **Brave** - Chromiumベースのブラウザ。
-- 公式APT repoから入れて、システムと一緒に更新させる。
-
 ## Firefox
 
-Firefox/ThunderbirdがSnapで入っていたら消す：
-
 ```bash
+sudo apt remove firefox
 snap list firefox >/dev/null 2>&1 && sudo snap remove firefox
 snap list thunderbird >/dev/null 2>&1 && sudo snap remove thunderbird
 ```
-
-Mozilla公式APT repoを追加：
 
 ```bash
 sudo install -d -m 0755 /etc/apt/keyrings
@@ -438,15 +317,6 @@ sudo install -d -m 0755 /etc/apt/keyrings
 wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
   | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
 ```
-
-fingerprintを確認：
-
-```bash
-gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc \
-  | awk '/pub/{getline; gsub(/^ +| +$/,""); if($0 == "35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3") print "\nThe key fingerprint matches ("$0").\n"; else print "\nVerification failed: the fingerprint ("$0") does not match the expected one.\n"}'
-```
-
-repoを追加：
 
 ```bash
 cat <<EOF | sudo tee /etc/apt/sources.list.d/mozilla.sources
@@ -458,8 +328,6 @@ Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
 EOF
 ```
 
-Mozillaパッケージを優先：
-
 ```bash
 cat <<EOF | sudo tee /etc/apt/preferences.d/mozilla
 Package: *
@@ -468,23 +336,41 @@ Pin-Priority: 1000
 EOF
 ```
 
-Firefox `.deb` をインストール：
-
 ```bash
 sudo apt update
 sudo apt install firefox
 ```
 
-確認：
+## Tailscale
 
 ```bash
-apt policy firefox
-which firefox
-firefox --version
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
+  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
+  | sudo tee /etc/apt/sources.list.d/tailscale.list
+
+sudo apt update
+sudo apt install tailscale
+sudo tailscale up
 ```
 
-- **Firefox** - Mozilla公式repoから`.deb`で入れる。Snapではない。
-- pinでUbuntuのtransitional/snapパッケージが優先されるのを防ぐ。
+## Antigravity
+
+```bash
+sudo mkdir -p /etc/apt/keyrings
+
+curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
+  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
+  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
+
+sudo apt update
+sudo apt install antigravity
+```
 
 ## Homebrew
 
@@ -494,13 +380,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew install fnm topgrade uv
 ```
 
-- **fnm** - Node.jsバージョンマネージャ。
-- **topgrade** - 全体更新を1コマンドでやるやつ。
-- **uv** - Python package/project manager。
-
-## Topgrade自動更新
-
-任意。APTとSnapを除き、Topgradeが検出したものをすべて自動更新する。
+## Topgrade auto-update
 
 ```bash
 mkdir -p ~/.config
@@ -549,35 +429,6 @@ systemctl --user daemon-reload
 systemctl --user enable --now topgrade.timer
 ```
 
-確認：
-
-```bash
-systemctl --user status topgrade.timer
-systemctl --user list-timers
-```
-
-手動実行：
-
-```bash
-systemctl --user start topgrade.service
-journalctl --user -u topgrade.service
-```
-
-ドライラン（実際には実行しない）：
-
-```bash
-topgrade --dry-run
-```
-
-- `assume_yes = true` - 確認を自動で承認する。
-- `cleanup = true` - 更新後にキャッシュと古いバージョンを削除する。
-- `no_retry = true` - ステップが失敗しても、そこで止まって聞いてこない。
-- `notify_end = "on_failure"` - 失敗があった時だけ通知する。
-- `disable = ["system", "snap"]` - APTとSnapは触らない。
-- `OnCalendar=weekly` - 週1回実行する。
-- `Persistent=true` - PCが落ちていた場合、起動後に補完実行する。
-- `RandomizedDelaySec=1h` - 毎回まったく同じ時刻に起動するのを避ける。
-
 ## npm global
 
 ```bash
@@ -586,40 +437,8 @@ eval "$(fnm env --use-on-cd --shell bash)"
 fnm install --lts --use
 fnm default "$(fnm current)"
 
-npm install -g @openai/codex @google/gemini-cli opencode-ai
+npm install -g @google/gemini-cli @openai/codex opencode-ai
 ```
-
-確認：
-
-```bash
-node --version
-npm --version
-codex --version
-gemini --version
-opencode --version
-```
-
-- **Codex CLI** - OpenAIのターミナル用coding agent。
-- **Gemini CLI** - Googleのターミナル用coding agent。
-- **OpenCode** - オープンソースのターミナル用coding agent。
-
-## Antigravity
-
-```bash
-sudo mkdir -p /etc/apt/keyrings
-
-curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
-  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
-
-echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
-  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
-
-sudo apt update
-sudo apt install antigravity
-```
-
-- **Antigravity** - Googleのagentic IDE。
-- APTで入れてシステムと一緒に更新させる。
 
 ## Nerd Fonts
 
@@ -628,30 +447,12 @@ brew install --cask font-hack-nerd-font font-ubuntu-mono-nerd-font
 fc-cache -fv
 ```
 
-確認：
-
-```bash
-fc-match "Hack Nerd Font"
-fc-match "UbuntuMono Nerd Font"
-```
-
-- **Hack Nerd Font** - ターミナル/開発用として悪くない選択。
-- **UbuntuMono Nerd Font** - 下のGhostty設定で使っているフォント。
-- Nerd Fontsはglyph/アイコンを追加する。prompt、statusline、Neovim、tmux、Starshipなどで使える。
-
-## Flatpakセットアップ
+## Flatpak
 
 ```bash
 flatpak remote-add --if-not-exists flathub \
   https://flathub.org/repo/flathub.flatpakrepo
 ```
-
-- **flatpak** - sandboxedアプリランタイム。
-- **plasma-discover-backend-flatpak** - Discover統合。
-- **kde-config-flatpak** - KDEシステム設定統合。
-- **Flathub** - メインのFlatpakアプリrepo。
-
-## Flatpak
 
 ```bash
 flatpak install flathub \
@@ -668,38 +469,6 @@ flatpak install flathub \
   org.telegram.desktop
 ```
 
-- **ProtonPlus** - Steam向けProtonバージョンマネージャ。
-- **Warehouse** - Flatpakマネージャ。
-- **Pinta** - 軽量な画像編集。
-- **Podman Desktop** - container用GUI。
-- **Gear Lever** - AppImageマネージャ。
-- **Spotify** - 音楽ストリーミング。
-- **Stremio** - メディアストリーミング。
-- **Vesktop** - Discordクライアント。
-- **LocalSend** - ローカルファイル共有。
-- **Signal** - プライベートメッセージング。
-- **Telegram** - メッセージング。
-
-## Tailscale
-
-```bash
-sudo mkdir -p --mode=0755 /usr/share/keyrings
-
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
-  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
-
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
-  | sudo tee /etc/apt/sources.list.d/tailscale.list
-
-sudo apt-get update
-sudo apt-get install tailscale
-
-sudo tailscale up
-```
-
-- **Tailscale** - WireGuardベースのmesh VPN。手動でport設定せずにdevice間peer-to-peer。
-- APTで入れてシステムと一緒に更新させる。
-
 ## スクリプトインストール
 
 ```bash
@@ -710,14 +479,9 @@ curl -fsSL https://bun.sh/install | bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-- **Bun** - JavaScript runtime/toolkit。
-- **Rustup** - 公式Rust/Cargo installer。
-
 ## 手動インストール
 
 ### Steam
-
-公式`.deb`をダウンロードしてインストール：
 
 ```bash
 cd /tmp
@@ -728,7 +492,7 @@ rm steam.deb
 
 ### Google Chrome
 
-[google.com/chrome](https://www.google.com/chrome/) から`.deb`をダウンロードしてインストール：
+Descargar el `.deb` desde [google.com/chrome](https://www.google.com/chrome/) e instalarlo:
 
 ```bash
 sudo apt install ./google-chrome-stable_current_amd64.deb
@@ -736,7 +500,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### Android Studio
 
-[developer.android.com/studio](https://developer.android.com/studio) から`.tar.gz`をダウンロードし、`/opt`へ展開して`studio`ランチャーをsymlinkする：
+Descargar el `.tar.gz` desde [developer.android.com/studio](https://developer.android.com/studio), descomprimirlo en `/opt` y linkear el launcher:
 
 ```bash
 cd /tmp
@@ -748,27 +512,29 @@ mkdir -p ~/.local/bin
 ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
 ```
 
-起動：
+Primera ejecución:
+
+```bash
+~/.local/bin/studio
+```
+
+Después de tener `~/.local/bin` en el `PATH`:
 
 ```bash
 studio
 ```
 
-その後、Android Studioの中で：
+Dentro de Android Studio:
 
 ```text
 Tools > Create Desktop Entry
 ```
 
-- **Android Studio** - Android開発の公式IDE。
-- 推奨ランチャーは`studio`。
-- Setup WizardがAndroid SDKと必要コンポーネントをダウンロードする。
-- エミュレータを使うなら、BIOSで仮想化が有効になっていることを確認。
-- SDKは通常`~/Android/Sdk`にあり、`.bashrc`は`platform-tools`、`emulator`、`cmdline-tools`を`PATH`に追加する。
+El Setup Wizard descarga el SDK en `~/Android/Sdk`.
 
 ### Visual Studio Code
 
-[code.visualstudio.com](https://code.visualstudio.com/) から `.deb` を落としてインストール：
+Descargar el `.deb` desde [code.visualstudio.com](https://code.visualstudio.com/) e instalarlo:
 
 ```bash
 sudo apt install ./code_*.deb
@@ -776,7 +542,21 @@ sudo apt install ./code_*.deb
 
 ### Trezor Suite
 
-[Trezor Suite](https://trezor.io/trezor-suite) はAppImageで落とす。Gear Leverで管理する。
+Descargar [Trezor Suite](https://trezor.io/trezor-suite) como AppImage y manejarlo con Gear Lever.
+
+## Timeshift
+
+```bash
+sudo timeshift-gtk
+```
+
+Config:
+
+- Tipo: Btrfs
+- Ubicación: mismo disco Btrfs del sistema
+- Schedule: diario + boot
+- Mantener: 3 diarios, 3 boot, 2 semanales
+- `/home`: no incluir datos de usuario
 
 # Shellとターミナル
 
@@ -797,29 +577,61 @@ EOF
 
 ## bashrc
 
-[GitHub](https://github.com/akinomyoga/ble.sh) からble.shをインストール：
+Instalar ble.sh:
 
 ```bash
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
 ```
 
-`~/.bashrc`を編集する：
+Editar `~/.bashrc`:
 
 ```bash
 nvim ~/.bashrc
 ```
 
-一番上に追加：
+Arriba de todo:
 
 ```bash
-# ble.sh - Bash Line Editor. Load first, attach last.
+# ble.sh - load first, attach last
 [[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
 ```
 
-通常の設定をその後に追加：
+Config normal:
 
 ```bash
-# starship prompt
+# path helper
+path_prepend() {
+  [[ -d "$1" ]] || return
+  case ":$PATH:" in
+    *":$1:"*) ;;
+    *) export PATH="$1:$PATH" ;;
+  esac
+}
+
+# local bin
+path_prepend "$HOME/.local/bin"
+
+# android sdk
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+path_prepend "$ANDROID_HOME/cmdline-tools/latest/bin"
+path_prepend "$ANDROID_HOME/emulator"
+path_prepend "$ANDROID_HOME/platform-tools"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+path_prepend "$BUN_INSTALL/bin"
+
+# homebrew
+[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# fnm
+command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
+
+# rust/cargo
+[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+
+# starship
 command -v starship >/dev/null && eval "$(starship init bash)"
 
 # thefuck
@@ -828,7 +640,10 @@ command -v thefuck >/dev/null && eval "$(thefuck --alias)"
 # fzf
 command -v fzf >/dev/null && eval "$(fzf --bash)"
 
-# atuin: shell history sync, with ble.sh integration
+# zoxide
+command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
+
+# atuin
 [[ -f /usr/share/bash-preexec/bash-preexec.sh ]] && source /usr/share/bash-preexec/bash-preexec.sh
 
 if command -v atuin >/dev/null; then
@@ -839,52 +654,20 @@ if command -v atuin >/dev/null; then
     eval "$(atuin init bash)"
   fi
 fi
-
-# local bin
-case ":$PATH:" in
-  *":$HOME/.local/bin:"*) ;;
-  *) export PATH="$HOME/.local/bin:$PATH" ;;
-esac
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# homebrew
-[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-# fnm: Node.js version manager
-command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
-
-# zoxide
-command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
-
-# rust/cargo
-[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 ```
 
-一番最後に追加：
+Al final de todo:
 
 ```bash
-# ble.sh attach. Must be last.
+# ble.sh attach
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 ```
-
-- **ble.sh** - Bashの補完と編集を強化する。一番上で`--attach=none`付きでloadし、一番最後で`ble-attach`する。upstreamの推奨通り。
-- **starship** - 高速なcross-shell prompt。
-- **atuin** - fuzzy検索付きの同期shell履歴。
-- **thefuck** - 直前のコマンドを修正する。
-- **fzf** - files、history、その他flow用のfuzzy finder。
-- **zoxide** - `cd`を、使い方を学習する版に置き換える。
 
 # コンテナ
 
 ```bash
 systemctl --user enable --now podman.socket
 ```
-
-- `podman-docker` はDocker CLIコマンドをPodmanへ向ける。
-- GUI用に[Podman Desktop](https://podman-desktop.io/)をFlatpakで入れる。
 
 # ネットワークとセキュリティ
 
@@ -897,25 +680,20 @@ sudo ufw allow kdeconnect
 sudo ufw enable
 ```
 
-KDE Connectは1714-1764 TCP/UDPを使う。`kdeconnect` app profileはパッケージに入っている。
-
 # ゲーム
 
 ## Steam
 
-- 公式`.deb`でSteamをインストール。
-- Steam設定でSteam Playを有効化。
-- ゲームごとに起動オプションを設定：
+- Habilitar Steam Play
+- Opciones de lanzamiento por juego:
 
 ```bash
 gamemoderun %command%
 ```
 
-- ProtonPlusでProton-CachyOSかProton-GEを入れる。
+- Instalar Proton-CachyOS o Proton-GE con ProtonPlus
 
 ## Half-Life / Portal / Counter-Strike
-
-起動オプション：
 
 ```bash
 -vulkan -novid -fullscreen
@@ -928,8 +706,6 @@ gamemoderun %command%
 ## GTA IV
 
 <https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix>
-
-起動オプション：
 
 ```bash
 WINEDLLOVERRIDES="dinput8=n,b" %command%
@@ -950,9 +726,7 @@ ssh-add ~/.ssh/id_ed25519
 cat ~/.ssh/id_ed25519.pub
 ```
 
-- `pull.rebase=true` - `git pull` がdivergenceを見つけた時、merge commitを作らずlocal commitsをremoteの上に再適用する。
-- `rebase.autoStash=true` - 未commitの変更がある場合、rebase前に一時stashし、最後に戻す。
-- 公開鍵を <https://github.com/settings/ssh> に貼る。
+公開鍵を貼る <https://github.com/settings/ssh>.
 
 # Braveの拡張機能
 

@@ -1,5 +1,5 @@
 +++
-title = "配置"
+title = "configs"
 hideComments = true
 +++
 
@@ -7,15 +7,15 @@ hideComments = true
 
 **PC Master Race**
 
-- 操作系统: [Kubuntu 26.04 LTS](https://kubuntu.org/)
+- OS: [Kubuntu 26.04 LTS](https://kubuntu.org/)
 - CPU: AMD Ryzen 5 3600
 - GPU: AMD Radeon RX 6800 16 GB
-- 内存: 32 GB (4x8 GB GeIL Super Luce DDR4 3200 MHz)
-- NVMe: 1 TB (2x512 GB Adata XPG Spectrix S40G)
-- 主板: ASUS TUF Gaming X570-PRO (Wi-Fi)
-- 鼠标: Logitech G305
-- 键盘: HyperX Alloy Origins Core，配 Razer Pink PBT 键帽
-- 耳机: Audio-Technica ATH-M50x 配 FiiO BTA10，以及 Sony Inzone H9
+- RAM: 32 GB (4×8 GB GeIL Super Luce DDR4 3200 MHz)
+- NVMe: 1 TB (2×512 GB Adata XPG Spectrix S40G)
+- Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi)
+- Mouse: Logitech G305
+- Teclado: HyperX Alloy Origins Core con keycaps Razer Pink PBT
+- Auriculares: Audio-Technica ATH-M50x con FiiO BTA10 y Sony Inzone H9
 
 **Raspberry Pi 4 Model B**
 
@@ -27,34 +27,34 @@ hideComments = true
 
 Kubuntu 26.04 用 UEFI 模式安装：
 
-- 文件系统: Btrfs
-- Swap: swap file
-- 加密: 启用 LUKS
+- Btrfs
+- Swap file
+- 启用 LUKS
 
-下面的很多配置假设 Btrfs 带子卷像 `/@` 和 `/@home`，swap file 在 `/swap/swapfile`，磁盘用 LUKS 加密。如果你用 ext4、单独 swap 分区或不加密安装，按你的布局调整例子。
+Layout: 子卷 `/@` y `/@home`, swap file en `/swap/swapfile`, 磁盘用 LUKS 加密.
 
-# BIOS配置
+# BIOS
 
 - 加载优化默认值
 - 用 DOCP/XMP 把内存设到 3200 MHz
 - 启用 Above 4G Decoding
 - 启用 Resizable BAR
-- 启用虚拟化: SVM Mode / AMD-V
+- 启用 SVM Mode / AMD-V
 - 启用 Secure Boot
-- 禁用 CSM，使用纯 UEFI
+- 禁用 CSM
 - 调风扇曲线，尽量安静
 
-# Linux相关
+# Linux
 
-## 内核参数 (GRUB)
+## GRUB
 
 ```bash
 sudo nvim /etc/default/grub
 ```
 
-把 `preempt=full pcie_aspm=off` 加到 `GRUB_CMDLINE_LINUX_DEFAULT`，别删掉原本就有的参数。
+把 `preempt=full pcie_aspm=off` a `GRUB_CMDLINE_LINUX_DEFAULT`, 加进去，别删掉原本就有的.
 
-LUKS 安装示例:
+LUKS 示例：
 
 ```ini
 GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=blablabla:luks-blablabla root=/dev/mapper/luks-blablabla splash preempt=full pcie_aspm=off"
@@ -64,35 +64,33 @@ GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=blablabla:luks-blablabla root=/dev/
 sudo update-grub
 ```
 
-- `preempt=full` - 降低调度延迟，让桌面更跟手。需要内核启用 `CONFIG_PREEMPT_DYNAMIC`。
-- `pcie_aspm=off` - **只当临时方案用**: 修 Intel AX200 WiFi 卡在 D3cold 的问题。没有这个问题就别用。
-- `quiet` 会隐藏 boot 信息。我不用，因为我想开机时看到更多东西。
-- `cryptdevice=...` 和 `root=...` 每台机器都不一样。保留你自己的，别照抄这里的值。
+- `preempt=full` - 降低调度延迟.
+- `pcie_aspm=off` - 修 Intel AX200 WiFi 卡在 D3cold 的问题.
+- 不用 `quiet` 因为我想开机时看到更多信息.
+- `cryptdevice=...` y `root=...` 每台机器都不一样.
 
-## LUKS加密性能
+## LUKS performance
 
 ```bash
-# 找到你的设备名
 sudo dmsetup table
 
-# 应用持久化性能参数
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
 
-- `no_read_workqueue` / `no_write_workqueue` - 加密/解密时绕过内核 workqueue。NVMe 上延迟更低。
-- `allow-discards` - 让 TRIM 传到 SSD。代价是可能暴露文件系统分配模式，但个人 PC 用 LUKS 通常可以接受。
+- `no_read_workqueue` / `no_write_workqueue` - NVMe 上延迟更低.
+- `allow-discards` - 在 SSD 上启用 TRIM.
 
-## Btrfs挂载选项
+## Btrfs mounts
 
 ```ini
 /dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
 /dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
 ```
 
-- `noatime` - 跳过访问时间戳更新，少写 SSD。
-- `compress=zstd` - 透明压缩。减少写入和 I/O，明显压不了的数据会自动跳过。
+- `noatime` - 少写点.
+- `compress=zstd` - 透明压缩.
 
-## 性能sysctl
+## sysctl
 
 ```bash
 sudo tee /etc/sysctl.d/99-performance.conf > /dev/null << 'EOF'
@@ -103,16 +101,6 @@ vm.dirty_ratio = 10
 vm.dirty_background_ratio = 5
 EOF
 
-sudo sysctl --system
-```
-
-- `nmi_watchdog=0` / `watchdog=0` - 禁用 lockup watchdog。能少一点点 overhead，但内核卡死时也少了有用诊断。只在你更在乎延迟而不是 debug 时用。
-- `tcp_fastopen=3` - 客户端和服务端都启用 TCP Fast Open。纯桌面变化不大，跑相关服务时更有用。
-- `dirty_ratio=10` / `dirty_background_ratio=5` - 从常见默认值 (`20`/`10`) 调低阈值，让 writeback 更早开始，burst 更小。
-
-## zram swap sysctl
-
-```bash
 sudo tee /etc/sysctl.d/99-vm-zram.conf > /dev/null << 'EOF'
 vm.swappiness = 150
 vm.vfs_cache_pressure = 50
@@ -124,15 +112,7 @@ EOF
 sudo sysctl --system
 ```
 
-- `swappiness=150` - 优先用 zram，而不是丢 cache。合理，因为 zram 是压缩 RAM，不是慢磁盘。默认: `60`。
-- `vfs_cache_pressure=50` - 保留更多 dentry/inode cache。可能改善桌面响应。默认: `100`。
-- `page-cluster=0` - 禁用 swap readahead。zram 是压缩 RAM，这样有意义。默认: `3`。
-- `watermark_scale_factor=100` - 让 `kswapd` 更早反应，留更多余量。不是万能优化。
-- `compaction_proactiveness=50` - 比默认 `20` 更积极做内存压缩。可能帮 THP/higher-order allocation，但如果感觉卡顿就改回 `20`。
-
-## zram-generator
-
-安装 `systemd-zram-generator`，并显式写配置:
+## zram
 
 ```bash
 sudo apt install systemd-zram-generator
@@ -147,30 +127,12 @@ swap-priority = 100
 EOF
 ```
 
-没有要 enable 的服务。`zram-generator` 开机时跑，读取配置，然后自动创建 swap 设备。
-
-不重启也能应用:
-
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl start dev-zram0.swap
 ```
 
-验证:
-
-```bash
-swapon --show
-zramctl
-cat /sys/block/zram0/comp_algorithm
-```
-
-- `zram-size = ram / 2` - 32 GB RAM 上就是 16 GB 逻辑 zram。
-- `compression-algorithm = zstd` - 压缩率好，速度也还行。`lz4` 更快，但压缩少。
-- `swap-priority = 100` - 优先级比 swap file 高，所以先用 zram。
-
 ## Btrfs swap file
-
-Kubuntu 26.04 安装时会自动在 Btrfs subvol 上创建 swap file，但很小。把它改成 4 GB:
 
 ```bash
 sudo swapoff /swap/swapfile
@@ -179,45 +141,17 @@ sudo btrfs filesystem mkswapfile --size 4G /swap/swapfile
 sudo swapon /swap/swapfile
 ```
 
-验证:
+磁盘 swap 留作 zram 满了之后的 fallback.
 
-```bash
-swapon --show
-sudo btrfs inspect-internal map-swapfile /swap/swapfile
-```
-
-磁盘 swap 留作 zram 满了之后的 fallback。低优先级，所以先用 zram。
-
-## Timeshift 快照
-
-我用 Timeshift 做 Btrfs 上的系统快照：
-
-```bash
-sudo timeshift-gtk
-```
-
-推荐配置：
-
-- 类型: Btrfs
-- 位置: 和系统同一个 Btrfs 磁盘
-- 调度: 每日 + 启动时
-- 保留: 3 个每日、3 个启动、2 个每周
-- `/home`: 不包含用户数据
-
-- **Timeshift** - 系统回滚。用来在更新失败、驱动问题或配置搞砸之后回退。
-- 不能替代真正的备份: 不是用来存项目、照片、文档或密钥的。
-- 在 Btrfs 上配合 Ubuntu 风格布局最好: 子卷 `/@` 和 `/@home`。
-- 我选择不包含 `/home`，免得系统回滚覆盖个人文件。
-
-## CPU和内存
+## CPU
 
 ```bash
 powerprofilesctl set performance
 ```
 
-- `amd-pstate active` + governor `performance` + EPP `performance` - 让 CPU 走性能路径，不为了省电平衡频率。待机功耗更高，延迟更低。
-- `transparent_hugepage=madvise` - Kubuntu 26.04 已经默认这样。只有通过 `madvise()` 显式请求 THP 的 app 才会拿到 huge pages。
-- NVMe scheduler `none` - NVMe 一般已经默认这样。NVMe 有内部调度，内核 scheduler 通常只是增加 overhead。
+- `amd-pstate active` + governor `performance` + EPP `performance`
+- `transparent_hugepage=madvise` ya es default.
+- NVMe scheduler `none` ya es default normal para NVMe.
 
 ## Intel AX200 WiFi
 
@@ -228,17 +162,6 @@ options iwlmvm power_scheme=1
 EOF
 ```
 
-- `power_save=0` - 禁用 `iwlwifi` 驱动省电。
-- `power_scheme=1` - 强制 `iwlmvm` active mode。避免低功耗状态导致延迟尖刺或断线。
-
-Kubuntu 可能自带这个文件:
-
-```bash
-/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
-```
-
-里面可能有 `wifi.powersave=3`。我不删也不改它，而是用后读取的配置覆盖:
-
 ```bash
 sudo tee /etc/NetworkManager/conf.d/99-disable-wifi-powersave.conf > /dev/null << 'EOF'
 [connection]
@@ -248,19 +171,15 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-- `wifi.powersave=2` - 在 NetworkManager 层禁用 WiFi 省电。
-- `2` = 禁用，`3` = 启用。
-
 ## KWin AMDGPU
 
-仅 KDE。只有开机黑屏时才需要。
+仅 KDE。只有开机黑屏时才需要.
 
 ```bash
-# 查看 GPU 的稳定路径
 ls -l /dev/dri/by-path/
 ```
 
-用 `by-path` symlink，不要用 `/dev/dri/cardN`，因为编号每次开机可能变。
+用 `/dev/dri/by-path/`.
 
 ```bash
 sudo mkdir -p /etc/environment.d
@@ -286,22 +205,11 @@ EOF
 sudo systemctl daemon-reload
 ```
 
-- 只有 KWin 开机时因为 Mesa/KWin/AMDGPU race condition 拿不到 DRM master 才需要。
-- `KWIN_DRM_DEVICES` - 通过稳定 symlink 把 KWin 固定到指定 GPU。
-- `sleep 3` - 临时方案: 在 KWin 尝试 atomic modeset 前给 AMDGPU 一点初始化时间。
-- 启动限制防止无限崩溃循环。
-
-## 禁用NetworkManager-wait-online
+## NetworkManager
 
 ```bash
 sudo systemctl disable --now NetworkManager-wait-online.service
 ```
-
-省开机时间。桌面 app 不等网络也能正常用。
-
-如果你有服务启动前必须等网络，就别禁用。
-
-## NetworkManager MAC address policy
 
 ```bash
 sudo tee /etc/NetworkManager/conf.d/99-mac-address-policy.conf > /dev/null << 'EOF'
@@ -316,11 +224,7 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-- `wifi.scan-rand-mac-address=yes` - WiFi 扫描网络时随机化 MAC。
-- `wifi.cloned-mac-address=stable` - 每个 WiFi 网络使用一个假的但稳定的 MAC。提升隐私，又不容易搞坏 DHCP、captive portal 或固定设备名。
-- `ethernet.cloned-mac-address=preserve` - Ethernet 保留真实 MAC。避免搞坏 DHCP reservation、路由器规则、Wake-on-LAN 和 allowlist。
-
-## 蓝牙重启
+## Bluetooth restart
 
 ```bash
 sudo rfkill unblock all
@@ -341,14 +245,11 @@ sudo apt install \
   handbrake hashcat hugo kcalc kde-config-flatpak kdenlive krita \
   libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular \
   openrgb plasma-discover-backend-flatpak podman podman-docker python3 \
-  python3-full python3-dev python3-pip python3-venv qbittorrent \
-  qemu-system-x86 ripgrep starship systemd-zram-generator thefuck \
-  timeshift torbrowser-launcher tree tmux ufw unrar unzip virt-manager \
-  vlc wget wireshark yakuake yt-dlp zoxide
+  python3-dev python3-full python3-pip python3-venv qbittorrent \
+  qemu-system-x86 ripgrep starship thefuck timeshift tmux \
+  torbrowser-launcher tree ufw unrar unzip virt-manager vlc wget \
+  wireshark yakuake yt-dlp zoxide
 ```
-
-- `podman-docker` 让 `docker` 命令指向 Podman。兼容性方便，但会改变这台机器上 `docker` 的含义。
-- 如果你想要真正的 Docker Engine，就别装 `podman-docker`。
 
 ## 用户权限
 
@@ -356,12 +257,18 @@ sudo apt install \
 sudo usermod -aG kvm,libvirt,wireshark "$USER"
 ```
 
-注销重新登录后生效。
+注销重新登录.
 
-- `kvm` / `libvirt` - 用 VM、virt-manager 和模拟器时不用跟权限较劲。
-- `wireshark` - 不用开 root 也能抓包。
+## ROCm
 
-## APT安全自动更新
+```bash
+sudo apt install rocm rocm-podman-support
+sudo usermod -aG render,video "$USER"
+```
+
+注销重新登录.
+
+## APT security auto-updates
 
 ```bash
 sudo apt install unattended-upgrades
@@ -376,38 +283,16 @@ APT::Periodic::Unattended-Upgrade "1";
 EOF
 ```
 
-验证：
-
-```bash
-systemctl status unattended-upgrades
-systemctl list-timers 'apt*'
-ls /var/log/unattended-upgrades/
-```
-
-- **unattended-upgrades** - 自动安装安全更新。
-- `Update-Package-Lists "1"` - 每天更新一次包列表。
-- `Download-Upgradeable-Packages "1"` - 在后台下载可升级包。
-- `AutocleanInterval "7"` - 每7天清理旧包/缓存。
-- `Unattended-Upgrade "1"` - 每天跑一次 unattended-upgrades。
-- 不开自动重启，桌面/游戏/开发机我想自己决定什么时候重启。
-
 ## Ubuntu Pro
-
-可选：
 
 ```bash
 sudo pro attach
 pro status
 ```
 
-- **Ubuntu Pro** - 启用 ESM 和 Canonical 额外服务。
-- 不是用 Kubuntu 的前提。
-
 ## Brave
 
 ```bash
-sudo apt install curl
-
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
   https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 
@@ -418,19 +303,13 @@ sudo apt update
 sudo apt install brave-browser
 ```
 
-- **Brave** - 基于 Chromium 的浏览器。
-- 用官方 APT repo 装，跟着系统一起更新。
-
 ## Firefox
 
-如果 Firefox/Thunderbird 是 Snap 装的，先卸掉：
-
 ```bash
+sudo apt remove firefox
 snap list firefox >/dev/null 2>&1 && sudo snap remove firefox
 snap list thunderbird >/dev/null 2>&1 && sudo snap remove thunderbird
 ```
-
-添加 Mozilla 官方 APT repo：
 
 ```bash
 sudo install -d -m 0755 /etc/apt/keyrings
@@ -438,15 +317,6 @@ sudo install -d -m 0755 /etc/apt/keyrings
 wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
   | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
 ```
-
-验证指纹：
-
-```bash
-gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc \
-  | awk '/pub/{getline; gsub(/^ +| +$/,""); if($0 == "35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3") print "\nThe key fingerprint matches ("$0").\n"; else print "\nVerification failed: the fingerprint ("$0") does not match the expected one.\n"}'
-```
-
-添加 repo：
 
 ```bash
 cat <<EOF | sudo tee /etc/apt/sources.list.d/mozilla.sources
@@ -458,8 +328,6 @@ Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
 EOF
 ```
 
-给 Mozilla 包设高优先级：
-
 ```bash
 cat <<EOF | sudo tee /etc/apt/preferences.d/mozilla
 Package: *
@@ -468,23 +336,41 @@ Pin-Priority: 1000
 EOF
 ```
 
-安装 Firefox `.deb`：
-
 ```bash
 sudo apt update
 sudo apt install firefox
 ```
 
-验证：
+## Tailscale
 
 ```bash
-apt policy firefox
-which firefox
-firefox --version
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
+  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
+  | sudo tee /etc/apt/sources.list.d/tailscale.list
+
+sudo apt update
+sudo apt install tailscale
+sudo tailscale up
 ```
 
-- **Firefox** - 用 `.deb` 从 Mozilla 官方 repo 装的，不是 Snap。
-- pin 防止 APT 优先选 Ubuntu 的 transitional/snap 包。
+## Antigravity
+
+```bash
+sudo mkdir -p /etc/apt/keyrings
+
+curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
+  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
+  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
+
+sudo apt update
+sudo apt install antigravity
+```
 
 ## Homebrew
 
@@ -494,13 +380,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew install fnm topgrade uv
 ```
 
-- **fnm** - Node.js 版本管理器。
-- **topgrade** - 一条命令更新全系统。
-- **uv** - Python 包/项目管理器。
-
-## Topgrade自动更新
-
-可选。自动更新 Topgrade 检测到的所有东西，APT 和 Snap 除外。
+## Topgrade auto-update
 
 ```bash
 mkdir -p ~/.config
@@ -549,36 +429,7 @@ systemctl --user daemon-reload
 systemctl --user enable --now topgrade.timer
 ```
 
-验证：
-
-```bash
-systemctl --user status topgrade.timer
-systemctl --user list-timers
-```
-
-手动运行：
-
-```bash
-systemctl --user start topgrade.service
-journalctl --user -u topgrade.service
-```
-
-模拟运行，不实际执行：
-
-```bash
-topgrade --dry-run
-```
-
-- `assume_yes = true` - 自动接受确认。
-- `cleanup = true` - 更新后清理缓存和旧版本。
-- `no_retry = true` - 某步失败了不会卡在那里问怎么办。
-- `notify_end = "on_failure"` - 只在有东西失败时通知。
-- `disable = ["system", "snap"]` - 不动 APT 和 Snap。
-- `OnCalendar=weekly` - 每周跑一次。
-- `Persistent=true` - 电脑之前关着的话，开机后补跑。
-- `RandomizedDelaySec=1h` - 避免每次都在完全相同的时间点触发。
-
-## npm 全局
+## npm global
 
 ```bash
 eval "$(fnm env --use-on-cd --shell bash)"
@@ -586,40 +437,8 @@ eval "$(fnm env --use-on-cd --shell bash)"
 fnm install --lts --use
 fnm default "$(fnm current)"
 
-npm install -g @openai/codex @google/gemini-cli opencode-ai
+npm install -g @google/gemini-cli @openai/codex opencode-ai
 ```
-
-验证：
-
-```bash
-node --version
-npm --version
-codex --version
-gemini --version
-opencode --version
-```
-
-- **Codex CLI** - OpenAI 的终端 coding agent。
-- **Gemini CLI** - Google 的终端 coding agent。
-- **OpenCode** - 开源的终端 coding agent。
-
-## Antigravity
-
-```bash
-sudo mkdir -p /etc/apt/keyrings
-
-curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
-  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
-
-echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
-  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
-
-sudo apt update
-sudo apt install antigravity
-```
-
-- **Antigravity** - Google 的 agentic IDE。
-- 用 APT 装，跟着系统更新。
 
 ## Nerd Fonts
 
@@ -628,30 +447,12 @@ brew install --cask font-hack-nerd-font font-ubuntu-mono-nerd-font
 fc-cache -fv
 ```
 
-验证：
-
-```bash
-fc-match "Hack Nerd Font"
-fc-match "UbuntuMono Nerd Font"
-```
-
-- **Hack Nerd Font** - 终端/开发的好选择。
-- **UbuntuMono Nerd Font** - 下面 Ghostty 配置里用的字体。
-- Nerd Fonts 加了 glyphs/图标，给 prompt、statusline、Neovim、tmux、Starship 等用。
-
-## Flatpak 配置
+## Flatpak
 
 ```bash
 flatpak remote-add --if-not-exists flathub \
   https://flathub.org/repo/flathub.flatpakrepo
 ```
-
-- **flatpak** - sandboxed 应用运行时。
-- **plasma-discover-backend-flatpak** - Discover 集成。
-- **kde-config-flatpak** - KDE 系统设置集成。
-- **Flathub** - 主要的 Flatpak 应用仓库。
-
-## Flatpak
 
 ```bash
 flatpak install flathub \
@@ -668,38 +469,6 @@ flatpak install flathub \
   org.telegram.desktop
 ```
 
-- **ProtonPlus** - Steam 的 Proton 版本管理器。
-- **Warehouse** - Flatpak 管理器。
-- **Pinta** - 轻量图片编辑。
-- **Podman Desktop** - 容器GUI。
-- **Gear Lever** - AppImage 管理器。
-- **Spotify** - 音乐流媒体。
-- **Stremio** - 媒体流媒体。
-- **Vesktop** - Discord 客户端。
-- **LocalSend** - 局域网文件分享。
-- **Signal** - 私密聊天。
-- **Telegram** - 聊天。
-
-## Tailscale
-
-```bash
-sudo mkdir -p --mode=0755 /usr/share/keyrings
-
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
-  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
-
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
-  | sudo tee /etc/apt/sources.list.d/tailscale.list
-
-sudo apt-get update
-sudo apt-get install tailscale
-
-sudo tailscale up
-```
-
-- **Tailscale** - 基于 WireGuard 的 mesh VPN。设备之间点对点，不用手动配端口。
-- 用 APT 装，跟着系统更新。
-
 ## 脚本安装
 
 ```bash
@@ -710,14 +479,9 @@ curl -fsSL https://bun.sh/install | bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-- **Bun** - JavaScript runtime/toolkit。
-- **Rustup** - 官方 Rust/Cargo installer。
-
 ## 手动安装
 
 ### Steam
-
-下载官方 `.deb` 然后安装：
 
 ```bash
 cd /tmp
@@ -728,7 +492,7 @@ rm steam.deb
 
 ### Google Chrome
 
-从 [google.com/chrome](https://www.google.com/chrome/) 下载 `.deb` 然后安装：
+Descargar el `.deb` desde [google.com/chrome](https://www.google.com/chrome/) e instalarlo:
 
 ```bash
 sudo apt install ./google-chrome-stable_current_amd64.deb
@@ -736,7 +500,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### Android Studio
 
-从 [developer.android.com/studio](https://developer.android.com/studio) 下载 `.tar.gz`，解压到 `/opt`，然后 link `studio` launcher：
+Descargar el `.tar.gz` desde [developer.android.com/studio](https://developer.android.com/studio), descomprimirlo en `/opt` y linkear el launcher:
 
 ```bash
 cd /tmp
@@ -748,27 +512,29 @@ mkdir -p ~/.local/bin
 ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
 ```
 
-运行：
+Primera ejecución:
+
+```bash
+~/.local/bin/studio
+```
+
+Después de tener `~/.local/bin` en el `PATH`:
 
 ```bash
 studio
 ```
 
-然后，在 Android Studio 里：
+Dentro de Android Studio:
 
 ```text
 Tools > Create Desktop Entry
 ```
 
-- **Android Studio** - Android 开发官方 IDE。
-- 推荐的 launcher 是 `studio`。
-- Setup Wizard 会下载 Android SDK 和必要组件。
-- 要用模拟器的话确保 BIOS 里开了虚拟化。
-- SDK 通常在 `~/Android/Sdk`；`.bashrc` 会把 `platform-tools`、`emulator` 和 `cmdline-tools` 加到 `PATH`。
+El Setup Wizard descarga el SDK en `~/Android/Sdk`.
 
 ### Visual Studio Code
 
-从 [code.visualstudio.com](https://code.visualstudio.com/) 下载 `.deb` 然后安装：
+Descargar el `.deb` desde [code.visualstudio.com](https://code.visualstudio.com/) e instalarlo:
 
 ```bash
 sudo apt install ./code_*.deb
@@ -776,7 +542,21 @@ sudo apt install ./code_*.deb
 
 ### Trezor Suite
 
-把 [Trezor Suite](https://trezor.io/trezor-suite) 下载成 AppImage。用 Gear Lever 管。
+Descargar [Trezor Suite](https://trezor.io/trezor-suite) como AppImage y manejarlo con Gear Lever.
+
+## Timeshift
+
+```bash
+sudo timeshift-gtk
+```
+
+Config:
+
+- Tipo: Btrfs
+- Ubicación: mismo disco Btrfs del sistema
+- Schedule: diario + boot
+- Mantener: 3 diarios, 3 boot, 2 semanales
+- `/home`: no incluir datos de usuario
 
 # Shell和终端
 
@@ -797,29 +577,61 @@ EOF
 
 ## bashrc
 
-从 [GitHub](https://github.com/akinomyoga/ble.sh) 安装 ble.sh:
+Instalar ble.sh:
 
 ```bash
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
 ```
 
-编辑 `~/.bashrc`：
+Editar `~/.bashrc`:
 
 ```bash
 nvim ~/.bashrc
 ```
 
-加到文件最上面：
+Arriba de todo:
 
 ```bash
-# ble.sh - Bash Line Editor. Load first, attach last.
+# ble.sh - load first, attach last
 [[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
 ```
 
-然后加正常配置：
+Config normal:
 
 ```bash
-# starship prompt
+# path helper
+path_prepend() {
+  [[ -d "$1" ]] || return
+  case ":$PATH:" in
+    *":$1:"*) ;;
+    *) export PATH="$1:$PATH" ;;
+  esac
+}
+
+# local bin
+path_prepend "$HOME/.local/bin"
+
+# android sdk
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+path_prepend "$ANDROID_HOME/cmdline-tools/latest/bin"
+path_prepend "$ANDROID_HOME/emulator"
+path_prepend "$ANDROID_HOME/platform-tools"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+path_prepend "$BUN_INSTALL/bin"
+
+# homebrew
+[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# fnm
+command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
+
+# rust/cargo
+[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+
+# starship
 command -v starship >/dev/null && eval "$(starship init bash)"
 
 # thefuck
@@ -828,7 +640,10 @@ command -v thefuck >/dev/null && eval "$(thefuck --alias)"
 # fzf
 command -v fzf >/dev/null && eval "$(fzf --bash)"
 
-# atuin: shell history sync, with ble.sh integration
+# zoxide
+command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
+
+# atuin
 [[ -f /usr/share/bash-preexec/bash-preexec.sh ]] && source /usr/share/bash-preexec/bash-preexec.sh
 
 if command -v atuin >/dev/null; then
@@ -839,52 +654,20 @@ if command -v atuin >/dev/null; then
     eval "$(atuin init bash)"
   fi
 fi
-
-# local bin
-case ":$PATH:" in
-  *":$HOME/.local/bin:"*) ;;
-  *) export PATH="$HOME/.local/bin:$PATH" ;;
-esac
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# homebrew
-[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-# fnm: Node.js version manager
-command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
-
-# zoxide
-command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
-
-# rust/cargo
-[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 ```
 
-最后加到文件最下面：
+Al final de todo:
 
 ```bash
-# ble.sh attach. Must be last.
+# ble.sh attach
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 ```
-
-- **ble.sh** - Bash 里更好的补全和编辑。在最上面用 `--attach=none` 加载，最后用 `ble-attach` 附加，upstream 推荐的做法。
-- **starship** - 快速跨 shell prompt。
-- **atuin** - 同步 shell 历史，带 fuzzy 搜索。
-- **thefuck** - 修正上一条命令。
-- **fzf** - 文件、历史和其他流程的 fuzzy finder。
-- **zoxide** - 替代 `cd`，会学习你的使用习惯。
 
 # 容器
 
 ```bash
 systemctl --user enable --now podman.socket
 ```
-
-- `podman-docker` 让 Docker CLI 命令打到 Podman。
-- [Podman Desktop](https://podman-desktop.io/) 通过 Flatpak 安装，用作 GUI。
 
 # 网络和安全
 
@@ -897,25 +680,20 @@ sudo ufw allow kdeconnect
 sudo ufw enable
 ```
 
-KDE Connect 使用 1714-1764 TCP/UDP 端口。`kdeconnect` app profile 随包提供。
-
 # 游戏
 
 ## Steam
 
-- 用官方 `.deb` 安装 Steam。
-- 在Steam设置中启用Steam Play。
-- 每个游戏设置启动选项：
+- Habilitar Steam Play
+- Opciones de lanzamiento por juego:
 
 ```bash
 gamemoderun %command%
 ```
 
-- 用ProtonPlus安装Proton-CachyOS或Proton-GE。
+- Instalar Proton-CachyOS o Proton-GE con ProtonPlus
 
 ## Half-Life / Portal / Counter-Strike
-
-启动选项：
 
 ```bash
 -vulkan -novid -fullscreen
@@ -928,8 +706,6 @@ gamemoderun %command%
 ## GTA IV
 
 <https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix>
-
-启动选项：
 
 ```bash
 WINEDLLOVERRIDES="dinput8=n,b" %command%
@@ -950,9 +726,7 @@ ssh-add ~/.ssh/id_ed25519
 cat ~/.ssh/id_ed25519.pub
 ```
 
-- `pull.rebase=true` - `git pull` 遇到分叉时，把本地 commits 重新应用到远端之上，而不是创建 merge commit。
-- `rebase.autoStash=true` - 如果有未提交改动，rebase 前会临时 stash，结束后再应用回来。
-- 把公钥贴到 <https://github.com/settings/ssh>。
+把公钥贴到 <https://github.com/settings/ssh>.
 
 # Brave扩展
 

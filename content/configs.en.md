@@ -10,12 +10,12 @@ hideComments = true
 - OS: [Kubuntu 26.04 LTS](https://kubuntu.org/)
 - CPU: AMD Ryzen 5 3600
 - GPU: AMD Radeon RX 6800 16 GB
-- RAM: 32 GB (4x8 GB GeIL Super Luce DDR4 3200 MHz)
-- NVMe: 1 TB (2x512 GB Adata XPG Spectrix S40G)
+- RAM: 32 GB (4×8 GB GeIL Super Luce DDR4 3200 MHz)
+- NVMe: 1 TB (2×512 GB Adata XPG Spectrix S40G)
 - Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi)
 - Mouse: Logitech G305
-- Keyboard: HyperX Alloy Origins Core with Razer Pink PBT keycaps
-- Headphones: Audio-Technica ATH-M50x with FiiO BTA10 and Sony Inzone H9
+- Teclado: HyperX Alloy Origins Core con keycaps Razer Pink PBT
+- Auriculares: Audio-Technica ATH-M50x con FiiO BTA10 y Sony Inzone H9
 
 **Raspberry Pi 4 Model B**
 
@@ -27,34 +27,34 @@ hideComments = true
 
 Kubuntu 26.04 installed in UEFI mode with:
 
-- Filesystem: Btrfs
-- Swap: swap file
-- Encryption: LUKS enabled
+- Btrfs
+- Swap file
+- LUKS enabled
 
-Many configs below assume Btrfs with subvols like `/@` and `/@home`, swap file at `/swap/swapfile` and disk encrypted with LUKS. If you use ext4, separate swap partition or unencrypted install, adjust the examples to your layout.
+Layout: subvols `/@` y `/@home`, swap file en `/swap/swapfile`, disk encrypted with LUKS.
 
-# BIOS config
+# BIOS
 
 - Load optimized defaults
 - Set RAM to 3200 MHz with DOCP/XMP
 - Enable Above 4G Decoding
 - Enable Resizable BAR
-- Enable virtualization: SVM Mode / AMD-V
+- Enable SVM Mode / AMD-V
 - Enable Secure Boot
-- Disable CSM for pure UEFI
+- Disable CSM
 - Tune fan curves for silence
 
-# Linux stuff
+# Linux
 
-## Kernel parameters (GRUB)
+## GRUB
 
 ```bash
 sudo nvim /etc/default/grub
 ```
 
-Add `preempt=full pcie_aspm=off` to `GRUB_CMDLINE_LINUX_DEFAULT` without deleting the parameters already there.
+Add `preempt=full pcie_aspm=off` a `GRUB_CMDLINE_LINUX_DEFAULT`, without deleting what's already there.
 
-Example on a LUKS install:
+Example with LUKS:
 
 ```ini
 GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=blablabla:luks-blablabla root=/dev/mapper/luks-blablabla splash preempt=full pcie_aspm=off"
@@ -64,35 +64,33 @@ GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=blablabla:luks-blablabla root=/dev/
 sudo update-grub
 ```
 
-- `preempt=full` - lower scheduling latency for a snappier desktop. Requires a kernel with `CONFIG_PREEMPT_DYNAMIC`.
-- `pcie_aspm=off` - **workaround only**: fixes Intel AX200 WiFi getting stuck in D3cold. Do not use it unless you have this exact issue.
-- `quiet` hides boot messages. I do not use it because I prefer seeing more info while booting.
-- `cryptdevice=...` and `root=...` are install-specific. Keep yours, do not copy those literal values.
+- `preempt=full` - lower scheduling latency.
+- `pcie_aspm=off` - workaround for Intel AX200 WiFi stuck in D3cold.
+- I don't use `quiet` because I prefer seeing more info at boot.
+- `cryptdevice=...` y `root=...` depend on your installation.
 
-## LUKS encryption performance
+## LUKS performance
 
 ```bash
-# Find your device name
 sudo dmsetup table
 
-# Apply persistent performance flags
 sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
 ```
 
-- `no_read_workqueue` / `no_write_workqueue` - bypasses kernel workqueues for encryption/decryption. Lower latency on NVMe.
-- `allow-discards` - lets TRIM pass through to the SSD. Tradeoff: it can reveal filesystem allocation patterns, but on a personal PC with LUKS it is usually acceptable.
+- `no_read_workqueue` / `no_write_workqueue` - lower latency on NVMe.
+- `allow-discards` - enables TRIM on SSD.
 
-## Btrfs mount options
+## Btrfs mounts
 
 ```ini
 /dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
 /dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
 ```
 
-- `noatime` - skips access timestamp updates. Saves SSD writes.
-- `compress=zstd` - transparent compression. Reduces writes and I/O, and automatically skips clearly incompressible data.
+- `noatime` - fewer writes.
+- `compress=zstd` - transparent compression.
 
-## Performance sysctl
+## sysctl
 
 ```bash
 sudo tee /etc/sysctl.d/99-performance.conf > /dev/null << 'EOF'
@@ -103,16 +101,6 @@ vm.dirty_ratio = 10
 vm.dirty_background_ratio = 5
 EOF
 
-sudo sysctl --system
-```
-
-- `nmi_watchdog=0` / `watchdog=0` - disables lockup watchdogs. It can reduce tiny overhead, but it also disables useful diagnostics if the kernel hangs. Use only if you prioritize latency over debugging.
-- `tcp_fastopen=3` - enables TCP Fast Open for both client and server. On a pure desktop it does not change much; it matters more if you run services that use it.
-- `dirty_ratio=10` / `dirty_background_ratio=5` - lowers thresholds from typical defaults (`20`/`10`) so writeback starts earlier and in smaller bursts.
-
-## zram swap sysctl
-
-```bash
 sudo tee /etc/sysctl.d/99-vm-zram.conf > /dev/null << 'EOF'
 vm.swappiness = 150
 vm.vfs_cache_pressure = 50
@@ -124,15 +112,7 @@ EOF
 sudo sysctl --system
 ```
 
-- `swappiness=150` - prefers zram over dropping caches. Makes sense because zram is compressed RAM, not a slow disk. Default: `60`.
-- `vfs_cache_pressure=50` - keeps more dentry/inode cache around. Can improve desktop responsiveness. Default: `100`.
-- `page-cluster=0` - disables swap readahead. Makes sense with zram because swap is compressed RAM. Default: `3`.
-- `watermark_scale_factor=100` - makes `kswapd` react earlier with more headroom. Not a universal improvement.
-- `compaction_proactiveness=50` - more aggressive memory compaction than the default `20`. Can help with THP/higher-order allocations, but if you notice stutter, go back to `20`.
-
-## zram-generator
-
-Install `systemd-zram-generator` and define the config explicitly:
+## zram
 
 ```bash
 sudo apt install systemd-zram-generator
@@ -147,30 +127,12 @@ swap-priority = 100
 EOF
 ```
 
-There is no service to enable. `zram-generator` runs at boot, reads the config, and creates the swap device automatically.
-
-To apply without rebooting:
-
 ```bash
 sudo systemctl daemon-reload
 sudo systemctl start dev-zram0.swap
 ```
 
-Verify:
-
-```bash
-swapon --show
-zramctl
-cat /sys/block/zram0/comp_algorithm
-```
-
-- `zram-size = ram / 2` - 16 GB logical zram on 32 GB RAM.
-- `compression-algorithm = zstd` - good compression with decent speed. `lz4` is faster but compresses less.
-- `swap-priority = 100` - higher priority than the swap file, so zram gets used first.
-
 ## Btrfs swap file
-
-Kubuntu 26.04 creates a swap file on a Btrfs subvol automatically during install, but it is small. Resize it to 4 GB:
 
 ```bash
 sudo swapoff /swap/swapfile
@@ -179,45 +141,17 @@ sudo btrfs filesystem mkswapfile --size 4G /swap/swapfile
 sudo swapon /swap/swapfile
 ```
 
-Verify:
+Disk swap stays as a fallback when zram fills up.
 
-```bash
-swapon --show
-sudo btrfs inspect-internal map-swapfile /swap/swapfile
-```
-
-Disk swap stays as a fallback when zram fills up. Low priority, so zram gets used first.
-
-## Snapshots with Timeshift
-
-I use Timeshift for system snapshots on Btrfs:
-
-```bash
-sudo timeshift-gtk
-```
-
-Recommended config:
-
-- Type: Btrfs
-- Location: same Btrfs disk as system
-- Schedule: daily + boot
-- Keep: 3 daily, 3 boot, 2 weekly
-- `/home`: do not include user data
-
-- **Timeshift** - system rollback. Lets you go back after broken updates, drivers or bad configs.
-- Not a replacement for real backups: not meant to store projects, photos, documents or keys.
-- Works best on Btrfs with Ubuntu-style layout: subvols `/@` and `/@home`.
-- I prefer not to include `/home` to avoid system rollback overwriting personal files.
-
-## CPU and memory
+## CPU
 
 ```bash
 powerprofilesctl set performance
 ```
 
-- `amd-pstate active` + governor `performance` + EPP `performance` - keeps the CPU on the fast path instead of balancing clocks for power saving. Higher idle power, lower latency.
-- `transparent_hugepage=madvise` - already the default on Kubuntu 26.04. Only apps that explicitly request THP through `madvise()` get huge pages.
-- NVMe scheduler `none` - already the normal default for NVMe. NVMe has internal scheduling; the kernel scheduler usually adds overhead.
+- `amd-pstate active` + governor `performance` + EPP `performance`
+- `transparent_hugepage=madvise` ya es default.
+- NVMe scheduler `none` ya es default normal para NVMe.
 
 ## Intel AX200 WiFi
 
@@ -228,17 +162,6 @@ options iwlmvm power_scheme=1
 EOF
 ```
 
-- `power_save=0` - disables power saving in the `iwlwifi` driver.
-- `power_scheme=1` - forces active mode in `iwlmvm`. Prevents low-power states that can cause latency spikes or disconnects.
-
-Kubuntu may ship this file:
-
-```bash
-/etc/NetworkManager/conf.d/default-wifi-powersave-on.conf
-```
-
-with `wifi.powersave=3`. I do not delete or edit it; I override it with a later-read config:
-
 ```bash
 sudo tee /etc/NetworkManager/conf.d/99-disable-wifi-powersave.conf > /dev/null << 'EOF'
 [connection]
@@ -248,19 +171,15 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-- `wifi.powersave=2` - disables WiFi power saving at the NetworkManager level.
-- `2` = disable, `3` = enable.
-
 ## KWin AMDGPU
 
 KDE only. Only if you get a black screen during boot.
 
 ```bash
-# Check your GPU stable path
 ls -l /dev/dri/by-path/
 ```
 
-Use the `by-path` symlink, not `/dev/dri/cardN`, because numbers can change between boots.
+Use the actual path from `/dev/dri/by-path/`.
 
 ```bash
 sudo mkdir -p /etc/environment.d
@@ -286,22 +205,11 @@ EOF
 sudo systemctl daemon-reload
 ```
 
-- Only needed if KWin cannot acquire DRM master at boot due to a Mesa/KWin/AMDGPU race condition.
-- `KWIN_DRM_DEVICES` - pins KWin to a specific GPU through a stable symlink.
-- `sleep 3` - workaround: gives AMDGPU time to initialize before KWin tries atomic modeset.
-- Start limits prevent infinite crash loops.
-
-## Disable NetworkManager-wait-online
+## NetworkManager
 
 ```bash
 sudo systemctl disable --now NetworkManager-wait-online.service
 ```
-
-Saves boot time. Desktop apps work fine without waiting for the network.
-
-Do not disable it if you have services that need network before they start.
-
-## NetworkManager MAC address policy
 
 ```bash
 sudo tee /etc/NetworkManager/conf.d/99-mac-address-policy.conf > /dev/null << 'EOF'
@@ -315,10 +223,6 @@ EOF
 
 sudo systemctl restart NetworkManager
 ```
-
-- `wifi.scan-rand-mac-address=yes` - randomizes the MAC while the WiFi card scans networks.
-- `wifi.cloned-mac-address=stable` - uses a fake but stable MAC per WiFi network. Improves privacy without breaking DHCP, captive portals, or fixed device names.
-- `ethernet.cloned-mac-address=preserve` - keeps the real MAC on Ethernet. Avoids breaking DHCP reservations, router rules, Wake-on-LAN, and allowlists.
 
 ## Bluetooth restart
 
@@ -341,14 +245,11 @@ sudo apt install \
   handbrake hashcat hugo kcalc kde-config-flatpak kdenlive krita \
   libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular \
   openrgb plasma-discover-backend-flatpak podman podman-docker python3 \
-  python3-full python3-dev python3-pip python3-venv qbittorrent \
-  qemu-system-x86 ripgrep starship systemd-zram-generator thefuck \
-  timeshift torbrowser-launcher tree tmux ufw unrar unzip virt-manager \
-  vlc wget wireshark yakuake yt-dlp zoxide
+  python3-dev python3-full python3-pip python3-venv qbittorrent \
+  qemu-system-x86 ripgrep starship thefuck timeshift tmux \
+  torbrowser-launcher tree ufw unrar unzip virt-manager vlc wget \
+  wireshark yakuake yt-dlp zoxide
 ```
-
-- `podman-docker` makes the `docker` command point to Podman. Nice for compatibility, but it changes what `docker` means on the machine.
-- If you want real Docker Engine, do not install `podman-docker`.
 
 ## User permissions
 
@@ -356,10 +257,16 @@ sudo apt install \
 sudo usermod -aG kvm,libvirt,wireshark "$USER"
 ```
 
-Log out and back in for groups to take effect.
+Log out and back in.
 
-- `kvm` / `libvirt` - use VMs, virt-manager and emulators with acceleration without wrestling with permissions.
-- `wireshark` - capture packets without running the whole GUI as root.
+## ROCm
+
+```bash
+sudo apt install rocm rocm-podman-support
+sudo usermod -aG render,video "$USER"
+```
+
+Log out and back in.
 
 ## APT security auto-updates
 
@@ -376,38 +283,16 @@ APT::Periodic::Unattended-Upgrade "1";
 EOF
 ```
 
-Verify:
-
-```bash
-systemctl status unattended-upgrades
-systemctl list-timers 'apt*'
-ls /var/log/unattended-upgrades/
-```
-
-- **unattended-upgrades** - installs security updates automatically.
-- `Update-Package-Lists "1"` - updates package lists once a day.
-- `Download-Upgradeable-Packages "1"` - downloads upgradeable packages in the background.
-- `AutocleanInterval "7"` - cleans old packages/cache every 7 days.
-- `Unattended-Upgrade "1"` - runs unattended-upgrades once a day.
-- No auto-reboot because on a desktop/gaming/dev machine I prefer to control when it restarts.
-
 ## Ubuntu Pro
-
-Optional:
 
 ```bash
 sudo pro attach
 pro status
 ```
 
-- **Ubuntu Pro** - enables ESM and extra services from Canonical.
-- Not required to use Kubuntu.
-
 ## Brave
 
 ```bash
-sudo apt install curl
-
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
   https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
 
@@ -418,19 +303,13 @@ sudo apt update
 sudo apt install brave-browser
 ```
 
-- **Brave** - Chromium-based browser.
-- Installed from the official APT repo so it updates with the system.
-
 ## Firefox
 
-Remove Firefox/Thunderbird if they were installed as Snap:
-
 ```bash
+sudo apt remove firefox
 snap list firefox >/dev/null 2>&1 && sudo snap remove firefox
 snap list thunderbird >/dev/null 2>&1 && sudo snap remove thunderbird
 ```
-
-Add the official Mozilla APT repo:
 
 ```bash
 sudo install -d -m 0755 /etc/apt/keyrings
@@ -438,15 +317,6 @@ sudo install -d -m 0755 /etc/apt/keyrings
 wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
   | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
 ```
-
-Verify fingerprint:
-
-```bash
-gpg -n -q --import --import-options import-show /etc/apt/keyrings/packages.mozilla.org.asc \
-  | awk '/pub/{getline; gsub(/^ +| +$/,""); if($0 == "35BAA0B33E9EB396F59CA838C0BA5CE6DC6315A3") print "\nThe key fingerprint matches ("$0").\n"; else print "\nVerification failed: the fingerprint ("$0") does not match the expected one.\n"}'
-```
-
-Add repo:
 
 ```bash
 cat <<EOF | sudo tee /etc/apt/sources.list.d/mozilla.sources
@@ -458,8 +328,6 @@ Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
 EOF
 ```
 
-Prioritize Mozilla packages:
-
 ```bash
 cat <<EOF | sudo tee /etc/apt/preferences.d/mozilla
 Package: *
@@ -468,23 +336,41 @@ Pin-Priority: 1000
 EOF
 ```
 
-Install Firefox `.deb`:
-
 ```bash
 sudo apt update
 sudo apt install firefox
 ```
 
-Verify:
+## Tailscale
 
 ```bash
-apt policy firefox
-which firefox
-firefox --version
+sudo mkdir -p --mode=0755 /usr/share/keyrings
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
+  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
+
+curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
+  | sudo tee /etc/apt/sources.list.d/tailscale.list
+
+sudo apt update
+sudo apt install tailscale
+sudo tailscale up
 ```
 
-- **Firefox** - installed as `.deb` from the official Mozilla repo, not Snap.
-- The pin prevents APT from preferring the Ubuntu transitional/snap package.
+## Antigravity
+
+```bash
+sudo mkdir -p /etc/apt/keyrings
+
+curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
+  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
+  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
+
+sudo apt update
+sudo apt install antigravity
+```
 
 ## Homebrew
 
@@ -494,13 +380,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew install fnm topgrade uv
 ```
 
-- **fnm** - Node.js version manager.
-- **topgrade** - one-command whole-system updater.
-- **uv** - Python package/project manager.
-
 ## Topgrade auto-update
-
-Optional. Automatically updates everything Topgrade detects, except APT and Snap.
 
 ```bash
 mkdir -p ~/.config
@@ -549,35 +429,6 @@ systemctl --user daemon-reload
 systemctl --user enable --now topgrade.timer
 ```
 
-Verify:
-
-```bash
-systemctl --user status topgrade.timer
-systemctl --user list-timers
-```
-
-Run manually:
-
-```bash
-systemctl --user start topgrade.service
-journalctl --user -u topgrade.service
-```
-
-Dry run:
-
-```bash
-topgrade --dry-run
-```
-
-- `assume_yes = true` - accepts confirmations automatically.
-- `cleanup = true` - cleans caches/old versions after updating.
-- `no_retry = true` - does not hang asking what to do if a step fails.
-- `notify_end = "on_failure"` - notifies only if something failed.
-- `disable = ["system", "snap"]` - does not touch APT or Snap.
-- `OnCalendar=weekly` - runs once a week.
-- `Persistent=true` - if the PC was off, runs when it comes back on.
-- `RandomizedDelaySec=1h` - avoids always running at the exact same second.
-
 ## npm global
 
 ```bash
@@ -586,40 +437,8 @@ eval "$(fnm env --use-on-cd --shell bash)"
 fnm install --lts --use
 fnm default "$(fnm current)"
 
-npm install -g @openai/codex @google/gemini-cli opencode-ai
+npm install -g @google/gemini-cli @openai/codex opencode-ai
 ```
-
-Verify:
-
-```bash
-node --version
-npm --version
-codex --version
-gemini --version
-opencode --version
-```
-
-- **Codex CLI** - OpenAI coding agent for the terminal.
-- **Gemini CLI** - Google coding agent for the terminal.
-- **OpenCode** - open source coding agent for the terminal.
-
-## Antigravity
-
-```bash
-sudo mkdir -p /etc/apt/keyrings
-
-curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
-  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
-
-echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
-  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
-
-sudo apt update
-sudo apt install antigravity
-```
-
-- **Antigravity** - agentic IDE from Google.
-- Installed via APT so it updates with the system.
 
 ## Nerd Fonts
 
@@ -628,30 +447,12 @@ brew install --cask font-hack-nerd-font font-ubuntu-mono-nerd-font
 fc-cache -fv
 ```
 
-Verify:
-
-```bash
-fc-match "Hack Nerd Font"
-fc-match "UbuntuMono Nerd Font"
-```
-
-- **Hack Nerd Font** - solid choice for terminal/dev work.
-- **UbuntuMono Nerd Font** - the font used in the Ghostty config below.
-- Nerd Fonts add glyphs/icons for prompts, statuslines, Neovim, tmux, Starship, etc.
-
-## Flatpak setup
+## Flatpak
 
 ```bash
 flatpak remote-add --if-not-exists flathub \
   https://flathub.org/repo/flathub.flatpakrepo
 ```
-
-- **flatpak** - sandboxed app runtime.
-- **plasma-discover-backend-flatpak** - Discover integration.
-- **kde-config-flatpak** - KDE System Settings integration.
-- **Flathub** - main Flatpak apps repo.
-
-## Flatpak
 
 ```bash
 flatpak install flathub \
@@ -668,38 +469,6 @@ flatpak install flathub \
   org.telegram.desktop
 ```
 
-- **ProtonPlus** - Proton version manager for Steam.
-- **Warehouse** - Flatpak manager.
-- **Pinta** - lightweight image editing.
-- **Podman Desktop** - container GUI.
-- **Gear Lever** - AppImage manager.
-- **Spotify** - music streaming.
-- **Stremio** - media streaming.
-- **Vesktop** - Discord client.
-- **LocalSend** - local file sharing.
-- **Signal** - private messaging.
-- **Telegram** - messaging.
-
-## Tailscale
-
-```bash
-sudo mkdir -p --mode=0755 /usr/share/keyrings
-
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
-  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
-
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
-  | sudo tee /etc/apt/sources.list.d/tailscale.list
-
-sudo apt-get update
-sudo apt-get install tailscale
-
-sudo tailscale up
-```
-
-- **Tailscale** - WireGuard-based mesh VPN. Peer-to-peer between devices without manually configuring ports.
-- Installed via APT so it updates with the system.
-
 ## Script installs
 
 ```bash
@@ -710,14 +479,9 @@ curl -fsSL https://bun.sh/install | bash
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
-- **Bun** - JavaScript runtime/toolkit.
-- **Rustup** - official Rust/Cargo installer.
-
 ## Manual installs
 
 ### Steam
-
-Download the official `.deb` and install it:
 
 ```bash
 cd /tmp
@@ -728,7 +492,7 @@ rm steam.deb
 
 ### Google Chrome
 
-Download the `.deb` from [google.com/chrome](https://www.google.com/chrome/) and install it:
+Descargar el `.deb` desde [google.com/chrome](https://www.google.com/chrome/) e instalarlo:
 
 ```bash
 sudo apt install ./google-chrome-stable_current_amd64.deb
@@ -736,7 +500,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### Android Studio
 
-Download the `.tar.gz` from [developer.android.com/studio](https://developer.android.com/studio), extract it to `/opt` and symlink the `studio` launcher:
+Descargar el `.tar.gz` desde [developer.android.com/studio](https://developer.android.com/studio), descomprimirlo en `/opt` y linkear el launcher:
 
 ```bash
 cd /tmp
@@ -748,27 +512,29 @@ mkdir -p ~/.local/bin
 ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
 ```
 
-Run:
+Primera ejecución:
+
+```bash
+~/.local/bin/studio
+```
+
+Después de tener `~/.local/bin` en el `PATH`:
 
 ```bash
 studio
 ```
 
-After that, inside Android Studio:
+Dentro de Android Studio:
 
 ```text
 Tools > Create Desktop Entry
 ```
 
-- **Android Studio** - official IDE for Android development.
-- The recommended launcher is `studio`.
-- The Setup Wizard downloads the Android SDK and required components.
-- To use the emulator, make sure virtualization is enabled in BIOS.
-- The SDK normally goes in `~/Android/Sdk`; the `.bashrc` adds `platform-tools`, `emulator` and `cmdline-tools` to `PATH`.
+El Setup Wizard descarga el SDK en `~/Android/Sdk`.
 
 ### Visual Studio Code
 
-Download the `.deb` from [code.visualstudio.com](https://code.visualstudio.com/) and install it:
+Descargar el `.deb` desde [code.visualstudio.com](https://code.visualstudio.com/) e instalarlo:
 
 ```bash
 sudo apt install ./code_*.deb
@@ -776,7 +542,21 @@ sudo apt install ./code_*.deb
 
 ### Trezor Suite
 
-Download [Trezor Suite](https://trezor.io/trezor-suite) as an AppImage. Manage it with Gear Lever.
+Descargar [Trezor Suite](https://trezor.io/trezor-suite) como AppImage y manejarlo con Gear Lever.
+
+## Timeshift
+
+```bash
+sudo timeshift-gtk
+```
+
+Config:
+
+- Tipo: Btrfs
+- Ubicación: mismo disco Btrfs del sistema
+- Schedule: diario + boot
+- Mantener: 3 diarios, 3 boot, 2 semanales
+- `/home`: no incluir datos de usuario
 
 # Shell & terminal
 
@@ -797,29 +577,61 @@ EOF
 
 ## bashrc
 
-Install ble.sh from [GitHub](https://github.com/akinomyoga/ble.sh):
+Instalar ble.sh:
 
 ```bash
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
 ```
 
-Edit `~/.bashrc`:
+Editar `~/.bashrc`:
 
 ```bash
 nvim ~/.bashrc
 ```
 
-Add at the very top:
+Arriba de todo:
 
 ```bash
-# ble.sh - Bash Line Editor. Load first, attach last.
+# ble.sh - load first, attach last
 [[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
 ```
 
-Add the normal config after that:
+Config normal:
 
 ```bash
-# starship prompt
+# path helper
+path_prepend() {
+  [[ -d "$1" ]] || return
+  case ":$PATH:" in
+    *":$1:"*) ;;
+    *) export PATH="$1:$PATH" ;;
+  esac
+}
+
+# local bin
+path_prepend "$HOME/.local/bin"
+
+# android sdk
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+path_prepend "$ANDROID_HOME/cmdline-tools/latest/bin"
+path_prepend "$ANDROID_HOME/emulator"
+path_prepend "$ANDROID_HOME/platform-tools"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+path_prepend "$BUN_INSTALL/bin"
+
+# homebrew
+[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# fnm
+command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
+
+# rust/cargo
+[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+
+# starship
 command -v starship >/dev/null && eval "$(starship init bash)"
 
 # thefuck
@@ -828,7 +640,10 @@ command -v thefuck >/dev/null && eval "$(thefuck --alias)"
 # fzf
 command -v fzf >/dev/null && eval "$(fzf --bash)"
 
-# atuin: shell history sync, with ble.sh integration
+# zoxide
+command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
+
+# atuin
 [[ -f /usr/share/bash-preexec/bash-preexec.sh ]] && source /usr/share/bash-preexec/bash-preexec.sh
 
 if command -v atuin >/dev/null; then
@@ -839,52 +654,20 @@ if command -v atuin >/dev/null; then
     eval "$(atuin init bash)"
   fi
 fi
-
-# local bin
-case ":$PATH:" in
-  *":$HOME/.local/bin:"*) ;;
-  *) export PATH="$HOME/.local/bin:$PATH" ;;
-esac
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-# homebrew
-[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
-# fnm: Node.js version manager
-command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
-
-# zoxide
-command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
-
-# rust/cargo
-[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 ```
 
-Add at the very end:
+Al final de todo:
 
 ```bash
-# ble.sh attach. Must be last.
+# ble.sh attach
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 ```
-
-- **ble.sh** - better completion and editing in Bash. Loads at the top with `--attach=none` and attaches at the end with `ble-attach`, as recommended upstream.
-- **starship** - fast cross-shell prompt.
-- **atuin** - synced shell history with fuzzy search.
-- **thefuck** - corrects the last command.
-- **fzf** - fuzzy finder for files, history, and other flows.
-- **zoxide** - replaces `cd` with a version that learns your habits.
 
 # Containers
 
 ```bash
 systemctl --user enable --now podman.socket
 ```
-
-- `podman-docker` makes Docker CLI commands hit Podman.
-- [Podman Desktop](https://podman-desktop.io/) installed through Flatpak for a GUI.
 
 # Networking & security
 
@@ -897,25 +680,20 @@ sudo ufw allow kdeconnect
 sudo ufw enable
 ```
 
-KDE Connect uses ports 1714-1764 TCP/UDP. The `kdeconnect` app profile ships with the package.
-
 # Gaming
 
 ## Steam
 
-- Install Steam with the official `.deb`.
-- Enable Steam Play in Steam settings.
-- Set launch options per game:
+- Habilitar Steam Play
+- Opciones de lanzamiento por juego:
 
 ```bash
 gamemoderun %command%
 ```
 
-- Install Proton-CachyOS or Proton-GE with ProtonPlus.
+- Instalar Proton-CachyOS o Proton-GE con ProtonPlus
 
 ## Half-Life / Portal / Counter-Strike
-
-Launch options:
 
 ```bash
 -vulkan -novid -fullscreen
@@ -928,8 +706,6 @@ Launch options:
 ## GTA IV
 
 <https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix>
-
-Launch options:
 
 ```bash
 WINEDLLOVERRIDES="dinput8=n,b" %command%
@@ -950,9 +726,7 @@ ssh-add ~/.ssh/id_ed25519
 cat ~/.ssh/id_ed25519.pub
 ```
 
-- `pull.rebase=true` - when `git pull` finds divergence, it reapplies your local commits on top of the remote ones instead of creating a merge commit.
-- `rebase.autoStash=true` - if you have uncommitted changes, it temporarily stashes them before the rebase and reapplies them at the end.
-- Paste the public key into <https://github.com/settings/ssh>.
+Paste the public key into <https://github.com/settings/ssh>.
 
 # Brave extensions
 
