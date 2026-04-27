@@ -512,7 +512,7 @@ mkdir -p ~/.local/bin
 ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
 ```
 
-Primera ejecución:
+First run:
 
 ```bash
 ~/.local/bin/studio
@@ -577,26 +577,26 @@ EOF
 
 ## bashrc
 
-Instalar ble.sh:
+Install ble.sh:
 
 ```bash
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
 ```
 
-Editar `~/.bashrc`:
+Edit `~/.bashrc`:
 
 ```bash
 nvim ~/.bashrc
 ```
 
-Arriba de todo:
+At the very top:
 
 ```bash
 # ble.sh - load first, attach last
 [[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
 ```
 
-Config normal:
+Normal config:
 
 ```bash
 # path helper
@@ -656,7 +656,7 @@ if command -v atuin >/dev/null; then
 fi
 ```
 
-Al final de todo:
+At the very end:
 
 ```bash
 # ble.sh attach
@@ -684,7 +684,7 @@ sudo ufw enable
 
 ## Steam
 
-- Habilitar Steam Play
+- Enable Steam Play
 - Launch options per game:
 
 ```bash

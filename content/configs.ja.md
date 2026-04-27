@@ -512,7 +512,7 @@ mkdir -p ~/.local/bin
 ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
 ```
 
-Primera ejecución:
+初回起動:
 
 ```bash
 ~/.local/bin/studio
@@ -577,26 +577,26 @@ EOF
 
 ## bashrc
 
-Instalar ble.sh:
+ble.shをインストール:
 
 ```bash
 git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
 ```
 
-Editar `~/.bashrc`:
+`~/.bashrc`を編集:
 
 ```bash
 nvim ~/.bashrc
 ```
 
-Arriba de todo:
+一番上:
 
 ```bash
 # ble.sh - load first, attach last
 [[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
 ```
 
-Config normal:
+通常設定:
 
 ```bash
 # path helper
@@ -656,7 +656,7 @@ if command -v atuin >/dev/null; then
 fi
 ```
 
-Al final de todo:
+一番最後:
 
 ```bash
 # ble.sh attach
@@ -684,7 +684,7 @@ sudo ufw enable
 
 ## Steam
 
-- Habilitar Steam Play
+- Steam Playを有効化
 - ゲームごとの起動オプション：
 
 ```bash
