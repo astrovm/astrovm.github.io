@@ -14,8 +14,8 @@ hideComments = true
 - NVMe: 1 TB (2×512 GB Adata XPG Spectrix S40G)
 - Motherboard: ASUS TUF Gaming X570-PRO (Wi-Fi)
 - Mouse: Logitech G305
-- Teclado: HyperX Alloy Origins Core con keycaps Razer Pink PBT
-- Auriculares: Audio-Technica ATH-M50x con FiiO BTA10 y Sony Inzone H9
+- Keyboard: HyperX Alloy Origins Core with Razer Pink PBT keycaps
+- Headphones: Audio-Technica ATH-M50x with FiiO BTA10 and Sony Inzone H9
 
 **Raspberry Pi 4 Model B**
 
@@ -31,7 +31,7 @@ Kubuntu 26.04 installed in UEFI mode with:
 - Swap file
 - LUKS enabled
 
-Layout: subvols `/@` y `/@home`, swap file en `/swap/swapfile`, disk encrypted with LUKS.
+Layout: subvols `/@` and `/@home`, swap file at `/swap/swapfile`, disk encrypted with LUKS.
 
 # BIOS
 
@@ -52,7 +52,7 @@ Layout: subvols `/@` y `/@home`, swap file en `/swap/swapfile`, disk encrypted w
 sudo nvim /etc/default/grub
 ```
 
-Add `preempt=full pcie_aspm=off` a `GRUB_CMDLINE_LINUX_DEFAULT`, without deleting what's already there.
+Add `preempt=full pcie_aspm=off` to `GRUB_CMDLINE_LINUX_DEFAULT`, without deleting what's already there.
 
 Example with LUKS:
 
@@ -67,7 +67,7 @@ sudo update-grub
 - `preempt=full` - lower scheduling latency.
 - `pcie_aspm=off` - workaround for Intel AX200 WiFi stuck in D3cold.
 - I don't use `quiet` because I prefer seeing more info at boot.
-- `cryptdevice=...` y `root=...` depend on your installation.
+- `cryptdevice=...` and `root=...` depend on your installation.
 
 ## LUKS performance
 
@@ -150,8 +150,8 @@ powerprofilesctl set performance
 ```
 
 - `amd-pstate active` + governor `performance` + EPP `performance`
-- `transparent_hugepage=madvise` ya es default.
-- NVMe scheduler `none` ya es default normal para NVMe.
+- `transparent_hugepage=madvise` is already default.
+- NVMe scheduler `none` is already the normal default for NVMe.
 
 ## Intel AX200 WiFi
 
@@ -530,7 +530,7 @@ Inside Android Studio:
 Tools > Create Desktop Entry
 ```
 
-El Setup Wizard descarga el SDK en `~/Android/Sdk`.
+The Setup Wizard downloads the SDK to `~/Android/Sdk`.
 
 ### Visual Studio Code
 
@@ -552,11 +552,11 @@ sudo timeshift-gtk
 
 Config:
 
-- Tipo: Btrfs
-- Ubicación: mismo disco Btrfs del sistema
-- Schedule: diario + boot
-- Mantener: 3 diarios, 3 boot, 2 semanales
-- `/home`: no incluir datos de usuario
+- Type: Btrfs
+- Location: same Btrfs system disk
+- Schedule: daily + boot
+- Keep: 3 daily, 3 boot, 2 weekly
+- `/home`: do not include user data
 
 # Shell & terminal
 
@@ -691,7 +691,7 @@ sudo ufw enable
 gamemoderun %command%
 ```
 
-- Instalar Proton-CachyOS o Proton-GE con ProtonPlus
+- Install Proton-CachyOS or Proton-GE with ProtonPlus
 
 ## Half-Life / Portal / Counter-Strike
 
