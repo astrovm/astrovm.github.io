@@ -492,7 +492,7 @@ rm steam.deb
 
 ### Google Chrome
 
-Descargar el `.deb` desde [google.com/chrome](https://www.google.com/chrome/) e instalarlo:
+Download the `.deb` from [google.com/chrome](https://www.google.com/chrome/) and install it:
 
 ```bash
 sudo apt install ./google-chrome-stable_current_amd64.deb
@@ -500,7 +500,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### Android Studio
 
-Descargar el `.tar.gz` desde [developer.android.com/studio](https://developer.android.com/studio), descomprimirlo en `/opt` y linkear el launcher:
+Download the `.tar.gz` from [developer.android.com/studio](https://developer.android.com/studio), extract it to `/opt` and symlink the launcher:
 
 ```bash
 cd /tmp
@@ -518,13 +518,13 @@ Primera ejecución:
 ~/.local/bin/studio
 ```
 
-Después de tener `~/.local/bin` en el `PATH`:
+After `~/.local/bin` is in `PATH`:
 
 ```bash
 studio
 ```
 
-Dentro de Android Studio:
+Inside Android Studio:
 
 ```text
 Tools > Create Desktop Entry
@@ -534,7 +534,7 @@ El Setup Wizard descarga el SDK en `~/Android/Sdk`.
 
 ### Visual Studio Code
 
-Descargar el `.deb` desde [code.visualstudio.com](https://code.visualstudio.com/) e instalarlo:
+Download the `.deb` from [code.visualstudio.com](https://code.visualstudio.com/) and install it:
 
 ```bash
 sudo apt install ./code_*.deb
@@ -542,7 +542,7 @@ sudo apt install ./code_*.deb
 
 ### Trezor Suite
 
-Descargar [Trezor Suite](https://trezor.io/trezor-suite) como AppImage y manejarlo con Gear Lever.
+Download [Trezor Suite](https://trezor.io/trezor-suite) as an AppImage and manage it with Gear Lever.
 
 ## Timeshift
 
@@ -685,7 +685,7 @@ sudo ufw enable
 ## Steam
 
 - Habilitar Steam Play
-- Opciones de lanzamiento por juego:
+- Launch options per game:
 
 ```bash
 gamemoderun %command%

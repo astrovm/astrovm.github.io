@@ -492,7 +492,7 @@ rm steam.deb
 
 ### Google Chrome
 
-Descargar el `.deb` desde [google.com/chrome](https://www.google.com/chrome/) e instalarlo:
+从 [google.com/chrome](https://www.google.com/chrome/) 下载 `.deb` 然后安装：
 
 ```bash
 sudo apt install ./google-chrome-stable_current_amd64.deb
@@ -500,7 +500,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### Android Studio
 
-Descargar el `.tar.gz` desde [developer.android.com/studio](https://developer.android.com/studio), descomprimirlo en `/opt` y linkear el launcher:
+从 [developer.android.com/studio](https://developer.android.com/studio) 下载 `.tar.gz`，解压到 `/opt`，然后 link 一下 launcher：
 
 ```bash
 cd /tmp
@@ -518,13 +518,13 @@ Primera ejecución:
 ~/.local/bin/studio
 ```
 
-Después de tener `~/.local/bin` en el `PATH`:
+等 `~/.local/bin` 加到 `PATH` 之后：
 
 ```bash
 studio
 ```
 
-Dentro de Android Studio:
+然后，在 Android Studio 里：
 
 ```text
 Tools > Create Desktop Entry
@@ -534,7 +534,7 @@ El Setup Wizard descarga el SDK en `~/Android/Sdk`.
 
 ### Visual Studio Code
 
-Descargar el `.deb` desde [code.visualstudio.com](https://code.visualstudio.com/) e instalarlo:
+从 [code.visualstudio.com](https://code.visualstudio.com/) 下载 `.deb` 然后安装：
 
 ```bash
 sudo apt install ./code_*.deb
@@ -542,7 +542,7 @@ sudo apt install ./code_*.deb
 
 ### Trezor Suite
 
-Descargar [Trezor Suite](https://trezor.io/trezor-suite) como AppImage y manejarlo con Gear Lever.
+把 [Trezor Suite](https://trezor.io/trezor-suite) 下载成 AppImage，用 Gear Lever 管理。
 
 ## Timeshift
 
@@ -685,7 +685,7 @@ sudo ufw enable
 ## Steam
 
 - Habilitar Steam Play
-- Opciones de lanzamiento por juego:
+- 每个游戏设置启动选项：
 
 ```bash
 gamemoderun %command%

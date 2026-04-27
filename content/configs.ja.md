@@ -492,7 +492,7 @@ rm steam.deb
 
 ### Google Chrome
 
-Descargar el `.deb` desde [google.com/chrome](https://www.google.com/chrome/) e instalarlo:
+`.deb`を[google.com/chrome](https://www.google.com/chrome/)からダウンロードしてインストール：
 
 ```bash
 sudo apt install ./google-chrome-stable_current_amd64.deb
@@ -500,7 +500,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb
 
 ### Android Studio
 
-Descargar el `.tar.gz` desde [developer.android.com/studio](https://developer.android.com/studio), descomprimirlo en `/opt` y linkear el launcher:
+`.tar.gz`を[developer.android.com/studio](https://developer.android.com/studio)からダウンロードし、`/opt`へ展開してランチャーをsymlink：
 
 ```bash
 cd /tmp
@@ -518,13 +518,13 @@ Primera ejecución:
 ~/.local/bin/studio
 ```
 
-Después de tener `~/.local/bin` en el `PATH`:
+`~/.local/bin`が`PATH`に追加された後：
 
 ```bash
 studio
 ```
 
-Dentro de Android Studio:
+Android Studioの中で：
 
 ```text
 Tools > Create Desktop Entry
@@ -534,7 +534,7 @@ El Setup Wizard descarga el SDK en `~/Android/Sdk`.
 
 ### Visual Studio Code
 
-Descargar el `.deb` desde [code.visualstudio.com](https://code.visualstudio.com/) e instalarlo:
+`.deb`を[code.visualstudio.com](https://code.visualstudio.com/)からダウンロードしてインストール：
 
 ```bash
 sudo apt install ./code_*.deb
@@ -542,7 +542,7 @@ sudo apt install ./code_*.deb
 
 ### Trezor Suite
 
-Descargar [Trezor Suite](https://trezor.io/trezor-suite) como AppImage y manejarlo con Gear Lever.
+[Trezor Suite](https://trezor.io/trezor-suite) をAppImageでダウンロードしてGear Leverで管理する。
 
 ## Timeshift
 
@@ -685,7 +685,7 @@ sudo ufw enable
 ## Steam
 
 - Habilitar Steam Play
-- Opciones de lanzamiento por juego:
+- ゲームごとの起動オプション：
 
 ```bash
 gamemoderun %command%
