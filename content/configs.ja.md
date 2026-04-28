@@ -247,11 +247,12 @@ sudo modprobe btusb
 ```bash
 sudo apt install \
   7zip adb atuin audacity bleachbit blender build-essential buildah \
-  ca-certificates criu curl docker-compose-v2 easyeffects fastboot ffmpeg \
-  flatpak fzf gamemode ghostty gimp git gnupg golang-go gwenview \
-  handbrake hashcat hugo kcalc kde-config-flatpak kdenlive krita \
-  libvirt-daemon-system libreoffice mpv neovim nmap obs-studio okular \
-  openrgb plasma-discover-backend-flatpak podman podman-docker python3 \
+  ca-certificates criu curl ddcui ddcutil docker-compose-v2 easyeffects \
+  fastboot ffmpeg flatpak fzf gamemode gammastep ghostty gimp git \
+  gnupg golang-go gwenview handbrake hashcat hugo kcalc \
+  kde-config-flatpak kdenlive krita libvirt-daemon-system libreoffice \
+  mpv neovim nmap obs-studio okular openrgb \
+  plasma-discover-backend-flatpak podman podman-docker python3 \
   python3-dev python3-full python3-pip python3-venv qbittorrent \
   qemu-system-x86 ripgrep starship thefuck timeshift tmux \
   torbrowser-launcher tree ufw unrar unzip virt-manager vlc wget \
@@ -682,6 +683,43 @@ fi
 systemctl --user enable --now podman.socket
 ```
 
+## OpenCode server
+
+```bash
+mkdir -p ~/.local/bin ~/.config/systemd/user
+
+cat > ~/.local/bin/opencode-serve << 'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+
+export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin:$HOME/.local/bin"
+
+[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
+
+exec opencode serve --mdns
+EOF
+
+chmod +x ~/.local/bin/opencode-serve
+
+cat > ~/.config/systemd/user/opencode-serve.service << 'EOF'
+[Unit]
+Description=OpenCode serve
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/opencode-serve
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target
+EOF
+
+systemctl --user daemon-reload
+systemctl --user enable --now opencode-serve.service
+```
+
 ## UFW
 
 ```bash
@@ -716,11 +754,17 @@ gamemoderun %command%
 
 ## Sonic Adventure
 
-<https://github.com/astrovm/AdventureMods>
+Linux上で**Sonic Adventure DX**と**Sonic Adventure 2**のmodを設定するために[Adventure Mods](https://github.com/astrovm/AdventureMods)を使う。Steamのインストールを検出し、mod manager、mod、依存関係、プリセット、ベース設定をインストールする。
+
+AppImageを[GitHub Releases](https://github.com/astrovm/AdventureMods/releases/latest/download/Adventure_Mods-x86_64.AppImage)からダウンロードしてGear Leverでインストールする。
 
 ## GTA IV
 
-<https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix>
+Steamから**Grand Theft Auto IV: The Complete Edition**をインストールする。
+
+[FusionFix](https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix)をインストール: [GTAIV.EFLC.FusionFix.zip](https://github.com/ThirteenAG/GTAIV.EFLC.FusionFix/releases/latest/download/GTAIV.EFLC.FusionFix.zip)をダウンロードして、`.exe`があるゲームのルートフォルダに展開する。
+
+Steamの起動オプション：
 
 ```bash
 WINEDLLOVERRIDES="dinput8=n,b" %command%
