@@ -655,9 +655,10 @@ command -v fzf >/dev/null && eval "$(fzf --bash)"
 # zoxide
 command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
 
-# atuin
+# bash-preexec
 [[ -f /usr/share/bash-preexec/bash-preexec.sh ]] && source /usr/share/bash-preexec/bash-preexec.sh
 
+# atuin
 if command -v atuin >/dev/null; then
   if [[ ${BLE_VERSION-} ]]; then
     eval "$(atuin init bash --disable-up-arrow)"
