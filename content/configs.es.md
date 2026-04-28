@@ -254,7 +254,7 @@ sudo apt install \
   mpv neovim nmap obs-studio okular openrgb \
   plasma-discover-backend-flatpak podman podman-docker python3 \
   python3-dev python3-full python3-pip python3-venv qbittorrent \
-  qemu-system-x86 ripgrep starship thefuck timeshift tmux \
+  qemu-system-x86 openssh-server ripgrep starship thefuck timeshift tmux \
   torbrowser-launcher tree ufw unrar unzip virt-manager vlc wget \
   wireshark yakuake yt-dlp zoxide
 ```
@@ -712,12 +712,15 @@ systemctl --user daemon-reload
 systemctl --user enable --now opencode-serve.service
 ```
 
+## SSH
+
+```bash
+sudo systemctl enable --now ssh
+```
+
 ## UFW
 
 ```bash
-sudo apt install openssh-server
-sudo systemctl enable --now ssh
-
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
 sudo ufw allow OpenSSH
