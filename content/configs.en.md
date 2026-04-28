@@ -246,7 +246,7 @@ sudo modprobe btusb
 
 ```bash
 sudo apt install \
-  7zip adb atuin audacity bleachbit blender build-essential buildah \
+  7zip adb atuin audacity bleachbit blender ble.sh build-essential buildah \
   ca-certificates criu curl ddcui ddcutil docker-compose-v2 easyeffects \
   fastboot ffmpeg flatpak fzf gamemode gammastep ghostty gimp git \
   gnupg golang-go gwenview handbrake hashcat hugo kcalc \
@@ -589,12 +589,6 @@ EOF
 
 ## bashrc
 
-Install ble.sh:
-
-```bash
-git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh ~/.local/share/blesh
-```
-
 Edit `~/.bashrc`:
 
 ```bash
@@ -605,7 +599,7 @@ At the very top:
 
 ```bash
 # ble.sh - load first, attach last
-[[ $- == *i* && -f "$HOME/.local/share/blesh/ble.sh" ]] && source -- "$HOME/.local/share/blesh/ble.sh" --attach=none
+[[ $- == *i* && -f /usr/share/blesh/ble.sh ]] && source -- /usr/share/blesh/ble.sh --attach=none
 ```
 
 Normal config:
