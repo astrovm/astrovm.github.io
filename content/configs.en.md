@@ -183,19 +183,6 @@ sudo systemctl restart NetworkManager
 KDE only. Only if you get a black screen during boot.
 
 ```bash
-ls -l /dev/dri/by-path/
-```
-
-Use the actual path from `/dev/dri/by-path/`.
-
-```bash
-sudo mkdir -p /etc/environment.d
-
-echo 'KWIN_DRM_DEVICES=/dev/dri/by-path/pci-0000:0c:00.0-card' \
-  | sudo tee /etc/environment.d/90-kwin-drm.conf
-```
-
-```bash
 sudo mkdir -p /etc/systemd/system/sddm.service.d
 
 sudo tee /etc/systemd/system/sddm.service.d/restart-limits.conf > /dev/null << 'EOF'

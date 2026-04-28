@@ -183,19 +183,6 @@ sudo systemctl restart NetworkManager
 仅 KDE。只有开机黑屏时才需要。
 
 ```bash
-ls -l /dev/dri/by-path/
-```
-
-用 `/dev/dri/by-path/` 里实际显示出来的路径。
-
-```bash
-sudo mkdir -p /etc/environment.d
-
-echo 'KWIN_DRM_DEVICES=/dev/dri/by-path/pci-0000:0c:00.0-card' \
-  | sudo tee /etc/environment.d/90-kwin-drm.conf
-```
-
-```bash
 sudo mkdir -p /etc/systemd/system/sddm.service.d
 
 sudo tee /etc/systemd/system/sddm.service.d/restart-limits.conf > /dev/null << 'EOF'
