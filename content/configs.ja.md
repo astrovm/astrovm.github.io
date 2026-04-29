@@ -129,10 +129,10 @@ sudo systemctl daemon-reload && sudo systemctl start dev-zram0.swap
 ## Btrfs swap file
 
 ```bash
-sudo swapoff /swap/swapfile
-sudo rm -f /swap/swapfile
-sudo btrfs filesystem mkswapfile --size 4G /swap/swapfile
-sudo swapon /swap/swapfile
+sudo swapoff /swap/swapfile && \
+  sudo rm -f /swap/swapfile && \
+  sudo btrfs filesystem mkswapfile --size 4G /swap/swapfile && \
+  sudo swapon /swap/swapfile
 ```
 
 ディスクswapはzramが埋まった時のfallback。
@@ -140,8 +140,8 @@ sudo swapon /swap/swapfile
 ## OOM
 
 ```bash
-sudo apt install systemd-oomd
-sudo systemctl enable --now systemd-oomd.service
+sudo apt install systemd-oomd && \
+  sudo systemctl enable --now systemd-oomd.service
 ```
 
 ## CPU
@@ -251,8 +251,8 @@ sudo usermod -aG kvm,libvirt,wireshark "$USER"
 ## ROCm
 
 ```bash
-sudo apt install rocm rocm-podman-support
-sudo usermod -aG render,video "$USER"
+sudo apt install rocm rocm-podman-support && \
+  sudo usermod -aG render,video "$USER"
 ```
 
 ログアウトして再度ログイン。
@@ -329,9 +329,7 @@ curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
   | sudo tee /etc/apt/sources.list.d/tailscale.list
 
-sudo apt update
-sudo apt install tailscale
-sudo tailscale up
+sudo apt update && sudo apt install tailscale && sudo tailscale up
 ```
 
 ## Antigravity
@@ -345,8 +343,7 @@ curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
 echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
   sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
 
-sudo apt update
-sudo apt install antigravity
+sudo apt update && sudo apt install antigravity
 ```
 
 # パッケージマネージャーとランタイム
@@ -534,9 +531,8 @@ sudo timeshift-gtk
 ## Ghostty
 
 ```bash
-mkdir -p ~/.config/ghostty
-
-tee ~/.config/ghostty/config.ghostty > /dev/null << 'EOF'
+mkdir -p ~/.config/ghostty && \
+  tee ~/.config/ghostty/config.ghostty > /dev/null << 'EOF'
 background-opacity = "0.9"
 font-family = "UbuntuMono Nerd Font"
 font-size = "14"
@@ -707,11 +703,11 @@ sudo systemctl enable --now ssh
 ## UFW
 
 ```bash
-sudo ufw default deny incoming
-sudo ufw default allow outgoing
-sudo ufw allow OpenSSH
-sudo ufw allow kdeconnect
-sudo ufw enable
+sudo ufw default deny incoming && \
+  sudo ufw default allow outgoing && \
+  sudo ufw allow OpenSSH && \
+  sudo ufw allow kdeconnect && \
+  sudo ufw enable
 ```
 
 # ゲーム
