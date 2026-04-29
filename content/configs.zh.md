@@ -306,16 +306,12 @@ sudo apt install brave-browser
 sudo apt remove firefox
 snap list firefox >/dev/null 2>&1 && sudo snap remove firefox
 snap list thunderbird >/dev/null 2>&1 && sudo snap remove thunderbird
-```
 
-```bash
 sudo install -d -m 0755 /etc/apt/keyrings
 
 wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
   | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
-```
 
-```bash
 cat <<EOF | sudo tee /etc/apt/sources.list.d/mozilla.sources
 Types: deb
 URIs: https://packages.mozilla.org/apt
@@ -323,17 +319,13 @@ Suites: mozilla
 Components: main
 Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
 EOF
-```
 
-```bash
 cat <<EOF | sudo tee /etc/apt/preferences.d/mozilla
 Package: *
 Pin: origin packages.mozilla.org
 Pin-Priority: 1000
 EOF
-```
 
-```bash
 sudo apt update
 sudo apt install firefox
 ```
@@ -392,9 +384,7 @@ no_retry = true
 notify_end = "on_failure"
 disable = ["system", "snap"]
 EOF
-```
 
-```bash
 mkdir -p ~/.config/systemd/user
 
 cat > ~/.config/systemd/user/topgrade.service << 'EOF'
@@ -406,9 +396,7 @@ Type=oneshot
 Environment=PATH=%h/.local/bin:%h/.bun/bin:%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin
 ExecStart=/home/linuxbrew/.linuxbrew/bin/topgrade
 EOF
-```
 
-```bash
 cat > ~/.config/systemd/user/topgrade.timer << 'EOF'
 [Unit]
 Description=Run Topgrade automatically
@@ -421,9 +409,7 @@ RandomizedDelaySec=1h
 [Install]
 WantedBy=timers.target
 EOF
-```
 
-```bash
 systemctl --user daemon-reload
 systemctl --user enable --now topgrade.timer
 ```
@@ -463,9 +449,7 @@ fc-cache -fv
 ```bash
 flatpak remote-add --if-not-exists flathub \
   https://flathub.org/repo/flathub.flatpakrepo
-```
 
-```bash
 flatpak install flathub \
   com.github.PintaProject.Pinta \
   com.spotify.Client \
@@ -491,10 +475,9 @@ rm steam.deb
 
 ## Google Chrome
 
-从 [google.com/chrome](https://www.google.com/chrome/) 下载 `.deb` 然后安装：
-
 ```bash
-sudo apt install ./google-chrome-stable_current_amd64.deb
+wget -q "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -O /tmp/chrome.deb
+sudo apt install /tmp/chrome.deb && rm /tmp/chrome.deb
 ```
 
 ## Android Studio
@@ -533,10 +516,9 @@ Setup Wizard 会把 SDK 下载到 `~/Android/Sdk`。
 
 ## Visual Studio Code
 
-从 [code.visualstudio.com](https://code.visualstudio.com/) 下载 `.deb` 然后安装：
-
 ```bash
-sudo apt install ./code_*.deb
+wget -qO /tmp/code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+sudo apt install /tmp/code.deb && rm /tmp/code.deb
 ```
 
 ## Zed
