@@ -234,10 +234,10 @@ sudo modprobe btusb
 ```bash
 sudo apt install \
   7zip adb atuin audacity bleachbit blender ble.sh build-essential buildah \
-  ca-certificates criu curl ddcui ddcutil docker-compose-v2 easyeffects \
+  ca-certificates criu curl ddcui ddcutil easyeffects \
   fastboot ffmpeg flatpak fzf gamemode gammastep ghostty gimp git \
   gnupg golang-go gwenview handbrake hashcat hugo kcalc \
-  kde-config-flatpak lazygit kdenlive krita libvirt-daemon-system libreoffice \
+  kde-config-flatpak kdenlive krita lazygit libvirt-daemon-system libreoffice \
   mpv neovim nmap obs-studio okular openrgb \
   plasma-discover-backend-flatpak podman podman-docker python3 \
   python3-dev python3-full python3-pip python3-venv qbittorrent \
