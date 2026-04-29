@@ -612,6 +612,8 @@ alias egrep='grep -E --color=auto'
 alias fgrep='grep -F --color=auto'
 ```
 
+删掉 PS1 那段代码（chroot、彩色提示符、xterm 标题），starship 已经接管了。
+
 正常配置：
 
 ```bash

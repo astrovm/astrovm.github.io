@@ -612,6 +612,8 @@ alias egrep='grep -E --color=auto'
 alias fgrep='grep -F --color=auto'
 ```
 
+Borrar el bloque de PS1 (chroot, color prompt, xterm title) ya que starship lo maneja.
+
 Config normal:
 
 ```bash

@@ -612,6 +612,8 @@ alias egrep='grep -E --color=auto'
 alias fgrep='grep -F --color=auto'
 ```
 
+PS1ブロック（chroot、カラー プロンプト、xterm タイトル）はstarshipが管理するので削除する。
+
 通常設定:
 
 ```bash
