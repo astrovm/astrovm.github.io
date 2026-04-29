@@ -595,6 +595,23 @@ nvim ~/.bashrc
 [[ $- == *i* && -f /usr/share/blesh/ble.sh ]] && source -- /usr/share/blesh/ble.sh --attach=none
 ```
 
+デフォルトを上書き:
+
+```bash
+HISTCONTROL=ignoreboth:erasedups
+HISTSIZE=100000
+HISTFILESIZE=100000
+shopt -s globstar
+```
+
+エイリアス追加:
+
+```bash
+alias cat='batcat --paging=never'
+alias egrep='grep -E --color=auto'
+alias fgrep='grep -F --color=auto'
+```
+
 通常設定:
 
 ```bash
@@ -622,7 +639,15 @@ export BUN_INSTALL="$HOME/.bun"
 path_prepend "$BUN_INSTALL/bin"
 
 # homebrew
-[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
+  export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
+  path_prepend "$HOMEBREW_PREFIX/bin"
+  path_prepend "$HOMEBREW_PREFIX/sbin"
+  [[ -z "${MANPATH-}" ]] || export MANPATH=":${MANPATH#:}"
+  export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
+fi
 
 # fnm
 command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
