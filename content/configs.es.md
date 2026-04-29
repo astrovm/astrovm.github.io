@@ -467,14 +467,15 @@ sudo apt install /tmp/chrome.deb && rm /tmp/chrome.deb
 
 ## Android Studio
 
-Descargar el `.tar.gz` desde [developer.android.com/studio](https://developer.android.com/studio), descomprimirlo en `/opt` y linkear el launcher:
-
 ```bash
-cd /tmp && tar -xzf android-studio-*-linux.tar.gz && \
-  sudo rm -rf /opt/android-studio && \
-  sudo mv android-studio /opt/android-studio && \
-  mkdir -p ~/.local/bin && \
-  ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
+url=$(curl -s "https://developer.android.com/studio" | grep -o 'https://[^"]*linux[^"]*\.tar\.gz' | head -1) && \
+wget -qO /tmp/android-studio.tar.gz "$url" && \
+tar -xzf /tmp/android-studio.tar.gz -C /tmp && \
+sudo rm -rf /opt/android-studio && \
+sudo mv /tmp/android-studio /opt/android-studio && \
+mkdir -p ~/.local/bin && \
+ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio && \
+rm /tmp/android-studio.tar.gz
 ```
 
 Primera ejecución:
