@@ -99,16 +99,14 @@ kernel.watchdog = 0
 net.ipv4.tcp_fastopen = 3
 vm.dirty_ratio = 10
 vm.dirty_background_ratio = 5
-EOF
-
+EOF && \
 sudo tee /etc/sysctl.d/99-vm-zram.conf > /dev/null << 'EOF'
 vm.swappiness = 150
 vm.vfs_cache_pressure = 50
 vm.page-cluster = 0
 vm.watermark_scale_factor = 100
 vm.compaction_proactiveness = 50
-EOF
-
+EOF && \
 sudo sysctl --system
 ```
 
@@ -167,9 +165,7 @@ EOF
 sudo tee /etc/NetworkManager/conf.d/99-disable-wifi-powersave.conf > /dev/null << 'EOF'
 [connection]
 wifi.powersave=2
-EOF
-
-sudo systemctl restart NetworkManager
+EOF && sudo systemctl restart NetworkManager
 ```
 
 ## KWin AMDGPU
@@ -207,9 +203,7 @@ wifi.scan-rand-mac-address=yes
 [connection]
 wifi.cloned-mac-address=stable
 ethernet.cloned-mac-address=preserve
-EOF
-
-sudo systemctl restart NetworkManager
+EOF && sudo systemctl restart NetworkManager
 ```
 
 ## Bluetooth restart
@@ -314,8 +308,7 @@ Pin: origin packages.mozilla.org
 Pin-Priority: 1000
 EOF
 
-sudo apt update
-sudo apt install firefox
+sudo apt update && sudo apt install firefox
 ```
 
 ## Tailscale
@@ -395,8 +388,7 @@ RandomizedDelaySec=1h
 WantedBy=timers.target
 EOF
 
-systemctl --user daemon-reload
-systemctl --user enable --now topgrade.timer
+systemctl --user daemon-reload && systemctl --user enable --now topgrade.timer
 ```
 
 ## npm global
@@ -690,8 +682,7 @@ RestartSec=3
 WantedBy=default.target
 EOF
 
-systemctl --user daemon-reload
-systemctl --user enable --now opencode-serve.service
+systemctl --user daemon-reload && systemctl --user enable --now opencode-serve.service
 ```
 
 ## SSH
