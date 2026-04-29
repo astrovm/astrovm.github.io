@@ -471,7 +471,7 @@ sudo apt install /tmp/steam.deb && rm /tmp/steam.deb
 ## Google Chrome
 
 ```bash
-wget -q "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -O /tmp/chrome.deb
+wget -q "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -O /tmp/chrome.deb && \
 sudo apt install /tmp/chrome.deb && rm /tmp/chrome.deb
 ```
 
@@ -512,7 +512,7 @@ The Setup Wizard downloads the SDK to `~/Android/Sdk`.
 ## Visual Studio Code
 
 ```bash
-wget -qO /tmp/code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+wget -qO /tmp/code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" && \
 sudo apt install /tmp/code.deb && rm /tmp/code.deb
 ```
 
