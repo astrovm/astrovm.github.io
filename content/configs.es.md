@@ -115,21 +115,15 @@ sudo sysctl --system
 ## zram
 
 ```bash
-sudo apt install systemd-zram-generator
-```
-
-```bash
+sudo apt install systemd-zram-generator && \
 sudo tee /etc/systemd/zram-generator.conf > /dev/null << 'EOF'
 [zram0]
 zram-size = ram / 2
 compression-algorithm = zstd
 swap-priority = 100
 EOF
-```
 
-```bash
-sudo systemctl daemon-reload
-sudo systemctl start dev-zram0.swap
+sudo systemctl daemon-reload && sudo systemctl start dev-zram0.swap
 ```
 
 ## Swap file Btrfs
@@ -266,10 +260,7 @@ Cerrar sesión y volver a entrar.
 ## APT security auto-updates
 
 ```bash
-sudo apt install unattended-upgrades
-```
-
-```bash
+sudo apt install unattended-upgrades && \
 sudo tee /etc/apt/apt.conf.d/20auto-upgrades > /dev/null << 'EOF'
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Download-Upgradeable-Packages "1";
@@ -437,8 +428,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ## Nerd Fonts
 
 ```bash
-brew install --cask font-hack-nerd-font font-ubuntu-mono-nerd-font
-fc-cache -fv
+brew install --cask font-hack-nerd-font font-ubuntu-mono-nerd-font && fc-cache -fv
 ```
 
 ## Flatpak
@@ -480,13 +470,11 @@ sudo apt install /tmp/chrome.deb && rm /tmp/chrome.deb
 Descargar el `.tar.gz` desde [developer.android.com/studio](https://developer.android.com/studio), descomprimirlo en `/opt` y linkear el launcher:
 
 ```bash
-cd /tmp
-tar -xzf android-studio-*-linux.tar.gz
-sudo rm -rf /opt/android-studio
-sudo mv android-studio /opt/android-studio
-
-mkdir -p ~/.local/bin
-ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
+cd /tmp && tar -xzf android-studio-*-linux.tar.gz && \
+  sudo rm -rf /opt/android-studio && \
+  sudo mv android-studio /opt/android-studio && \
+  mkdir -p ~/.local/bin && \
+  ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio
 ```
 
 Primera ejecución:
