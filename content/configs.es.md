@@ -539,6 +539,12 @@ Descargar el `.deb` desde [code.visualstudio.com](https://code.visualstudio.com/
 sudo apt install ./code_*.deb
 ```
 
+## Zed
+
+```bash
+curl -f https://zed.dev/install.sh | sh
+```
+
 ## Trezor Suite
 
 Descargar [Trezor Suite](https://trezor.io/trezor-suite) como AppImage y manejarlo con Gear Lever.

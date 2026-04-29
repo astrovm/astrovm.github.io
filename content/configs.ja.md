@@ -539,6 +539,12 @@ Setup WizardがSDKを`~/Android/Sdk`へダウンロードする。
 sudo apt install ./code_*.deb
 ```
 
+## Zed
+
+```bash
+curl -f https://zed.dev/install.sh | sh
+```
+
 ## Trezor Suite
 
 [Trezor Suite](https://trezor.io/trezor-suite)をAppImageでダウンロードしてGear Leverで管理する。
