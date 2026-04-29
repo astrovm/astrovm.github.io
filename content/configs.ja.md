@@ -234,13 +234,13 @@ sudo modprobe btusb
 ```bash
 sudo apt install \
   7zip adb atuin audacity bleachbit blender ble.sh build-essential buildah \
-  ca-certificates criu curl ddcui ddcutil easyeffects \
+  bat ca-certificates criu curl ddcui ddcutil easyeffects \
   fastboot ffmpeg flatpak fzf gamemode gammastep ghostty gimp git \
   gnupg golang-go gwenview handbrake hashcat hugo kcalc \
   kde-config-flatpak kdenlive krita lazygit libvirt-daemon-system libreoffice \
   mpv neovim nmap obs-studio okular openrgb \
-  plasma-discover-backend-flatpak podman podman-docker python3 \
-  python3-dev python3-full python3-pip python3-venv qbittorrent \
+  plasma-discover-backend-flatpak pipx podman podman-docker python3 \
+  python3-dev python3-full python3-venv qbittorrent \
   qemu-system-x86 openssh-server ripgrep starship thefuck timeshift tmux \
   torbrowser-launcher tree ufw unrar unzip virt-manager vlc wget \
   wireshark yakuake yt-dlp zoxide
@@ -766,6 +766,10 @@ git config --global user.email "~@4st.li"
 git config --global init.defaultBranch main
 git config --global pull.rebase true
 git config --global rebase.autoStash true
+git config --global core.autocrlf input
+git config --global core.pager batcat
+git config --global fetch.prune true
+git config --global rerere.enabled true
 
 ssh-keygen -t ed25519 -C "~@4st.li"
 eval "$(ssh-agent -s)"
