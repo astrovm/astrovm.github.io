@@ -173,8 +173,7 @@ EOF && sudo systemctl restart NetworkManager
 仅 KDE。只有开机黑屏时才需要。
 
 ```bash
-sudo mkdir -p /etc/systemd/system/sddm.service.d
-
+sudo mkdir -p /etc/systemd/system/sddm.service.d && \
 sudo tee /etc/systemd/system/sddm.service.d/restart-limits.conf > /dev/null << 'EOF'
 [Unit]
 StartLimitIntervalSec=30
@@ -184,8 +183,7 @@ StartLimitBurst=5
 ExecStartPre=/usr/bin/sleep 3
 Restart=on-failure
 RestartSec=2
-EOF
-
+EOF && \
 sudo systemctl daemon-reload
 ```
 
@@ -265,8 +263,10 @@ EOF
 
 ## Ubuntu Pro
 
+在 <https://ubuntu.com/pro/dashboard> 获取令牌。
+
 ```bash
-sudo pro attach
+sudo pro attach <你的令牌>
 pro status
 ```
 
@@ -289,25 +289,21 @@ sudo apt remove firefox
 snap list firefox >/dev/null 2>&1 && sudo snap remove firefox
 snap list thunderbird >/dev/null 2>&1 && sudo snap remove thunderbird
 
-sudo install -d -m 0755 /etc/apt/keyrings
-
+sudo install -d -m 0755 /etc/apt/keyrings && \
 wget https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
-  | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
-
+  | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && \
 cat <<EOF | sudo tee /etc/apt/sources.list.d/mozilla.sources
 Types: deb
 URIs: https://packages.mozilla.org/apt
 Suites: mozilla
 Components: main
 Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
-EOF
-
+EOF && \
 cat <<EOF | sudo tee /etc/apt/preferences.d/mozilla
 Package: *
 Pin: origin packages.mozilla.org
 Pin-Priority: 1000
-EOF
-
+EOF && \
 sudo apt update && sudo apt install firefox
 ```
 
@@ -317,11 +313,9 @@ sudo apt update && sudo apt install firefox
 sudo mkdir -p --mode=0755 /usr/share/keyrings
 
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
-  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null
-
+  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null && \
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
-  | sudo tee /etc/apt/sources.list.d/tailscale.list
-
+  | sudo tee /etc/apt/sources.list.d/tailscale.list && \
 sudo apt update && sudo apt install tailscale && sudo tailscale up
 ```
 
@@ -331,11 +325,9 @@ sudo apt update && sudo apt install tailscale && sudo tailscale up
 sudo mkdir -p /etc/apt/keyrings
 
 curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
-  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg
-
+  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg && \
 echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
-  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null
-
+  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null && \
 sudo apt update && sudo apt install antigravity
 ```
 
@@ -344,8 +336,8 @@ sudo apt update && sudo apt install antigravity
 ## Homebrew
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
 brew install fnm topgrade uv
 ```
 
@@ -394,11 +386,9 @@ systemctl --user daemon-reload && systemctl --user enable --now topgrade.timer
 ## npm global
 
 ```bash
-eval "$(fnm env --use-on-cd --shell bash)"
-
-fnm install --lts --use
-fnm default "$(fnm current)"
-
+eval "$(fnm env --use-on-cd --shell bash)" && \
+fnm install --lts --use && \
+fnm default "$(fnm current)" && \
 npm install -g @google/gemini-cli @openai/codex opencode-ai
 ```
 
@@ -752,8 +742,8 @@ git config --global fetch.prune true
 git config --global rerere.enabled true
 
 ssh-keygen -t ed25519 -C "~@4st.li"
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
+eval "$(ssh-agent -s)" && \
+ssh-add ~/.ssh/id_ed25519 && \
 cat ~/.ssh/id_ed25519.pub
 ```
 
