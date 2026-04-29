@@ -119,8 +119,7 @@ sudo tee /etc/systemd/zram-generator.conf > /dev/null << 'EOF'
 zram-size = ram / 2
 compression-algorithm = zstd
 swap-priority = 100
-EOF
-
+EOF && \
 sudo systemctl daemon-reload && sudo systemctl start dev-zram0.swap
 ```
 
@@ -310,8 +309,7 @@ sudo apt update && sudo apt install firefox
 ## Tailscale
 
 ```bash
-sudo mkdir -p --mode=0755 /usr/share/keyrings
-
+sudo mkdir -p --mode=0755 /usr/share/keyrings && \
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
   | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null && \
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
@@ -322,8 +320,7 @@ sudo apt update && sudo apt install tailscale && sudo tailscale up
 ## Antigravity
 
 ```bash
-sudo mkdir -p /etc/apt/keyrings
-
+sudo mkdir -p /etc/apt/keyrings && \
 curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
   sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg && \
 echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
