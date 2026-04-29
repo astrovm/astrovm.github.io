@@ -291,13 +291,10 @@ pro status
 
 ```bash
 sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg \
-  https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-
+  https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg && \
 sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources \
-  https://brave-browser-apt-release.s3.brave.com/brave-browser.sources
-
-sudo apt update
-sudo apt install brave-browser
+  https://brave-browser-apt-release.s3.brave.com/brave-browser.sources && \
+sudo apt update && sudo apt install brave-browser
 ```
 
 ## Firefox
@@ -467,10 +464,8 @@ flatpak install flathub \
 ## Steam
 
 ```bash
-cd /tmp
-wget https://cdn.fastly.steamstatic.com/client/installer/steam.deb
-sudo apt install ./steam.deb
-rm steam.deb
+wget -qO /tmp/steam.deb https://cdn.fastly.steamstatic.com/client/installer/steam.deb && \
+sudo apt install /tmp/steam.deb && rm /tmp/steam.deb
 ```
 
 ## Google Chrome
