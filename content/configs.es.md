@@ -633,8 +633,8 @@ command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
 # starship
 command -v starship >/dev/null && eval "$(starship init bash)"
 
-# thefuck
-command -v thefuck >/dev/null && eval "$(thefuck --alias)"
+# thefuck - lazy load
+fuck() { unset -f fuck; eval "$(thefuck --alias)"; fuck "$@"; }
 
 # fzf
 command -v fzf >/dev/null && eval "$(fzf --bash)"
