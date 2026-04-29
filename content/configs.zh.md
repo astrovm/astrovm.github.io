@@ -297,7 +297,7 @@ snap list thunderbird >/dev/null 2>&1 && sudo snap remove thunderbird
 
 sudo install -d -m 0755 /etc/apt/keyrings
 
-wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
+wget https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
   | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null
 
 cat <<EOF | sudo tee /etc/apt/sources.list.d/mozilla.sources
@@ -454,14 +454,14 @@ flatpak install flathub \
 ## Steam
 
 ```bash
-wget -qO /tmp/steam.deb https://cdn.fastly.steamstatic.com/client/installer/steam.deb && \
+wget -O /tmp/steam.deb https://cdn.fastly.steamstatic.com/client/installer/steam.deb && \
 sudo apt install /tmp/steam.deb && rm /tmp/steam.deb
 ```
 
 ## Google Chrome
 
 ```bash
-wget -q "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -O /tmp/chrome.deb && \
+wget "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -O /tmp/chrome.deb && \
 sudo apt install /tmp/chrome.deb && rm /tmp/chrome.deb
 ```
 
@@ -469,7 +469,7 @@ sudo apt install /tmp/chrome.deb && rm /tmp/chrome.deb
 
 ```bash
 url=$(curl -s "https://developer.android.com/studio" | grep -o 'https://[^"]*linux[^"]*\.tar\.gz' | head -1) && \
-wget -qO /tmp/android-studio.tar.gz "$url" && \
+wget -O /tmp/android-studio.tar.gz "$url" && \
 tar -xzf /tmp/android-studio.tar.gz -C /tmp && \
 sudo rm -rf /opt/android-studio && \
 sudo mv /tmp/android-studio /opt/android-studio && \
@@ -501,7 +501,7 @@ Setup Wizard 会把 SDK 下载到 `~/Android/Sdk`。
 ## Visual Studio Code
 
 ```bash
-wget -qO /tmp/code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" && \
+wget -O /tmp/code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" && \
 sudo apt install /tmp/code.deb && rm /tmp/code.deb
 ```
 
