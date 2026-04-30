@@ -1,7 +1,7 @@
 (function () {
   var TRIGGER = "sonic";
-  var FAVICON_SIZE = 32;
-  var FRAME_INTERVAL = 80;
+  var FAVICON_SIZE = 64;
+  var FRAME_INTERVAL = 33;
   var ROM_PASSWORD = "gottagofast";
   var buffer = "";
   var pipeRunning = false;
