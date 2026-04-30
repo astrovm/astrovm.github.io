@@ -220,7 +220,7 @@ sudo modprobe btusb
 sudo apt install \
   7zip adb atuin audacity bleachbit blender ble.sh build-essential buildah \
   bat ca-certificates criu curl ddcui ddcutil easyeffects \
-  fastboot ffmpeg flatpak fzf gamemode gammastep ghostty gimp git \
+  fastboot ffmpeg flatpak fzf gamemode gammastep gh ghostty gimp git \
   gnupg golang-go gwenview handbrake hashcat hugo kcalc \
   kde-config-flatpak kdenlive krita lazygit libvirt-daemon-system libreoffice \
   mpv neovim nmap obs-studio okular openrgb \
