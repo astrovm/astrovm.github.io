@@ -73,7 +73,7 @@
       clickCount++;
       if (clickTimeout) clearTimeout(clickTimeout);
       clickTimeout = setTimeout(() => (clickCount = 0), 2000);
-      if (clickCount >= 5 && window.activateTerminal) {
+      if (clickCount >= 3 && window.activateTerminal) {
         clickCount = 0;
         window.activateTerminal();
       }
