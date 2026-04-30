@@ -645,7 +645,7 @@ cat > ~/.local/bin/opencode-serve << 'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 
-export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin:$HOME/.local/bin"
+export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin"
 
 [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
@@ -661,6 +661,7 @@ Description=OpenCode serve
 
 [Service]
 Type=simple
+Environment=PATH=%h/.local/bin:%h/.bun/bin:%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin
 ExecStart=%h/.local/bin/opencode-serve
 Restart=always
 RestartSec=3
