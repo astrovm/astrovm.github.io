@@ -202,3 +202,7 @@ dist
 # .pnp.*
 
 # End of https://www.toptal.com/developers/gitignore/api/hugo,node,go,yarn
+
+# Plaintext ROMs (encrypted versions shipped instead)
+static/roms/*.md
+static/roms/*.bin

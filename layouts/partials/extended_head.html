@@ -6,6 +6,7 @@
 {{ $twJS := resources.Get "terminal-window/terminal-window.js" | fingerprint }}
 {{ $langJS := resources.Get "language.js" | fingerprint }}
 {{ $onekoJS := resources.Get "oneko.js" | fingerprint }}
+{{ $sonicJS := resources.Get "sonic-favicon.js" | fingerprint }}
 {{ $enc := resources.Get "terminal-window/encrypted-commands.js.enc" | fingerprint }}
 <script>window.__ENC_URL__="{{ $enc.Permalink }}";</script>
 <link rel="stylesheet" href="{{ $xtermCSS.Permalink }}" />
@@ -16,3 +17,4 @@
 <script src="{{ $twJS.Permalink }}" defer></script>
 <script src="{{ $langJS.Permalink }}" defer></script>
 <script src="{{ $onekoJS.Permalink }}" defer></script>
+<script src="{{ $sonicJS.Permalink }}" defer></script>
