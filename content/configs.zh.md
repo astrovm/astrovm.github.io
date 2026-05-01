@@ -369,7 +369,7 @@ cat > ~/.config/systemd/user/topgrade.timer << 'EOF'
 Description=Run Topgrade automatically
 
 [Timer]
-OnCalendar=weekly
+OnCalendar=daily
 Persistent=true
 RandomizedDelaySec=1h
 
