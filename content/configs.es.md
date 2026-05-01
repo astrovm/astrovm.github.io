@@ -220,12 +220,12 @@ sudo modprobe btusb
 sudo apt install \
   7zip adb atuin audacity bleachbit blender ble.sh build-essential buildah \
   bat ca-certificates criu curl ddcui ddcutil easyeffects \
-  fastboot ffmpeg flatpak fzf gamemode gammastep gh ghostty gimp git \
+  fastboot ffmpeg flatpak fzf gamemode gammastep gh ghostty git \
   gnupg golang-go gwenview handbrake hashcat hugo kcalc \
-  kde-config-flatpak kdenlive krita lazygit libvirt-daemon-system libreoffice \
+  kde-config-flatpak lazygit libvirt-daemon-system libreoffice \
   mpv neovim nmap okular openrgb \
   plasma-discover-backend-flatpak pipx podman podman-docker python3 \
-  python3-dev python3-full python3-venv qbittorrent \
+  python3-dev python3-full python3-venv \
   qemu-system-x86 openssh-server ripgrep starship thefuck timeshift tmux \
   torbrowser-launcher tree ufw unrar unzip virt-manager vlc wget \
   wireshark yt-dlp zoxide
@@ -414,19 +414,26 @@ flatpak remote-add --if-not-exists flathub \
   https://flathub.org/repo/flathub.flatpakrepo
 
 flatpak install flathub \
+  com.github.tchx84.Flatseal \
   com.github.PintaProject.Pinta \
   com.obsproject.Studio \
   com.obsproject.Studio.Plugin.OBSVkCapture//stable \
-  org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 \
   com.spotify.Client \
   com.stremio.Stremio \
+  com.usebottles.bottles \
   com.vysp3r.ProtonPlus \
   dev.vencord.Vesktop \
   io.github.flattool.Warehouse \
   io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever \
+  net.lutris.Lutris \
+  org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 \
+  org.gimp.GIMP \
+  org.kde.kdenlive \
+  org.kde.krita \
   org.kde.yakuake \
   org.localsend.localsend_app \
+  org.qbittorrent.qBittorrent \
   org.signal.Signal \
   org.telegram.desktop
 ```
