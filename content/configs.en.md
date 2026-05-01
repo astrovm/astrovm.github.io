@@ -703,6 +703,10 @@ sudo ufw default deny incoming && \
 
 # Gaming
 
+## Eden
+
+Download [Eden](https://git.eden-emu.dev/eden-emu/eden/releases) (Nintendo Switch emulator) as an AppImage and manage it with Gear Lever. Use the **amd64 PGO** build for best performance.
+
 ## Steam
 
 - Enable Steam Play

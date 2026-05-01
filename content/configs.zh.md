@@ -703,6 +703,10 @@ sudo ufw default deny incoming && \
 
 # 游戏
 
+## Eden
+
+从 [Eden](https://git.eden-emu.dev/eden-emu/eden/releases)（Nintendo Switch 模拟器）下载 AppImage，用 Gear Lever 管理。选 **amd64 PGO** 版本性能最好。
+
 ## Steam
 
 - 启用 Steam Play

@@ -703,6 +703,10 @@ sudo ufw default deny incoming && \
 
 # ゲーム
 
+## Eden
+
+[Eden](https://git.eden-emu.dev/eden-emu/eden/releases)（Nintendo Switchエミュレータ）のAppImageをダウンロードして、Gear Leverで管理。**amd64 PGO**ビルドが一番速い。
+
 ## Steam
 
 - Steam Playを有効化
