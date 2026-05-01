@@ -222,7 +222,7 @@ sudo apt install \
   bat ca-certificates criu curl ddcui ddcutil easyeffects \
   fastboot ffmpeg flatpak fzf gamemode gammastep gh ghostty git \
   gnupg golang-go gwenview handbrake hashcat hugo kcalc \
-  kde-config-flatpak lazygit libvirt-daemon-system libreoffice \
+  kde-config-flatpak lazygit libvirt-daemon-system \
   mpv neovim nmap okular openrgb \
   plasma-discover-backend-flatpak pipx podman podman-docker python3 \
   python3-dev python3-full python3-venv \
@@ -432,6 +432,7 @@ flatpak install flathub \
   org.kde.kdenlive \
   org.kde.krita \
   org.kde.yakuake \
+  org.libreoffice.LibreOffice \
   org.localsend.localsend_app \
   org.qbittorrent.qBittorrent \
   org.signal.Signal \
