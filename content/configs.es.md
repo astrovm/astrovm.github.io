@@ -218,7 +218,7 @@ sudo modprobe btusb
 
 ```bash
 sudo apt install \
-  7zip adb atuin audacity bleachbit blender ble.sh build-essential buildah \
+  7zip adb atuin audacity bleachbit ble.sh build-essential buildah \
   bat ca-certificates criu curl ddcui ddcutil easyeffects \
   fastboot ffmpeg flatpak fzf gamemode gammastep gh ghostty git \
   gnupg golang-go gwenview handbrake hashcat hugo kcalc \
