@@ -223,12 +223,12 @@ sudo apt install \
   fastboot ffmpeg flatpak fzf gamemode gammastep gh ghostty gimp git \
   gnupg golang-go gwenview handbrake hashcat hugo kcalc \
   kde-config-flatpak kdenlive krita lazygit libvirt-daemon-system libreoffice \
-  mpv neovim nmap obs-studio okular openrgb \
+  mpv neovim nmap okular openrgb \
   plasma-discover-backend-flatpak pipx podman podman-docker python3 \
   python3-dev python3-full python3-venv qbittorrent \
   qemu-system-x86 openssh-server ripgrep starship thefuck timeshift tmux \
   torbrowser-launcher tree ufw unrar unzip virt-manager vlc wget \
-  wireshark yakuake yt-dlp zoxide
+  wireshark yt-dlp zoxide
 ```
 
 ## 用户权限
@@ -415,6 +415,9 @@ flatpak remote-add --if-not-exists flathub \
 
 flatpak install flathub \
   com.github.PintaProject.Pinta \
+  com.obsproject.Studio \
+  com.obsproject.Studio.Plugin.OBSVkCapture//stable \
+  org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 \
   com.spotify.Client \
   com.stremio.Stremio \
   com.vysp3r.ProtonPlus \
@@ -422,6 +425,7 @@ flatpak install flathub \
   io.github.flattool.Warehouse \
   io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever \
+  org.kde.yakuake \
   org.localsend.localsend_app \
   org.signal.Signal \
   org.telegram.desktop
