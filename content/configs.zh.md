@@ -31,7 +31,7 @@ Kubuntu 26.04 用 UEFI 模式安装：
 - Swap file
 - 启用 LUKS
 
-布局：子卷 `/@` 和 `/@home`，swap file 在 `/swap/swapfile`，磁盘用 LUKS 加密。
+布局：子卷 `/@`、`/@home` 和 `/@swap`，swap file 在 `/swap/swapfile`，磁盘用 LUKS 加密。
 
 # BIOS
 
@@ -85,6 +85,8 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 ```ini
 /dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
 /dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
+/dev/mapper/luks-blablabla /swap btrfs subvol=/@swap,defaults 0 0
+/swap/swapfile              none  swap  defaults 0 0
 ```
 
 - `noatime` - 少写点。

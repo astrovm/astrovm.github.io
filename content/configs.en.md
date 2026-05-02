@@ -31,7 +31,7 @@ Kubuntu 26.04 installed in UEFI mode with:
 - Swap file
 - LUKS enabled
 
-Layout: subvols `/@` and `/@home`, swap file at `/swap/swapfile`, disk encrypted with LUKS.
+Layout: subvols `/@`, `/@home`, and `/@swap`, swap file at `/swap/swapfile`, disk encrypted with LUKS.
 
 # BIOS
 
@@ -85,6 +85,8 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 ```ini
 /dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
 /dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
+/dev/mapper/luks-blablabla /swap btrfs subvol=/@swap,defaults 0 0
+/swap/swapfile              none  swap  defaults 0 0
 ```
 
 - `noatime` - fewer writes.
