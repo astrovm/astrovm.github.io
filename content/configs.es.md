@@ -226,7 +226,7 @@ sudo modprobe btusb
 
 ```bash
 sudo apt install \
-  7zip adb atuin audacity bleachbit ble.sh build-essential buildah \
+  7zip adb atuin audacity bleachbit ble.sh build-essential buildah clang \
   bat ca-certificates criu curl ddcui ddcutil easyeffects \
   fastboot ffmpeg flatpak fzf gamemode gammastep gh ghostty git \
   gnupg golang-go gwenview handbrake hashcat hugo kcalc \
@@ -234,7 +234,7 @@ sudo apt install \
   mpv neovim nmap okular openrgb \
   plasma-discover-backend-flatpak pipx podman podman-docker python3 \
   python3-dev python3-full python3-venv \
-  qemu-system-x86 openssh-server ripgrep starship thefuck timeshift tmux \
+  qemu-system-x86 ssh sshpass ripgrep starship thefuck timeshift tmux \
   torbrowser-launcher tree ufw unrar unzip virt-manager vlc wget \
   wireshark yt-dlp zoxide
 ```
