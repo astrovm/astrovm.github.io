@@ -717,7 +717,7 @@ Download the Flatpak from [Unleashed Recompiled](https://github.com/hedge-dev/Un
 wget -O /tmp/UnleashedRecomp-Flatpak.zip \
   https://github.com/hedge-dev/UnleashedRecomp/releases/latest/download/UnleashedRecomp-Flatpak.zip && \
   unzip -o /tmp/UnleashedRecomp-Flatpak.zip -d /tmp/UnleashedRecomp && \
-  flatpak install --system --assumeyes /tmp/UnleashedRecomp/*.flatpak && \
+  flatpak install /tmp/UnleashedRecomp/*.flatpak && \
   rm -rf /tmp/UnleashedRecomp /tmp/UnleashedRecomp-Flatpak.zip
 ```
 
