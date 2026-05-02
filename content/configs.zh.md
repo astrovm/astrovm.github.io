@@ -82,13 +82,13 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 
 ## Btrfs mounts
 
-Kubuntu 已经创建好子卷和 swap file。我只改 mount options：
+Kubuntu 已经创建好子卷和 swap file。`/tmp` 已经由 systemd 放在 tmpfs。我只改 mount options：
 
 ```bash
 sudo nvim /etc/fstab
 ```
 
-在 `/` 和 `/home` 上加 `noatime,compress=zstd`：
+在 `/` 和 `/home` 上，如果有 `autodefrag` 就删掉，再加 `compress=zstd`：
 
 ```ini
 /dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0

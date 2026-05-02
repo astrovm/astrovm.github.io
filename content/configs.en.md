@@ -82,13 +82,13 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 
 ## Btrfs mounts
 
-Kubuntu already creates the subvols and swap file. I only change mount options:
+Kubuntu already creates the subvols and swap file. `/tmp` already comes as tmpfs through systemd. I only change mount options:
 
 ```bash
 sudo nvim /etc/fstab
 ```
 
-On `/` and `/home`, add `noatime,compress=zstd`:
+On `/` and `/home`, remove `autodefrag` if present and add `compress=zstd`:
 
 ```ini
 /dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0

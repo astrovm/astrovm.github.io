@@ -82,13 +82,13 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 
 ## Btrfs mounts
 
-Kubuntuがサブボリュームとswap fileを作ってくれる。変えるのはmount optionsだけ。
+Kubuntuがサブボリュームとswap fileを作ってくれる。`/tmp` はsystemdで最初からtmpfs。変えるのはmount optionsだけ。
 
 ```bash
 sudo nvim /etc/fstab
 ```
 
-`/` と `/home` に `noatime,compress=zstd` を足す：
+`/` と `/home` で、`autodefrag` があれば消して `compress=zstd` を足す：
 
 ```ini
 /dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
