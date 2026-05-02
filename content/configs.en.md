@@ -82,11 +82,17 @@ sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-disca
 
 ## Btrfs mounts
 
+Kubuntu already creates the subvols and swap file. I only change mount options:
+
+```bash
+sudo nvim /etc/fstab
+```
+
+On `/` and `/home`, add `noatime,compress=zstd`:
+
 ```ini
 /dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
 /dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
-/dev/mapper/luks-blablabla /swap btrfs subvol=/@swap,defaults 0 0
-/swap/swapfile              none  swap  defaults 0 0
 ```
 
 - `noatime` - fewer writes.
