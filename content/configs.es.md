@@ -424,9 +424,11 @@ flatpak install flathub \
   com.vysp3r.ProtonPlus \
   dev.vencord.Vesktop \
   io.github.flattool.Warehouse \
+  io.github.hedge_dev.hedgemodmanager \
   io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever \
   net.lutris.Lutris \
+  net.retrodeck.retrodeck \
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 \
   org.gimp.GIMP \
   org.kde.kdenlive \
@@ -706,6 +708,18 @@ sudo ufw default deny incoming && \
 ## Eden
 
 Descargá [Eden](https://git.eden-emu.dev/eden-emu/eden/releases) (emulador de Nintendo Switch) como AppImage y manejalo con Gear Lever. Usá el build **amd64 PGO** para mejor performance.
+
+## Sonic Unleashed Recompiled
+
+Descargá el Flatpak de [Unleashed Recompiled](https://github.com/hedge-dev/UnleashedRecomp/releases) e instalalo. Necesitás los archivos del Sonic Unleashed de Xbox 360 (US o EU), el title update, y opcionalmente el DLC (recomendado, incluye iluminación de alta calidad).
+
+```bash
+wget -O /tmp/UnleashedRecomp-Flatpak.zip \
+  https://github.com/hedge-dev/UnleashedRecomp/releases/latest/download/UnleashedRecomp-Flatpak.zip && \
+  unzip -o /tmp/UnleashedRecomp-Flatpak.zip -d /tmp/UnleashedRecomp && \
+  flatpak install --user /tmp/UnleashedRecomp/*.flatpak && \
+  rm -rf /tmp/UnleashedRecomp /tmp/UnleashedRecomp-Flatpak.zip
+```
 
 ## Steam
 

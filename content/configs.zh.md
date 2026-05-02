@@ -424,9 +424,11 @@ flatpak install flathub \
   com.vysp3r.ProtonPlus \
   dev.vencord.Vesktop \
   io.github.flattool.Warehouse \
+  io.github.hedge_dev.hedgemodmanager \
   io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever \
   net.lutris.Lutris \
+  net.retrodeck.retrodeck \
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 \
   org.gimp.GIMP \
   org.kde.kdenlive \
@@ -706,6 +708,18 @@ sudo ufw default deny incoming && \
 ## Eden
 
 从 [Eden](https://git.eden-emu.dev/eden-emu/eden/releases)（Nintendo Switch 模拟器）下载 AppImage，用 Gear Lever 管理。选 **amd64 PGO** 版本性能最好。
+
+## Sonic Unleashed Recompiled
+
+从 [Unleashed Recompiled](https://github.com/hedge-dev/UnleashedRecomp/releases) 下载 Flatpak 安装。需要 Sonic Unleashed Xbox 360 游戏文件（US 或 EU），title update，DLC 可选（强烈推荐，包含高质量光照）。
+
+```bash
+wget -O /tmp/UnleashedRecomp-Flatpak.zip \
+  https://github.com/hedge-dev/UnleashedRecomp/releases/latest/download/UnleashedRecomp-Flatpak.zip && \
+  unzip -o /tmp/UnleashedRecomp-Flatpak.zip -d /tmp/UnleashedRecomp && \
+  flatpak install --user /tmp/UnleashedRecomp/*.flatpak && \
+  rm -rf /tmp/UnleashedRecomp /tmp/UnleashedRecomp-Flatpak.zip
+```
 
 ## Steam
 

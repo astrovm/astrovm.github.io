@@ -424,9 +424,11 @@ flatpak install flathub \
   com.vysp3r.ProtonPlus \
   dev.vencord.Vesktop \
   io.github.flattool.Warehouse \
+  io.github.hedge_dev.hedgemodmanager \
   io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever \
   net.lutris.Lutris \
+  net.retrodeck.retrodeck \
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 \
   org.gimp.GIMP \
   org.kde.kdenlive \
@@ -706,6 +708,18 @@ sudo ufw default deny incoming && \
 ## Eden
 
 [Eden](https://git.eden-emu.dev/eden-emu/eden/releases)（Nintendo Switchエミュレータ）のAppImageをダウンロードして、Gear Leverで管理。**amd64 PGO**ビルドが一番速い。
+
+## Sonic Unleashed Recompiled
+
+[Unleashed Recompiled](https://github.com/hedge-dev/UnleashedRecomp/releases) からFlatpakをダウンロードしてインストール。Sonic UnleashedのXbox 360版ゲームファイル（USまたはEU）とタイトルアップデートが必要。DLCはオプションだけど強く推奨（高品質ライティング付き）。
+
+```bash
+wget -O /tmp/UnleashedRecomp-Flatpak.zip \
+  https://github.com/hedge-dev/UnleashedRecomp/releases/latest/download/UnleashedRecomp-Flatpak.zip && \
+  unzip -o /tmp/UnleashedRecomp-Flatpak.zip -d /tmp/UnleashedRecomp && \
+  flatpak install --user /tmp/UnleashedRecomp/*.flatpak && \
+  rm -rf /tmp/UnleashedRecomp /tmp/UnleashedRecomp-Flatpak.zip
+```
 
 ## Steam
 
