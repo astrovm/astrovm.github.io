@@ -229,7 +229,7 @@ sudo apt install \
   7zip adb atuin audacity bleachbit ble.sh build-essential buildah clang \
   bat ca-certificates criu curl ddcui ddcutil easyeffects \
   fastboot ffmpeg flatpak fzf gamemode gammastep gh ghostty git \
-  gnupg golang-go gwenview handbrake hashcat hugo kcalc \
+  gnupg golang-go gwenview handbrake hashcat hugo isoimagewriter kcalc \
   kde-config-flatpak lazygit libvirt-daemon-system \
   mpv neovim nmap okular openrgb \
   plasma-discover-backend-flatpak pipx podman podman-docker python3 \
