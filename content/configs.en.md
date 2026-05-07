@@ -241,7 +241,7 @@ sudo apt install \
   mpv mythes-en-us mythes-es ncdu needrestart neovim nethogs ninja-build nload nmap nvtop \
   okular openrgb optipng pamixer pandoc pdfgrep pkg-config playerctl \
   plasma-discover-backend-flatpak pipx pngquant podman podman-docker poppler-utils pre-commit \
-  python3 python3-dev python3-full python3-venv qemu-system-x86 redis-server redis-tools \
+  python3 python3-dev python3-full python-is-python3 python3-venv qemu-system-x86 redis-server redis-tools \
   ripgrep-all shellcheck shfmt sl speedtest-cli ssh sshpass starship tealdeer thefuck \
   timeshift tidy tmux toilet torbrowser-launcher tree trash-cli tshark ugrep ufw \
   universal-ctags unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet \
