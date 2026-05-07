@@ -230,19 +230,20 @@ sudo modprobe btusb
 
 ```bash
 sudo apt install \
-  7zip adb antiword aspell-es atuin audacity autoconf automake bear btop bleachbit ble.sh \
-  brightnessctl build-essential buildah clang clamav cowsay \
+  7zip adb antiword aria2 aspell-es atuin audacity autoconf automake bear btop bleachbit \
+  ble.sh brightnessctl build-essential buildah clang clamav cowsay \
   bat ca-certificates cmake criu curl ddcui ddcutil diffoscope direnv dnsutils easyeffects \
-  editorconfig expect fd-find fastboot ffmpeg ffmpegthumbnailer filelight firejail flatpak \
-  fzf fortune-mod gamemode gammastep gdb gh gifsicle ghostty git gnupg golang-go gwenview \
-  handbrake hashcat httpie hugo hunspell-en-us hunspell-es hw-probe hyphen-en-us hyphen-es \
-  inotify-tools iotop-c isoimagewriter jo jq kcalc kde-config-flatpak lazygit libtool \
-  libvirt-daemon-system lolcat moreutils mpv mythes-en-us mythes-es ncdu needrestart \
-  neovim nethogs nload nmap nvtop okular openrgb optipng pamixer pandoc pdfgrep \
-  pkg-config playerctl plasma-discover-backend-flatpak pipx pngquant podman \
-  podman-docker poppler-utils pre-commit python3 python3-dev python3-full python3-venv \
-  qemu-system-x86 ripgrep-all shellcheck shfmt sl speedtest-cli ssh sshpass starship \
-  tealdeer thefuck timeshift tidy tmux toilet torbrowser-launcher tree tshark ufw \
+  editorconfig eza expect fd-find fastboot ffmpeg ffmpegthumbnailer filelight firejail flatpak \
+  fzf fortune-mod gamemode gammastep gdb gh gifsicle ghostty git glab gnupg golang-go \
+  gwenview handbrake hashcat httpie hugo hunspell-en-us hunspell-es hw-probe hyphen-en-us \
+  hyphen-es inotify-tools iotop-c isoimagewriter jo jq kcalc kde-config-flatpak lazygit \
+  libfuse-dev libfuse3-dev libtool libvirt-daemon-system lolcat magic-wormhole meson moreutils \
+  mpv mythes-en-us mythes-es ncdu needrestart neovim nethogs ninja-build nload nmap nvtop \
+  okular openrgb optipng pamixer pandoc pdfgrep pkg-config playerctl \
+  plasma-discover-backend-flatpak pipx pngquant podman podman-docker poppler-utils pre-commit \
+  python3 python3-dev python3-full python3-venv qemu-system-x86 redis-server redis-tools \
+  ripgrep-all shellcheck shfmt sl speedtest-cli ssh sshpass starship tealdeer thefuck \
+  timeshift tidy tmux toilet torbrowser-launcher tree trash-cli tshark ugrep ufw \
   universal-ctags unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet \
   yt-dlp yq zoxide
 ```
@@ -357,7 +358,7 @@ sudo apt update && sudo apt install antigravity
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-brew install fnm topgrade uv
+brew install croc fnm topgrade uv
 ```
 
 ## Topgrade auto-update
