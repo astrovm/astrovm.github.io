@@ -107,14 +107,16 @@ kernel.watchdog = 0
 net.ipv4.tcp_fastopen = 3
 vm.dirty_ratio = 10
 vm.dirty_background_ratio = 5
-EOF && \
+EOF
+
 sudo tee /etc/sysctl.d/99-vm-zram.conf > /dev/null << 'EOF'
 vm.swappiness = 150
 vm.vfs_cache_pressure = 50
 vm.page-cluster = 0
 vm.watermark_scale_factor = 100
 vm.compaction_proactiveness = 50
-EOF && \
+EOF
+
 sudo sysctl --system
 ```
 
@@ -127,7 +129,8 @@ sudo tee /etc/systemd/zram-generator.conf > /dev/null << 'EOF'
 zram-size = ram / 2
 compression-algorithm = zstd
 swap-priority = 100
-EOF && \
+EOF
+
 sudo systemctl daemon-reload && sudo systemctl start dev-zram0.swap
 ```
 
@@ -190,7 +193,8 @@ StartLimitBurst=5
 ExecStartPre=/usr/bin/sleep 3
 Restart=on-failure
 RestartSec=2
-EOF && \
+EOF
+
 sudo systemctl daemon-reload
 ```
 
@@ -305,7 +309,8 @@ URIs: https://packages.mozilla.org/apt
 Suites: mozilla
 Components: main
 Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
-EOF && \
+EOF
+
 cat <<EOF | sudo tee /etc/apt/preferences.d/mozilla
 Package: *
 Pin: origin packages.mozilla.org
@@ -314,7 +319,8 @@ Pin-Priority: 1000
 Package: firefox*
 Pin: release o=Ubuntu
 Pin-Priority: -1
-EOF && \
+EOF
+
 sudo apt update && sudo apt install firefox
 ```
 
