@@ -230,15 +230,15 @@ sudo modprobe btusb
 
 ```bash
 sudo apt install \
-  7zip adb atuin audacity bleachbit ble.sh build-essential buildah clang \
-  bat ca-certificates criu curl ddcui ddcutil easyeffects \
-  fastboot ffmpeg flatpak fzf gamemode gammastep gh ghostty git \
-  gnupg golang-go gwenview handbrake hashcat hugo isoimagewriter kcalc \
-  kde-config-flatpak lazygit libvirt-daemon-system \
-  mpv neovim nmap okular openrgb \
+  7zip adb atuin audacity btop bleachbit ble.sh build-essential buildah clang \
+  bat ca-certificates criu curl ddcui ddcutil dnsutils easyeffects \
+  fd-find fastboot ffmpeg flatpak fzf gamemode gammastep gh ghostty git \
+  gnupg golang-go gwenview handbrake hashcat httpie hw-probe hugo \
+  isoimagewriter jq kcalc kde-config-flatpak lazygit libvirt-daemon-system \
+  mpv ncdu neovim nmap okular openrgb \
   plasma-discover-backend-flatpak pipx podman podman-docker python3 \
   python3-dev python3-full python3-venv \
-  qemu-system-x86 ssh sshpass ripgrep starship thefuck timeshift tmux \
+  qemu-system-x86 ssh sshpass ripgrep starship tealdeer thefuck timeshift tmux \
   torbrowser-launcher tree ufw unrar unzip virt-manager vlc wget \
   wireshark yt-dlp zoxide
 ```
