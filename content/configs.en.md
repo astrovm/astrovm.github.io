@@ -585,6 +585,9 @@ shopt -s globstar
 Add aliases:
 
 ```bash
+alias ls='eza'
+alias ll='eza -l'
+alias la='eza -la'
 alias cat='batcat --paging=never'
 alias egrep='grep -E --color=auto'
 alias fgrep='grep -F --color=auto'
