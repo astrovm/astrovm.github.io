@@ -230,20 +230,21 @@ sudo modprobe btusb
 
 ```bash
 sudo apt install \
-  7zip adb aspell-es atuin audacity autoconf automake btop bleachbit ble.sh brightnessctl \
-  build-essential buildah clang clamav cowsay \
-  bat ca-certificates cmake criu curl ddcui ddcutil diffoscope dnsutils easyeffects \
-  fd-find fastboot ffmpeg ffmpegthumbnailer filelight firejail flatpak fzf fortune-mod \
-  gamemode gammastep gdb gh gifsicle ghostty git gnupg golang-go gwenview handbrake \
-  hashcat httpie hugo hunspell-en-us hunspell-es hw-probe hyphen-en-us hyphen-es \
+  7zip adb antiword aspell-es atuin audacity autoconf automake bear btop bleachbit ble.sh \
+  brightnessctl build-essential buildah clang clamav cowsay \
+  bat ca-certificates cmake criu curl ddcui ddcutil diffoscope direnv dnsutils easyeffects \
+  editorconfig expect fd-find fastboot ffmpeg ffmpegthumbnailer filelight firejail flatpak \
+  fzf fortune-mod gamemode gammastep gdb gh gifsicle ghostty git gnupg golang-go gwenview \
+  handbrake hashcat httpie hugo hunspell-en-us hunspell-es hw-probe hyphen-en-us hyphen-es \
   inotify-tools iotop-c isoimagewriter jo jq kcalc kde-config-flatpak lazygit libtool \
   libvirt-daemon-system lolcat moreutils mpv mythes-en-us mythes-es ncdu needrestart \
   neovim nethogs nload nmap nvtop okular openrgb optipng pamixer pandoc pdfgrep \
   pkg-config playerctl plasma-discover-backend-flatpak pipx pngquant podman \
-  podman-docker poppler-utils python3 python3-dev python3-full python3-venv \
-  qemu-system-x86 shellcheck sl speedtest-cli ssh sshpass ripgrep starship tealdeer \
-  thefuck timeshift tmux toilet torbrowser-launcher tree tshark ufw unrar unzip \
-  valgrind virt-manager vlc wget whois wireshark xmlstarlet yt-dlp yq zoxide
+  podman-docker poppler-utils pre-commit python3 python3-dev python3-full python3-venv \
+  qemu-system-x86 ripgrep-all shellcheck shfmt sl speedtest-cli ssh sshpass starship \
+  tealdeer thefuck timeshift tidy tmux toilet torbrowser-launcher tree tshark ufw \
+  universal-ctags unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet \
+  yt-dlp yq zoxide
 ```
 
 ## User permissions
