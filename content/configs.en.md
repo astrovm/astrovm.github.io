@@ -150,6 +150,14 @@ powerprofilesctl set performance
 - `transparent_hugepage=madvise` is already default.
 - NVMe scheduler `none` is already the normal default for NVMe.
 
+## XanMod kernel
+
+```bash
+sudo extrepo enable xanmod && sudo apt update && sudo apt install linux-xanmod-x64v3
+```
+
+Reboot and pick it from GRUB.
+
 ## Intel AX200 WiFi
 
 ```bash
