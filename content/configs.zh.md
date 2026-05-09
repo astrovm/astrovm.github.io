@@ -245,7 +245,7 @@ sudo apt install \
   ripgrep-all shellcheck shfmt sl speedtest-cli ssh sshpass starship tealdeer thefuck \
   timeshift tidy tmux toilet torbrowser-launcher tree trash-cli tshark ugrep ufw \
   universal-ctags unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet \
-  yt-dlp yq zoxide
+  yt-dlp zoxide
 ```
 
 ## 用户权限
@@ -318,7 +318,7 @@ sudo apt update && sudo apt install antigravity
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-brew install croc fnm topgrade uv
+brew install croc fnm topgrade uv yq
 ```
 
 ## Topgrade auto-update
