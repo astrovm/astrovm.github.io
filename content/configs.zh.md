@@ -372,19 +372,18 @@ assume_yes = true
 cleanup = true
 no_retry = true
 notify_end = "on_failure"
-disable = ["system", "snap"]
 EOF
 
 mkdir -p ~/.config/systemd/user
 
 cat > ~/.config/systemd/user/topgrade.service << 'EOF'
 [Unit]
-Description=Update user-level packages with Topgrade
+Description=Update packages with Topgrade
 
 [Service]
 Type=oneshot
 Environment=PATH=%h/.local/bin:%h/.bun/bin:%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin
-ExecStart=/home/linuxbrew/.linuxbrew/bin/topgrade
+ExecStart=/home/linuxbrew/.linuxbrew/bin/topgrade --disable system snap restarts clam_av_db
 EOF
 
 cat > ~/.config/systemd/user/topgrade.timer << 'EOF'
