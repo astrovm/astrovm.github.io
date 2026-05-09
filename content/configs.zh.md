@@ -213,22 +213,25 @@ sudo modprobe btusb
 
 ```bash
 sudo apt install \
-  7zip adb antiword aria2 aspell-es atuin axel audacity autoconf automake bear btop bleachbit \
-  ble.sh brightnessctl build-essential buildah clang clamav cowsay \
-  bat ca-certificates cabextract cmake criu curl ddcui ddcutil diffoscope direnv distrobox dnsutils duf easyeffects \
-  editorconfig eza expect fd-find fastboot ffmpeg ffmpegthumbnailer filelight firejail flatpak \
-  fzf fortune-mod gamemode gammastep gdb gh gifsicle ghostty git glab gnupg golang-go \
-  gwenview handbrake hashcat httpie hugo hunspell-en-us hunspell-es hw-probe hyphen-en-us hyperfine \
-  hyphen-es inotify-tools iotop-c isoimagewriter jo jq just kcalc kde-config-flatpak lazygit \
-  libfuse-dev libfuse3-dev libtool libvirt-daemon-system lolcat magic-wormhole meson moreutils \
-  mpv mythes-en-us mythes-es ncdu needrestart neovim nethogs ninja-build nload nmap nvtop \
-  okular openrgb optipng pamixer pandoc pdfgrep pkg-config playerctl procs \
-  plasma-discover-backend-flatpak pipx pngquant podman podman-docker podman-toolbox poppler-utils pre-commit \
-  python3 python3-dev python3-full python-is-python3 python3-venv qemu-system-x86 redis-server redis-tools \
-  ripgrep-all shellcheck shfmt sl speedtest-cli ssh sshpass starship tealdeer thefuck \
-  timeshift tidy tmux toilet torbrowser-launcher tree trash-cli tshark ugrep ufw \
-  universal-ctags unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet \
-  yt-dlp zoxide
+  7zip adb antiword aria2 aspell-es atuin audacity autoconf automake axel bat \
+  bear ble.sh bleachbit brightnessctl btop build-essential buildah \
+  ca-certificates cabextract clamav clang cmake cowsay criu curl ddcui ddcutil \
+  diffoscope direnv distrobox dnsutils duf easyeffects editorconfig expect eza \
+  fastboot fd-find ffmpeg ffmpegthumbnailer filelight firejail flatpak \
+  fortune-mod fzf gamemode gammastep gdb gh ghostty gifsicle git glab gnupg \
+  golang-go gwenview handbrake hashcat httpie hugo hunspell-en-us hunspell-es \
+  hw-probe hyperfine hyphen-en-us hyphen-es inotify-tools iotop-c \
+  isoimagewriter jo jq just kcalc kde-config-flatpak lazygit libfuse-dev \
+  libfuse3-dev libtool libvirt-daemon-system lolcat magic-wormhole meson \
+  moreutils mpv mythes-en-us mythes-es ncdu needrestart neovim nethogs \
+  ninja-build nload nmap nvtop okular openrgb optipng pamixer pandoc pdfgrep \
+  pipx pkg-config plasma-discover-backend-flatpak playerctl pngquant podman \
+  podman-docker podman-toolbox poppler-utils pre-commit procs python-is-python3 \
+  python3 python3-dev python3-full python3-venv qemu-system-x86 redis-server \
+  redis-tools ripgrep-all shellcheck shfmt sl speedtest-cli ssh sshpass \
+  starship tealdeer thefuck tidy timeshift tmux toilet torbrowser-launcher \
+  trash-cli tree tshark ufw ugrep universal-ctags unrar unzip valgrind \
+  virt-manager vlc wget whois wireshark xmlstarlet yt-dlp zoxide
 ```
 
 ## 用户权限
@@ -369,30 +372,15 @@ flatpak remote-add --if-not-exists flathub \
   https://flathub.org/repo/flathub.flatpakrepo
 
 flatpak install flathub \
-  com.github.tchx84.Flatseal \
-  com.github.PintaProject.Pinta \
-  com.obsproject.Studio \
-  com.obsproject.Studio.Plugin.OBSVkCapture//stable \
-  com.spotify.Client \
-  com.stremio.Stremio \
-  com.usebottles.bottles \
-  com.vysp3r.ProtonPlus \
-  dev.vencord.Vesktop \
-  io.github.flattool.Warehouse \
-  io.github.hedge_dev.hedgemodmanager \
-  io.podman_desktop.PodmanDesktop \
-  it.mijorus.gearlever \
-  net.lutris.Lutris \
-  net.retrodeck.retrodeck \
-  org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 \
-  org.gimp.GIMP \
-  org.kde.kdenlive \
-  org.kde.krita \
-  org.kde.yakuake \
-  org.libreoffice.LibreOffice \
-  org.localsend.localsend_app \
-  org.qbittorrent.qBittorrent \
-  org.signal.Signal \
+  com.github.PintaProject.Pinta com.github.tchx84.Flatseal \
+  com.obsproject.Studio com.obsproject.Studio.Plugin.OBSVkCapture//stable \
+  com.spotify.Client com.stremio.Stremio com.usebottles.bottles \
+  com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.flattool.Warehouse \
+  io.github.hedge_dev.hedgemodmanager io.podman_desktop.PodmanDesktop \
+  it.mijorus.gearlever net.lutris.Lutris net.retrodeck.retrodeck \
+  org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 org.gimp.GIMP \
+  org.kde.kdenlive org.kde.krita org.kde.yakuake org.libreoffice.LibreOffice \
+  org.localsend.localsend_app org.qbittorrent.qBittorrent org.signal.Signal \
   org.telegram.desktop
 ```
 
