@@ -301,12 +301,7 @@ sudo apt update && sudo apt install brave-browser
 ## Tailscale
 
 ```bash
-sudo mkdir -p --mode=0755 /usr/share/keyrings && \
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.noarmor.gpg \
-  | sudo tee /usr/share/keyrings/tailscale-archive-keyring.gpg > /dev/null && \
-curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/resolute.tailscale-keyring.list \
-  | sudo tee /etc/apt/sources.list.d/tailscale.list && \
-sudo apt update && sudo apt install tailscale && sudo tailscale up
+curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up
 ```
 
 ## Antigravity
