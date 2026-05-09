@@ -283,16 +283,16 @@ pro status
 
 # 外部リポジトリ
 
-## Brave
+## extrepo
+
+[extrepo](https://packages.debian.org/sid/extrepo) は Debian がメンテする外部リポジトリ管理ツール。インターネットから適当なスクリプトを落として root で走らせるんじゃなくて、審査済みのカタログから有効化する。GPG キーとリポジトリ定義はすでに含まれてる。`extrepo search` で検索、`extrepo enable` で有効化。
 
 ```bash
-curl -fsS https://dl.brave.com/install.sh | sh
-```
-
-## Tailscale
-
-```bash
-curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up
+sudo apt install extrepo
+sudo extrepo enable brave_release tailscale
+sudo apt update
+sudo apt install brave-browser tailscale
+sudo tailscale up
 ```
 
 ## Antigravity

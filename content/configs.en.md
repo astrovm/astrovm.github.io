@@ -283,16 +283,16 @@ pro status
 
 # External repos
 
-## Brave
+## extrepo
+
+[extrepo](https://packages.debian.org/sid/extrepo) is Debian's curated external repo manager. Instead of curling random install scripts and running them as root, you enable repos from a vetted catalog that already has the GPG keys and repo definitions. Search with `extrepo search`, enable with `extrepo enable`.
 
 ```bash
-curl -fsS https://dl.brave.com/install.sh | sh
-```
-
-## Tailscale
-
-```bash
-curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up
+sudo apt install extrepo
+sudo extrepo enable brave_release tailscale
+sudo apt update
+sudo apt install brave-browser tailscale
+sudo tailscale up
 ```
 
 ## Antigravity

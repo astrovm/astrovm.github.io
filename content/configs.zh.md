@@ -283,16 +283,16 @@ pro status
 
 # 外部仓库
 
-## Brave
+## extrepo
+
+[extrepo](https://packages.debian.org/sid/extrepo) 是 Debian 维护的外部仓库管理工具。不用从网上下载脚本然后用 root 跑，直接从审核过的列表里启用，GPG 密钥和仓库配置都已经配好了。用 `extrepo search` 搜索，用 `extrepo enable` 启用。
 
 ```bash
-curl -fsS https://dl.brave.com/install.sh | sh
-```
-
-## Tailscale
-
-```bash
-curl -fsSL https://tailscale.com/install.sh | sh && sudo tailscale up
+sudo apt install extrepo
+sudo extrepo enable brave_release tailscale
+sudo apt update
+sudo apt install brave-browser tailscale
+sudo tailscale up
 ```
 
 ## Antigravity
