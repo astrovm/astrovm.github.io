@@ -49,19 +49,7 @@ Kubuntu 26.04をUEFIモードでインストール：
 ## GRUB
 
 ```bash
-sudo nvim /etc/default/grub
-```
-
-既存の値を消さずに、`GRUB_CMDLINE_LINUX_DEFAULT`へ`preempt=full pcie_aspm=off`を追加する。
-
-LUKSインストール例：
-
-```ini
-GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=blablabla:luks-blablabla root=/dev/mapper/luks-blablabla splash preempt=full pcie_aspm=off"
-```
-
-```bash
-sudo update-grub
+sudo sed -i '/preempt=full/!s/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 preempt=full pcie_aspm=off"/' /etc/default/grub && sudo update-grub
 ```
 
 - `preempt=full` - スケジューリングレイテンシを下げる。

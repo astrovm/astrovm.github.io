@@ -49,19 +49,7 @@ Layout: subvolúmenes `/@`, `/@home` y `/@swap`, swap file en `/swap/swapfile`, 
 ## GRUB
 
 ```bash
-sudo nvim /etc/default/grub
-```
-
-Agregar `preempt=full pcie_aspm=off` a `GRUB_CMDLINE_LINUX_DEFAULT`, sin borrar lo que ya exista.
-
-Ejemplo con LUKS:
-
-```ini
-GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=blablabla:luks-blablabla root=/dev/mapper/luks-blablabla splash preempt=full pcie_aspm=off"
-```
-
-```bash
-sudo update-grub
+sudo sed -i '/preempt=full/!s/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 preempt=full pcie_aspm=off"/' /etc/default/grub && sudo update-grub
 ```
 
 - `preempt=full` - menor latencia de scheduling.

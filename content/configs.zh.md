@@ -49,19 +49,7 @@ Kubuntu 26.04 用 UEFI 模式安装：
 ## GRUB
 
 ```bash
-sudo nvim /etc/default/grub
-```
-
-把 `preempt=full pcie_aspm=off` 加到 `GRUB_CMDLINE_LINUX_DEFAULT`，别删掉原本就有的。
-
-LUKS 示例：
-
-```ini
-GRUB_CMDLINE_LINUX_DEFAULT="cryptdevice=UUID=blablabla:luks-blablabla root=/dev/mapper/luks-blablabla splash preempt=full pcie_aspm=off"
-```
-
-```bash
-sudo update-grub
+sudo sed -i '/preempt=full/!s/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 preempt=full pcie_aspm=off"/' /etc/default/grub && sudo update-grub
 ```
 
 - `preempt=full` - 降低调度延迟。
