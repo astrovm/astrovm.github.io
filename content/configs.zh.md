@@ -298,37 +298,6 @@ sudo curl -fsSLo /etc/apt/sources.list.d/brave-browser-release.sources \
 sudo apt update && sudo apt install brave-browser
 ```
 
-## Firefox
-
-```bash
-sudo apt remove --purge firefox
-snap list firefox >/dev/null 2>&1 && sudo snap remove --purge firefox
-snap list thunderbird >/dev/null 2>&1 && sudo snap remove --purge thunderbird
-
-sudo install -d -m 0755 /etc/apt/keyrings && \
-wget https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
-  | sudo tee /etc/apt/keyrings/packages.mozilla.org.asc > /dev/null && \
-cat <<EOF | sudo tee /etc/apt/sources.list.d/mozilla.sources
-Types: deb
-URIs: https://packages.mozilla.org/apt
-Suites: mozilla
-Components: main
-Signed-By: /etc/apt/keyrings/packages.mozilla.org.asc
-EOF
-
-cat <<EOF | sudo tee /etc/apt/preferences.d/mozilla
-Package: *
-Pin: origin packages.mozilla.org
-Pin-Priority: 1000
-
-Package: firefox*
-Pin: release o=Ubuntu
-Pin-Priority: -1
-EOF
-
-sudo apt update && sudo apt install firefox
-```
-
 ## Tailscale
 
 ```bash
