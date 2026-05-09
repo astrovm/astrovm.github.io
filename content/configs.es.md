@@ -49,7 +49,7 @@ Layout: subvolúmenes `/@`, `/@home` y `/@swap`, swap file en `/swap/swapfile`, 
 ## GRUB
 
 ```bash
-sudo sed -i '/preempt=full/!s/GRUB_CMDLINE_LINUX_DEFAULT="\(.*\)"/GRUB_CMDLINE_LINUX_DEFAULT="\1 preempt=full pcie_aspm=off"/' /etc/default/grub && sudo update-grub
+sudo sed -i "/preempt=full/!s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 preempt=full pcie_aspm=off\1/" /etc/default/grub && sudo update-grub
 ```
 
 - `preempt=full` - menor latencia de scheduling.
