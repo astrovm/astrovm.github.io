@@ -372,6 +372,7 @@ assume_yes = true
 cleanup = true
 no_retry = true
 notify_end = "on_failure"
+disable = ["snap", "restarts", "clam_av_db"]
 EOF
 
 mkdir -p ~/.config/systemd/user
