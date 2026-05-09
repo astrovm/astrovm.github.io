@@ -178,21 +178,16 @@ wifi.powersave=2
 EOF && sudo systemctl restart NetworkManager
 ```
 
-## KWin AMDGPU
+## SDDM AMDGPU
 
-KDE only. Only if you get a black screen during boot.
+KDE only. Official fix for black screen on boot (regression in 26.04, LP: #2063143).
 
 ```bash
 sudo mkdir -p /etc/systemd/system/sddm.service.d && \
-sudo tee /etc/systemd/system/sddm.service.d/restart-limits.conf > /dev/null << 'EOF'
+sudo tee /etc/systemd/system/sddm.service.d/udev-settle.conf > /dev/null << 'EOF'
 [Unit]
-StartLimitIntervalSec=30
-StartLimitBurst=5
-
-[Service]
-ExecStartPre=/usr/bin/sleep 3
-Restart=on-failure
-RestartSec=2
+After=systemd-udev-settle.service
+Wants=systemd-udev-settle.service
 EOF
 
 sudo systemctl daemon-reload

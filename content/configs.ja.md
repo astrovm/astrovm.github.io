@@ -178,21 +178,16 @@ wifi.powersave=2
 EOF && sudo systemctl restart NetworkManager
 ```
 
-## KWin AMDGPU
+## SDDM AMDGPU
 
-KDEのみ。boot時に黒画面が出る場合だけ。
+KDEのみ。boot時の黒画面の正式な修正（26.04のリグレッション、LP: #2063143）。
 
 ```bash
 sudo mkdir -p /etc/systemd/system/sddm.service.d && \
-sudo tee /etc/systemd/system/sddm.service.d/restart-limits.conf > /dev/null << 'EOF'
+sudo tee /etc/systemd/system/sddm.service.d/udev-settle.conf > /dev/null << 'EOF'
 [Unit]
-StartLimitIntervalSec=30
-StartLimitBurst=5
-
-[Service]
-ExecStartPre=/usr/bin/sleep 3
-Restart=on-failure
-RestartSec=2
+After=systemd-udev-settle.service
+Wants=systemd-udev-settle.service
 EOF
 
 sudo systemctl daemon-reload

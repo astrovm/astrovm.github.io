@@ -178,21 +178,16 @@ wifi.powersave=2
 EOF && sudo systemctl restart NetworkManager
 ```
 
-## KWin AMDGPU
+## SDDM AMDGPU
 
-仅 KDE。只有开机黑屏时才需要。
+仅 KDE。开机黑屏的官方修复（26.04 回归问题，LP: #2063143）。
 
 ```bash
 sudo mkdir -p /etc/systemd/system/sddm.service.d && \
-sudo tee /etc/systemd/system/sddm.service.d/restart-limits.conf > /dev/null << 'EOF'
+sudo tee /etc/systemd/system/sddm.service.d/udev-settle.conf > /dev/null << 'EOF'
 [Unit]
-StartLimitIntervalSec=30
-StartLimitBurst=5
-
-[Service]
-ExecStartPre=/usr/bin/sleep 3
-Restart=on-failure
-RestartSec=2
+After=systemd-udev-settle.service
+Wants=systemd-udev-settle.service
 EOF
 
 sudo systemctl daemon-reload
