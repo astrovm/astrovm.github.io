@@ -232,7 +232,7 @@ sudo modprobe btusb
 sudo apt install \
   7zip adb antiword aria2 aspell-es atuin axel audacity autoconf automake bear btop bleachbit \
   ble.sh brightnessctl build-essential buildah clang clamav cowsay \
-  bat ca-certificates cabextract cmake criu curl ddcui ddcutil diffoscope direnv dnsutils easyeffects \
+  bat ca-certificates cabextract cmake criu curl ddcui ddcutil diffoscope direnv distrobox dnsutils easyeffects \
   editorconfig eza expect fd-find fastboot ffmpeg ffmpegthumbnailer filelight firejail flatpak \
   fzf fortune-mod gamemode gammastep gdb gh gifsicle ghostty git glab gnupg golang-go \
   gwenview handbrake hashcat httpie hugo hunspell-en-us hunspell-es hw-probe hyphen-en-us \
@@ -240,7 +240,7 @@ sudo apt install \
   libfuse-dev libfuse3-dev libtool libvirt-daemon-system lolcat magic-wormhole meson moreutils \
   mpv mythes-en-us mythes-es ncdu needrestart neovim nethogs ninja-build nload nmap nvtop \
   okular openrgb optipng pamixer pandoc pdfgrep pkg-config playerctl \
-  plasma-discover-backend-flatpak pipx pngquant podman podman-docker poppler-utils pre-commit \
+  plasma-discover-backend-flatpak pipx pngquant podman podman-docker podman-toolbox poppler-utils pre-commit \
   python3 python3-dev python3-full python-is-python3 python3-venv qemu-system-x86 redis-server redis-tools \
   ripgrep-all shellcheck shfmt sl speedtest-cli ssh sshpass starship tealdeer thefuck \
   timeshift tidy tmux toilet torbrowser-launcher tree trash-cli tshark ugrep ufw \
