@@ -230,9 +230,9 @@ sudo modprobe btusb
 
 ```bash
 sudo apt install \
-  7zip adb antiword aria2 aspell-es atuin audacity autoconf automake bear btop bleachbit \
+  7zip adb antiword aria2 aspell-es atuin axel audacity autoconf automake bear btop bleachbit \
   ble.sh brightnessctl build-essential buildah clang clamav cowsay \
-  bat ca-certificates cmake criu curl ddcui ddcutil diffoscope direnv dnsutils easyeffects \
+  bat ca-certificates cabextract cmake criu curl ddcui ddcutil diffoscope direnv dnsutils easyeffects \
   editorconfig eza expect fd-find fastboot ffmpeg ffmpegthumbnailer filelight firejail flatpak \
   fzf fortune-mod gamemode gammastep gdb gh gifsicle ghostty git glab gnupg golang-go \
   gwenview handbrake hashcat httpie hugo hunspell-en-us hunspell-es hw-probe hyphen-en-us \
@@ -481,32 +481,7 @@ sudo apt install /tmp/chrome.deb && rm /tmp/chrome.deb
 ## Android Studio
 
 ```bash
-url=$(curl -s "https://developer.android.com/studio" | grep -o 'https://[^"]*linux[^"]*\.tar\.gz' | head -1) && \
-wget -O /tmp/android-studio.tar.gz "$url" && \
-tar -xzf /tmp/android-studio.tar.gz -C /tmp && \
-sudo rm -rf /opt/android-studio && \
-sudo mv /tmp/android-studio /opt/android-studio && \
-mkdir -p ~/.local/bin && \
-ln -sf /opt/android-studio/bin/studio ~/.local/bin/studio && \
-rm /tmp/android-studio.tar.gz
-```
-
-初回起動:
-
-```bash
-~/.local/bin/studio
-```
-
-`~/.local/bin`が`PATH`に追加された後：
-
-```bash
-studio
-```
-
-Android Studioの中で：
-
-```text
-Tools > Create Desktop Entry
+sudo snap install android-studio --classic
 ```
 
 Setup WizardがSDKを`~/Android/Sdk`へダウンロードする。
