@@ -289,21 +289,10 @@ pro status
 
 ```bash
 sudo apt install extrepo
-sudo extrepo enable brave_release tailscale
+sudo extrepo enable brave_release tailscale antigravity google_chrome vscode steam
 sudo apt update
-sudo apt install brave-browser tailscale
+sudo apt install brave-browser tailscale antigravity google-chrome-stable code steam
 sudo tailscale up
-```
-
-## Antigravity
-
-```bash
-sudo mkdir -p /etc/apt/keyrings && \
-curl -fsSL https://us-central1-apt.pkg.dev/doc/repo-signing-key.gpg | \
-  sudo gpg --dearmor --yes -o /etc/apt/keyrings/antigravity-repo-key.gpg && \
-echo "deb [signed-by=/etc/apt/keyrings/antigravity-repo-key.gpg] https://us-central1-apt.pkg.dev/projects/antigravity-auto-updater-dev/ antigravity-debian main" | \
-  sudo tee /etc/apt/sources.list.d/antigravity.list > /dev/null && \
-sudo apt update && sudo apt install antigravity
 ```
 
 # パッケージマネージャーとランタイム
