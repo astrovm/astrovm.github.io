@@ -147,7 +147,6 @@ powerprofilesctl set performance
 ```
 
 - `amd-pstate active` + governor `performance` + EPP `performance`
-- `transparent_hugepage=madvise` はすでにデフォルト。
 - NVMe scheduler `none` はNVMeでは通常すでにデフォルト。
 
 ## XanMod カーネル
