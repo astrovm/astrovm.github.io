@@ -408,20 +408,6 @@ flatpak install flathub \
   org.telegram.desktop
 ```
 
-## Steam
-
-```bash
-wget -O /tmp/steam.deb https://cdn.fastly.steamstatic.com/client/installer/steam.deb && \
-sudo apt install /tmp/steam.deb && rm /tmp/steam.deb
-```
-
-## Google Chrome
-
-```bash
-wget "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" -O /tmp/chrome.deb && \
-sudo apt install /tmp/chrome.deb && rm /tmp/chrome.deb
-```
-
 ## Android Studio
 
 ```bash
@@ -429,13 +415,6 @@ sudo snap install android-studio --classic
 ```
 
 Setup WizardがSDKを`~/Android/Sdk`へダウンロードする。
-
-## Visual Studio Code
-
-```bash
-wget -O /tmp/code.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" && \
-sudo apt install /tmp/code.deb && rm /tmp/code.deb
-```
 
 ## Zed
 
