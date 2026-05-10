@@ -222,23 +222,24 @@ sudo modprobe btusb
 sudo apt install \
   7zip adb antiword aria2 aspell-es atuin audacity autoconf automake axel bat \
   bear ble.sh bleachbit brightnessctl btop build-essential buildah \
-  ca-certificates cabextract clamav clang cmake cowsay criu curl ddcui ddcutil \
-  diffoscope direnv distrobox dnsutils duf easyeffects editorconfig expect eza \
-  fastboot fd-find ffmpeg ffmpegthumbnailer filelight firejail flatpak \
-  fortune-mod fzf gamemode gammastep gdb gh ghostty gifsicle git glab gnupg \
-  golang-go gwenview handbrake hashcat httpie hugo hunspell-en-us hunspell-es \
-  hw-probe hyperfine hyphen-en-us hyphen-es inotify-tools iotop-c \
-  isoimagewriter jo jq just kcalc kde-config-flatpak lazygit libfuse-dev \
-  libfuse3-dev libtool libvirt-daemon-system lolcat magic-wormhole meson \
-  moreutils mpv mythes-en-us mythes-es ncdu needrestart neovim nethogs \
-  ninja-build nload nmap nvtop okular openrgb optipng pamixer pandoc pdfgrep \
-  pipx pkg-config plasma-discover-backend-flatpak playerctl pngquant podman \
-  podman-docker podman-toolbox poppler-utils pre-commit procs python-is-python3 \
-  python3 python3-dev python3-full python3-venv qemu-system-x86 redis-server \
-  redis-tools ripgrep-all shellcheck shfmt sl speedtest-cli ssh sshpass \
-  starship tealdeer thefuck tidy timeshift tmux toilet torbrowser-launcher \
-  trash-cli tree tshark ufw ugrep universal-ctags unrar unzip valgrind \
-  virt-manager vlc wget whois wireshark xmlstarlet yt-dlp zoxide
+  ca-certificates cabextract clamav clang cmake cockpit cockpit-podman cowsay \
+  criu curl ddcui ddcutil diffoscope direnv distrobox dnsutils duf easyeffects \
+  editorconfig expect eza fastboot fd-find ffmpeg ffmpegthumbnailer filelight \
+  firejail flatpak fortune-mod fzf gamemode gammastep gdb gh ghostty gifsicle \
+  git glab gnupg golang-go gwenview handbrake hashcat httpie hugo \
+  hunspell-en-us hunspell-es hw-probe hyperfine hyphen-en-us hyphen-es \
+  inotify-tools iotop-c isoimagewriter jo jq just kcalc kde-config-flatpak \
+  lazygit libfuse-dev libfuse3-dev libtool libvirt-daemon-system lolcat \
+  magic-wormhole meson moreutils mpv mythes-en-us mythes-es ncdu needrestart \
+  neovim nethogs ninja-build nload nmap nvtop okular openrgb optipng pamixer \
+  pandoc pdfgrep pipx pkg-config plasma-discover-backend-flatpak playerctl \
+  pngquant podman podman-docker podman-toolbox poppler-utils pre-commit procs \
+  python-is-python3 python3 python3-dev python3-full python3-venv \
+  qemu-system-x86 redis-server redis-tools ripgrep-all shellcheck shfmt sl \
+  speedtest-cli ssh sshpass starship tealdeer thefuck tidy timeshift tmux \
+  toilet torbrowser-launcher trash-cli tree tshark ufw ugrep universal-ctags \
+  unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet yt-dlp \
+  zoxide
 ```
 
 ## ユーザーパーミッション
