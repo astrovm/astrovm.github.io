@@ -239,6 +239,15 @@ sudo modprobe -r btusb
 sudo modprobe btusb
 ```
 
+## inotify limits
+
+Increase file watcher instances for IDEs and development tools:
+
+```bash
+echo "fs.inotify.max_user_instances = 1024" | sudo tee /etc/sysctl.d/90-inotify.conf
+sudo sysctl --system
+```
+
 # Packages
 
 ## apt
