@@ -164,7 +164,7 @@ After=multi-user.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash -c 'for f in /sys/devices/system/cpu/cpufreq/policy*/scaling_min_freq; do echo $(cat ${f%min_freq}max_freq) > "$f"; done'
+ExecStart=/bin/bash -c 'for f in /sys/devices/system/cpu/cpufreq/policy*/scaling_min_freq; do max=$(echo "$f" | sed "s/min_freq/max_freq/"); echo "$(cat "$max")" > "$f"; done'
 
 [Install]
 WantedBy=multi-user.target
