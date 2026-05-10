@@ -247,7 +247,7 @@ sudo modprobe btusb
 sudo apt install \
   7zip adb antiword aria2 aspell-es atuin audacity autoconf automake axel bat \
   bear ble.sh bleachbit brightnessctl btop build-essential buildah \
-  ca-certificates cabextract clamav clang cmake cockpit cockpit-podman cowsay \
+  ca-certificates cabextract clamav clang cmake cmatrix cockpit cockpit-podman cowsay \
   criu curl ddcui ddcutil diffoscope direnv distrobox dnsutils duf easyeffects \
   editorconfig expect eza fastboot fd-find ffmpeg ffmpegthumbnailer filelight \
   firejail flatpak fortune-mod fzf gamemode gammastep gdb gh ghostty gifsicle \
