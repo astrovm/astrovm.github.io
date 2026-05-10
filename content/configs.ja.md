@@ -160,7 +160,8 @@ CPU が最大周波数を下回らないようにする：
 sudo tee /etc/systemd/system/amd-pstate-lock.service > /dev/null << 'EOF'
 [Unit]
 Description=Lock AMD P-states to max
-After=multi-user.target
+After=multi-user.target power-profiles-daemon.service
+Requires=power-profiles-daemon.service
 
 [Service]
 Type=oneshot
