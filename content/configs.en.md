@@ -49,11 +49,14 @@ Layout: subvols `/@`, `/@home`, and `/@swap`, swap file at `/swap/swapfile`, dis
 ## GRUB
 
 ```bash
-sudo sed -i "/preempt=full/!s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 preempt=full pcie_aspm=off\1/" /etc/default/grub && sudo update-grub
+for p in preempt=full pcie_aspm=off processor.max_cstate=1; do
+  grep -q "$p" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
+done && sudo update-grub
 ```
 
 - `preempt=full` - lower scheduling latency.
 - `pcie_aspm=off` - workaround for Intel AX200 WiFi stuck in D3cold.
+- `processor.max_cstate=1` - keep CPU in shallow C-states, reduces wake latency.
 - I don't use `quiet` because I prefer seeing more info at boot.
 - `cryptdevice=...` and `root=...` depend on your installation.
 
@@ -148,6 +151,27 @@ powerprofilesctl set performance
 
 - `amd-pstate active` + governor `performance` + EPP `performance`
 - NVMe scheduler `none` is already the normal default for NVMe.
+
+## AMD P-state lock
+
+Prevents the CPU from dropping below max frequency:
+
+```bash
+sudo tee /etc/systemd/system/amd-pstate-lock.service > /dev/null << 'EOF'
+[Unit]
+Description=Lock AMD P-states to max
+After=multi-user.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c 'for f in /sys/devices/system/cpu/cpufreq/policy*/scaling_min_freq; do echo $(cat ${f%min_freq}max_freq) > "$f"; done'
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl enable --now amd-pstate-lock.service
+```
 
 ## XanMod kernel
 
