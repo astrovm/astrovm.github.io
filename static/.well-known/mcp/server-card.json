@@ -1,0 +1,12 @@
+{
+  "serverInfo": {
+    "name": "4st.li MCP Server",
+    "version": "0.1.0"
+  },
+  "transport": {},
+  "capabilities": {
+    "tools": {},
+    "resources": {},
+    "prompts": {}
+  }
+}

@@ -1,0 +1,21 @@
+User-agent: *
+Allow: /
+Disallow: /genesis/
+Disallow: /roms/
+
+Sitemap: https://4st.li/sitemap.xml
+
+# AI Crawlers - content policy
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: Claude-Web
+User-agent: Google-Extended
+User-agent: Amazonbot
+User-agent: anthropic-ai
+User-agent: Bytespider
+User-agent: CCBot
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /genesis/
+Disallow: /roms/
+Content-Signal: ai-train=no, search=yes, ai-input=no

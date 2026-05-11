@@ -18,3 +18,8 @@
 <script src="{{ $langJS.Permalink }}" defer></script>
 <script src="{{ $onekoJS.Permalink }}" defer></script>
 <script src="{{ $sonicJS.Permalink }}" defer></script>
+{{ $webmcpJS := resources.Get "webmcp.js" | fingerprint }}
+<script src="{{ $webmcpJS.Permalink }}" defer></script>
+<link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
+<link rel="service-doc" href="/">
+<link rel="describedby" href="/llms.txt" type="text/plain">
