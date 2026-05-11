@@ -37,13 +37,6 @@
       "digest": "sha256:2cdda60ea052eb8af4ae8a4d96dc0d173151d5386ee724a4e98f93ed21adbae5"
     },
     {
-      "name": "markdown-negotiation",
-      "type": "skill-md",
-      "description": "Support Accept: text/markdown content negotiation for agents",
-      "url": "https://isitagentready.com/.well-known/agent-skills/markdown-negotiation/SKILL.md",
-      "digest": "sha256:a230108a9586ed530945b91d49d86163e38a6687ad1b08f60ec08e2cb99f1ed7"
-    },
-    {
       "name": "link-headers",
       "type": "skill-md",
       "description": "Add Link response headers for agent discovery per RFC 8288",
