@@ -30,13 +30,6 @@
       "digest": "sha256:1d702680dd6b8de8362b9dab02ba355016a8daac65b18749a462b7774699db42"
     },
     {
-      "name": "mcp-server-card",
-      "type": "skill-md",
-      "description": "Publish an MCP Server Card for agent discovery",
-      "url": "https://isitagentready.com/.well-known/agent-skills/mcp-server-card/SKILL.md",
-      "digest": "sha256:9a1af2376a9741bc29f97ff40120a7f115c1618188d40f2c9674b729485bd0d8"
-    },
-    {
       "name": "agent-skills",
       "type": "skill-md",
       "description": "Publish an agent skills discovery index",
@@ -56,20 +49,6 @@
       "description": "Add Link response headers for agent discovery per RFC 8288",
       "url": "https://isitagentready.com/.well-known/agent-skills/link-headers/SKILL.md",
       "digest": "sha256:90e89e75a88634a1f009813095fe5cf89d771c483dec3da074a108a998493d92"
-    },
-    {
-      "name": "oauth-discovery",
-      "type": "skill-md",
-      "description": "Publish OAuth/OIDC discovery metadata for agent authentication",
-      "url": "https://isitagentready.com/.well-known/agent-skills/oauth-discovery/SKILL.md",
-      "digest": "sha256:d24afc965b01da8c491d9618d9c7b141e3b11a2f83338c3a1c702052326cbdd1"
-    },
-    {
-      "name": "oauth-protected-resource",
-      "type": "skill-md",
-      "description": "Publish OAuth Protected Resource Metadata for agent discovery",
-      "url": "https://isitagentready.com/.well-known/agent-skills/oauth-protected-resource/SKILL.md",
-      "digest": "sha256:6898ebeeb90247ab9ec0ccce5f493af7c366135901790eaca6298ab3941b3192"
     },
     {
       "name": "webmcp",

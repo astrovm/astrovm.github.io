@@ -1,5 +1,0 @@
-{
-  "resource": "https://4st.li",
-  "authorization_servers": ["https://4st.li"],
-  "scopes_supported": ["read", "write"]
-}
