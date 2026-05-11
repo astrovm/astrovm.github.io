@@ -18,4 +18,4 @@ User-agent: Applebot-Extended
 Allow: /
 Disallow: /genesis/
 Disallow: /roms/
-Content-Signal: ai-train=no, search=yes, ai-input=no
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
