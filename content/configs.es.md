@@ -272,7 +272,7 @@ sudo apt install \
   qemu-system-x86 redis-server redis-tools ripgrep-all shellcheck shfmt sl \
   speedtest-cli ssh sshpass starship tealdeer thefuck tidy timeshift tmux \
   toilet torbrowser-launcher trash-cli tree tshark ufw ugrep universal-ctags \
-  unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet yt-dlp \
+  unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet ydotool yt-dlp \
   zoxide
 ```
 
