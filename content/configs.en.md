@@ -389,6 +389,37 @@ fnm default "$(fnm current)" && \
 npm install -g @google/gemini-cli @openai/codex opencode-ai
 ```
 
+## npm / pnpm security
+
+Block install scripts and fresh releases to prevent supply chain attacks.
+
+```bash
+# npm: don't run third-party scripts
+cat > ~/.npmrc << 'EOF'
+ignore-scripts=true
+EOF
+
+# pnpm: reject packages published less than 1 day ago
+mkdir -p ~/.config/pnpm
+cat > ~/.config/pnpm/rc << 'EOF'
+minimumReleaseAge=1440
+EOF
+
+# pnpm 11+ via corepack (ships with built-in defenses)
+corepack install --global pnpm@latest
+
+# bun: don't trust install scripts
+cat > ~/.bunfig.toml << 'EOF'
+[install]
+trust = false
+EOF
+```
+
+- `ignore-scripts=true` — npm won't run `preinstall`/`postinstall` from dependencies.
+- `minimumReleaseAge=1440` — pnpm rejects packages published less than 1 day ago.
+- pnpm 11+ ships with built-in defenses against this class of attacks.
+- bun blocks install scripts by default, but we make it explicit.
+
 ## Script installs
 
 ```bash
