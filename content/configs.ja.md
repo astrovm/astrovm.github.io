@@ -411,16 +411,12 @@ corepack install --global pnpm@latest
 # bun: スクリプトと公開されたばかりのパッケージをブロック
 cat > ~/.bunfig.toml << 'EOF'
 [install]
-ignoreScripts = true
-minimumReleaseAge = 86400
+ignoreScripts=true
+minimumReleaseAge=86400
 EOF
 ```
 
-- `ignore-scripts=true` - npm が依存関係の `preinstall`/`postinstall` を実行しない。
-- `minimumReleaseAge=1440` - pnpm が公開から1日未満のパッケージを拒否（分単位）。
-- `ignoreScripts = true` - bun が依存関係の `preinstall`/`postinstall` を実行しない。
-- `minimumReleaseAge = 86400` - bun が公開から1日未満のパッケージを拒否（秒単位）。
-- pnpm 11+ はこの手の攻撃向けの防御が入ってる。
+これで npm は依存関係の `preinstall` と `postinstall` を実行しない。pnpm は公開直後のパッケージを 1 日待ってから受け入れる（`1440` 分）。bun も同じことを `86400` 秒でやる。pnpm 11+ にはこの手の攻撃向けの防御が入ってる。
 
 ## スクリプトインストール
 

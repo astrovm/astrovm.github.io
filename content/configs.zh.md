@@ -411,16 +411,12 @@ corepack install --global pnpm@latest
 # bun: 堵住脚本和刚发布的包
 cat > ~/.bunfig.toml << 'EOF'
 [install]
-ignoreScripts = true
-minimumReleaseAge = 86400
+ignoreScripts=true
+minimumReleaseAge=86400
 EOF
 ```
 
-- `ignore-scripts=true` - npm 不执行依赖的 `preinstall`/`postinstall`。
-- `minimumReleaseAge=1440` - pnpm 拒绝发布不到1天的包（分钟）。
-- `ignoreScripts = true` - bun 不执行依赖的 `preinstall`/`postinstall`。
-- `minimumReleaseAge = 86400` - bun 拒绝发布不到1天的包（秒）。
-- pnpm 11+ 自带这类攻击的防护。
+这样 npm 不会执行依赖里的 `preinstall` 和 `postinstall`。pnpm 会等包发布满 1 天再接受（`1440` 分钟），bun 也一样，只是用 `86400` 秒来配。pnpm 11+ 本来就带这类攻击的防护。
 
 ## 脚本安装
 

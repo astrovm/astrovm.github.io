@@ -411,16 +411,12 @@ corepack install --global pnpm@latest
 # bun: block scripts and newly published packages
 cat > ~/.bunfig.toml << 'EOF'
 [install]
-ignoreScripts = true
-minimumReleaseAge = 86400
+ignoreScripts=true
+minimumReleaseAge=86400
 EOF
 ```
 
-- `ignore-scripts=true` - npm won't run `preinstall`/`postinstall` from dependencies.
-- `minimumReleaseAge=1440` - pnpm rejects packages published less than 1 day ago (in minutes).
-- `ignoreScripts = true` - bun won't run `preinstall`/`postinstall` from dependencies.
-- `minimumReleaseAge = 86400` - bun rejects packages published less than 1 day ago (in seconds).
-- pnpm 11+ already ships with defenses for this class of attacks.
+With this, npm won't run dependency `preinstall` or `postinstall` scripts. pnpm waits 1 day before accepting new packages (`1440` minutes), and bun does the same with `86400` seconds. pnpm 11+ already ships with defenses for this class of attacks.
 
 ## Script installs
 
