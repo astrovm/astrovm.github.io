@@ -403,10 +403,7 @@ ignore-scripts=true
 EOF
 
 # pnpm: 公開から1日未満のパッケージを拒否
-mkdir -p ~/.config/pnpm
-cat > ~/.config/pnpm/rc << 'EOF'
-minimumReleaseAge=1440
-EOF
+pnpm config set minimumReleaseAge 1440 --location=global
 
 # pnpm 11+ を corepack で
 corepack install --global pnpm@latest

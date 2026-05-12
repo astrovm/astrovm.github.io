@@ -403,10 +403,7 @@ ignore-scripts=true
 EOF
 
 # pnpm: rechazar paquetes publicados hace menos de 1 día
-mkdir -p ~/.config/pnpm
-cat > ~/.config/pnpm/rc << 'EOF'
-minimumReleaseAge=1440
-EOF
+pnpm config set minimumReleaseAge 1440 --location=global
 
 # pnpm 11+ via corepack
 corepack install --global pnpm@latest

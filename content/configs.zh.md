@@ -403,10 +403,7 @@ ignore-scripts=true
 EOF
 
 # pnpm: 拒绝发布不到1天的包
-mkdir -p ~/.config/pnpm
-cat > ~/.config/pnpm/rc << 'EOF'
-minimumReleaseAge=1440
-EOF
+pnpm config set minimumReleaseAge 1440 --location=global
 
 # pnpm 11+ 用 corepack 装
 corepack install --global pnpm@latest
