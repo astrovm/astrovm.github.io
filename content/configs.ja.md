@@ -391,7 +391,7 @@ npm install -g @google/gemini-cli @openai/codex opencode-ai
 
 ## npm / pnpm セキュリティ
 
-インストールスクリプトと出来たてのバージョンをブロックして、サプライチェーン攻撃を防ぐ。
+サプライチェーン攻撃向けの hardening。インストールスクリプトをブロックして、公開されたばかりのパッケージを避ける。
 
 ```bash
 # npm: サードパーティのスクリプトを実行させない
@@ -405,10 +405,10 @@ cat > ~/.config/pnpm/rc << 'EOF'
 minimumReleaseAge=1440
 EOF
 
-# pnpm 11+ を corepack で（デフォルトで防御機能付き）
+# pnpm 11+ を corepack で
 corepack install --global pnpm@latest
 
-# bun: スクリプトと新しいバージョンをブロック
+# bun: スクリプトと公開されたばかりのパッケージをブロック
 cat > ~/.bunfig.toml << 'EOF'
 [install]
 ignoreScripts = true
@@ -416,11 +416,11 @@ minimumReleaseAge = 86400
 EOF
 ```
 
-- `ignore-scripts=true` — npm が依存関係の `preinstall`/`postinstall` を実行しない。
-- `minimumReleaseAge=1440` — pnpm が公開から1日未満のパッケージを拒否（分単位）。
-- `ignoreScripts = true` — bun が依存関係の `preinstall`/`postinstall` を実行しない。
-- `minimumReleaseAge = 86400` — bun が公開から1日未満のパッケージを拒否（秒単位）。
-- pnpm 11+ はこの手の攻撃に対する防御がデフォルトで入ってる。
+- `ignore-scripts=true` - npm が依存関係の `preinstall`/`postinstall` を実行しない。
+- `minimumReleaseAge=1440` - pnpm が公開から1日未満のパッケージを拒否（分単位）。
+- `ignoreScripts = true` - bun が依存関係の `preinstall`/`postinstall` を実行しない。
+- `minimumReleaseAge = 86400` - bun が公開から1日未満のパッケージを拒否（秒単位）。
+- pnpm 11+ はこの手の攻撃向けの防御が入ってる。
 
 ## スクリプトインストール
 

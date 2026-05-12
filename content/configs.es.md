@@ -416,10 +416,10 @@ minimumReleaseAge = 86400
 EOF
 ```
 
-- `ignore-scripts=true` — npm no ejecuta `preinstall`/`postinstall` de dependencias.
-- `minimumReleaseAge=1440` — pnpm rechaza paquetes publicados hace menos de 1 día (en minutos).
-- `ignoreScripts = true` — bun no ejecuta `preinstall`/`postinstall` de dependencias.
-- `minimumReleaseAge = 86400` — bun rechaza paquetes con menos de 1 día de publicado (en segundos).
+- `ignore-scripts=true` - npm no ejecuta `preinstall`/`postinstall` de dependencias.
+- `minimumReleaseAge=1440` - pnpm rechaza paquetes publicados hace menos de 1 día (en minutos).
+- `ignoreScripts = true` - bun no ejecuta `preinstall`/`postinstall` de dependencias.
+- `minimumReleaseAge = 86400` - bun rechaza paquetes publicados hace menos de 1 día (en segundos).
 - pnpm 11+ ya trae defensas para este tipo de ataques.
 
 ## Scripts

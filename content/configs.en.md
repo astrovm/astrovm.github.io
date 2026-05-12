@@ -391,7 +391,7 @@ npm install -g @google/gemini-cli @openai/codex opencode-ai
 
 ## npm / pnpm security
 
-Block install scripts and fresh releases to prevent supply chain attacks.
+Hardening against supply chain attacks: block install scripts and avoid newly published packages.
 
 ```bash
 # npm: don't run third-party scripts
@@ -405,10 +405,10 @@ cat > ~/.config/pnpm/rc << 'EOF'
 minimumReleaseAge=1440
 EOF
 
-# pnpm 11+ via corepack (ships with built-in defenses)
+# pnpm 11+ via corepack
 corepack install --global pnpm@latest
 
-# bun: block scripts and fresh releases
+# bun: block scripts and newly published packages
 cat > ~/.bunfig.toml << 'EOF'
 [install]
 ignoreScripts = true
@@ -416,11 +416,11 @@ minimumReleaseAge = 86400
 EOF
 ```
 
-- `ignore-scripts=true` — npm won't run `preinstall`/`postinstall` from dependencies.
-- `minimumReleaseAge=1440` — pnpm rejects packages published less than 1 day ago (in minutes).
-- `ignoreScripts = true` — bun won't run `preinstall`/`postinstall` from dependencies.
-- `minimumReleaseAge = 86400` — bun rejects packages published less than 1 day ago (in seconds).
-- pnpm 11+ ships with built-in defenses against this class of attacks.
+- `ignore-scripts=true` - npm won't run `preinstall`/`postinstall` from dependencies.
+- `minimumReleaseAge=1440` - pnpm rejects packages published less than 1 day ago (in minutes).
+- `ignoreScripts = true` - bun won't run `preinstall`/`postinstall` from dependencies.
+- `minimumReleaseAge = 86400` - bun rejects packages published less than 1 day ago (in seconds).
+- pnpm 11+ already ships with defenses for this class of attacks.
 
 ## Script installs
 
