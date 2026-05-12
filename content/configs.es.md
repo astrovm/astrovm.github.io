@@ -408,17 +408,19 @@ EOF
 # pnpm 11+ via corepack (trae defensas por defecto)
 corepack install --global pnpm@latest
 
-# bun: no confiar en scripts de instalación
+# bun: bloquear scripts y versiones frescas
 cat > ~/.bunfig.toml << 'EOF'
 [install]
-trust = false
+ignoreScripts = true
+minimumReleaseAge = 86400
 EOF
 ```
 
 - `ignore-scripts=true` — npm no ejecuta `preinstall`/`postinstall` de dependencias.
-- `minimumReleaseAge=1440` — pnpm rechaza paquetes con menos de 1 día de publicado.
+- `minimumReleaseAge=1440` — pnpm rechaza paquetes con menos de 1 día de publicado (en minutos).
+- `ignoreScripts = true` — bun no ejecuta `preinstall`/`postinstall` de dependencias.
+- `minimumReleaseAge = 86400` — bun rechaza paquetes con menos de 1 día de publicado (en segundos).
 - pnpm 11+ trae defensas por defecto contra este tipo de ataques.
-- bun bloquea scripts de instalación por defecto, pero lo hacemos explícito.
 
 ## Scripts
 

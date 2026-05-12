@@ -389,6 +389,39 @@ fnm default "$(fnm current)" && \
 npm install -g @google/gemini-cli @openai/codex opencode-ai
 ```
 
+## npm / pnpm 安全加固
+
+阻止安装脚本和刚发布的版本，防供应链攻击。
+
+```bash
+# npm: 不让第三方脚本执行
+cat > ~/.npmrc << 'EOF'
+ignore-scripts=true
+EOF
+
+# pnpm: 拒绝发布不到1天的包
+mkdir -p ~/.config/pnpm
+cat > ~/.config/pnpm/rc << 'EOF'
+minimumReleaseAge=1440
+EOF
+
+# pnpm 11+ 用 corepack 装（自带默认防护）
+corepack install --global pnpm@latest
+
+# bun: 同时堵脚本和新鲜版本
+cat > ~/.bunfig.toml << 'EOF'
+[install]
+ignoreScripts = true
+minimumReleaseAge = 86400
+EOF
+```
+
+- `ignore-scripts=true` — npm 不执行依赖的 `preinstall`/`postinstall`。
+- `minimumReleaseAge=1440` — pnpm 拒绝发布不到1天的包（分钟）。
+- `ignoreScripts = true` — bun 不执行依赖的 `preinstall`/`postinstall`。
+- `minimumReleaseAge = 86400` — bun 拒绝发布不到1天的包（秒）。
+- pnpm 11+ 自带这类攻击的默认防护。
+
 ## 脚本安装
 
 ```bash
