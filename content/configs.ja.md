@@ -380,13 +380,16 @@ EOF
 systemctl --user daemon-reload && systemctl --user enable --now topgrade.timer
 ```
 
-## npm global
+## pnpm global
 
 ```bash
 eval "$(fnm env --use-on-cd --shell bash)" && \
 fnm install --lts --use && \
 fnm default "$(fnm current)" && \
-npm install -g @google/gemini-cli @openai/codex opencode-ai
+corepack install --global pnpm@latest && \
+mkdir -p ~/.local/share/pnpm && \
+pnpm config set global-bin-dir ~/.local/share/pnpm --location=global && \
+pnpm add -g @google/gemini-cli @openai/codex opencode-ai
 ```
 
 ## npm / pnpm セキュリティ
@@ -579,6 +582,10 @@ fi
 
 # fnm
 command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
+
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+path_prepend "$PNPM_HOME"
 
 # rust/cargo
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
