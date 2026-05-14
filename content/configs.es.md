@@ -507,6 +507,62 @@ window-width = "100"
 EOF
 ```
 
+## profile
+
+Editar `~/.profile`:
+
+```bash
+nvim ~/.profile
+```
+
+Reemplazar el bloque de PATH por:
+
+```bash
+# path helper
+path_prepend() {
+  [ -d "$1" ] || return
+  case ":$PATH:" in
+    *":$1:"*) ;;
+    *) export PATH="$1:$PATH" ;;
+  esac
+}
+
+# local bin
+path_prepend "$HOME/bin"
+path_prepend "$HOME/.local/bin"
+
+# android sdk
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+path_prepend "$ANDROID_HOME/cmdline-tools/latest/bin"
+path_prepend "$ANDROID_HOME/emulator"
+path_prepend "$ANDROID_HOME/platform-tools"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+path_prepend "$BUN_INSTALL/bin"
+
+# homebrew
+if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
+  export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
+  path_prepend "$HOMEBREW_PREFIX/bin"
+  path_prepend "$HOMEBREW_PREFIX/sbin"
+  [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}"
+  export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
+fi
+
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+path_prepend "$PNPM_HOME"
+
+# rust/cargo
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+```
+
+Variables de entorno y PATH en `.profile` para que estén disponibles en toda la sesión (apps GUI, systemd, etc.), no solo en bash interactivo.
+
 ## bashrc
 
 Editar `~/.bashrc`:
@@ -544,52 +600,11 @@ alias fgrep='grep -F --color=auto'
 
 Borrar el bloque de PS1 (chroot, color prompt, xterm title) ya que starship lo maneja.
 
-Config normal:
+Bash-specific init al final:
 
 ```bash
-# path helper
-path_prepend() {
-  [[ -d "$1" ]] || return
-  case ":$PATH:" in
-    *":$1:"*) ;;
-    *) export PATH="$1:$PATH" ;;
-  esac
-}
-
-# local bin
-path_prepend "$HOME/.local/bin"
-
-# android sdk
-export ANDROID_HOME="$HOME/Android/Sdk"
-export ANDROID_SDK_ROOT="$ANDROID_HOME"
-path_prepend "$ANDROID_HOME/cmdline-tools/latest/bin"
-path_prepend "$ANDROID_HOME/emulator"
-path_prepend "$ANDROID_HOME/platform-tools"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-path_prepend "$BUN_INSTALL/bin"
-
-# homebrew
-if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-  export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
-  export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
-  path_prepend "$HOMEBREW_PREFIX/bin"
-  path_prepend "$HOMEBREW_PREFIX/sbin"
-  [[ -z "${MANPATH-}" ]] || export MANPATH=":${MANPATH#:}"
-  export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
-fi
-
 # fnm
 command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
-
-# pnpm
-export PNPM_HOME="$HOME/.local/share/pnpm"
-path_prepend "$PNPM_HOME"
-
-# rust/cargo
-[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 
 # starship
 command -v starship >/dev/null && eval "$(starship init bash)"

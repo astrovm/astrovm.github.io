@@ -507,6 +507,62 @@ window-width = "100"
 EOF
 ```
 
+## profile
+
+`~/.profile`を編集:
+
+```bash
+nvim ~/.profile
+```
+
+デフォルトのPATHブロックを以下に置き換える:
+
+```bash
+# path helper
+path_prepend() {
+  [ -d "$1" ] || return
+  case ":$PATH:" in
+    *":$1:"*) ;;
+    *) export PATH="$1:$PATH" ;;
+  esac
+}
+
+# local bin
+path_prepend "$HOME/bin"
+path_prepend "$HOME/.local/bin"
+
+# android sdk
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
+path_prepend "$ANDROID_HOME/cmdline-tools/latest/bin"
+path_prepend "$ANDROID_HOME/emulator"
+path_prepend "$ANDROID_HOME/platform-tools"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+path_prepend "$BUN_INSTALL/bin"
+
+# homebrew
+if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
+  export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
+  path_prepend "$HOMEBREW_PREFIX/bin"
+  path_prepend "$HOMEBREW_PREFIX/sbin"
+  [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}"
+  export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
+fi
+
+# pnpm
+export PNPM_HOME="$HOME/.local/share/pnpm"
+path_prepend "$PNPM_HOME"
+
+# rust/cargo
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+```
+
+環境変数とPATHは`.profile`に置く。セッション全体（GUIアプリ、systemdなど）で使えるようにするため。対話型bashだけでなく。
+
 ## bashrc
 
 `~/.bashrc`を編集:
@@ -544,52 +600,11 @@ alias fgrep='grep -F --color=auto'
 
 PS1ブロック（chroot、カラー プロンプト、xterm タイトル）はstarshipが管理するので削除する。
 
-通常設定:
+Bash専用の初期化を最後に:
 
 ```bash
-# path helper
-path_prepend() {
-  [[ -d "$1" ]] || return
-  case ":$PATH:" in
-    *":$1:"*) ;;
-    *) export PATH="$1:$PATH" ;;
-  esac
-}
-
-# local bin
-path_prepend "$HOME/.local/bin"
-
-# android sdk
-export ANDROID_HOME="$HOME/Android/Sdk"
-export ANDROID_SDK_ROOT="$ANDROID_HOME"
-path_prepend "$ANDROID_HOME/cmdline-tools/latest/bin"
-path_prepend "$ANDROID_HOME/emulator"
-path_prepend "$ANDROID_HOME/platform-tools"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-path_prepend "$BUN_INSTALL/bin"
-
-# homebrew
-if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
-  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-  export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
-  export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
-  path_prepend "$HOMEBREW_PREFIX/bin"
-  path_prepend "$HOMEBREW_PREFIX/sbin"
-  [[ -z "${MANPATH-}" ]] || export MANPATH=":${MANPATH#:}"
-  export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
-fi
-
 # fnm
 command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
-
-# pnpm
-export PNPM_HOME="$HOME/.local/share/pnpm"
-path_prepend "$PNPM_HOME"
-
-# rust/cargo
-[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
 
 # starship
 command -v starship >/dev/null && eval "$(starship init bash)"
