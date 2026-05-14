@@ -515,7 +515,7 @@ EOF
 nvim ~/.profile
 ```
 
-デフォルトのPATHブロックを以下に置き換える:
+umaskコメント以降をすべて以下に置き換える:
 
 ```bash
 # path helper
@@ -559,9 +559,16 @@ path_prepend "$PNPM_HOME"
 
 # rust/cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
 ```
 
-環境変数とPATHは`.profile`に置く。セッション全体（GUIアプリ、systemdなど）で使えるようにするため。対話型bashだけでなく。
+デフォルトの`.bashrc`のsourceブロックを最後に移動する。PATHの設定の後ろに。
 
 ## bashrc
 

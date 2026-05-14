@@ -515,7 +515,7 @@ EOF
 nvim ~/.profile
 ```
 
-把原来的 PATH 块替换成：
+把 umask 注释后面的所有内容替换成：
 
 ```bash
 # path helper
@@ -559,9 +559,16 @@ path_prepend "$PNPM_HOME"
 
 # rust/cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
 ```
 
-环境变量和 PATH 放在 `.profile` 里，这样整个会话都能用（GUI 应用、systemd 等），不限于交互式 bash。
+把默认的 `.bashrc` source 块移到最后，在 PATH 设置之后。
 
 ## bashrc
 

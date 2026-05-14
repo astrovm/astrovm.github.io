@@ -515,7 +515,7 @@ Editar `~/.profile`:
 nvim ~/.profile
 ```
 
-Reemplazar el bloque de PATH por:
+Reemplazar todo lo que sigue al comentario de umask con:
 
 ```bash
 # path helper
@@ -559,9 +559,16 @@ path_prepend "$PNPM_HOME"
 
 # rust/cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
 ```
 
-Variables de entorno y PATH en `.profile` para que estén disponibles en toda la sesión (apps GUI, systemd, etc.), no solo en bash interactivo.
+Mover el bloque de source de `.bashrc` al final, después del PATH.
 
 ## bashrc
 
