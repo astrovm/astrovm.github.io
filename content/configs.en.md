@@ -276,6 +276,10 @@ sudo apt install \
   zoxide
 ```
 
+```bash
+ln -s "$(command -v fdfind)" ~/.local/bin/fd
+```
+
 ## User permissions
 
 ```bash
