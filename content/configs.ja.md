@@ -509,15 +509,19 @@ EOF
 
 ## profile
 
-`~/.profile`を編集:
+`~/.profile`:
 
 ```bash
-nvim ~/.profile
-```
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1) if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
 
-umaskコメント以降をすべて以下に置き換える:
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
 
-```bash
 # path helper
 path_prepend() {
   [ -d "$1" ] || return
@@ -562,54 +566,96 @@ path_prepend "$PNPM_HOME"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
 	. "$HOME/.bashrc"
     fi
 fi
 ```
 
-デフォルトの`.bashrc`のsourceブロックを最後に移動する。PATHの設定の後ろに。
-
 ## bashrc
 
-`~/.bashrc`を編集:
-
-```bash
-nvim ~/.bashrc
-```
-
-一番上:
+`~/.bashrc`:
 
 ```bash
 # ble.sh - load first, attach last
 [[ $- == *i* && -f /usr/share/blesh/ble.sh ]] && source -- /usr/share/blesh/ble.sh --attach=none
-```
 
-デフォルトを上書き:
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
 
-```bash
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
 HISTCONTROL=ignoreboth:erasedups
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=100000
 HISTFILESIZE=100000
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
 shopt -s globstar
-```
 
-エイリアス追加:
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-```bash
+# PS1 is handled by starship (see below)
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias grep='grep --color=auto'
+    alias egrep='grep -E --color=auto'
+    alias fgrep='grep -F --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32;locus=01:quote=01'
+
+# aliases
 alias ls='eza'
 alias ll='eza -l'
 alias la='eza -la'
 alias cat='batcat --paging=never'
-alias egrep='grep -E --color=auto'
-alias fgrep='grep -F --color=auto'
-```
 
-PS1ブロック（chroot、カラー プロンプト、xterm タイトル）はstarshipが管理するので削除する。
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-Bash専用の初期化を最後に:
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-```bash
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
 # fnm
 command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
 
@@ -634,11 +680,7 @@ if command -v atuin >/dev/null; then
     eval "$(atuin init bash)"
   fi
 fi
-```
 
-一番最後:
-
-```bash
 # ble.sh attach
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 ```
