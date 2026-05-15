@@ -364,7 +364,6 @@ Description=Update packages with Topgrade
 
 [Service]
 Type=oneshot
-Environment=PATH=%h/.local/bin:%h/.bun/bin:%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin
 ExecStart=/home/linuxbrew/.linuxbrew/bin/topgrade --disable system snap restarts clam_av_db
 EOF
 
@@ -382,6 +381,22 @@ WantedBy=timers.target
 EOF
 
 systemctl --user daemon-reload && systemctl --user enable --now topgrade.timer
+```
+
+## systemd 用户环境
+
+`~/.config/environment.d/10-user-path.conf`:
+
+```ini
+ANDROID_HOME=$HOME/Android/Sdk
+ANDROID_SDK_ROOT=$ANDROID_HOME
+BUN_INSTALL=$HOME/.bun
+HOMEBREW_CELLAR=/home/linuxbrew/.linuxbrew/Cellar
+HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+HOMEBREW_REPOSITORY=/home/linuxbrew/.linuxbrew/Homebrew
+INFOPATH=/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}
+PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:/home/linuxbrew/.linuxbrew/sbin:/home/linuxbrew/.linuxbrew/bin:$HOME/.bun/bin:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/emulator:$HOME/Android/Sdk/cmdline-tools/latest/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PNPM_HOME=$HOME/.local/share/pnpm
 ```
 
 ## pnpm global
@@ -658,8 +673,6 @@ cat > ~/.local/bin/opencode-serve << 'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 
-export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin"
-
 [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 exec opencode serve --mdns
@@ -673,7 +686,6 @@ Description=OpenCode serve
 
 [Service]
 Type=simple
-Environment=PATH=%h/.local/bin:%h/.bun/bin:%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin
 ExecStart=%h/.local/bin/opencode-serve
 Restart=always
 RestartSec=3
