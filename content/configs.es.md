@@ -661,9 +661,6 @@ set -euo pipefail
 export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin"
 
 [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
-export PNPM_HOME="$HOME/.local/share/pnpm"
-export PATH="$PNPM_HOME:$PATH"
 
 exec opencode serve --mdns
 EOF
@@ -676,8 +673,7 @@ Description=OpenCode serve
 
 [Service]
 Type=simple
-Environment=PNPM_HOME=%h/.local/share/pnpm
-Environment=PATH=%h/.local/share/pnpm:%h/.local/bin:%h/.bun/bin:%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin
+Environment=PATH=%h/.local/bin:%h/.bun/bin:%h/.cargo/bin:/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:/usr/local/bin:/usr/bin:/bin
 ExecStart=%h/.local/bin/opencode-serve
 Restart=always
 RestartSec=3
