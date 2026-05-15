@@ -667,16 +667,7 @@ systemctl --user enable --now podman.socket
 ## OpenCode server
 
 ```bash
-mkdir -p ~/.local/bin ~/.config/systemd/user
-
-cat > ~/.local/bin/opencode-serve << 'EOF'
-#!/usr/bin/env bash
-set -euo pipefail
-
-exec opencode serve --mdns
-EOF
-
-chmod +x ~/.local/bin/opencode-serve
+mkdir -p ~/.config/systemd/user
 
 cat > ~/.config/systemd/user/opencode-serve.service << 'EOF'
 [Unit]
@@ -684,7 +675,7 @@ Description=OpenCode serve
 
 [Service]
 Type=simple
-ExecStart=%h/.local/bin/opencode-serve
+ExecStart=/home/linuxbrew/.linuxbrew/bin/opencode serve --mdns
 Restart=always
 RestartSec=3
 
