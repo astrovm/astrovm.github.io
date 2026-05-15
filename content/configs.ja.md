@@ -326,9 +326,9 @@ pro status
 
 ```bash
 sudo apt install extrepo
-sudo extrepo enable brave_release tailscale antigravity google_chrome vscode steam librewolf
+sudo extrepo enable antigravity brave_release google_chrome librewolf steam tailscale vscode
 sudo apt update
-sudo apt install brave-browser tailscale antigravity google-chrome-stable code steam librewolf
+sudo apt install antigravity brave-browser code google-chrome-stable librewolf steam tailscale
 sudo tailscale up
 ```
 
@@ -339,7 +339,7 @@ sudo tailscale up
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-brew install croc fnm topgrade uv yq gemini-cli codex anomalyco/tap/opencode
+brew install anomalyco/tap/opencode codex croc fnm gemini-cli topgrade uv yq
 ```
 
 ## Topgrade auto-update
