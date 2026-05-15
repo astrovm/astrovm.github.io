@@ -385,9 +385,10 @@ systemctl --user daemon-reload && systemctl --user enable --now topgrade.timer
 
 ## Entorno de usuario systemd
 
-`~/.config/environment.d/10-user-path.conf`:
+```bash
+mkdir -p ~/.config/environment.d
 
-```ini
+cat > ~/.config/environment.d/10-user-path.conf << 'EOF'
 ANDROID_HOME=$HOME/Android/Sdk
 ANDROID_SDK_ROOT=$ANDROID_HOME
 BUN_INSTALL=$HOME/.bun
@@ -397,6 +398,9 @@ HOMEBREW_REPOSITORY=/home/linuxbrew/.linuxbrew/Homebrew
 INFOPATH=/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}
 PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:/home/linuxbrew/.linuxbrew/sbin:/home/linuxbrew/.linuxbrew/bin:$HOME/.bun/bin:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/emulator:$HOME/Android/Sdk/cmdline-tools/latest/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 PNPM_HOME=$HOME/.local/share/pnpm
+EOF
+
+systemctl --user daemon-reload
 ```
 
 ## pnpm global
