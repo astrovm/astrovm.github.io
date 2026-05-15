@@ -673,8 +673,6 @@ cat > ~/.local/bin/opencode-serve << 'EOF'
 #!/usr/bin/env bash
 set -euo pipefail
 
-[[ -x /home/linuxbrew/.linuxbrew/bin/brew ]] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-
 exec opencode serve --mdns
 EOF
 
