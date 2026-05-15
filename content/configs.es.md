@@ -195,7 +195,9 @@ EOF
 sudo tee /etc/NetworkManager/conf.d/99-disable-wifi-powersave.conf > /dev/null << 'EOF'
 [connection]
 wifi.powersave=2
-EOF && sudo systemctl restart NetworkManager
+EOF
+
+sudo systemctl restart NetworkManager
 ```
 
 ## SDDM AMDGPU
@@ -227,7 +229,9 @@ wifi.scan-rand-mac-address=yes
 [connection]
 wifi.cloned-mac-address=stable
 ethernet.cloned-mac-address=preserve
-EOF && sudo systemctl restart NetworkManager
+EOF
+
+sudo systemctl restart NetworkManager
 ```
 
 ## Bluetooth reset
@@ -342,10 +346,30 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
 brew install anomalyco/tap/opencode codex croc fnm gemini-cli topgrade uv yq
 ```
 
+## Entorno de usuario systemd
+
+```bash
+mkdir -p ~/.config/environment.d
+
+cat > ~/.config/environment.d/10-user-path.conf << 'EOF'
+ANDROID_HOME=$HOME/Android/Sdk
+ANDROID_SDK_ROOT=$ANDROID_HOME
+BUN_INSTALL=$HOME/.bun
+HOMEBREW_CELLAR=/home/linuxbrew/.linuxbrew/Cellar
+HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
+HOMEBREW_REPOSITORY=/home/linuxbrew/.linuxbrew/Homebrew
+INFOPATH=/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}
+PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:/home/linuxbrew/.linuxbrew/sbin:/home/linuxbrew/.linuxbrew/bin:$HOME/.bun/bin:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/emulator:$HOME/Android/Sdk/cmdline-tools/latest/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+PNPM_HOME=$HOME/.local/share/pnpm
+EOF
+
+systemctl --user daemon-reload
+```
+
 ## Topgrade auto-update
 
 ```bash
-mkdir -p ~/.config
+mkdir -p ~/.config ~/.config/systemd/user
 
 cat > ~/.config/topgrade.toml << 'EOF'
 [misc]
@@ -355,8 +379,6 @@ no_retry = true
 notify_end = "on_failure"
 disable = ["snap", "restarts", "clam_av_db"]
 EOF
-
-mkdir -p ~/.config/systemd/user
 
 cat > ~/.config/systemd/user/topgrade.service << 'EOF'
 [Unit]
@@ -383,26 +405,6 @@ EOF
 systemctl --user daemon-reload && systemctl --user enable --now topgrade.timer
 ```
 
-## Entorno de usuario systemd
-
-```bash
-mkdir -p ~/.config/environment.d
-
-cat > ~/.config/environment.d/10-user-path.conf << 'EOF'
-ANDROID_HOME=$HOME/Android/Sdk
-ANDROID_SDK_ROOT=$ANDROID_HOME
-BUN_INSTALL=$HOME/.bun
-HOMEBREW_CELLAR=/home/linuxbrew/.linuxbrew/Cellar
-HOMEBREW_PREFIX=/home/linuxbrew/.linuxbrew
-HOMEBREW_REPOSITORY=/home/linuxbrew/.linuxbrew/Homebrew
-INFOPATH=/home/linuxbrew/.linuxbrew/share/info:${INFOPATH:-}
-PATH=$HOME/.cargo/bin:$HOME/.local/share/pnpm:/home/linuxbrew/.linuxbrew/sbin:/home/linuxbrew/.linuxbrew/bin:$HOME/.bun/bin:$HOME/Android/Sdk/platform-tools:$HOME/Android/Sdk/emulator:$HOME/Android/Sdk/cmdline-tools/latest/bin:$HOME/.local/bin:$HOME/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
-PNPM_HOME=$HOME/.local/share/pnpm
-EOF
-
-systemctl --user daemon-reload
-```
-
 ## pnpm global
 
 ```bash
@@ -426,9 +428,6 @@ EOF
 
 # pnpm: rechazar paquetes publicados hace menos de 1 día
 pnpm config set minimumReleaseAge 1440 --location=global
-
-# pnpm 11+ via corepack
-corepack install --global pnpm@latest
 
 # bun: bloquear scripts y paquetes recién publicados
 cat > ~/.bunfig.toml << 'EOF'
