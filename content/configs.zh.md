@@ -339,7 +339,7 @@ sudo tailscale up
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-brew install croc fnm topgrade uv yq
+brew install croc fnm topgrade uv yq gemini-cli codex anomalyco/tap/opencode
 ```
 
 ## Topgrade auto-update
@@ -392,8 +392,7 @@ fnm install --lts --use && \
 fnm default "$(fnm current)" && \
 corepack install --global pnpm@latest && \
 mkdir -p ~/.local/share/pnpm && \
-pnpm config set global-bin-dir ~/.local/share/pnpm --location=global && \
-pnpm add -g @google/gemini-cli @openai/codex opencode-ai
+pnpm config set global-bin-dir ~/.local/share/pnpm --location=global
 ```
 
 ## npm / pnpm 安全加固
