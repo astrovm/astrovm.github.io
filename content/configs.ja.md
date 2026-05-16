@@ -49,14 +49,13 @@ Kubuntu 26.04をUEFIモードでインストール：
 ## GRUB
 
 ```bash
-for p in preempt=full pcie_aspm=off processor.max_cstate=1; do
+for p in preempt=full pcie_aspm=off; do
   grep -q "$p" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
 done && sudo update-grub
 ```
 
 - `preempt=full` - スケジューリングレイテンシを下げる。
 - `pcie_aspm=off` - Intel AX200 WiFiがD3coldで固まる問題のワークアラウンド。
-- `processor.max_cstate=1` - CPU を浅い C-state に留めて、wake レイテンシを下げる。
 - `quiet` は使わない。boot時にもっと情報を見たいので。
 - `cryptdevice=...` と `root=...` はインストールごとに違う。
 

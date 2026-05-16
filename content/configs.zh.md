@@ -49,14 +49,13 @@ Kubuntu 26.04 用 UEFI 模式安装：
 ## GRUB
 
 ```bash
-for p in preempt=full pcie_aspm=off processor.max_cstate=1; do
+for p in preempt=full pcie_aspm=off; do
   grep -q "$p" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
 done && sudo update-grub
 ```
 
 - `preempt=full` - 降低调度延迟。
 - `pcie_aspm=off` - 修 Intel AX200 WiFi 卡在 D3cold 的问题。
-- `processor.max_cstate=1` - 让 CPU 停留在浅层 C-state，降低唤醒延迟。
 - 不用 `quiet`，因为我想开机时看到更多信息。
 - `cryptdevice=...` 和 `root=...` 每台机器都不一样。
 

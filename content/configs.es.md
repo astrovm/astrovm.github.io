@@ -49,14 +49,13 @@ Layout: subvolúmenes `/@`, `/@home` y `/@swap`, swap file en `/swap/swapfile`, 
 ## GRUB
 
 ```bash
-for p in preempt=full pcie_aspm=off processor.max_cstate=1; do
+for p in preempt=full pcie_aspm=off; do
   grep -q "$p" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
 done && sudo update-grub
 ```
 
 - `preempt=full` - menor latencia de scheduling.
 - `pcie_aspm=off` - workaround para WiFi Intel AX200 trabada en D3cold.
-- `processor.max_cstate=1` - mantiene el CPU en C-states superficiales, reduce latencia de wake.
 - No uso `quiet` porque prefiero ver más info al bootear.
 - `cryptdevice=...` y `root=...` dependen de cada instalación.
 
