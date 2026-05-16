@@ -115,7 +115,7 @@ sudo sysctl --system
 
 ```bash
 sudo apt install systemd-zram-generator && \
-sudo tee /etc/systemd/zram-generator.conf > /dev/null << 'EOF'
+  sudo tee /etc/systemd/zram-generator.conf > /dev/null << 'EOF'
 [zram0]
 zram-size = ram / 2
 compression-algorithm = zstd
@@ -207,7 +207,7 @@ Solo KDE. Solución oficial para pantalla negra al bootear (regresión en 26.04,
 
 ```bash
 sudo mkdir -p /etc/systemd/system/sddm.service.d && \
-sudo tee /etc/systemd/system/sddm.service.d/udev-settle.conf > /dev/null << 'EOF'
+  sudo tee /etc/systemd/system/sddm.service.d/udev-settle.conf > /dev/null << 'EOF'
 [Unit]
 After=systemd-udev-settle.service
 Wants=systemd-udev-settle.service
@@ -306,7 +306,7 @@ Cerrar sesión y volver a entrar.
 
 ```bash
 sudo apt install unattended-upgrades && \
-sudo tee /etc/apt/apt.conf.d/20auto-upgrades > /dev/null << 'EOF'
+  sudo tee /etc/apt/apt.conf.d/20auto-upgrades > /dev/null << 'EOF'
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Download-Upgradeable-Packages "1";
 APT::Periodic::AutocleanInterval "7";
@@ -343,8 +343,8 @@ sudo tailscale up
 
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-brew install anomalyco/tap/opencode codex croc fnm gemini-cli topgrade uv yq
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
+  brew install anomalyco/tap/opencode codex croc fnm gemini-cli topgrade uv yq
 ```
 
 ## Entorno de usuario systemd
@@ -410,11 +410,11 @@ systemctl --user daemon-reload && systemctl --user enable --now topgrade.timer
 
 ```bash
 eval "$(fnm env --use-on-cd --shell bash)" && \
-fnm install --lts --use && \
-fnm default "$(fnm current)" && \
-corepack install --global pnpm@latest && \
-mkdir -p ~/.local/share/pnpm && \
-pnpm config set global-bin-dir ~/.local/share/pnpm --location=global
+  fnm install --lts --use && \
+  fnm default "$(fnm current)" && \
+  corepack install --global pnpm@latest && \
+  mkdir -p ~/.local/share/pnpm && \
+  pnpm config set global-bin-dir ~/.local/share/pnpm --location=global
 ```
 
 ## Seguridad npm / pnpm
@@ -774,8 +774,8 @@ git config --global rerere.enabled true
 
 ssh-keygen -t ed25519 -C "~@4st.li"
 eval "$(ssh-agent -s)" && \
-ssh-add ~/.ssh/id_ed25519 && \
-cat ~/.ssh/id_ed25519.pub
+  ssh-add ~/.ssh/id_ed25519 && \
+  cat ~/.ssh/id_ed25519.pub
 ```
 
 Pegar la clave pública en <https://github.com/settings/ssh>.
