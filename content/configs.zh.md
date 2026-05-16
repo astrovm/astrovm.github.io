@@ -177,10 +177,11 @@ sudo systemctl enable --now amd-pstate-lock.service
 ## XanMod 内核
 
 ```bash
-sudo extrepo enable xanmod && sudo apt update && sudo apt install linux-xanmod-x64v3
+sudo install -d -m 0755 /etc/apt/keyrings
+wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -vo /etc/apt/keyrings/xanmod-archive-keyring.gpg
+echo "deb [signed-by=/etc/apt/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/xanmod-release.list
+sudo apt update && sudo apt install linux-xanmod-x64v3
 ```
-
-重启，从 GRUB 选择。
 
 ## Intel AX200 WiFi
 
