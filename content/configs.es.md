@@ -152,28 +152,6 @@ powerprofilesctl set performance
 - `amd-pstate active` + governor `performance` + EPP `performance`
 - NVMe scheduler `none` ya es default normal para NVMe.
 
-## Bloqueo de P-states AMD
-
-Evita que el CPU baje de la frecuencia máxima:
-
-```bash
-sudo tee /etc/systemd/system/amd-pstate-lock.service > /dev/null << 'EOF'
-[Unit]
-Description=Lock AMD P-states to max
-After=multi-user.target power-profiles-daemon.service
-Requires=power-profiles-daemon.service
-
-[Service]
-Type=oneshot
-ExecStart=/bin/bash -c 'for f in /sys/devices/system/cpu/cpufreq/policy*/scaling_min_freq; do max=$(echo "$f" | sed "s/min_freq/max_freq/"); echo "$(cat "$max")" > "$f"; done'
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-sudo systemctl enable --now amd-pstate-lock.service
-```
-
 ## Kernel XanMod
 
 ```bash
