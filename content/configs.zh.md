@@ -468,6 +468,35 @@ Setup Wizard 会把 SDK 下载到 `~/Android/Sdk`。
 curl -f https://zed.dev/install.sh | sh
 ```
 
+## Codex Desktop
+
+从 macOS 官方 DMG 做出来的非官方 Codex Desktop Linux build: <https://github.com/ilysenko/codex-desktop-linux>。
+
+用原生包安装（Kubuntu/Ubuntu 上是 `.deb`），顺手打开 Computer Use UI、Zed opener、remote/mobile：
+
+```bash
+git clone https://github.com/ilysenko/codex-desktop-linux.git ~/Documents/codex-desktop-linux
+cd ~/Documents/codex-desktop-linux
+
+cat > linux-features/features.json << 'EOF'
+{
+  "enabled": [
+    "open-target-discovery",
+    "zed-opener",
+    "remote-control-ui",
+    "remote-mobile-control"
+  ]
+}
+EOF
+
+mkdir -p ~/.config/codex-desktop
+echo '{"codex-linux-computer-use-ui-enabled": true}' > ~/.config/codex-desktop/settings.json
+
+make bootstrap-native
+```
+
+`make bootstrap-native` 会装依赖、下载 `Codex.dmg`、生成 `codex-app/`、打原生包并安装。依赖已经有了就用 `make install-native`。
+
 ## Trezor Suite
 
 把 [Trezor Suite](https://trezor.io/trezor-suite) 下载成 AppImage，用 Gear Lever 管理。

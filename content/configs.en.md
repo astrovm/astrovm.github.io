@@ -468,6 +468,35 @@ The Setup Wizard downloads the SDK to `~/Android/Sdk`.
 curl -f https://zed.dev/install.sh | sh
 ```
 
+## Codex Desktop
+
+Unofficial Linux build of Codex Desktop from the official macOS DMG: <https://github.com/ilysenko/codex-desktop-linux>.
+
+Install it with the native package (`.deb` on Kubuntu/Ubuntu), with Computer Use UI, Zed opener, and remote/mobile enabled:
+
+```bash
+git clone https://github.com/ilysenko/codex-desktop-linux.git ~/Documents/codex-desktop-linux
+cd ~/Documents/codex-desktop-linux
+
+cat > linux-features/features.json << 'EOF'
+{
+  "enabled": [
+    "open-target-discovery",
+    "zed-opener",
+    "remote-control-ui",
+    "remote-mobile-control"
+  ]
+}
+EOF
+
+mkdir -p ~/.config/codex-desktop
+echo '{"codex-linux-computer-use-ui-enabled": true}' > ~/.config/codex-desktop/settings.json
+
+make bootstrap-native
+```
+
+`make bootstrap-native` installs dependencies, downloads `Codex.dmg`, generates `codex-app/`, builds the native package, and installs it. If the dependencies already exist, use `make install-native`.
+
 ## Trezor Suite
 
 Download [Trezor Suite](https://trezor.io/trezor-suite) as an AppImage and manage it with Gear Lever.
