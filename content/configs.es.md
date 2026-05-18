@@ -239,7 +239,7 @@ sudo apt install \
   7zip adb antiword aria2 aspell-es atuin audacity autoconf automake axel bat \
   bear ble.sh bleachbit brightnessctl btop build-essential buildah \
   ca-certificates cabextract clamav clang cmake cmatrix cockpit cockpit-podman cowsay \
-  criu curl ddcui ddcutil diffoscope direnv distrobox dnsutils duf easyeffects \
+  criu curl ddcui ddcutil diffoscope direnv distrobox dnsutils duf \
   editorconfig expect eza fastboot fd-find ffmpeg ffmpegthumbnailer filelight \
   firejail flatpak fortune-mod fzf gamemode gammastep gdb gh ghostty gifsicle \
   git glab gnupg golang-go gwenview handbrake hashcat httpie hugo \
@@ -442,6 +442,7 @@ flatpak remote-add --if-not-exists flathub \
   https://flathub.org/repo/flathub.flatpakrepo
 
 flatpak install flathub \
+  com.github.wwmm.easyeffects \
   com.github.PintaProject.Pinta com.github.tchx84.Flatseal \
   com.obsproject.Studio com.obsproject.Studio.Plugin.OBSVkCapture//stable \
   com.spotify.Client com.stremio.Stremio com.usebottles.bottles \
