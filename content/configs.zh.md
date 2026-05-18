@@ -241,7 +241,7 @@ sudo apt install \
   ca-certificates cabextract clamav clang cmake cmatrix cockpit cockpit-podman cowsay \
   criu curl ddcui ddcutil diffoscope direnv distrobox dnsutils duf \
   editorconfig expect eza fastboot fd-find ffmpeg ffmpegthumbnailer filelight \
-  firejail flatpak fortune-mod fzf gamemode gammastep gdb gh ghostty gifsicle \
+  firejail flatpak fortune-mod fzf gamemode gdb gh ghostty gifsicle \
   git glab gnupg golang-go gwenview handbrake hashcat httpie hugo \
   hunspell-en-us hunspell-es hw-probe hyperfine hyphen-en-us hyphen-es \
   inotify-tools iotop-c isoimagewriter jo jq just kcalc kde-config-flatpak \
