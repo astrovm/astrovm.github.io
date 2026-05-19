@@ -477,24 +477,8 @@ Instalar con paquete nativo (`.deb` en Kubuntu/Ubuntu), Computer Use UI, Zed ope
 
 ```bash
 sudo apt install ydotool xdg-desktop-portal-kde
-
-INPUT_GID="$(getent group input | cut -d: -f3)"
-
-sudo tee /etc/systemd/system/ydotoold.service >/dev/null << EOF
-[Unit]
-Description=ydotool daemon
-
-[Service]
-ExecStart=/usr/bin/ydotoold --socket-path=/tmp/.ydotool_socket --socket-perm=0660 --socket-own=0:${INPUT_GID}
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-sudo systemctl daemon-reload
-sudo systemctl enable --now ydotoold
 sudo usermod -a -G input "$USER"
+systemctl --user enable --now ydotool.service
 
 git clone https://github.com/ilysenko/codex-desktop-linux.git ~/Documents/codex-desktop-linux
 cd ~/Documents/codex-desktop-linux
