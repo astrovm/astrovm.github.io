@@ -479,6 +479,7 @@ curl -f https://zed.dev/install.sh | sh
 sudo apt install ydotool xdg-desktop-portal-kde
 sudo usermod -a -G input "$USER"
 systemctl --user enable --now ydotool.service
+flatpak permission-set kde-authorized remote-desktop "" yes
 
 git clone https://github.com/ilysenko/codex-desktop-linux.git ~/Documents/codex-desktop-linux
 cd ~/Documents/codex-desktop-linux
@@ -503,6 +504,8 @@ make bootstrap-native
 `make bootstrap-native` 会装依赖、下载 `Codex.dmg`、生成 `codex-app/`、打原生包并安装。依赖已经有了就用 `make install-native`。
 
 Computer Use 要能发输入，给用户加进 `input` 组之后要退出登录再进来。
+
+`kde-authorized` 这条会让没有 `app_id` 的本机 app 跳过 KDE Remote Control 弹窗。省事，但范围比较大。
 
 ## Trezor Suite
 

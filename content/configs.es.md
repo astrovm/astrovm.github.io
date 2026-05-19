@@ -479,6 +479,7 @@ Instalar con paquete nativo (`.deb` en Kubuntu/Ubuntu), Computer Use UI, Zed ope
 sudo apt install ydotool xdg-desktop-portal-kde
 sudo usermod -a -G input "$USER"
 systemctl --user enable --now ydotool.service
+flatpak permission-set kde-authorized remote-desktop "" yes
 
 git clone https://github.com/ilysenko/codex-desktop-linux.git ~/Documents/codex-desktop-linux
 cd ~/Documents/codex-desktop-linux
@@ -503,6 +504,8 @@ make bootstrap-native
 `make bootstrap-native` instala dependencias, descarga el `Codex.dmg`, genera `codex-app/`, arma el paquete nativo y lo instala. Si las dependencias ya existen, usar `make install-native`.
 
 Para que Computer Use pueda mandar input, cerrá sesión y volvé a entrar después de agregar tu usuario al grupo `input`.
+
+El permiso `kde-authorized` evita el popup de Remote Control de KDE para apps host sin `app_id`. Es cómodo, pero amplio.
 
 ## Trezor Suite
 

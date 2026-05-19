@@ -479,6 +479,7 @@ macOS公式DMGから作る非公式のCodex Desktop Linux build: <https://github
 sudo apt install ydotool xdg-desktop-portal-kde
 sudo usermod -a -G input "$USER"
 systemctl --user enable --now ydotool.service
+flatpak permission-set kde-authorized remote-desktop "" yes
 
 git clone https://github.com/ilysenko/codex-desktop-linux.git ~/Documents/codex-desktop-linux
 cd ~/Documents/codex-desktop-linux
@@ -503,6 +504,8 @@ make bootstrap-native
 `make bootstrap-native`は依存関係を入れて、`Codex.dmg`を落として、`codex-app/`を生成して、ネイティブパッケージを作ってインストールする。依存関係がもうあるなら`make install-native`を使う。
 
 Computer Useで入力操作まで使うには、ユーザーを`input`グループに追加したあとログアウトして入り直す。
+
+`kde-authorized`は`app_id`なしのホストアプリでKDEのRemote Controlポップアップを飛ばす。便利だが範囲は広い。
 
 ## Trezor Suite
 

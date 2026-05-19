@@ -479,6 +479,7 @@ Install it with the native package (`.deb` on Kubuntu/Ubuntu), with Computer Use
 sudo apt install ydotool xdg-desktop-portal-kde
 sudo usermod -a -G input "$USER"
 systemctl --user enable --now ydotool.service
+flatpak permission-set kde-authorized remote-desktop "" yes
 
 git clone https://github.com/ilysenko/codex-desktop-linux.git ~/Documents/codex-desktop-linux
 cd ~/Documents/codex-desktop-linux
@@ -503,6 +504,8 @@ make bootstrap-native
 `make bootstrap-native` installs dependencies, downloads `Codex.dmg`, generates `codex-app/`, builds the native package, and installs it. If the dependencies already exist, use `make install-native`.
 
 For Computer Use input control to work, log out and back in after adding your user to the `input` group.
+
+The `kde-authorized` permission avoids KDE's Remote Control popup for host apps without an `app_id`. Handy, but broad.
 
 ## Trezor Suite
 
