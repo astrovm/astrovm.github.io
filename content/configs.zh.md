@@ -476,6 +476,24 @@ curl -f https://zed.dev/install.sh | sh
 用原生包安装（Kubuntu/Ubuntu 上是 `.deb`），顺手打开 Computer Use UI、Zed opener、remote/mobile：
 
 ```bash
+sudo apt install ydotool xdg-desktop-portal-kde
+
+sudo tee /etc/systemd/system/ydotoold.service >/dev/null << 'EOF'
+[Unit]
+Description=ydotool daemon
+
+[Service]
+ExecStart=/usr/bin/ydotoold --socket-path=/tmp/.ydotool_socket --socket-perm=0660 --socket-own=0:input
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now ydotoold
+sudo usermod -a -G input "$USER"
+
 git clone https://github.com/ilysenko/codex-desktop-linux.git ~/Documents/codex-desktop-linux
 cd ~/Documents/codex-desktop-linux
 
@@ -497,6 +515,8 @@ make bootstrap-native
 ```
 
 `make bootstrap-native` 会装依赖、下载 `Codex.dmg`、生成 `codex-app/`、打原生包并安装。依赖已经有了就用 `make install-native`。
+
+Computer Use 要能发输入，给用户加进 `input` 组之后要退出登录再进来。
 
 ## Trezor Suite
 

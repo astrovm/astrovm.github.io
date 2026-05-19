@@ -476,6 +476,24 @@ macOS公式DMGから作る非公式のCodex Desktop Linux build: <https://github
 ネイティブパッケージ（Kubuntu/Ubuntuなら`.deb`）で入れて、Computer Use UI、Zed opener、remote/mobileも有効にする:
 
 ```bash
+sudo apt install ydotool xdg-desktop-portal-kde
+
+sudo tee /etc/systemd/system/ydotoold.service >/dev/null << 'EOF'
+[Unit]
+Description=ydotool daemon
+
+[Service]
+ExecStart=/usr/bin/ydotoold --socket-path=/tmp/.ydotool_socket --socket-perm=0660 --socket-own=0:input
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now ydotoold
+sudo usermod -a -G input "$USER"
+
 git clone https://github.com/ilysenko/codex-desktop-linux.git ~/Documents/codex-desktop-linux
 cd ~/Documents/codex-desktop-linux
 
@@ -497,6 +515,8 @@ make bootstrap-native
 ```
 
 `make bootstrap-native`は依存関係を入れて、`Codex.dmg`を落として、`codex-app/`を生成して、ネイティブパッケージを作ってインストールする。依存関係がもうあるなら`make install-native`を使う。
+
+Computer Useで入力操作まで使うには、ユーザーを`input`グループに追加したあとログアウトして入り直す。
 
 ## Trezor Suite
 
