@@ -478,12 +478,14 @@ macOS公式DMGから作る非公式のCodex Desktop Linux build: <https://github
 ```bash
 sudo apt install ydotool xdg-desktop-portal-kde
 
-sudo tee /etc/systemd/system/ydotoold.service >/dev/null << 'EOF'
+INPUT_GID="$(getent group input | cut -d: -f3)"
+
+sudo tee /etc/systemd/system/ydotoold.service >/dev/null << EOF
 [Unit]
 Description=ydotool daemon
 
 [Service]
-ExecStart=/usr/bin/ydotoold --socket-path=/tmp/.ydotool_socket --socket-perm=0660 --socket-own=0:input
+ExecStart=/usr/bin/ydotoold --socket-path=/tmp/.ydotool_socket --socket-perm=0660 --socket-own=0:${INPUT_GID}
 Restart=on-failure
 
 [Install]
