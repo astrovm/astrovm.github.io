@@ -308,9 +308,9 @@ pro status
 
 ```bash
 sudo apt install extrepo
-sudo extrepo enable antigravity brave_release google_chrome librewolf steam tailscale vscode
+sudo extrepo enable brave_release google_chrome librewolf steam tailscale vscode
 sudo apt update
-sudo apt install antigravity brave-browser code google-chrome-stable librewolf steam tailscale
+sudo apt install brave-browser code google-chrome-stable librewolf steam tailscale
 sudo tailscale up
 ```
 
