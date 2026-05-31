@@ -692,6 +692,8 @@ mkdir -p ~/.config/systemd/user
 cat > ~/.config/systemd/user/opencode-serve.service << 'EOF'
 [Unit]
 Description=OpenCode serve
+After=graphical-session.target
+PartOf=graphical-session.target
 
 [Service]
 Type=simple
@@ -700,7 +702,7 @@ Restart=always
 RestartSec=3
 
 [Install]
-WantedBy=default.target
+WantedBy=graphical-session.target
 EOF
 
 systemctl --user daemon-reload && systemctl --user enable --now opencode-serve.service
