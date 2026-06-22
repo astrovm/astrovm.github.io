@@ -684,30 +684,6 @@ fi
 systemctl --user enable --now podman.socket
 ```
 
-## OpenCode server
-
-```bash
-mkdir -p ~/.config/systemd/user
-
-cat > ~/.config/systemd/user/opencode-serve.service << 'EOF'
-[Unit]
-Description=OpenCode serve
-After=graphical-session.target
-PartOf=graphical-session.target
-
-[Service]
-Type=simple
-ExecStart=/home/linuxbrew/.linuxbrew/bin/opencode serve --mdns
-Restart=always
-RestartSec=3
-
-[Install]
-WantedBy=graphical-session.target
-EOF
-
-systemctl --user daemon-reload && systemctl --user enable --now opencode-serve.service
-```
-
 ## SSH
 
 ```bash
