@@ -344,10 +344,10 @@ EOF
 systemctl --user daemon-reload
 ```
 
-## Topgrade auto-update
+## Topgrade config
 
 ```bash
-mkdir -p ~/.config ~/.config/systemd/user
+mkdir -p ~/.config
 
 cat > ~/.config/topgrade.toml << 'EOF'
 [misc]
@@ -355,32 +355,7 @@ assume_yes = true
 cleanup = true
 no_retry = true
 notify_end = "on_failure"
-disable = ["snap", "restarts", "clam_av_db"]
 EOF
-
-cat > ~/.config/systemd/user/topgrade.service << 'EOF'
-[Unit]
-Description=Update packages with Topgrade
-
-[Service]
-Type=oneshot
-ExecStart=/home/linuxbrew/.linuxbrew/bin/topgrade --disable system snap restarts clam_av_db
-EOF
-
-cat > ~/.config/systemd/user/topgrade.timer << 'EOF'
-[Unit]
-Description=Run Topgrade automatically
-
-[Timer]
-OnCalendar=daily
-Persistent=true
-RandomizedDelaySec=1h
-
-[Install]
-WantedBy=timers.target
-EOF
-
-systemctl --user daemon-reload && systemctl --user enable --now topgrade.timer
 ```
 
 ## pnpm global
