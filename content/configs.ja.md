@@ -321,7 +321,7 @@ sudo tailscale up
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-  brew install anomalyco/tap/opencode codex croc fnm gemini-cli topgrade uv yq
+  brew install anomalyco/tap/opencode croc fnm topgrade uv yq
 ```
 
 ## systemd ユーザー環境
@@ -444,11 +444,17 @@ Setup WizardがSDKを`~/Android/Sdk`へダウンロードする。
 curl -f https://zed.dev/install.sh | sh
 ```
 
+## Codex
+
+```bash
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
 ## Codex Desktop
 
 macOS公式DMGから作る非公式のCodex Desktop Linux build: <https://github.com/ilysenko/codex-desktop-linux>。
 
-ネイティブパッケージ（Kubuntu/Ubuntuなら`.deb`）で入れて、Computer Use UI、Zed opener、remote/mobileも有効にする:
+ネイティブパッケージ（Kubuntu/Ubuntuなら`.deb`）で入れて、Computer Use UIとremote/mobileも有効にする:
 
 ```bash
 sudo apt install ydotool xdg-desktop-portal-kde
@@ -463,7 +469,6 @@ cat > linux-features/features.json << 'EOF'
 {
   "enabled": [
     "open-target-discovery",
-    "zed-opener",
     "remote-control-ui",
     "remote-mobile-control"
   ]
