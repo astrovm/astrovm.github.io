@@ -151,14 +151,6 @@ powerprofilesctl set performance
 - `amd-pstate active` + governor `performance` + EPP `performance`
 - NVMe scheduler `none` ya es default normal para NVMe.
 
-## Kernel XanMod
-
-```bash
-sudo install -d -m 0755 /etc/apt/keyrings
-wget -qO - https://dl.xanmod.org/archive.key | sudo gpg --dearmor -vo /etc/apt/keyrings/xanmod-archive-keyring.gpg
-echo "deb [signed-by=/etc/apt/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/xanmod-release.list
-sudo apt update && sudo apt install linux-xanmod-x64v3
-```
 
 ## WiFi Intel AX200
 
