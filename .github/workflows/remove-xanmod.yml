@@ -1,0 +1,59 @@
+name: Remove XanMod from configs
+
+on:
+  push:
+    branches:
+      - agent/remove-xanmod-configs
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          ref: agent/remove-xanmod-configs
+
+      - name: Remove XanMod sections
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          paths = [
+              Path("content/configs.en.md"),
+              Path("content/configs.es.md"),
+              Path("content/configs.ja.md"),
+              Path("content/configs.zh.md"),
+          ]
+          pattern = re.compile(
+              r"(?ms)\n## [^\n]*XanMod[^\n]*\n\n```bash\n.*?^```\n"
+          )
+
+          for path in paths:
+              content = path.read_text(encoding="utf-8")
+              updated, count = pattern.subn("\n", content)
+              if count != 1:
+                  raise SystemExit(f"Expected one XanMod section in {path}, found {count}")
+              path.write_text(updated, encoding="utf-8")
+          PY
+
+      - name: Validate changes
+        run: |
+          git diff --check
+          if git grep -ni xanmod -- content/configs.*.md; then
+            echo "XanMod references remain in config pages" >&2
+            exit 1
+          fi
+
+      - name: Commit changes
+        run: |
+          rm .github/workflows/remove-xanmod.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/configs.en.md content/configs.es.md content/configs.ja.md content/configs.zh.md .github/workflows/remove-xanmod.yml
+          git commit -m "Remove XanMod from configs"
+          git push origin HEAD:agent/remove-xanmod-configs
