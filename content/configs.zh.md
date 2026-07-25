@@ -151,7 +151,6 @@ powerprofilesctl set performance
 - `amd-pstate active` + governor `performance` + EPP `performance`
 - NVMe scheduler `none` 对 NVMe 来说通常已经是默认值。
 
-
 ## Intel AX200 WiFi
 
 ```bash
