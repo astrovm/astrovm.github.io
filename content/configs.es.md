@@ -153,7 +153,7 @@ sudo systemctl restart NetworkManager
 
 ## SDDM AMDGPU
 
-Solo KDE. Solución oficial para pantalla negra al bootear (regresión en 26.04, LP: #2063143).
+Solo KDE. Workaround para una condición de carrera entre SDDM y la inicialización de la GPU que puede causar una pantalla negra al bootear en Kubuntu 26.04 (LP: #2063143).
 
 ```bash
 sudo mkdir -p /etc/systemd/system/sddm.service.d && \
@@ -174,12 +174,8 @@ sudo systemctl disable --now NetworkManager-wait-online.service
 
 ```bash
 sudo tee /etc/NetworkManager/conf.d/99-mac-address-policy.conf > /dev/null << 'EOF'
-[device]
-wifi.scan-rand-mac-address=yes
-
 [connection]
 wifi.cloned-mac-address=stable
-ethernet.cloned-mac-address=preserve
 EOF
 
 sudo systemctl restart NetworkManager
@@ -215,7 +211,8 @@ sudo apt install \
 ```
 
 ```bash
-ln -s "$(command -v fdfind)" ~/.local/bin/fd
+mkdir -p ~/.local/bin && \
+  ln -sfn "$(command -v fdfind)" ~/.local/bin/fd
 ```
 
 ## Permisos de usuario
@@ -289,7 +286,7 @@ cat > ~/.config/topgrade.toml << 'EOF'
 [misc]
 assume_yes = true
 cleanup = true
-no_retry = true
+ask_retry = false
 notify_end = "on_failure"
 EOF
 ```
@@ -300,6 +297,8 @@ EOF
 eval "$(fnm env --use-on-cd --shell bash)" && \
   fnm install --lts --use && \
   fnm default "$(fnm current)" && \
+  (command -v corepack >/dev/null || npm install --global corepack@latest) && \
+  corepack enable pnpm && \
   corepack install --global pnpm@latest && \
   mkdir -p ~/.local/share/pnpm && \
   pnpm config set global-bin-dir ~/.local/share/pnpm --location=global
@@ -315,8 +314,7 @@ cat > ~/.npmrc << 'EOF'
 ignore-scripts=true
 EOF
 
-# pnpm: rechazar paquetes publicados hace menos de 1 día
-pnpm config set minimumReleaseAge 1440 --location=global
+# pnpm 11+: política integrada de 1 día para paquetes nuevos
 
 # bun: bloquear scripts y paquetes recién publicados
 cat > ~/.bunfig.toml << 'EOF'
@@ -326,7 +324,7 @@ minimumReleaseAge=86400
 EOF
 ```
 
-Con esto, npm no ejecuta `preinstall` ni `postinstall` de dependencias. pnpm espera 1 día antes de aceptar paquetes nuevos (`1440` minutos), y bun hace lo mismo con `86400` segundos. pnpm 11+ ya trae defensas para este tipo de ataques.
+Con esto, npm no ejecuta `preinstall` ni `postinstall` de dependencias. Bun bloquea scripts y paquetes publicados hace menos de 1 día (`86400` segundos). pnpm 11+ ya aplica una política integrada de 1 día en modo no estricto, así que no hace falta una configuración global extra.
 
 ## Scripts
 

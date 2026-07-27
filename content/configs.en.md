@@ -153,7 +153,7 @@ sudo systemctl restart NetworkManager
 
 ## SDDM AMDGPU
 
-KDE only. Official fix for black screen on boot (regression in 26.04, LP: #2063143).
+KDE only. Workaround for an SDDM/GPU initialization race that can cause a black screen on boot in Kubuntu 26.04 (LP: #2063143).
 
 ```bash
 sudo mkdir -p /etc/systemd/system/sddm.service.d && \
@@ -174,12 +174,8 @@ sudo systemctl disable --now NetworkManager-wait-online.service
 
 ```bash
 sudo tee /etc/NetworkManager/conf.d/99-mac-address-policy.conf > /dev/null << 'EOF'
-[device]
-wifi.scan-rand-mac-address=yes
-
 [connection]
 wifi.cloned-mac-address=stable
-ethernet.cloned-mac-address=preserve
 EOF
 
 sudo systemctl restart NetworkManager
@@ -215,7 +211,8 @@ sudo apt install \
 ```
 
 ```bash
-ln -s "$(command -v fdfind)" ~/.local/bin/fd
+mkdir -p ~/.local/bin && \
+  ln -sfn "$(command -v fdfind)" ~/.local/bin/fd
 ```
 
 ## User permissions
@@ -289,7 +286,7 @@ cat > ~/.config/topgrade.toml << 'EOF'
 [misc]
 assume_yes = true
 cleanup = true
-no_retry = true
+ask_retry = false
 notify_end = "on_failure"
 EOF
 ```
@@ -300,6 +297,8 @@ EOF
 eval "$(fnm env --use-on-cd --shell bash)" && \
   fnm install --lts --use && \
   fnm default "$(fnm current)" && \
+  (command -v corepack >/dev/null || npm install --global corepack@latest) && \
+  corepack enable pnpm && \
   corepack install --global pnpm@latest && \
   mkdir -p ~/.local/share/pnpm && \
   pnpm config set global-bin-dir ~/.local/share/pnpm --location=global
@@ -315,8 +314,7 @@ cat > ~/.npmrc << 'EOF'
 ignore-scripts=true
 EOF
 
-# pnpm: reject packages published less than 1 day ago
-pnpm config set minimumReleaseAge 1440 --location=global
+# pnpm 11+: built-in 1-day release-age policy
 
 # bun: block scripts and newly published packages
 cat > ~/.bunfig.toml << 'EOF'
@@ -326,7 +324,7 @@ minimumReleaseAge=86400
 EOF
 ```
 
-With this, npm won't run dependency `preinstall` or `postinstall` scripts. pnpm waits 1 day before accepting new packages (`1440` minutes), and bun does the same with `86400` seconds. pnpm 11+ already ships with defenses for this class of attacks.
+With this, npm won't run dependency `preinstall` or `postinstall` scripts. Bun blocks scripts and packages published less than 1 day ago (`86400` seconds). pnpm 11+ already applies a built-in 1-day release-age policy in non-strict mode, so no extra global setting is needed.
 
 ## Script installs
 
