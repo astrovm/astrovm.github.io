@@ -75,7 +75,7 @@ jobs:
             pnpm config set global-bin-dir ~/.local/share/pnpm --location=global"""
 
           old_fd = 'ln -s "$(command -v fdfind)" ~/.local/bin/fd'
-          new_fd = 'mkdir -p ~/.local/bin && \\\n            ln -sfn "$(command -v fdfind)" ~/.local/bin/fd'
+          new_fd = 'mkdir -p ~/.local/bin && \\\n  ln -sfn "$(command -v fdfind)" ~/.local/bin/fd'
 
           for path in paths:
               name = path.name
@@ -136,6 +136,8 @@ jobs:
           PY
 
           git diff --check
+          sudo apt-get update
+          sudo apt-get install -y hugo
           hugo --minify
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
