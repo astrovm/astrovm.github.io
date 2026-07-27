@@ -87,7 +87,6 @@ On `/` and `/home`, remove `autodefrag` if present and add `compress=zstd`:
 ```bash
 sudo tee /etc/sysctl.d/90-zram.conf > /dev/null << 'EOF'
 vm.swappiness = 150
-vm.page-cluster = 0
 EOF
 
 sudo sysctl --system
