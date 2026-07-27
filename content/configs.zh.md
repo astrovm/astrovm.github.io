@@ -185,14 +185,6 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-## inotify 限制
-
-增加文件监视器实例，用于 IDE 和开发工具:
-
-```bash
-echo "fs.inotify.max_user_instances = 1024" | sudo tee /etc/sysctl.d/90-inotify.conf
-sudo sysctl --system
-```
 
 # 软件包
 
