@@ -185,14 +185,6 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-## inotify limits
-
-IDE と開発ツール用のファイルウォッチャーインスタンスを増やす:
-
-```bash
-echo "fs.inotify.max_user_instances = 1024" | sudo tee /etc/sysctl.d/90-inotify.conf
-sudo sysctl --system
-```
 
 # パッケージ
 
