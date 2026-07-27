@@ -17,12 +17,6 @@ hideComments = true
 - Keyboard: HyperX Alloy Origins Core with Razer Pink PBT keycaps
 - Headphones: Audio-Technica ATH-M50x with FiiO BTA10 and Sony Inzone H9
 
-**Raspberry Pi 4 Model B**
-
-**Apple MacBook Air M1 2020**
-
-**Samsung Galaxy S22 Ultra**
-
 # Base installation
 
 Kubuntu 26.04 installed in UEFI mode with:
@@ -91,20 +85,9 @@ On `/` and `/home`, remove `autodefrag` if present and add `compress=zstd`:
 ## sysctl
 
 ```bash
-sudo tee /etc/sysctl.d/99-performance.conf > /dev/null << 'EOF'
-kernel.nmi_watchdog = 0
-kernel.watchdog = 0
-net.ipv4.tcp_fastopen = 3
-vm.dirty_ratio = 10
-vm.dirty_background_ratio = 5
-EOF
-
-sudo tee /etc/sysctl.d/99-vm-zram.conf > /dev/null << 'EOF'
+sudo tee /etc/sysctl.d/90-zram.conf > /dev/null << 'EOF'
 vm.swappiness = 150
-vm.vfs_cache_pressure = 50
 vm.page-cluster = 0
-vm.watermark_scale_factor = 100
-vm.compaction_proactiveness = 50
 EOF
 
 sudo sysctl --system
@@ -203,14 +186,6 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-## Bluetooth restart
-
-```bash
-sudo rfkill unblock all
-sudo systemctl restart bluetooth
-sudo modprobe -r btusb
-sudo modprobe btusb
-```
 
 ## inotify limits
 
@@ -512,7 +487,6 @@ path_prepend "$HOME/.local/bin"
 
 # android sdk
 export ANDROID_HOME="$HOME/Android/Sdk"
-export ANDROID_SDK_ROOT="$ANDROID_HOME"
 path_prepend "$ANDROID_HOME/cmdline-tools/latest/bin"
 path_prepend "$ANDROID_HOME/emulator"
 path_prepend "$ANDROID_HOME/platform-tools"
@@ -523,13 +497,7 @@ path_prepend "$BUN_INSTALL/bin"
 
 # homebrew
 if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
-  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
-  export HOMEBREW_CELLAR="$HOMEBREW_PREFIX/Cellar"
-  export HOMEBREW_REPOSITORY="$HOMEBREW_PREFIX/Homebrew"
-  path_prepend "$HOMEBREW_PREFIX/bin"
-  path_prepend "$HOMEBREW_PREFIX/sbin"
-  [ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}"
-  export INFOPATH="$HOMEBREW_PREFIX/share/info:${INFOPATH:-}"
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 # pnpm
