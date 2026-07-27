@@ -1,0 +1,52 @@
+name: Remove systemd user environment config
+
+on:
+  push:
+    branches:
+      - agent/remove-systemd-user-environment
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+
+      - name: Remove obsolete environment section
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          paths = [
+              Path("content/configs.en.md"),
+              Path("content/configs.es.md"),
+              Path("content/configs.ja.md"),
+              Path("content/configs.zh.md"),
+          ]
+
+          pattern = re.compile(
+              r"(?ms)^## [^\n]+\n\n```bash\n"
+              r"mkdir -p ~/\.config/environment\.d\n.*?^```\n\n(?=## )"
+          )
+
+          for path in paths:
+              text = path.read_text(encoding="utf-8")
+              updated, count = pattern.subn("", text, count=1)
+              if count != 1:
+                  raise SystemExit(f"Expected one environment section in {path}, found {count}")
+              path.write_text(updated, encoding="utf-8")
+          PY
+
+          rm .github/workflows/remove-systemd-user-environment.yml
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/configs.en.md content/configs.es.md content/configs.ja.md content/configs.zh.md \
+            .github/workflows/remove-systemd-user-environment.yml
+          git diff --cached --check
+          git commit -m "Remove systemd user environment config"
+          git push
