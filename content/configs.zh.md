@@ -153,7 +153,7 @@ sudo systemctl restart NetworkManager
 
 ## SDDM AMDGPU
 
-仅 KDE。开机黑屏的官方修复（26.04 回归问题，LP: #2063143）。
+仅 KDE。用于规避 Kubuntu 26.04 中 SDDM 与 GPU 初始化竞态导致的开机黑屏问题（LP: #2063143）。
 
 ```bash
 sudo mkdir -p /etc/systemd/system/sddm.service.d && \
@@ -174,12 +174,8 @@ sudo systemctl disable --now NetworkManager-wait-online.service
 
 ```bash
 sudo tee /etc/NetworkManager/conf.d/99-mac-address-policy.conf > /dev/null << 'EOF'
-[device]
-wifi.scan-rand-mac-address=yes
-
 [connection]
 wifi.cloned-mac-address=stable
-ethernet.cloned-mac-address=preserve
 EOF
 
 sudo systemctl restart NetworkManager
@@ -215,7 +211,8 @@ sudo apt install \
 ```
 
 ```bash
-ln -s "$(command -v fdfind)" ~/.local/bin/fd
+mkdir -p ~/.local/bin && \
+  ln -sfn "$(command -v fdfind)" ~/.local/bin/fd
 ```
 
 ## 用户权限
@@ -289,7 +286,7 @@ cat > ~/.config/topgrade.toml << 'EOF'
 [misc]
 assume_yes = true
 cleanup = true
-no_retry = true
+ask_retry = false
 notify_end = "on_failure"
 EOF
 ```
@@ -300,6 +297,8 @@ EOF
 eval "$(fnm env --use-on-cd --shell bash)" && \
   fnm install --lts --use && \
   fnm default "$(fnm current)" && \
+  (command -v corepack >/dev/null || npm install --global corepack@latest) && \
+  corepack enable pnpm && \
   corepack install --global pnpm@latest && \
   mkdir -p ~/.local/share/pnpm && \
   pnpm config set global-bin-dir ~/.local/share/pnpm --location=global
@@ -315,8 +314,7 @@ cat > ~/.npmrc << 'EOF'
 ignore-scripts=true
 EOF
 
-# pnpm: 拒绝发布不到1天的包
-pnpm config set minimumReleaseAge 1440 --location=global
+# pnpm 11+：内置 1 天新包等待策略
 
 # bun: 堵住脚本和刚发布的包
 cat > ~/.bunfig.toml << 'EOF'
@@ -326,7 +324,7 @@ minimumReleaseAge=86400
 EOF
 ```
 
-这样 npm 不会执行依赖里的 `preinstall` 和 `postinstall`。pnpm 会等包发布满 1 天再接受（`1440` 分钟），bun 也一样，只是用 `86400` 秒来配。pnpm 11+ 本来就带这类攻击的防护。
+这样 npm 不会执行依赖里的 `preinstall` 和 `postinstall`。Bun 会阻止脚本和发布不到 1 天的包（`86400` 秒）。pnpm 11+ 已在非严格模式下内置 1 天发布年龄策略，不需要额外的全局设置。
 
 ## 脚本安装
 

@@ -153,7 +153,7 @@ sudo systemctl restart NetworkManager
 
 ## SDDM AMDGPU
 
-KDEのみ。boot時の黒画面の正式な修正（26.04のリグレッション、LP: #2063143）。
+KDEのみ。Kubuntu 26.04で起動時に黒画面になる可能性があるSDDMとGPU初期化の競合に対するワークアラウンド（LP: #2063143）。
 
 ```bash
 sudo mkdir -p /etc/systemd/system/sddm.service.d && \
@@ -174,12 +174,8 @@ sudo systemctl disable --now NetworkManager-wait-online.service
 
 ```bash
 sudo tee /etc/NetworkManager/conf.d/99-mac-address-policy.conf > /dev/null << 'EOF'
-[device]
-wifi.scan-rand-mac-address=yes
-
 [connection]
 wifi.cloned-mac-address=stable
-ethernet.cloned-mac-address=preserve
 EOF
 
 sudo systemctl restart NetworkManager
@@ -215,7 +211,8 @@ sudo apt install \
 ```
 
 ```bash
-ln -s "$(command -v fdfind)" ~/.local/bin/fd
+mkdir -p ~/.local/bin && \
+  ln -sfn "$(command -v fdfind)" ~/.local/bin/fd
 ```
 
 ## ユーザーパーミッション
@@ -289,7 +286,7 @@ cat > ~/.config/topgrade.toml << 'EOF'
 [misc]
 assume_yes = true
 cleanup = true
-no_retry = true
+ask_retry = false
 notify_end = "on_failure"
 EOF
 ```
@@ -300,6 +297,8 @@ EOF
 eval "$(fnm env --use-on-cd --shell bash)" && \
   fnm install --lts --use && \
   fnm default "$(fnm current)" && \
+  (command -v corepack >/dev/null || npm install --global corepack@latest) && \
+  corepack enable pnpm && \
   corepack install --global pnpm@latest && \
   mkdir -p ~/.local/share/pnpm && \
   pnpm config set global-bin-dir ~/.local/share/pnpm --location=global
@@ -315,8 +314,7 @@ cat > ~/.npmrc << 'EOF'
 ignore-scripts=true
 EOF
 
-# pnpm: 公開から1日未満のパッケージを拒否
-pnpm config set minimumReleaseAge 1440 --location=global
+# pnpm 11+: 公開後1日未満のパッケージを避ける組み込みポリシー
 
 # bun: スクリプトと公開されたばかりのパッケージをブロック
 cat > ~/.bunfig.toml << 'EOF'
@@ -326,7 +324,7 @@ minimumReleaseAge=86400
 EOF
 ```
 
-これで npm は依存関係の `preinstall` と `postinstall` を実行しない。pnpm は公開直後のパッケージを 1 日待ってから受け入れる（`1440` 分）。bun も同じことを `86400` 秒でやる。pnpm 11+ にはこの手の攻撃向けの防御が入ってる。
+これで npm は依存関係の `preinstall` と `postinstall` を実行しない。Bun はスクリプトと公開後1日未満のパッケージをブロックする（`86400` 秒）。pnpm 11+ は非strictモードで公開後1日の組み込みポリシーを適用するため、追加のグローバル設定は不要。
 
 ## スクリプトインストール
 
