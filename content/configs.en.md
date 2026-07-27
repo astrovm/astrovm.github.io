@@ -462,7 +462,7 @@ EOF
 ```bash
 # path helper
 path_prepend() {
-  [ -d "$1" ] || return
+  [ -d "$1" ] || return 0
   case ":$PATH:" in
     *":$1:"*) ;;
     *) export PATH="$1:$PATH" ;;
@@ -497,10 +497,10 @@ path_prepend "$PNPM_HOME"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
-    fi
+  # include .bashrc if it exists
+  if [ -f "$HOME/.bashrc" ]; then
+    . "$HOME/.bashrc"
+  fi
 fi
 ```
 
@@ -514,8 +514,8 @@ fi
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+  *i*) ;;
+  *) return 0 ;;
 esac
 
 HISTCONTROL=ignoreboth:erasedups
@@ -529,10 +529,15 @@ shopt -s globstar
 # PS1 is handled by starship (see below)
 
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias grep='grep --color=auto'
-    alias egrep='grep -E --color=auto'
-    alias fgrep='grep -F --color=auto'
+  if [ -r ~/.dircolors ]; then
+    eval "$(dircolors -b ~/.dircolors)"
+  else
+    eval "$(dircolors -b)"
+  fi
+
+  alias grep='grep --color=auto'
+  alias egrep='grep -E --color=auto'
+  alias fgrep='grep -F --color=auto'
 fi
 
 # aliases
@@ -543,7 +548,7 @@ alias cat='batcat --paging=never'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 
 if ! shopt -oq posix; then
@@ -561,7 +566,11 @@ command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
 command -v starship >/dev/null && eval "$(starship init bash)"
 
 # thefuck - lazy load
-fuck() { unset -f fuck; eval "$(thefuck --alias)"; fuck "$@"; }
+fuck() {
+  unset -f fuck
+  eval "$(thefuck --alias)"
+  fuck "$@"
+}
 
 # fzf
 command -v fzf >/dev/null && eval "$(fzf --bash)"
