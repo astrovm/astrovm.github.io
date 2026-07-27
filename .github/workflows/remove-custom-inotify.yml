@@ -1,0 +1,60 @@
+name: Remove custom inotify config
+
+on:
+  push:
+    branches:
+      - agent/remove-custom-inotify-config
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove custom inotify sections
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          paths = sorted(Path("content").glob("configs.*.md"))
+          if len(paths) != 4:
+              raise SystemExit(f"Expected 4 config pages, found {len(paths)}")
+
+          pattern = re.compile(
+              r'\n## [^\n]*inotify[^\n]*\n\n'
+              r'[^\n]*\n\n'
+              r'```bash\n'
+              r'echo "fs\.inotify\.max_user_instances = 1024" \| sudo tee /etc/sysctl\.d/90-inotify\.conf\n'
+              r'sudo sysctl --system\n'
+              r'```\n'
+          )
+
+          for path in paths:
+              text = path.read_text()
+              text, count = pattern.subn("\n", text, count=1)
+              if count != 1:
+                  raise SystemExit(f"Expected one custom inotify section in {path}, found {count}")
+              if "90-inotify.conf" in text or "fs.inotify.max_user_instances = 1024" in text:
+                  raise SystemExit(f"Custom inotify setting remains in {path}")
+              path.write_text(text)
+          PY
+
+          git diff --check
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add content/configs.*.md
+          git diff --cached --check
+          git commit -m "Remove custom inotify config"
+          git push
+
+      - name: Remove temporary workflow
+        run: |
+          rm .github/workflows/remove-custom-inotify.yml
+          git add .github/workflows/remove-custom-inotify.yml
+          git commit -m "Remove temporary workflow"
+          git push
