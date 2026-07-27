@@ -186,7 +186,6 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-
 ## inotify limits
 
 Increase file watcher instances for IDEs and development tools:

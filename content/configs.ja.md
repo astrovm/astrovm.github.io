@@ -186,7 +186,6 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-
 ## inotify limits
 
 IDE と開発ツール用のファイルウォッチャーインスタンスを増やす:

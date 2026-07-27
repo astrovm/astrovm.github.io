@@ -186,7 +186,6 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-
 ## inotify 限制
 
 增加文件监视器实例，用于 IDE 和开发工具:
