@@ -1,7 +1,6 @@
 {{ $xtermCSS := resources.Get "xterm/xterm.css" | fingerprint }}
 {{ $twCSS := resources.Get "terminal-window/terminal-window.css" | fingerprint }}
 {{ $xtermJS := resources.Get "xterm/xterm.js" | fingerprint }}
-{{ $fitJS := resources.Get "xterm/addon-fit.js" | fingerprint }}
 {{ $webglJS := resources.Get "xterm/addon-webgl.js" | fingerprint }}
 {{ $twJS := resources.Get "terminal-window/terminal-window.js" | fingerprint }}
 {{ $langJS := resources.Get "language.js" | fingerprint }}
@@ -12,7 +11,6 @@
 <link rel="stylesheet" href="{{ $xtermCSS.Permalink }}" />
 <link rel="stylesheet" href="{{ $twCSS.Permalink }}" />
 <script src="{{ $xtermJS.Permalink }}" defer></script>
-<script src="{{ $fitJS.Permalink }}" defer></script>
 <script src="{{ $webglJS.Permalink }}" defer></script>
 <script src="{{ $twJS.Permalink }}" defer></script>
 <script src="{{ $langJS.Permalink }}" defer></script>

@@ -5,6 +5,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  /* Glass body (xterm cell layer stays transparent; see terminal-window.js theme) */
+  background: rgba(0, 0, 0, 0.8);
   border: 1px solid #444;
   border-radius: 6px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -15,6 +17,14 @@
   -webkit-transform-style: preserve-3d;
   -webkit-backface-visibility: hidden;
   overflow: hidden;
+}
+
+/* xterm.css defaults viewport to #000 which kills transparency */
+#terminal-window .xterm,
+#terminal-window .xterm-viewport,
+#terminal-window .xterm-screen {
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 #terminal-window.dragging {
