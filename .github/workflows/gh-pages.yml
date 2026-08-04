@@ -30,6 +30,7 @@ jobs:
       - name: Build
         run: |
           hugo --minify
+          # English at / for noscript; JS language.js sends / to preferred lang.
           cp -r public/en/. public/
 
       - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
