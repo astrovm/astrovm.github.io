@@ -22,8 +22,16 @@ const CONSTANTS = {
     FONT_SIZE: 16,
     FONT_FAMILY: "monospace",
     SCROLLBACK: 1000,
+    // Default floating window size (cols × rows), before viewport caps.
+    DEFAULT_COLS: 80,
+    DEFAULT_ROWS: 24,
+    // Title bar height in CSS (must match .window-title height).
+    TITLEBAR_PX: 24,
+    // Normal (non-maximized) size as a fraction of the layout viewport.
+    NORMAL_VIEW_FRACTION: 0.96,
+    // Cell layer clear; dim glass is on #terminal-window in CSS.
     THEME: {
-      background: "rgba(0, 0, 0, 0.8)",
+      background: "rgba(0, 0, 0, 0)",
       foreground: "#0f0",
       cursor: "#0f0",
     },
@@ -38,7 +46,6 @@ class TerminalState {
     this.pendingUser = null;
     this.term = null;
     this.promptIssued = false;
-    this.fitAddon = null;
     this.webglAddon = null;
     this.commandBuffer = "";
     this.cursorPosition = 0;
@@ -52,19 +59,11 @@ class TerminalState {
     this.intervals.forEach(clearInterval);
     this.intervals = [];
 
-    // Dispose WebGL addon first if it exists
     if (this.webglAddon) {
       this.webglAddon.dispose();
       this.webglAddon = null;
     }
 
-    // Dispose fit addon if it exists
-    if (this.fitAddon) {
-      this.fitAddon.dispose();
-      this.fitAddon = null;
-    }
-
-    // Finally dispose the terminal
     if (this.term) {
       this.term.dispose();
       this.term = null;
@@ -136,22 +135,16 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize xterm.js
     state.term = new Terminal({
       cursorBlink: true,
+      allowTransparency: true,
       theme: CONSTANTS.TERMINAL.THEME,
       fontSize: CONSTANTS.TERMINAL.FONT_SIZE,
       fontFamily: CONSTANTS.TERMINAL.FONT_FAMILY,
       scrollback: CONSTANTS.TERMINAL.SCROLLBACK,
     });
 
-    // Initialize and load the fit addon
-    state.fitAddon = new FitAddon.FitAddon();
-    state.term.loadAddon(state.fitAddon);
-
-    // Try to initialize WebGL addon
     try {
       state.webglAddon = new WebglAddon.WebglAddon();
       state.term.loadAddon(state.webglAddon);
-
-      // Handle WebGL addon errors
       state.webglAddon.onContextLoss(() => {
         state.webglAddon.dispose();
         state.webglAddon = null;
@@ -732,6 +725,7 @@ class TerminalUI {
     this.isDragging = false;
     this.offsetX = 0;
     this.offsetY = 0;
+    this._scrollbarWidth = null;
 
     // Bind methods
     this.handleDragStart = this.handleDragStart.bind(this);
@@ -800,72 +794,89 @@ class TerminalUI {
     this.elem.classList.remove("dragging");
   }
 
+  // Browser scrollbar width (for chrome sizing), not the terminal scrollback bar.
+  // Cached — OS chrome width does not change during a page session.
+  measureScrollbarWidth() {
+    if (this._scrollbarWidth != null) return this._scrollbarWidth;
+
+    const outer = document.createElement("div");
+    outer.style.visibility = "hidden";
+    outer.style.overflow = "scroll";
+    document.body.appendChild(outer);
+    const inner = document.createElement("div");
+    outer.appendChild(inner);
+    this._scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+    document.body.removeChild(outer);
+    return this._scrollbarWidth;
+  }
+
+  // xterm.js does not expose cell metrics on the public API; this is the same
+  // path the official FitAddon uses. Isolated here so upgrades only touch one place.
+  getCellSize(term) {
+    const cell = term?._core?._renderService?.dimensions?.css?.cell;
+    if (!cell?.width || !cell?.height) return null;
+    return { width: cell.width, height: cell.height };
+  }
+
+  // Grid from viewport + measured cell size, then size the window chrome to match
+  // (default ~80×24, maximize = full client area inside the browser scrollbar).
+  proposeTerminalSize(scrollbarWidth) {
+    const term = this.state.term;
+    if (!term?.element) return null;
+
+    const cell = this.getCellSize(term);
+    if (!cell) return null;
+
+    const { DEFAULT_COLS, DEFAULT_ROWS, TITLEBAR_PX, NORMAL_VIEW_FRACTION } =
+      CONSTANTS.TERMINAL;
+    const maximized = this.elem.classList.contains("maximized");
+    const fraction = maximized ? 1 : NORMAL_VIEW_FRACTION;
+    const viewWidth = document.documentElement.clientWidth * fraction;
+    const viewHeight = document.documentElement.clientHeight * fraction;
+    const maxCols = Math.floor((viewWidth - scrollbarWidth) / cell.width);
+    const maxRows = Math.floor((viewHeight - TITLEBAR_PX) / cell.height);
+
+    return {
+      cols: maximized ? maxCols : Math.min(DEFAULT_COLS, maxCols),
+      rows: maximized ? maxRows : Math.min(DEFAULT_ROWS, maxRows),
+      cellWidth: cell.width,
+      cellHeight: cell.height,
+    };
+  }
+
   handleResize(timeout = CONSTANTS.TIMEOUT.TRANSITION) {
-    if (this.state.active) {
-      setTimeout(() => {
-        // Calculate scrollbar width
-        const calculateScrollbarWidth = () => {
-          const outer = document.createElement("div");
-          outer.style.visibility = "hidden";
-          outer.style.overflow = "scroll";
-          document.body.appendChild(outer);
+    if (!this.state.active || !this.state.term) return;
 
-          const inner = document.createElement("div");
-          outer.appendChild(inner);
+    setTimeout(() => {
+      const scrollbarWidth = this.measureScrollbarWidth();
+      const size = this.proposeTerminalSize(scrollbarWidth);
+      if (!size || size.cols < 2 || size.rows < 1) return;
 
-          const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+      const term = this.state.term;
+      if (term.cols !== size.cols || term.rows !== size.rows) {
+        term.resize(size.cols, size.rows);
+      }
 
-          document.body.removeChild(outer);
-          return scrollbarWidth;
-        };
-        const scrollbarWidth = calculateScrollbarWidth();
+      // Window chrome tracks the grid (scrollbar gutter + title bar).
+      const { TITLEBAR_PX } = CONSTANTS.TERMINAL;
+      this.elem.style.width = `${size.cols * size.cellWidth + scrollbarWidth}px`;
+      this.elem.style.height = `${size.rows * size.cellHeight + TITLEBAR_PX}px`;
 
-        // Fit the terminal with parameters
-        if (!this.elem.classList.contains("maximized")) {
-          this.state.fitAddon.fit({
-            scrollbarWidth,
-            sizePercent: 0.96,
-            isMaximized: false,
-          });
-        } else {
-          this.state.fitAddon.fit({
-            scrollbarWidth,
-            sizePercent: 1,
-            isMaximized: true,
-          });
-        }
+      if (this.elem.classList.contains("maximized") || this.isDragging) return;
 
-        // Only reposition if not maximized and not dragging
-        if (!this.elem.classList.contains("maximized") && !this.isDragging) {
-          const rect = this.elem.getBoundingClientRect();
-          const windowWidth = window.innerWidth;
-          const windowHeight = window.innerHeight;
+      const rect = this.elem.getBoundingClientRect();
+      const outside =
+        rect.left < 0 ||
+        rect.top < 0 ||
+        rect.right > window.innerWidth ||
+        rect.bottom > window.innerHeight;
 
-          // Check if terminal is outside visible area
-          const isOutsideX = rect.left < 0 || rect.right > windowWidth;
-          const isOutsideY = rect.top < 0 || rect.bottom > windowHeight;
-
-          if (isOutsideX || isOutsideY) {
-            this.elem.style.transform = "translate(-50%, -50%)";
-            this.elem.style.left = "50%";
-            this.elem.style.top = "50%";
-          }
-        }
-
-        // Get terminal dimensions before fitting
-        const dimensions = this.state.term._core._renderService.dimensions;
-
-        // Calculate the window size based on terminal dimensions
-        const cols = this.state.term.cols;
-        const rows = this.state.term.rows;
-        const cellWidth = dimensions.css.cell.width;
-        const cellHeight = dimensions.css.cell.height;
-
-        // Set window size to match terminal content + scrollbar
-        this.elem.style.width = `${cols * cellWidth + scrollbarWidth}px`;
-        this.elem.style.height = `${rows * cellHeight + 24}px`; // 24px for titlebar
-      }, timeout);
-    }
+      if (outside) {
+        this.elem.style.transform = "translate(-50%, -50%)";
+        this.elem.style.left = "50%";
+        this.elem.style.top = "50%";
+      }
+    }, timeout);
   }
 
   close() {

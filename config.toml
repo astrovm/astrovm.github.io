@@ -5,6 +5,34 @@ theme = "terminal"
 pagerSize = 5
 hasCJKLanguage = true
 
+# xterm packages from node_modules (requires: bun install before hugo).
+# Floating-window sizing lives in terminal-window.js (not @xterm/addon-fit).
+# Any [[module.mounts]] replaces Hugo defaults — re-declare project dirs.
+[module]
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+  [[module.mounts]]
+    source = "node_modules/@xterm/xterm/css"
+    target = "assets/xterm"
+  [[module.mounts]]
+    source = "node_modules/@xterm/xterm/lib"
+    target = "assets/xterm"
+    excludeFiles = ["**/*.map", "**/*.mjs"]
+  [[module.mounts]]
+    source = "node_modules/@xterm/addon-webgl/lib"
+    target = "assets/xterm"
+    excludeFiles = ["**/*.map", "**/*.mjs"]
+
 [markup.goldmark.renderer]
   unsafe = true
 
