@@ -2,12 +2,8 @@
   <li class="menu__trigger">{{ .Language.LanguageName }}&nbsp;▾</li>
   <li>
     <ul class="menu__dropdown">
-      {{ range .Translations }}
-        <li>
-          <a href="{{ .Permalink }}" onclick="setLanguage('{{ .Language.Lang }}')">
-            {{ .Language.LanguageName }}
-          </a>
-        </li>
+      {{ range $.Site.Home.AllTranslations }}
+        <li><a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a></li>
       {{ end }}
     </ul>
   </li>

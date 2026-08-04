@@ -7,13 +7,11 @@
           <li><a href="{{ .URL }}">{{ .Name }}</a></li>
         {{ end }}
       {{ end }}
-      {{ if and $.Site.Params.showLanguageSelector (gt (len .AllTranslations) 1) }}
+      {{ if and $.Site.Params.showLanguageSelector (len $.Site.Home.AllTranslations) }}
         <hr />
-        {{ range .Translations }}
+        {{ range $.Site.Home.AllTranslations }}
           <li>
-            <a href="{{ .Permalink }}" onclick="setLanguage('{{ .Language.Lang }}')">
-              {{ .Language.LanguageName }}
-            </a>
+            <a href="{{ .Permalink }}">{{ .Language.LanguageName }}</a>
           </li>
         {{ end }}
       {{ end }}
