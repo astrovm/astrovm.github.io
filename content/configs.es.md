@@ -153,7 +153,7 @@ sudo systemctl restart NetworkManager
 
 ## SDDM AMDGPU
 
-Solo KDE. Workaround para una condición de carrera entre SDDM y la inicialización de la GPU que puede causar una pantalla negra al bootear en Kubuntu 26.04 (LP: #2063143).
+Solo KDE. Workaround para una race condition entre SDDM y la inicialización de la GPU que puede causar una pantalla negra al bootear en Kubuntu 26.04 (LP: #2063143).
 
 ```bash
 sudo mkdir -p /etc/systemd/system/sddm.service.d && \
