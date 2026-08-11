@@ -386,40 +386,9 @@ curl -fsSL https://chatgpt.com/codex/install.sh | sh
 
 ## Codex Desktop
 
-从 macOS 官方 DMG 做出来的非官方 Codex Desktop Linux build: <https://github.com/ilysenko/codex-desktop-linux>。
-
-用原生包安装（Kubuntu/Ubuntu 上是 `.deb`），顺手打开 Computer Use UI、remote/mobile：
-
 ```bash
-sudo apt install ydotool xdg-desktop-portal-kde
-sudo usermod -a -G input "$USER"
-systemctl --user enable --now ydotool.service
-flatpak permission-set kde-authorized remote-desktop "" yes
-
-git clone https://github.com/ilysenko/codex-desktop-linux.git ~/Documents/codex-desktop-linux
-cd ~/Documents/codex-desktop-linux
-
-cat > linux-features/features.json << 'EOF'
-{
-  "enabled": [
-    "open-target-discovery",
-    "remote-control-ui",
-    "remote-mobile-control"
-  ]
-}
-EOF
-
-mkdir -p ~/.config/codex-desktop
-echo '{"codex-linux-computer-use-ui-enabled": true}' > ~/.config/codex-desktop/settings.json
-
-make bootstrap-native
+curl -fsSLo /tmp/chatgpt.deb https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb && sudo apt install -y /tmp/chatgpt.deb && rm /tmp/chatgpt.deb
 ```
-
-`make bootstrap-native` 会装依赖、下载 `Codex.dmg`、生成 `codex-app/`、打原生包并安装。依赖已经有了就用 `make install-native`。
-
-Computer Use 要能发输入，给用户加进 `input` 组之后要退出登录再进来。
-
-`kde-authorized` 这条会让没有 `app_id` 的本机 app 跳过 KDE Remote Control 弹窗。省事，但范围比较大。
 
 ## Trezor Suite
 
