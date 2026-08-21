@@ -43,7 +43,7 @@ Disco de datos:
 - Habilitar Above 4G Decoding
 - Habilitar Resizable BAR
 - Habilitar SVM Mode / AMD-V
-- Habilitar Secure Boot
+- Deshabilitar Secure Boot
 - Deshabilitar CSM
 - Configurar los coolers para que hagan el menor ruido posible
 
@@ -222,15 +222,15 @@ sudo systemctl restart NetworkManager
 ```bash
 sudo apt install \
   7zip adb antiword aria2 aspell-es atuin audacity autoconf automake axel bat \
-  bear ble.sh bleachbit brightnessctl btop build-essential buildah \
+  bear bind9-dnsutils ble.sh bleachbit brightnessctl btop build-essential buildah \
   ca-certificates cabextract clamav clang cmake cmatrix cockpit cockpit-podman cowsay \
-  criu curl ddcui ddcutil diffoscope direnv distrobox dnsutils duf \
+  criu curl ddcui ddcutil diffoscope direnv distrobox duf \
   editorconfig expect eza fastboot fcitx5-mozc fd-find ffmpeg ffmpegthumbnailer filelight \
   firejail flatpak fortune-mod fzf gamemode gdb ghostty gifsicle \
   git glab gnupg golang-go gwenview handbrake hashcat httpie hugo \
   hunspell-en-us hunspell-es hw-probe hyperfine hyphen-en-us hyphen-es \
   inotify-tools iotop-c isoimagewriter jo jq just kcalc kde-config-flatpak \
-  lazygit libfuse-dev libfuse3-dev libtool libvirt-daemon-system lolcat \
+  lazygit libfuse-dev libfuse3-dev libtool libvirt-daemon-system \
   magic-wormhole meson moreutils mpv mythes-en-us mythes-es ncdu needrestart \
   neovim nethogs ninja-build nload nmap nvtop okular openrgb optipng pamixer \
   pandoc pdfgrep pipx pkg-config plasma-discover-backend-flatpak playerctl \
@@ -695,7 +695,6 @@ Pegar la clave pública en <https://github.com/settings/ssh>.
 # Extensiones de Brave
 
 - [Augmented Steam](https://chromewebstore.google.com/detail/augmented-steam/dnhpnfgdlenaccegplpojghhmaamnnfp)
-- [DeArrow](https://chromewebstore.google.com/detail/dearrow-better-titles-and/enamippconapkdmgfgjchkhakpfinmaj)
 - [DuckDuckGo Search & Tracker Protection](https://chromewebstore.google.com/detail/duckduckgo-search-tracker-protection/bkdgflcldnnnapblkhphbgpggdiikppg)
 - [JSON Formatter](https://chromewebstore.google.com/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa)
 - [Privacy Settings](https://chromewebstore.google.com/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj)
