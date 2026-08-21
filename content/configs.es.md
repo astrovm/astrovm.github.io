@@ -98,9 +98,13 @@ Los dos filesystems XFS tienen compresión y deduplicación VDO por debajo. Cada
 
 ```ini
 # /etc/lvm/lvm.conf
-vdo_pool_autoextend_threshold=70
-vdo_pool_autoextend_percent=5
+activation {
+  vdo_pool_autoextend_threshold=70
+  vdo_pool_autoextend_percent=5
+}
 ```
+
+La extensión automática requiere que `dmeventd` monitoree cada pool VDO. Verificar que `seg_monitor` muestre `monitored` en la salida de `lvs`.
 
 ```bash
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
@@ -433,7 +437,7 @@ Config:
 
 - Tipo: Btrfs
 - Ubicación: root Btrfs del disco del sistema
-- Schedule: diario + boot
+- Schedule: diario + semanal + boot
 - Mantener: 3 diarios, 3 boot, 2 semanales
 - `/home` y `/data`: no se incluyen; los dos son filesystems XFS separados
 

@@ -98,9 +98,13 @@ UUID=<data-xfs-uuid>   /data  xfs   defaults,noatime,nofail,x-systemd.device-tim
 
 ```ini
 # /etc/lvm/lvm.conf
-vdo_pool_autoextend_threshold=70
-vdo_pool_autoextend_percent=5
+activation {
+  vdo_pool_autoextend_threshold=70
+  vdo_pool_autoextend_percent=5
+}
 ```
+
+自動拡張には、`dmeventd`による各VDOプールの監視が必要。`lvs`の出力で`seg_monitor`が`monitored`になっていることを確認する。
 
 ```bash
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
@@ -433,7 +437,7 @@ sudo timeshift-gtk
 
 - タイプ: Btrfs
 - ロケーション: システムディスクのBtrfs root
-- スケジュール: 毎日 + boot時
+- スケジュール: 毎日 + 毎週 + boot時
 - 保持: 3個の毎日、3個のboot、2個の毎週
 - `/home`と`/data`: 含めない。どちらも別のXFSファイルシステム
 
