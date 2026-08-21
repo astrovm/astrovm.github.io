@@ -19,13 +19,22 @@ hideComments = true
 
 # ベースインストール
 
-Kubuntu 26.04をUEFIモードでインストール：
+Kubuntu 26.04をUEFIモードでインストール。両方のNVMeでLUKS2を使用。
 
-- Btrfs
-- Swap file
-- LUKS有効
+システムディスク：
 
-レイアウト: サブボリューム`/@`、`/@home`、`/@swap`、swap fileは`/swap/swapfile`、ディスクはLUKSで暗号化。
+- 1 GiBのEFIシステムパーティション
+- 4 GiBのext4 `/boot`
+- LUKS2 -> LVM
+- 96 GiBのBtrfs `/`、サブボリュームは`/@`と`/@swap`
+- 圧縮と重複排除を有効にした357 GiBのVDOプール上に370 GiBのXFS `/home`
+- `/swap/swapfile`に4 GiBのswap file
+
+データディスク：
+
+- LUKS2 -> LVM VDO -> 470 GiBのXFS `/data`
+- 圧縮と重複排除を有効にした453 GiBの物理VDOプール
+- 暗号化されたシステムディスク上のキーで自動unlock、別にリカバリーpassphraseを設定
 
 # BIOS
 
@@ -55,32 +64,52 @@ done && sudo update-grub
 
 ## LUKS performance
 
-```bash
-sudo dmsetup table
-
-sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
-```
-
-- `no_read_workqueue` / `no_write_workqueue` - NVMeでレイテンシが下がる。
-- `allow-discards` - SSDでTRIMを有効化。
-
-## Btrfs mounts
-
-Kubuntuがサブボリュームとswap fileを作ってくれる。`/tmp` はsystemdで最初からtmpfs。変えるのはmount optionsだけ。
-
-```bash
-sudo nvim /etc/fstab
-```
-
-`/` と `/home` で、`autodefrag` があれば消して `compress=zstd` を足す：
+永続オプションは`/etc/crypttab`に設定：
 
 ```ini
-/dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
-/dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
+system_crypt UUID=<system-luks-uuid> none luks,discard,no-read-workqueue,no-write-workqueue
+data_crypt UUID=<data-luks-uuid> /etc/cryptsetup-keys.d/data_crypt.key luks,discard,no-read-workqueue,no-write-workqueue,nofail
 ```
 
-- `noatime` - 書き込みを減らす。
-- `compress=zstd` - 透過圧縮。
+有効なmappingを確認：
+
+```bash
+sudo cryptsetup status system_crypt
+sudo cryptsetup status data_crypt
+```
+
+- `no-read-workqueue` / `no-write-workqueue`はNVMeでdm-crypt内部のworkqueueをバイパスする。
+- `discard`はdiscardリクエストをLUKSの下へ渡す。SSDとVDOが削除済みblockを回収できるが、割り当てパターンが見えるというtrade-offがある。
+- データディスクのキーは、システムディスクのLUKS暗号化によって保存時に保護される。
+
+## ファイルシステムとVDO
+
+`/etc/fstab`の関連entry：
+
+```ini
+UUID=<root-btrfs-uuid> /      btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
+UUID=<home-xfs-uuid>   /home  xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /swap  btrfs subvol=/@swap,defaults,noatime 0 0
+/swap/swapfile         none   swap  defaults 0 0
+UUID=<data-xfs-uuid>   /data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
+```
+
+両方のXFSファイルシステムの下でVDOの圧縮と重複排除を有効化。各VDOプールはvolume groupの初期空き領域の95%を使用する。残りのextentは物理使用量が増えたときのLVMによるpool拡張に使う。
+
+```ini
+# /etc/lvm/lvm.conf
+vdo_pool_autoextend_threshold=70
+vdo_pool_autoextend_percent=5
+```
+
+```bash
+sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
+sudo vdostats --human-readable
+```
+
+- `noatime`はmetadataの書き込みを減らす。
+- `compress=zstd:3`はBtrfs rootで透過圧縮を有効にする。
+- `/tmp`はsystemdによってすでにtmpfsになっている。
 
 ## sysctl
 
@@ -403,10 +432,10 @@ sudo timeshift-gtk
 設定:
 
 - タイプ: Btrfs
-- ロケーション: システムと同じBtrfsディスク
+- ロケーション: システムディスクのBtrfs root
 - スケジュール: 毎日 + boot時
 - 保持: 3個の毎日、3個のboot、2個の毎週
-- `/home`: ユーザーデータは含めない
+- `/home`と`/data`: 含めない。どちらも別のXFSファイルシステム
 
 # Shellとターミナル
 

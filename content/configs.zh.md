@@ -19,13 +19,22 @@ hideComments = true
 
 # 基础安装
 
-Kubuntu 26.04 用 UEFI 模式安装：
+Kubuntu 26.04 用 UEFI 模式安装。两个 NVMe 都使用 LUKS2。
 
-- Btrfs
-- Swap file
-- 启用 LUKS
+系统盘：
 
-布局：子卷 `/@`、`/@home` 和 `/@swap`，swap file 在 `/swap/swapfile`，磁盘用 LUKS 加密。
+- 1 GiB EFI 系统分区
+- 4 GiB ext4 `/boot`
+- LUKS2 -> LVM
+- 96 GiB Btrfs `/`，子卷为 `/@` 和 `/@swap`
+- 370 GiB XFS `/home`，位于启用压缩和重复数据删除的 357 GiB VDO 池上
+- `/swap/swapfile` 中有 4 GiB swap file
+
+数据盘：
+
+- LUKS2 -> LVM VDO -> 470 GiB XFS `/data`
+- 453 GiB 物理 VDO 池，启用压缩和重复数据删除
+- 使用保存在加密系统盘上的密钥自动解锁，并设置单独的恢复 passphrase
 
 # BIOS
 
@@ -55,32 +64,52 @@ done && sudo update-grub
 
 ## LUKS performance
 
-```bash
-sudo dmsetup table
-
-sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
-```
-
-- `no_read_workqueue` / `no_write_workqueue` - NVMe 上延迟更低。
-- `allow-discards` - 在 SSD 上启用 TRIM。
-
-## Btrfs mounts
-
-Kubuntu 已经创建好子卷和 swap file。`/tmp` 已经由 systemd 放在 tmpfs。我只改 mount options：
-
-```bash
-sudo nvim /etc/fstab
-```
-
-在 `/` 和 `/home` 上，如果有 `autodefrag` 就删掉，再加 `compress=zstd`：
+持久选项放在 `/etc/crypttab` 中：
 
 ```ini
-/dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
-/dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
+system_crypt UUID=<system-luks-uuid> none luks,discard,no-read-workqueue,no-write-workqueue
+data_crypt UUID=<data-luks-uuid> /etc/cryptsetup-keys.d/data_crypt.key luks,discard,no-read-workqueue,no-write-workqueue,nofail
 ```
 
-- `noatime` - 少写点。
-- `compress=zstd` - 透明压缩。
+检查当前 mapping：
+
+```bash
+sudo cryptsetup status system_crypt
+sudo cryptsetup status data_crypt
+```
+
+- `no-read-workqueue` / `no-write-workqueue` 在 NVMe 上绕过 dm-crypt 内部 workqueue。
+- `discard` 将 discard 请求传过 LUKS。这样 SSD 和 VDO 可以回收已删除的 block，但会暴露分配模式。
+- 数据盘密钥静态存储时受系统盘 LUKS 加密保护。
+
+## 文件系统与 VDO
+
+`/etc/fstab` 中的相关条目：
+
+```ini
+UUID=<root-btrfs-uuid> /      btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
+UUID=<home-xfs-uuid>   /home  xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /swap  btrfs subvol=/@swap,defaults,noatime 0 0
+/swap/swapfile         none   swap  defaults 0 0
+UUID=<data-xfs-uuid>   /data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
+```
+
+两个 XFS 文件系统的下层都启用了 VDO 压缩和重复数据删除。每个 VDO 池初始使用 volume group 可用空间的 95%。剩余 extent 可让 LVM 在物理使用量过高时扩展 VDO 池。
+
+```ini
+# /etc/lvm/lvm.conf
+vdo_pool_autoextend_threshold=70
+vdo_pool_autoextend_percent=5
+```
+
+```bash
+sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
+sudo vdostats --human-readable
+```
+
+- `noatime` 减少 metadata 写入。
+- `compress=zstd:3` 在 Btrfs root 上启用透明压缩。
+- `/tmp` 已经由 systemd 设置为 tmpfs。
 
 ## sysctl
 
@@ -403,10 +432,10 @@ sudo timeshift-gtk
 配置：
 
 - 类型：Btrfs
-- 位置：和系统同一个 Btrfs 磁盘
+- 位置：系统盘上的 Btrfs root
 - 调度：每日 + 启动时
 - 保留：3 个每日、3 个启动、2 个每周
-- `/home`: 不包含用户数据
+- `/home` 和 `/data`：不包含；两者都是单独的 XFS 文件系统
 
 # Shell和终端
 

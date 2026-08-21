@@ -19,13 +19,22 @@ hideComments = true
 
 # Instalación base
 
-Kubuntu 26.04 instalado en modo UEFI con:
+Kubuntu 26.04 instalado en modo UEFI. Los dos NVMe usan LUKS2.
 
-- Btrfs
-- Swap file
-- LUKS activado
+Disco del sistema:
 
-Layout: subvolúmenes `/@`, `/@home` y `/@swap`, swap file en `/swap/swapfile`, disco cifrado con LUKS.
+- Partición EFI de 1 GiB
+- `/boot` ext4 de 4 GiB
+- LUKS2 -> LVM
+- `/` Btrfs de 96 GiB con los subvolúmenes `/@` y `/@swap`
+- `/home` XFS de 370 GiB sobre un pool VDO físico de 357 GiB con compresión y deduplicación
+- Swap file de 4 GiB en `/swap/swapfile`
+
+Disco de datos:
+
+- LUKS2 -> LVM VDO -> `/data` XFS de 470 GiB
+- Pool VDO físico de 453 GiB con compresión y deduplicación
+- Desbloqueo automático con una clave guardada en el disco cifrado del sistema; passphrase de recuperación separada
 
 # BIOS
 
@@ -55,32 +64,52 @@ done && sudo update-grub
 
 ## LUKS performance
 
-```bash
-sudo dmsetup table
-
-sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
-```
-
-- `no_read_workqueue` / `no_write_workqueue` - menos latencia en NVMe.
-- `allow-discards` - habilita TRIM en SSD.
-
-## Btrfs mounts
-
-Kubuntu ya crea los subvolúmenes y el swap file. `/tmp` ya viene en tmpfs por systemd. Solo cambio opciones de mount:
-
-```bash
-sudo nvim /etc/fstab
-```
-
-En `/` y `/home`, sacar `autodefrag` si está y agregar `compress=zstd`:
+Las opciones persistentes están en `/etc/crypttab`:
 
 ```ini
-/dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
-/dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
+system_crypt UUID=<system-luks-uuid> none luks,discard,no-read-workqueue,no-write-workqueue
+data_crypt UUID=<data-luks-uuid> /etc/cryptsetup-keys.d/data_crypt.key luks,discard,no-read-workqueue,no-write-workqueue,nofail
 ```
 
-- `noatime` - menos escrituras.
-- `compress=zstd` - compresión transparente.
+Para verificar los mappings activos:
+
+```bash
+sudo cryptsetup status system_crypt
+sudo cryptsetup status data_crypt
+```
+
+- `no-read-workqueue` / `no-write-workqueue` saltean las workqueues internas de dm-crypt en los NVMe.
+- `discard` pasa los descartes a través de LUKS. Ayuda al SSD y a VDO a recuperar bloques borrados, pero expone patrones de asignación.
+- La clave del disco de datos está protegida en reposo por el LUKS del disco del sistema.
+
+## Filesystems y VDO
+
+Entradas relevantes de `/etc/fstab`:
+
+```ini
+UUID=<root-btrfs-uuid> /      btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
+UUID=<home-xfs-uuid>   /home  xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /swap  btrfs subvol=/@swap,defaults,noatime 0 0
+/swap/swapfile         none   swap  defaults 0 0
+UUID=<data-xfs-uuid>   /data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
+```
+
+Los dos filesystems XFS tienen compresión y deduplicación VDO por debajo. Cada pool VDO usa inicialmente el 95% del espacio libre de su volume group. Los extents restantes permiten que LVM extienda el pool si aumenta mucho el uso físico.
+
+```ini
+# /etc/lvm/lvm.conf
+vdo_pool_autoextend_threshold=70
+vdo_pool_autoextend_percent=5
+```
+
+```bash
+sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
+sudo vdostats --human-readable
+```
+
+- `noatime` reduce las escrituras de metadata.
+- `compress=zstd:3` habilita compresión transparente en el root Btrfs.
+- `/tmp` ya es un tmpfs provisto por systemd.
 
 ## sysctl
 
@@ -403,10 +432,10 @@ sudo timeshift-gtk
 Config:
 
 - Tipo: Btrfs
-- Ubicación: mismo disco Btrfs del sistema
+- Ubicación: root Btrfs del disco del sistema
 - Schedule: diario + boot
 - Mantener: 3 diarios, 3 boot, 2 semanales
-- `/home`: no incluir datos de usuario
+- `/home` y `/data`: no se incluyen; los dos son filesystems XFS separados
 
 # Shell y terminal
 
