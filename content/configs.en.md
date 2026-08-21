@@ -19,13 +19,22 @@ hideComments = true
 
 # Base installation
 
-Kubuntu 26.04 installed in UEFI mode with:
+Kubuntu 26.04 installed in UEFI mode. Both NVMe drives use LUKS2.
 
-- Btrfs
-- Swap file
-- LUKS enabled
+System disk:
 
-Layout: subvols `/@`, `/@home`, and `/@swap`, swap file at `/swap/swapfile`, disk encrypted with LUKS.
+- 1 GiB EFI system partition
+- 4 GiB ext4 `/boot`
+- LUKS2 -> LVM
+- 96 GiB Btrfs `/` with subvolumes `/@` and `/@swap`
+- 370 GiB XFS `/home` on a 357 GiB VDO pool with compression and deduplication
+- 4 GiB swap file at `/swap/swapfile`
+
+Data disk:
+
+- LUKS2 -> LVM VDO -> 470 GiB XFS `/data`
+- 453 GiB physical VDO pool with compression and deduplication
+- Automatic unlock with a key stored on the encrypted system disk; separate recovery passphrase
 
 # BIOS
 
@@ -34,7 +43,7 @@ Layout: subvols `/@`, `/@home`, and `/@swap`, swap file at `/swap/swapfile`, dis
 - Enable Above 4G Decoding
 - Enable Resizable BAR
 - Enable SVM Mode / AMD-V
-- Enable Secure Boot
+- Disable Secure Boot
 - Disable CSM
 - Tune fan curves for silence
 
@@ -55,32 +64,56 @@ done && sudo update-grub
 
 ## LUKS performance
 
-```bash
-sudo dmsetup table
-
-sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
-```
-
-- `no_read_workqueue` / `no_write_workqueue` - lower latency on NVMe.
-- `allow-discards` - enables TRIM on SSD.
-
-## Btrfs mounts
-
-Kubuntu already creates the subvols and swap file. `/tmp` already comes as tmpfs through systemd. I only change mount options:
-
-```bash
-sudo nvim /etc/fstab
-```
-
-On `/` and `/home`, remove `autodefrag` if present and add `compress=zstd`:
+The persistent options are in `/etc/crypttab`:
 
 ```ini
-/dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
-/dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
+system_crypt UUID=<system-luks-uuid> none luks,discard,no-read-workqueue,no-write-workqueue
+data_crypt UUID=<data-luks-uuid> /etc/cryptsetup-keys.d/data_crypt.key luks,discard,no-read-workqueue,no-write-workqueue,nofail
 ```
 
-- `noatime` - fewer writes.
-- `compress=zstd` - transparent compression.
+Verify the live mappings:
+
+```bash
+sudo cryptsetup status system_crypt
+sudo cryptsetup status data_crypt
+```
+
+- `no-read-workqueue` / `no-write-workqueue` bypass the internal dm-crypt workqueues on the NVMe drives.
+- `discard` passes discard requests through LUKS. This helps the SSD and VDO reclaim deleted blocks, but reveals allocation patterns.
+- The data-disk key is protected at rest by the system disk's LUKS encryption.
+
+## Filesystems and VDO
+
+Relevant `/etc/fstab` entries:
+
+```ini
+UUID=<root-btrfs-uuid> /      btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
+UUID=<home-xfs-uuid>   /home  xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /swap  btrfs subvol=/@swap,defaults,noatime 0 0
+/swap/swapfile         none   swap  defaults 0 0
+UUID=<data-xfs-uuid>   /data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
+```
+
+Both XFS filesystems have VDO compression and deduplication below them. Each VDO pool uses 95% of its volume group's initial free space. The remaining extents let LVM extend a pool if physical usage becomes high.
+
+```ini
+# /etc/lvm/lvm.conf
+activation {
+  vdo_pool_autoextend_threshold=70
+  vdo_pool_autoextend_percent=5
+}
+```
+
+Automatic extension requires `dmeventd` to monitor each VDO pool. Check that `seg_monitor` reports `monitored` in the `lvs` output.
+
+```bash
+sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
+sudo vdostats --human-readable
+```
+
+- `noatime` reduces metadata writes.
+- `compress=zstd:3` enables transparent compression on the Btrfs root.
+- `/tmp` is already a tmpfs through systemd.
 
 ## sysctl
 
@@ -189,15 +222,15 @@ sudo systemctl restart NetworkManager
 ```bash
 sudo apt install \
   7zip adb antiword aria2 aspell-es atuin audacity autoconf automake axel bat \
-  bear ble.sh bleachbit brightnessctl btop build-essential buildah \
+  bear bind9-dnsutils ble.sh bleachbit brightnessctl btop build-essential buildah \
   ca-certificates cabextract clamav clang cmake cmatrix cockpit cockpit-podman cowsay \
-  criu curl ddcui ddcutil diffoscope direnv distrobox dnsutils duf \
+  criu curl ddcui ddcutil diffoscope direnv distrobox duf \
   editorconfig expect eza fastboot fcitx5-mozc fd-find ffmpeg ffmpegthumbnailer filelight \
   firejail flatpak fortune-mod fzf gamemode gdb ghostty gifsicle \
   git glab gnupg golang-go gwenview handbrake hashcat httpie hugo \
   hunspell-en-us hunspell-es hw-probe hyperfine hyphen-en-us hyphen-es \
   inotify-tools iotop-c isoimagewriter jo jq just kcalc kde-config-flatpak \
-  lazygit libfuse-dev libfuse3-dev libtool libvirt-daemon-system lolcat \
+  lazygit libfuse-dev libfuse3-dev libtool libvirt-daemon-system \
   magic-wormhole meson moreutils mpv mythes-en-us mythes-es ncdu needrestart \
   neovim nethogs ninja-build nload nmap nvtop okular openrgb optipng pamixer \
   pandoc pdfgrep pipx pkg-config plasma-discover-backend-flatpak playerctl \
@@ -403,10 +436,10 @@ sudo timeshift-gtk
 Config:
 
 - Type: Btrfs
-- Location: same Btrfs system disk
-- Schedule: daily + boot
+- Location: Btrfs root on the system disk
+- Schedule: daily + weekly + boot
 - Keep: 3 daily, 3 boot, 2 weekly
-- `/home`: do not include user data
+- `/home` and `/data`: not included; both are separate XFS filesystems
 
 # Shell & terminal
 
@@ -662,7 +695,6 @@ Paste the public key into <https://github.com/settings/ssh>.
 # Brave extensions
 
 - [Augmented Steam](https://chromewebstore.google.com/detail/augmented-steam/dnhpnfgdlenaccegplpojghhmaamnnfp)
-- [DeArrow](https://chromewebstore.google.com/detail/dearrow-better-titles-and/enamippconapkdmgfgjchkhakpfinmaj)
 - [DuckDuckGo Search & Tracker Protection](https://chromewebstore.google.com/detail/duckduckgo-search-tracker-protection/bkdgflcldnnnapblkhphbgpggdiikppg)
 - [JSON Formatter](https://chromewebstore.google.com/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa)
 - [Privacy Settings](https://chromewebstore.google.com/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj)

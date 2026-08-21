@@ -19,13 +19,22 @@ hideComments = true
 
 # ベースインストール
 
-Kubuntu 26.04をUEFIモードでインストール：
+Kubuntu 26.04をUEFIモードでインストール。両方のNVMeでLUKS2を使用。
 
-- Btrfs
-- Swap file
-- LUKS有効
+システムディスク：
 
-レイアウト: サブボリューム`/@`、`/@home`、`/@swap`、swap fileは`/swap/swapfile`、ディスクはLUKSで暗号化。
+- 1 GiBのEFIシステムパーティション
+- 4 GiBのext4 `/boot`
+- LUKS2 -> LVM
+- 96 GiBのBtrfs `/`、サブボリュームは`/@`と`/@swap`
+- 圧縮と重複排除を有効にした357 GiBのVDOプール上に370 GiBのXFS `/home`
+- `/swap/swapfile`に4 GiBのswap file
+
+データディスク：
+
+- LUKS2 -> LVM VDO -> 470 GiBのXFS `/data`
+- 圧縮と重複排除を有効にした453 GiBの物理VDOプール
+- 暗号化されたシステムディスク上のキーで自動unlock、別にリカバリーpassphraseを設定
 
 # BIOS
 
@@ -34,7 +43,7 @@ Kubuntu 26.04をUEFIモードでインストール：
 - Above 4G Decodingを有効化
 - Resizable BARを有効化
 - SVM Mode / AMD-Vを有効化
-- Secure Bootを有効化
+- Secure Bootを無効化
 - CSMを無効化
 - ファンカーブを静音寄りに調整
 
@@ -55,32 +64,56 @@ done && sudo update-grub
 
 ## LUKS performance
 
-```bash
-sudo dmsetup table
-
-sudo cryptsetup --perf-no_read_workqueue --perf-no_write_workqueue --allow-discards --persistent refresh luks-blablabla
-```
-
-- `no_read_workqueue` / `no_write_workqueue` - NVMeでレイテンシが下がる。
-- `allow-discards` - SSDでTRIMを有効化。
-
-## Btrfs mounts
-
-Kubuntuがサブボリュームとswap fileを作ってくれる。`/tmp` はsystemdで最初からtmpfs。変えるのはmount optionsだけ。
-
-```bash
-sudo nvim /etc/fstab
-```
-
-`/` と `/home` で、`autodefrag` があれば消して `compress=zstd` を足す：
+永続オプションは`/etc/crypttab`に設定：
 
 ```ini
-/dev/mapper/luks-blablabla /     btrfs subvol=/@,defaults,noatime,compress=zstd 0 0
-/dev/mapper/luks-blablabla /home btrfs subvol=/@home,defaults,noatime,compress=zstd 0 0
+system_crypt UUID=<system-luks-uuid> none luks,discard,no-read-workqueue,no-write-workqueue
+data_crypt UUID=<data-luks-uuid> /etc/cryptsetup-keys.d/data_crypt.key luks,discard,no-read-workqueue,no-write-workqueue,nofail
 ```
 
-- `noatime` - 書き込みを減らす。
-- `compress=zstd` - 透過圧縮。
+有効なmappingを確認：
+
+```bash
+sudo cryptsetup status system_crypt
+sudo cryptsetup status data_crypt
+```
+
+- `no-read-workqueue` / `no-write-workqueue`はNVMeでdm-crypt内部のworkqueueをバイパスする。
+- `discard`はdiscardリクエストをLUKSの下へ渡す。SSDとVDOが削除済みblockを回収できるが、割り当てパターンが見えるというtrade-offがある。
+- データディスクのキーは、システムディスクのLUKS暗号化によって保存時に保護される。
+
+## ファイルシステムとVDO
+
+`/etc/fstab`の関連entry：
+
+```ini
+UUID=<root-btrfs-uuid> /      btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
+UUID=<home-xfs-uuid>   /home  xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /swap  btrfs subvol=/@swap,defaults,noatime 0 0
+/swap/swapfile         none   swap  defaults 0 0
+UUID=<data-xfs-uuid>   /data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
+```
+
+両方のXFSファイルシステムの下でVDOの圧縮と重複排除を有効化。各VDOプールはvolume groupの初期空き領域の95%を使用する。残りのextentは物理使用量が増えたときのLVMによるpool拡張に使う。
+
+```ini
+# /etc/lvm/lvm.conf
+activation {
+  vdo_pool_autoextend_threshold=70
+  vdo_pool_autoextend_percent=5
+}
+```
+
+自動拡張には、`dmeventd`による各VDOプールの監視が必要。`lvs`の出力で`seg_monitor`が`monitored`になっていることを確認する。
+
+```bash
+sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
+sudo vdostats --human-readable
+```
+
+- `noatime`はmetadataの書き込みを減らす。
+- `compress=zstd:3`はBtrfs rootで透過圧縮を有効にする。
+- `/tmp`はsystemdによってすでにtmpfsになっている。
 
 ## sysctl
 
@@ -189,15 +222,15 @@ sudo systemctl restart NetworkManager
 ```bash
 sudo apt install \
   7zip adb antiword aria2 aspell-es atuin audacity autoconf automake axel bat \
-  bear ble.sh bleachbit brightnessctl btop build-essential buildah \
+  bear bind9-dnsutils ble.sh bleachbit brightnessctl btop build-essential buildah \
   ca-certificates cabextract clamav clang cmake cmatrix cockpit cockpit-podman cowsay \
-  criu curl ddcui ddcutil diffoscope direnv distrobox dnsutils duf \
+  criu curl ddcui ddcutil diffoscope direnv distrobox duf \
   editorconfig expect eza fastboot fcitx5-mozc fd-find ffmpeg ffmpegthumbnailer filelight \
   firejail flatpak fortune-mod fzf gamemode gdb ghostty gifsicle \
   git glab gnupg golang-go gwenview handbrake hashcat httpie hugo \
   hunspell-en-us hunspell-es hw-probe hyperfine hyphen-en-us hyphen-es \
   inotify-tools iotop-c isoimagewriter jo jq just kcalc kde-config-flatpak \
-  lazygit libfuse-dev libfuse3-dev libtool libvirt-daemon-system lolcat \
+  lazygit libfuse-dev libfuse3-dev libtool libvirt-daemon-system \
   magic-wormhole meson moreutils mpv mythes-en-us mythes-es ncdu needrestart \
   neovim nethogs ninja-build nload nmap nvtop okular openrgb optipng pamixer \
   pandoc pdfgrep pipx pkg-config plasma-discover-backend-flatpak playerctl \
@@ -403,10 +436,10 @@ sudo timeshift-gtk
 設定:
 
 - タイプ: Btrfs
-- ロケーション: システムと同じBtrfsディスク
-- スケジュール: 毎日 + boot時
+- ロケーション: システムディスクのBtrfs root
+- スケジュール: 毎日 + 毎週 + boot時
 - 保持: 3個の毎日、3個のboot、2個の毎週
-- `/home`: ユーザーデータは含めない
+- `/home`と`/data`: 含めない。どちらも別のXFSファイルシステム
 
 # Shellとターミナル
 
@@ -662,7 +695,6 @@ eval "$(ssh-agent -s)" && \
 # Braveの拡張機能
 
 - [Augmented Steam](https://chromewebstore.google.com/detail/augmented-steam/dnhpnfgdlenaccegplpojghhmaamnnfp)
-- [DeArrow](https://chromewebstore.google.com/detail/dearrow-better-titles-and/enamippconapkdmgfgjchkhakpfinmaj)
 - [DuckDuckGo Search & Tracker Protection](https://chromewebstore.google.com/detail/duckduckgo-search-tracker-protection/bkdgflcldnnnapblkhphbgpggdiikppg)
 - [JSON Formatter](https://chromewebstore.google.com/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa)
 - [Privacy Settings](https://chromewebstore.google.com/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj)
