@@ -118,8 +118,14 @@ sudo vdostats --human-readable
 ## sysctl
 
 ```bash
-sudo tee /etc/sysctl.d/90-zram.conf > /dev/null << 'EOF'
+sudo tee /etc/sysctl.d/99-zram.conf > /dev/null << 'EOF'
 vm.swappiness = 150
+EOF
+
+sudo tee /etc/sysctl.d/99-inotify.conf > /dev/null << 'EOF'
+fs.inotify.max_user_instances = 8192
+fs.inotify.max_user_watches = 524288
+fs.inotify.max_queued_events = 16384
 EOF
 
 sudo sysctl --system
