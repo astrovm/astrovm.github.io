@@ -53,7 +53,7 @@ Kubuntu 26.04 用 UEFI 模式安装。两个 NVMe 都使用 LUKS2。
 
 ```bash
 for p in preempt=full pcie_aspm=off; do
-  grep -Fq "$p" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
+  grep -Eq "^[[:space:]]*GRUB_CMDLINE_LINUX_DEFAULT=[\"']([^\"']*[[:space:]])?${p}([[:space:]][^\"']*)?[\"']" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
 done && sudo update-grub
 ```
 
@@ -145,7 +145,7 @@ sudo systemctl daemon-reload && sudo systemctl start dev-zram0.swap
 
 ```bash
 sudo swapoff /swap/swapfile && \
-  sudo rm -f /swap/swapfile && \
+  sudo rm -f -- /swap/swapfile && \
   sudo btrfs filesystem mkswapfile --size 4G /swap/swapfile && \
   sudo swapon /swap/swapfile
 ```
@@ -168,34 +168,18 @@ powerprofilesctl set performance
 ## Intel AX200 WiFi
 
 ```bash
-sudo tee /etc/modprobe.d/iwlwifi-fix.conf > /dev/null << 'EOF'
+sudo mkdir -p /etc/modprobe.d && \
+  sudo tee /etc/modprobe.d/iwlwifi-fix.conf > /dev/null << 'EOF'
 options iwlwifi power_save=0
 options iwlmvm power_scheme=1
 EOF
-```
 
-```bash
 sudo tee /etc/NetworkManager/conf.d/99-disable-wifi-powersave.conf > /dev/null << 'EOF'
 [connection]
 wifi.powersave=2
 EOF
 
 sudo systemctl restart NetworkManager
-```
-
-## SDDM AMDGPU
-
-仅 KDE。用于规避 Kubuntu 26.04 中 SDDM 与 GPU 初始化竞态导致的开机黑屏问题（LP: #2063143）。
-
-```bash
-sudo mkdir -p /etc/systemd/system/sddm.service.d && \
-  sudo tee /etc/systemd/system/sddm.service.d/udev-settle.conf > /dev/null << 'EOF'
-[Unit]
-After=systemd-udev-settle.service
-Wants=systemd-udev-settle.service
-EOF
-
-sudo systemctl daemon-reload
 ```
 
 ## NetworkManager
@@ -213,38 +197,39 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-
 # 软件包
 
 ## apt
 
 ```bash
 sudo apt install \
-  7zip adb antiword aria2 aspell-es atuin audacity autoconf automake axel bat \
-  bear bind9-dnsutils ble.sh bleachbit brightnessctl btop build-essential buildah \
-  ca-certificates cabextract clamav clang cmake cmatrix cockpit cockpit-podman cowsay \
-  criu curl ddcui ddcutil diffoscope direnv distrobox duf \
-  editorconfig expect eza fastboot fcitx5-mozc fd-find ffmpeg ffmpegthumbnailer filelight \
-  firejail flatpak fortune-mod fzf gamemode gdb ghostty gifsicle \
-  git glab gnupg golang-go gwenview handbrake hashcat httpie hugo \
-  hunspell-en-us hunspell-es hw-probe hyperfine hyphen-en-us hyphen-es \
-  inotify-tools iotop-c isoimagewriter jo jq just kcalc kde-config-flatpak \
-  lazygit libfuse-dev libfuse3-dev libtool libvirt-daemon-system \
-  magic-wormhole meson moreutils mpv mythes-en-us mythes-es ncdu needrestart \
-  neovim nethogs ninja-build nload nmap nvtop okular openrgb optipng pamixer \
-  pandoc pdfgrep pipx pkg-config plasma-discover-backend-flatpak playerctl \
-  pngquant podman podman-docker podman-toolbox poppler-utils pre-commit procs \
-  python-is-python3 python3 python3-dev python3-full python3-venv \
-  qemu-system-x86 redis-tools ripgrep-all shellcheck shfmt sl \
-  speedtest-cli ssh sshpass starship tealdeer thefuck tidy timeshift tmux \
-  toilet torbrowser-launcher trash-cli tree tshark ufw ugrep universal-ctags \
-  unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet ydotool yt-dlp \
-  zoxide
+  autoconf automake bear build-essential clang cmake gdb golang-go hugo \
+  libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config \
+  python-is-python3 python3 python3-dev python3-full python3-venv valgrind \
+  atuin bat ble.sh direnv editorconfig eza fd-find fzf git glab jo jq just \
+  lazygit moreutils neovim pipx pre-commit ripgrep-all shellcheck shfmt \
+  starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide \
+  aria2 axel bind9-dnsutils ca-certificates curl gnupg hashcat httpie \
+  magic-wormhole nethogs nload nmap redis-tools speedtest-cli ssh sshpass \
+  torbrowser-launcher tshark ufw wget whois wireshark \
+  audacity ffmpeg ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer \
+  pandoc pdfgrep playerctl pngquant poppler-utils tidy vlc yt-dlp \
+  buildah cockpit cockpit-podman criu distrobox libvirt-daemon-system podman \
+  podman-docker podman-toolbox qemu-system-x86 virt-manager \
+  adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty \
+  gwenview isoimagewriter kcalc kde-config-flatpak okular openrgb \
+  plasma-discover-backend-flatpak ydotool \
+  aspell-es fcitx5-mozc hunspell-en-us hunspell-es hyphen-en-us hyphen-es \
+  mythes-en-us mythes-es \
+  7zip antiword bleachbit btop cabextract clamav diffoscope duf expect \
+  firejail hw-probe hyperfine inotify-tools iotop-c ncdu needrestart nvtop \
+  procs timeshift trash-cli tree unrar unzip \
+  cmatrix cowsay fortune-mod sl toilet
 ```
 
 ```bash
 if command -v fdfind >/dev/null; then
-  mkdir -p ~/.local/bin && \
+  mkdir -p "$HOME/.local/bin" && \
     ln -sfn "$(command -v fdfind)" "$HOME/.local/bin/fd"
 fi
 ```
@@ -252,7 +237,8 @@ fi
 ## 用户权限
 
 ```bash
-sudo usermod -aG kvm,libvirt,wireshark "$USER"
+sudo usermod -aG kvm,libvirt "$USER"
+sudo usermod -aG wireshark "$USER"
 ```
 
 ## ROCm
@@ -280,6 +266,9 @@ EOF
 
 ```bash
 sudo pro attach
+```
+
+```bash
 pro status
 ```
 
@@ -302,7 +291,7 @@ sudo apt install extrepo && \
 ## Homebrew
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
+/bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
   brew install croc fnm gh topgrade uv yq
 ```
@@ -329,23 +318,27 @@ eval "$(fnm env --use-on-cd --shell bash)" && \
   (command -v corepack >/dev/null || npm install --global corepack@latest) && \
   corepack enable pnpm && \
   corepack install --global pnpm@latest && \
-  mkdir -p ~/.local/share/pnpm && \
-  pnpm config set global-bin-dir ~/.local/share/pnpm --location=global
+  mkdir -p "$HOME/.local/share/pnpm" && \
+  pnpm config set global-bin-dir "$HOME/.local/share/pnpm" --location=global
 ```
 
 ## npm / pnpm 安全加固
 
 针对供应链攻击的 hardening：阻止安装脚本，避开刚发布的包。
 
-```bash
-# npm: 不让第三方脚本执行
-npm config set ignore-scripts true --location=user
+npm: 不让第三方脚本执行
 
-# bun: 堵住脚本和刚发布的包
-cat > ~/.bunfig.toml << 'EOF'
+```bash
+npm config set ignore-scripts true --location=user
+```
+
+Bun: 堵住脚本和刚发布的包
+
+```bash
+cat > "$HOME/.bunfig.toml" << 'EOF'
 [install]
-ignoreScripts=true
-minimumReleaseAge=86400
+ignoreScripts = true
+minimumReleaseAge = 86400
 EOF
 ```
 
@@ -356,7 +349,7 @@ EOF
 ### Bun
 
 ```bash
-curl -fsSL https://bun.sh/install | bash
+curl --proto '=https' --tlsv1.2 -fsSL https://bun.sh/install | bash
 ```
 
 ### Rust / Cargo
@@ -378,13 +371,15 @@ brew install --cask font-hack-nerd-font font-ubuntu-mono-nerd-font && fc-cache -
 ```bash
 flatpak remote-add --if-not-exists flathub \
   https://flathub.org/repo/flathub.flatpakrepo
+```
 
+```bash
 flatpak install flathub \
-  com.github.wwmm.easyeffects \
-  com.github.PintaProject.Pinta com.github.tchx84.Flatseal \
-  com.obsproject.Studio com.obsproject.Studio.Plugin.OBSVkCapture//stable \
-  com.spotify.Client com.stremio.Stremio com.usebottles.bottles \
-  com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.flattool.Warehouse \
+  com.github.wwmm.easyeffects com.github.PintaProject.Pinta \
+  com.github.tchx84.Flatseal com.obsproject.Studio \
+  com.obsproject.Studio.Plugin.OBSVkCapture//stable com.spotify.Client \
+  com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus \
+  dev.vencord.Vesktop io.github.flattool.Warehouse \
   io.github.hedge_dev.hedgemodmanager io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever net.lutris.Lutris net.retrodeck.retrodeck \
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 org.gimp.GIMP \
@@ -404,13 +399,13 @@ Setup Wizard 会把 SDK 下载到 `~/Android/Sdk`。
 ## Zed
 
 ```bash
-curl -fsSL https://zed.dev/install.sh | sh
+curl --proto '=https' --tlsv1.2 -fsSL https://zed.dev/install.sh | sh
 ```
 
 ## Codex
 
 ```bash
-curl -fsSL https://chatgpt.com/codex/install.sh | sh
+curl --proto '=https' --tlsv1.2 -fsSL https://chatgpt.com/codex/install.sh | sh
 ```
 
 ## Codex Desktop
@@ -419,7 +414,7 @@ curl -fsSL https://chatgpt.com/codex/install.sh | sh
 curl -fsSL -o /tmp/chatgpt.deb \
   https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb && \
   sudo apt install /tmp/chatgpt.deb && \
-  rm /tmp/chatgpt.deb
+  rm -- /tmp/chatgpt.deb
 ```
 
 ## Trezor Suite
@@ -460,7 +455,7 @@ EOF
 
 `~/.profile`:
 
-```bash
+```sh
 # path helper
 path_prepend() {
   [ -d "$1" ] || return 0
@@ -508,7 +503,7 @@ path_prepend "$HOME/.grok/bin"
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
   # include .bashrc if it exists
-  if [ -f "$HOME/.bashrc" ]; then
+  if [ -r "$HOME/.bashrc" ]; then
     . "$HOME/.bashrc"
   fi
 fi
@@ -520,7 +515,7 @@ fi
 
 ```bash
 # ble.sh - load first, attach last
-[[ $- == *i* && -f /usr/share/blesh/ble.sh ]] && source -- /usr/share/blesh/ble.sh --attach=none
+[[ $- == *i* && -r /usr/share/blesh/ble.sh ]] && source -- /usr/share/blesh/ble.sh --attach=none
 
 # If not running interactively, don't do anything
 case $- in
@@ -537,8 +532,8 @@ shopt -s globstar
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 if [ -x /usr/bin/dircolors ]; then
-  if [ -r ~/.dircolors ]; then
-    eval "$(dircolors -b ~/.dircolors)"
+  if [ -r "$HOME/.dircolors" ]; then
+    eval "$(dircolors -b "$HOME/.dircolors")"
   else
     eval "$(dircolors -b)"
   fi
@@ -595,7 +590,7 @@ if command -v atuin >/dev/null; then
 fi
 
 # grok completion
-[[ -r "$HOME/.grok/completions/bash/grok.bash" ]] && source "$HOME/.grok/completions/bash/grok.bash"
+command -v grok >/dev/null && [[ -r "$HOME/.grok/completions/bash/grok.bash" ]] && source "$HOME/.grok/completions/bash/grok.bash"
 
 # ble.sh attach
 [[ ! ${BLE_VERSION-} ]] || ble-attach
@@ -618,7 +613,8 @@ sudo systemctl enable --now ssh
 ## UFW
 
 ```bash
-sudo ufw default deny incoming && \
+sudo apt install ufw && \
+  sudo ufw default deny incoming && \
   sudo ufw default allow outgoing && \
   sudo ufw allow OpenSSH && \
   sudo ufw allow kdeconnect && \
@@ -640,7 +636,7 @@ wget -O /tmp/UnleashedRecomp-Flatpak.zip \
   https://github.com/hedge-dev/UnleashedRecomp/releases/latest/download/UnleashedRecomp-Flatpak.zip && \
   unzip -o /tmp/UnleashedRecomp-Flatpak.zip -d /tmp/UnleashedRecomp && \
   flatpak install /tmp/UnleashedRecomp/*.flatpak && \
-  rm -rf /tmp/UnleashedRecomp /tmp/UnleashedRecomp-Flatpak.zip
+  rm -rf -- /tmp/UnleashedRecomp /tmp/UnleashedRecomp-Flatpak.zip
 ```
 
 ## Steam
@@ -690,11 +686,13 @@ git config --global user.name "astrovm" && \
   git config --global core.pager batcat && \
   git config --global fetch.prune true && \
   git config --global rerere.enabled true
+```
 
+```bash
 ssh-keygen -t ed25519 -C "~@4st.li" && \
   eval "$(ssh-agent -s)" && \
-  ssh-add ~/.ssh/id_ed25519 && \
-  cat ~/.ssh/id_ed25519.pub
+  ssh-add "$HOME/.ssh/id_ed25519" && \
+  cat "$HOME/.ssh/id_ed25519.pub"
 ```
 
 把公钥贴到 <https://github.com/settings/ssh>。
