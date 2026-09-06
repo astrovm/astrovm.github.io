@@ -53,7 +53,7 @@ Data disk:
 
 ```bash
 for p in preempt=full pcie_aspm=off; do
-  grep -Fq "$p" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
+  grep -Eq "^[[:space:]]*GRUB_CMDLINE_LINUX_DEFAULT=[\"']([^\"']*[[:space:]])?${p}([[:space:]][^\"']*)?[\"']" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
 done && sudo update-grub
 ```
 
@@ -198,33 +198,34 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-
 # Packages
 
 ## apt
 
 ```bash
 sudo apt install \
-  7zip adb antiword aria2 aspell-es atuin audacity autoconf automake \
-  build-essential axel bat bear bind9-dnsutils ble.sh bleachbit brightnessctl \
-  btop buildah ca-certificates cabextract clamav clang cmake cmatrix cockpit \
-  cockpit-podman cowsay criu curl ddcui ddcutil diffoscope direnv distrobox \
-  duf editorconfig expect eza fastboot fcitx5-mozc fd-find ffmpeg \
-  ffmpegthumbnailer filelight firejail flatpak fortune-mod fzf gamemode gdb \
-  ghostty gifsicle git glab gnupg golang-go gwenview handbrake hashcat httpie \
-  hugo hunspell-en-us hunspell-es hw-probe hyperfine hyphen-en-us hyphen-es \
-  inotify-tools iotop-c isoimagewriter jo jq just kcalc kde-config-flatpak \
-  lazygit libfuse-dev libfuse3-dev libtool libvirt-daemon-system \
-  magic-wormhole meson moreutils mpv mythes-en-us mythes-es ncdu needrestart \
-  neovim nethogs ninja-build nload nmap nvtop okular openrgb optipng pamixer \
-  pandoc pdfgrep pipx pkg-config plasma-discover-backend-flatpak playerctl \
-  pngquant podman podman-docker podman-toolbox poppler-utils pre-commit procs \
-  python-is-python3 python3 python3-dev python3-full python3-venv \
-  qemu-system-x86 redis-tools ripgrep-all shellcheck shfmt sl speedtest-cli \
-  ssh sshpass starship tealdeer thefuck tidy timeshift tmux toilet \
-  torbrowser-launcher trash-cli tree tshark ufw ugrep universal-ctags unrar \
-  unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet ydotool \
-  yt-dlp zoxide
+  autoconf automake bear build-essential clang cmake gdb golang-go hugo \
+  libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config \
+  python-is-python3 python3 python3-dev python3-full python3-venv valgrind \
+  atuin bat ble.sh direnv editorconfig eza fd-find fzf git glab jo jq just \
+  lazygit moreutils neovim pipx pre-commit ripgrep-all shellcheck shfmt \
+  starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide \
+  aria2 axel bind9-dnsutils ca-certificates curl gnupg hashcat httpie \
+  magic-wormhole nethogs nload nmap redis-tools speedtest-cli ssh sshpass \
+  torbrowser-launcher tshark ufw wget whois wireshark \
+  audacity ffmpeg ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer \
+  pandoc pdfgrep playerctl pngquant poppler-utils tidy vlc yt-dlp \
+  buildah cockpit cockpit-podman criu distrobox libvirt-daemon-system podman \
+  podman-docker podman-toolbox qemu-system-x86 virt-manager \
+  adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty \
+  gwenview isoimagewriter kcalc kde-config-flatpak okular openrgb \
+  plasma-discover-backend-flatpak ydotool \
+  aspell-es fcitx5-mozc hunspell-en-us hunspell-es hyphen-en-us hyphen-es \
+  mythes-en-us mythes-es \
+  7zip antiword bleachbit btop cabextract clamav diffoscope duf expect \
+  firejail hw-probe hyperfine inotify-tools iotop-c ncdu needrestart nvtop \
+  procs timeshift trash-cli tree unrar unzip \
+  cmatrix cowsay fortune-mod sl toilet
 ```
 
 ```bash
@@ -315,22 +316,24 @@ eval "$(fnm env --use-on-cd --shell bash)" && \
   (command -v corepack >/dev/null || npm install --global corepack@latest) && \
   corepack enable pnpm && \
   corepack install --global pnpm@latest && \
-  mkdir -p ~/.local/share/pnpm && \
-  pnpm config set global-bin-dir ~/.local/share/pnpm --location=global
+  mkdir -p "$HOME/.local/share/pnpm" && \
+  pnpm config set global-bin-dir "$HOME/.local/share/pnpm" --location=global
 ```
 
 ## npm / pnpm security
 
 Hardening against supply chain attacks: block install scripts and avoid newly published packages.
 
+npm: don't run third-party scripts
+
 ```bash
-# npm: don't run third-party scripts
 npm config set ignore-scripts true --location=user
 ```
 
+Bun: block scripts and newly published packages
+
 ```bash
-# bun: block scripts and newly published packages
-cat > ~/.bunfig.toml << 'EOF'
+cat > "$HOME/.bunfig.toml" << 'EOF'
 [install]
 ignoreScripts=true
 minimumReleaseAge=86400
@@ -368,11 +371,11 @@ flatpak remote-add --if-not-exists flathub \
   https://flathub.org/repo/flathub.flatpakrepo
 
 flatpak install flathub \
-  com.github.wwmm.easyeffects \
-  com.github.PintaProject.Pinta com.github.tchx84.Flatseal \
-  com.obsproject.Studio com.obsproject.Studio.Plugin.OBSVkCapture//stable \
-  com.spotify.Client com.stremio.Stremio com.usebottles.bottles \
-  com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.flattool.Warehouse \
+  com.github.wwmm.easyeffects com.github.PintaProject.Pinta \
+  com.github.tchx84.Flatseal com.obsproject.Studio \
+  com.obsproject.Studio.Plugin.OBSVkCapture//stable com.spotify.Client \
+  com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus \
+  dev.vencord.Vesktop io.github.flattool.Warehouse \
   io.github.hedge_dev.hedgemodmanager io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever net.lutris.Lutris net.retrodeck.retrodeck \
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 org.gimp.GIMP \
@@ -583,7 +586,7 @@ if command -v atuin >/dev/null; then
 fi
 
 # grok completion
-[[ -r "$HOME/.grok/completions/bash/grok.bash" ]] && source "$HOME/.grok/completions/bash/grok.bash"
+command -v grok >/dev/null && [[ -r "$HOME/.grok/completions/bash/grok.bash" ]] && source "$HOME/.grok/completions/bash/grok.bash"
 
 # ble.sh attach
 [[ ! ${BLE_VERSION-} ]] || ble-attach
@@ -679,7 +682,9 @@ git config --global user.name "astrovm" && \
   git config --global core.pager batcat && \
   git config --global fetch.prune true && \
   git config --global rerere.enabled true
+```
 
+```bash
 ssh-keygen -t ed25519 -C "~@4st.li" && \
   eval "$(ssh-agent -s)" && \
   ssh-add "$HOME/.ssh/id_ed25519" && \
