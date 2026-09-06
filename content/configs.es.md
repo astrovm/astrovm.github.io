@@ -245,7 +245,7 @@ sudo apt install \
 ```bash
 if command -v fdfind >/dev/null; then
   mkdir -p ~/.local/bin && \
-    ln -sfn "$(command -v fdfind)" ~/.local/bin/fd
+    ln -sfn "$(command -v fdfind)" "$HOME/.local/bin/fd"
 fi
 ```
 
@@ -292,8 +292,8 @@ pro status
 ```bash
 sudo apt install extrepo
 sudo extrepo enable brave_release librewolf steam tailscale vscode
-sudo apt update
-sudo apt install brave-browser code librewolf steam tailscale
+sudo apt update && \
+  sudo apt install brave-browser code librewolf steam tailscale
 sudo tailscale up
 ```
 
@@ -310,9 +310,8 @@ sudo tailscale up
 ## Topgrade config
 
 ```bash
-mkdir -p ~/.config
-
-cat > ~/.config/topgrade.toml << 'EOF'
+mkdir -p ~/.config && \
+  cat > ~/.config/topgrade.toml << 'EOF'
 [misc]
 assume_yes = true
 cleanup = true
@@ -549,7 +548,7 @@ fi
 # aliases
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-if [ -f ~/.bash_aliases ]; then
+if [ -r ~/.bash_aliases ]; then
   . ~/.bash_aliases
 fi
 
