@@ -169,9 +169,6 @@ sudo apt install systemd-oomd && \
 powerprofilesctl set performance
 ```
 
-- `amd-pstate active` + governor `performance` + EPP `performance`
-- NVMe scheduler `none` is already the normal default for NVMe.
-
 ## Intel AX200 WiFi
 
 ```bash
@@ -349,9 +346,7 @@ Hardening against supply chain attacks: block install scripts and avoid newly pu
 
 ```bash
 # npm: don't run third-party scripts
-cat > ~/.npmrc << 'EOF'
-ignore-scripts=true
-EOF
+npm config set ignore-scripts true --location=user
 
 # pnpm 11+: built-in 1-day release-age policy
 

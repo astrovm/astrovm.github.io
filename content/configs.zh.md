@@ -169,9 +169,6 @@ sudo apt install systemd-oomd && \
 powerprofilesctl set performance
 ```
 
-- `amd-pstate active` + governor `performance` + EPP `performance`
-- NVMe scheduler `none` 对 NVMe 来说通常已经是默认值。
-
 ## Intel AX200 WiFi
 
 ```bash
@@ -349,9 +346,7 @@ eval "$(fnm env --use-on-cd --shell bash)" && \
 
 ```bash
 # npm: 不让第三方脚本执行
-cat > ~/.npmrc << 'EOF'
-ignore-scripts=true
-EOF
+npm config set ignore-scripts true --location=user
 
 # pnpm 11+：内置 1 天新包等待策略
 
