@@ -242,7 +242,7 @@ sudo apt install \
   pandoc pdfgrep pipx pkg-config plasma-discover-backend-flatpak playerctl \
   pngquant podman podman-docker podman-toolbox poppler-utils pre-commit procs \
   python-is-python3 python3 python3-dev python3-full python3-venv \
-  qemu-system-x86 redis-server redis-tools ripgrep-all shellcheck shfmt sl \
+  qemu-system-x86 redis-tools ripgrep-all shellcheck shfmt sl \
   speedtest-cli ssh sshpass starship tealdeer thefuck tidy timeshift tmux \
   toilet torbrowser-launcher trash-cli tree tshark ufw ugrep universal-ctags \
   unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet ydotool yt-dlp \
@@ -300,9 +300,9 @@ pro status
 
 ```bash
 sudo apt install extrepo
-sudo extrepo enable brave_release google_chrome librewolf steam tailscale vscode
+sudo extrepo enable brave_release librewolf steam tailscale vscode
 sudo apt update
-sudo apt install brave-browser code google-chrome-stable librewolf steam tailscale
+sudo apt install brave-browser code librewolf steam tailscale
 sudo tailscale up
 ```
 
@@ -503,6 +503,15 @@ path_prepend "$PNPM_HOME"
 # rust/cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
+# solana
+path_prepend "$HOME/.local/share/solana/install/active_release/bin"
+
+# opencode
+path_prepend "$HOME/.opencode/bin"
+
+# grok
+path_prepend "$HOME/.grok/bin"
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
   # include .bashrc if it exists
@@ -549,10 +558,6 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # aliases
-alias ls='eza'
-alias ll='eza -l'
-alias la='eza -la'
-alias cat='batcat --paging=never'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
 if [ -f ~/.bash_aliases ]; then
@@ -595,6 +600,9 @@ if command -v atuin >/dev/null; then
     eval "$(atuin init bash)"
   fi
 fi
+
+# grok completion
+[[ -r "$HOME/.grok/completions/bash/grok.bash" ]] && source "$HOME/.grok/completions/bash/grok.bash"
 
 # ble.sh attach
 [[ ! ${BLE_VERSION-} ]] || ble-attach
