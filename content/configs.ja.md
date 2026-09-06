@@ -354,12 +354,16 @@ EOF
 
 ## スクリプトインストール
 
-```bash
-# Bun
-curl -fsSL https://bun.sh/install | bash
+### Bun
 
-# Rust / Cargo
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
+
+### Rust / Cargo
+
+```bash
+curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
 ```
 
 # アプリ
@@ -401,7 +405,7 @@ Setup WizardがSDKを`~/Android/Sdk`へダウンロードする。
 ## Zed
 
 ```bash
-curl -f https://zed.dev/install.sh | sh
+curl -fsSL https://zed.dev/install.sh | sh
 ```
 
 ## Codex
@@ -677,15 +681,15 @@ WINEDLLOVERRIDES="dinput8=n,b" %command%
 # Git
 
 ```bash
-git config --global user.name "astrovm"
-git config --global user.email "~@4st.li"
-git config --global init.defaultBranch main
-git config --global pull.rebase true
-git config --global rebase.autoStash true
-git config --global core.autocrlf input
-git config --global core.pager batcat
-git config --global fetch.prune true
-git config --global rerere.enabled true
+git config --global user.name "astrovm" && \
+  git config --global user.email "~@4st.li" && \
+  git config --global init.defaultBranch main && \
+  git config --global pull.rebase true && \
+  git config --global rebase.autoStash true && \
+  git config --global core.autocrlf input && \
+  git config --global core.pager batcat && \
+  git config --global fetch.prune true && \
+  git config --global rerere.enabled true
 
 ssh-keygen -t ed25519 -C "~@4st.li"
 eval "$(ssh-agent -s)" && \
