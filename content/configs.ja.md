@@ -589,7 +589,7 @@ fuck() {
 command -v fzf >/dev/null && eval "$(fzf --bash)"
 
 # zoxide
-command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
+command -v zoxide >/dev/null && eval "$(zoxide init bash)"
 
 # atuin
 if command -v atuin >/dev/null; then
