@@ -113,7 +113,6 @@ sudo vdostats --human-readable
 
 - `noatime`はmetadataの書き込みを減らす。
 - `compress=zstd:3`はBtrfs rootで透過圧縮を有効にする。
-- `/tmp`はsystemdによってすでにtmpfsになっている。
 
 ## sysctl
 
@@ -293,7 +292,7 @@ pro status
 
 ## extrepo
 
-[extrepo](https://packages.debian.org/sid/extrepo) は Debian がメンテする外部リポジトリ管理ツール。インターネットから適当なスクリプトを落として root で走らせるんじゃなくて、審査済みのカタログから有効化する。GPG キーとリポジトリ定義はすでに含まれてる。`extrepo search` で検索、`extrepo enable` で有効化。
+[extrepo](https://packages.debian.org/sid/extrepo) は外部リポジトリを管理します。`extrepo search` で検索し、`extrepo enable` で有効化します。
 
 ```bash
 sudo apt install extrepo

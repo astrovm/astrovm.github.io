@@ -113,7 +113,6 @@ sudo vdostats --human-readable
 
 - `noatime` 减少 metadata 写入。
 - `compress=zstd:3` 在 Btrfs root 上启用透明压缩。
-- `/tmp` 已经由 systemd 设置为 tmpfs。
 
 ## sysctl
 
@@ -293,7 +292,7 @@ pro status
 
 ## extrepo
 
-[extrepo](https://packages.debian.org/sid/extrepo) 是 Debian 维护的外部仓库管理工具。不用从网上下载脚本然后用 root 跑，直接从审核过的列表里启用，GPG 密钥和仓库配置都已经配好了。用 `extrepo search` 搜索，用 `extrepo enable` 启用。
+[extrepo](https://packages.debian.org/sid/extrepo) 管理外部仓库。用 `extrepo search` 搜索，用 `extrepo enable` 启用。
 
 ```bash
 sudo apt install extrepo

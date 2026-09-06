@@ -113,7 +113,6 @@ sudo vdostats --human-readable
 
 - `noatime` reduce las escrituras de metadata.
 - `compress=zstd:3` habilita compresión transparente en el root Btrfs.
-- `/tmp` ya es un tmpfs provisto por systemd.
 
 ## sysctl
 
@@ -293,7 +292,7 @@ pro status
 
 ## extrepo
 
-[extrepo](https://packages.debian.org/sid/extrepo) es el gestor de repos externos de Debian. En vez de bajar scripts de Internet y correrlos como root, usás un catálogo curado donde ya están las claves GPG y las definiciones de los repos. Buscás con `extrepo search`, habilitás con `extrepo enable`.
+[extrepo](https://packages.debian.org/sid/extrepo) gestiona repositorios externos. Buscá con `extrepo search`, habilitá con `extrepo enable`.
 
 ```bash
 sudo apt install extrepo
