@@ -53,7 +53,7 @@ Kubuntu 26.04 用 UEFI 模式安装。两个 NVMe 都使用 LUKS2。
 
 ```bash
 for p in preempt=full pcie_aspm=off; do
-  grep -q "$p" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
+  grep -Fq "$p" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
 done && sudo update-grub
 ```
 
@@ -111,10 +111,6 @@ sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compres
 sudo vdostats --human-readable
 ```
 
-- `noatime` 减少 metadata 写入。
-- `compress=zstd:3` 在 Btrfs root 上启用透明压缩。
-- `/tmp` 已经由 systemd 设置为 tmpfs。
-
 ## sysctl
 
 ```bash
@@ -168,9 +164,6 @@ sudo apt install systemd-oomd && \
 ```bash
 powerprofilesctl set performance
 ```
-
-- `amd-pstate active` + governor `performance` + EPP `performance`
-- NVMe scheduler `none` 对 NVMe 来说通常已经是默认值。
 
 ## Intel AX200 WiFi
 
@@ -242,7 +235,7 @@ sudo apt install \
   pandoc pdfgrep pipx pkg-config plasma-discover-backend-flatpak playerctl \
   pngquant podman podman-docker podman-toolbox poppler-utils pre-commit procs \
   python-is-python3 python3 python3-dev python3-full python3-venv \
-  qemu-system-x86 redis-server redis-tools ripgrep-all shellcheck shfmt sl \
+  qemu-system-x86 redis-tools ripgrep-all shellcheck shfmt sl \
   speedtest-cli ssh sshpass starship tealdeer thefuck tidy timeshift tmux \
   toilet torbrowser-launcher trash-cli tree tshark ufw ugrep universal-ctags \
   unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet ydotool yt-dlp \
@@ -250,8 +243,10 @@ sudo apt install \
 ```
 
 ```bash
-mkdir -p ~/.local/bin && \
-  ln -sfn "$(command -v fdfind)" ~/.local/bin/fd
+if command -v fdfind >/dev/null; then
+  mkdir -p ~/.local/bin && \
+    ln -sfn "$(command -v fdfind)" "$HOME/.local/bin/fd"
+fi
 ```
 
 ## 用户权限
@@ -259,8 +254,6 @@ mkdir -p ~/.local/bin && \
 ```bash
 sudo usermod -aG kvm,libvirt,wireshark "$USER"
 ```
-
-注销重新登录。
 
 ## ROCm
 
@@ -285,10 +278,8 @@ EOF
 
 ## Ubuntu Pro
 
-在 <https://ubuntu.com/pro/dashboard> 获取令牌。
-
 ```bash
-sudo pro attach <你的令牌>
+sudo pro attach
 pro status
 ```
 
@@ -296,14 +287,14 @@ pro status
 
 ## extrepo
 
-[extrepo](https://packages.debian.org/sid/extrepo) 是 Debian 维护的外部仓库管理工具。不用从网上下载脚本然后用 root 跑，直接从审核过的列表里启用，GPG 密钥和仓库配置都已经配好了。用 `extrepo search` 搜索，用 `extrepo enable` 启用。
+[extrepo](https://packages.debian.org/sid/extrepo) 管理外部仓库。用 `extrepo search` 搜索，用 `extrepo enable` 启用。
 
 ```bash
-sudo apt install extrepo
-sudo extrepo enable brave_release google_chrome librewolf steam tailscale vscode
-sudo apt update
-sudo apt install brave-browser code google-chrome-stable librewolf steam tailscale
-sudo tailscale up
+sudo apt install extrepo && \
+  sudo extrepo enable brave_release librewolf steam tailscale vscode && \
+  sudo apt update && \
+  sudo apt install brave-browser code librewolf steam tailscale && \
+  sudo tailscale up
 ```
 
 # 包管理器和运行时
@@ -319,9 +310,8 @@ sudo tailscale up
 ## Topgrade config
 
 ```bash
-mkdir -p ~/.config
-
-cat > ~/.config/topgrade.toml << 'EOF'
+mkdir -p "$HOME/.config" && \
+  cat > "$HOME/.config/topgrade.toml" << 'EOF'
 [misc]
 assume_yes = true
 cleanup = true
@@ -349,11 +339,7 @@ eval "$(fnm env --use-on-cd --shell bash)" && \
 
 ```bash
 # npm: 不让第三方脚本执行
-cat > ~/.npmrc << 'EOF'
-ignore-scripts=true
-EOF
-
-# pnpm 11+：内置 1 天新包等待策略
+npm config set ignore-scripts true --location=user
 
 # bun: 堵住脚本和刚发布的包
 cat > ~/.bunfig.toml << 'EOF'
@@ -367,12 +353,16 @@ EOF
 
 ## 脚本安装
 
-```bash
-# Bun
-curl -fsSL https://bun.sh/install | bash
+### Bun
 
-# Rust / Cargo
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```bash
+curl -fsSL https://bun.sh/install | bash
+```
+
+### Rust / Cargo
+
+```bash
+curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
 ```
 
 # 应用
@@ -414,7 +404,7 @@ Setup Wizard 会把 SDK 下载到 `~/Android/Sdk`。
 ## Zed
 
 ```bash
-curl -f https://zed.dev/install.sh | sh
+curl -fsSL https://zed.dev/install.sh | sh
 ```
 
 ## Codex
@@ -426,7 +416,10 @@ curl -fsSL https://chatgpt.com/codex/install.sh | sh
 ## Codex Desktop
 
 ```bash
-curl -fsSLo /tmp/chatgpt.deb https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb && sudo apt install -y /tmp/chatgpt.deb && rm /tmp/chatgpt.deb
+curl -fsSL -o /tmp/chatgpt.deb \
+  https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb && \
+  sudo apt install /tmp/chatgpt.deb && \
+  rm /tmp/chatgpt.deb
 ```
 
 ## Trezor Suite
@@ -452,8 +445,8 @@ sudo timeshift-gtk
 ## Ghostty
 
 ```bash
-mkdir -p ~/.config/ghostty && \
-  tee ~/.config/ghostty/config.ghostty > /dev/null << 'EOF'
+mkdir -p "$HOME/.config/ghostty" && \
+  tee "$HOME/.config/ghostty/config.ghostty" > /dev/null << 'EOF'
 background-opacity = "0.9"
 font-family = "UbuntuMono Nerd Font"
 font-size = "14"
@@ -501,7 +494,16 @@ export PNPM_HOME="$HOME/.local/share/pnpm"
 path_prepend "$PNPM_HOME"
 
 # rust/cargo
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+[ -r "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# solana
+path_prepend "$HOME/.local/share/solana/install/active_release/bin"
+
+# opencode
+path_prepend "$HOME/.opencode/bin"
+
+# grok
+path_prepend "$HOME/.grok/bin"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -534,8 +536,6 @@ shopt -s checkwinsize
 shopt -s globstar
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# PS1 is handled by starship (see below)
-
 if [ -x /usr/bin/dircolors ]; then
   if [ -r ~/.dircolors ]; then
     eval "$(dircolors -b ~/.dircolors)"
@@ -549,20 +549,16 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # aliases
-alias ls='eza'
-alias ll='eza -l'
-alias la='eza -la'
-alias cat='batcat --paging=never'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-if [ -f ~/.bash_aliases ]; then
-  . ~/.bash_aliases
+if [ -r "$HOME/.bash_aliases" ]; then
+  . "$HOME/.bash_aliases"
 fi
 
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
+  if [ -r /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
+  elif [ -r /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
 fi
@@ -574,17 +570,19 @@ command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
 command -v starship >/dev/null && eval "$(starship init bash)"
 
 # thefuck - lazy load
-fuck() {
-  unset -f fuck
-  eval "$(thefuck --alias)"
-  fuck "$@"
-}
+if command -v thefuck >/dev/null; then
+  fuck() {
+    unset -f fuck
+    eval "$(thefuck --alias)"
+    fuck "$@"
+  }
+fi
 
 # fzf
 command -v fzf >/dev/null && eval "$(fzf --bash)"
 
 # zoxide
-command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd bash)"
+command -v zoxide >/dev/null && eval "$(zoxide init bash)"
 
 # atuin
 if command -v atuin >/dev/null; then
@@ -595,6 +593,9 @@ if command -v atuin >/dev/null; then
     eval "$(atuin init bash)"
   fi
 fi
+
+# grok completion
+[[ -r "$HOME/.grok/completions/bash/grok.bash" ]] && source "$HOME/.grok/completions/bash/grok.bash"
 
 # ble.sh attach
 [[ ! ${BLE_VERSION-} ]] || ble-attach
@@ -680,18 +681,18 @@ WINEDLLOVERRIDES="dinput8=n,b" %command%
 # Git
 
 ```bash
-git config --global user.name "astrovm"
-git config --global user.email "~@4st.li"
-git config --global init.defaultBranch main
-git config --global pull.rebase true
-git config --global rebase.autoStash true
-git config --global core.autocrlf input
-git config --global core.pager batcat
-git config --global fetch.prune true
-git config --global rerere.enabled true
+git config --global user.name "astrovm" && \
+  git config --global user.email "~@4st.li" && \
+  git config --global init.defaultBranch main && \
+  git config --global pull.rebase true && \
+  git config --global rebase.autoStash true && \
+  git config --global core.autocrlf input && \
+  git config --global core.pager batcat && \
+  git config --global fetch.prune true && \
+  git config --global rerere.enabled true
 
-ssh-keygen -t ed25519 -C "~@4st.li"
-eval "$(ssh-agent -s)" && \
+ssh-keygen -t ed25519 -C "~@4st.li" && \
+  eval "$(ssh-agent -s)" && \
   ssh-add ~/.ssh/id_ed25519 && \
   cat ~/.ssh/id_ed25519.pub
 ```
