@@ -183,21 +183,6 @@ EOF
 sudo systemctl restart NetworkManager
 ```
 
-## SDDM AMDGPU
-
-KDEのみ。Kubuntu 26.04で起動時に黒画面になる可能性があるSDDMとGPU初期化の競合に対するワークアラウンド（LP: #2063143）。
-
-```bash
-sudo mkdir -p /etc/systemd/system/sddm.service.d && \
-  sudo tee /etc/systemd/system/sddm.service.d/udev-settle.conf > /dev/null << 'EOF'
-[Unit]
-After=systemd-udev-settle.service
-Wants=systemd-udev-settle.service
-EOF
-
-sudo systemctl daemon-reload
-```
-
 ## NetworkManager
 
 ```bash
@@ -220,8 +205,8 @@ sudo systemctl restart NetworkManager
 
 ```bash
 sudo apt install \
-  7zip adb antiword aria2 aspell-es atuin audacity autoconf automake axel bat \
-  bear bind9-dnsutils ble.sh bleachbit brightnessctl btop build-essential buildah \
+  7zip adb antiword aria2 aspell-es atuin audacity autoconf automake build-essential axel bat \
+  bear bind9-dnsutils ble.sh bleachbit brightnessctl btop buildah \
   ca-certificates cabextract clamav clang cmake cmatrix cockpit cockpit-podman cowsay \
   criu curl ddcui ddcutil diffoscope direnv distrobox duf \
   editorconfig expect eza fastboot fcitx5-mozc fd-find ffmpeg ffmpegthumbnailer filelight \
@@ -244,7 +229,7 @@ sudo apt install \
 
 ```bash
 if command -v fdfind >/dev/null; then
-  mkdir -p ~/.local/bin && \
+  mkdir -p "$HOME/.local/bin" && \
     ln -sfn "$(command -v fdfind)" "$HOME/.local/bin/fd"
 fi
 ```
@@ -252,7 +237,8 @@ fi
 ## ユーザーパーミッション
 
 ```bash
-sudo usermod -aG kvm,libvirt,wireshark "$USER"
+sudo usermod -aG kvm,libvirt "$USER"
+sudo usermod -aG wireshark "$USER"
 ```
 
 ## ROCm
@@ -520,7 +506,7 @@ fi
 
 ```bash
 # ble.sh - load first, attach last
-[[ $- == *i* && -f /usr/share/blesh/ble.sh ]] && source -- /usr/share/blesh/ble.sh --attach=none
+[[ $- == *i* && -r /usr/share/blesh/ble.sh ]] && source -- /usr/share/blesh/ble.sh --attach=none
 
 # If not running interactively, don't do anything
 case $- in
@@ -537,8 +523,8 @@ shopt -s globstar
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 if [ -x /usr/bin/dircolors ]; then
-  if [ -r ~/.dircolors ]; then
-    eval "$(dircolors -b ~/.dircolors)"
+  if [ -r "$HOME/.dircolors" ]; then
+    eval "$(dircolors -b "$HOME/.dircolors")"
   else
     eval "$(dircolors -b)"
   fi
