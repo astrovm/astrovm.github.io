@@ -145,7 +145,7 @@ sudo systemctl daemon-reload && sudo systemctl start dev-zram0.swap
 
 ```bash
 sudo swapoff /swap/swapfile && \
-  sudo rm -f /swap/swapfile && \
+  sudo rm -f -- /swap/swapfile && \
   sudo btrfs filesystem mkswapfile --size 4G /swap/swapfile && \
   sudo swapon /swap/swapfile
 ```
@@ -168,13 +168,12 @@ powerprofilesctl set performance
 ## WiFi Intel AX200
 
 ```bash
-sudo tee /etc/modprobe.d/iwlwifi-fix.conf > /dev/null << 'EOF'
+sudo mkdir -p /etc/modprobe.d && \
+  sudo tee /etc/modprobe.d/iwlwifi-fix.conf > /dev/null << 'EOF'
 options iwlwifi power_save=0
 options iwlmvm power_scheme=1
 EOF
-```
 
-```bash
 sudo tee /etc/NetworkManager/conf.d/99-disable-wifi-powersave.conf > /dev/null << 'EOF'
 [connection]
 wifi.powersave=2
@@ -267,6 +266,9 @@ EOF
 
 ```bash
 sudo pro attach
+```
+
+```bash
 pro status
 ```
 
@@ -289,7 +291,7 @@ sudo apt install extrepo && \
 ## Homebrew
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
+/bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
   brew install croc fnm gh topgrade uv yq
 ```
@@ -335,8 +337,8 @@ Bun: bloquear scripts y paquetes recién publicados
 ```bash
 cat > "$HOME/.bunfig.toml" << 'EOF'
 [install]
-ignoreScripts=true
-minimumReleaseAge=86400
+ignoreScripts = true
+minimumReleaseAge = 86400
 EOF
 ```
 
@@ -347,7 +349,7 @@ Con esto, npm no ejecuta `preinstall` ni `postinstall` de dependencias. Bun bloq
 ### Bun
 
 ```bash
-curl -fsSL https://bun.sh/install | bash
+curl --proto '=https' --tlsv1.2 -fsSL https://bun.sh/install | bash
 ```
 
 ### Rust / Cargo
@@ -369,7 +371,9 @@ brew install --cask font-hack-nerd-font font-ubuntu-mono-nerd-font && fc-cache -
 ```bash
 flatpak remote-add --if-not-exists flathub \
   https://flathub.org/repo/flathub.flatpakrepo
+```
 
+```bash
 flatpak install flathub \
   com.github.wwmm.easyeffects com.github.PintaProject.Pinta \
   com.github.tchx84.Flatseal com.obsproject.Studio \
@@ -395,13 +399,13 @@ El Setup Wizard descarga el SDK en `~/Android/Sdk`.
 ## Zed
 
 ```bash
-curl -fsSL https://zed.dev/install.sh | sh
+curl --proto '=https' --tlsv1.2 -fsSL https://zed.dev/install.sh | sh
 ```
 
 ## Codex
 
 ```bash
-curl -fsSL https://chatgpt.com/codex/install.sh | sh
+curl --proto '=https' --tlsv1.2 -fsSL https://chatgpt.com/codex/install.sh | sh
 ```
 
 ## Codex Desktop
@@ -410,7 +414,7 @@ curl -fsSL https://chatgpt.com/codex/install.sh | sh
 curl -fsSL -o /tmp/chatgpt.deb \
   https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb && \
   sudo apt install /tmp/chatgpt.deb && \
-  rm /tmp/chatgpt.deb
+  rm -- /tmp/chatgpt.deb
 ```
 
 ## Trezor Suite
@@ -632,7 +636,7 @@ wget -O /tmp/UnleashedRecomp-Flatpak.zip \
   https://github.com/hedge-dev/UnleashedRecomp/releases/latest/download/UnleashedRecomp-Flatpak.zip && \
   unzip -o /tmp/UnleashedRecomp-Flatpak.zip -d /tmp/UnleashedRecomp && \
   flatpak install /tmp/UnleashedRecomp/*.flatpak && \
-  rm -rf /tmp/UnleashedRecomp /tmp/UnleashedRecomp-Flatpak.zip
+  rm -rf -- /tmp/UnleashedRecomp /tmp/UnleashedRecomp-Flatpak.zip
 ```
 
 ## Steam
