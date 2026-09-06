@@ -185,10 +185,6 @@ sudo systemctl restart NetworkManager
 ## NetworkManager
 
 ```bash
-sudo systemctl disable --now NetworkManager-wait-online.service
-```
-
-```bash
 sudo tee /etc/NetworkManager/conf.d/99-mac-address-policy.conf > /dev/null << 'EOF'
 [connection]
 wifi.cloned-mac-address=stable
@@ -658,9 +654,15 @@ gamemoderun %command%
 
 ## Sonic Adventure
 
-Linux上で**Sonic Adventure DX**と**Sonic Adventure 2**のmodを設定するために[Adventure Mods](https://github.com/astrovm/AdventureMods)を使う。Steamのインストールを検出し、mod manager、mod、依存関係、プリセット、ベース設定をインストールする。
+Linux上で**Sonic Adventure DX**と**Sonic Adventure 2**のmodを設定するために[Adventure Mods](https://github.com/astrovm/AdventureMods)を使う。
 
-AppImageを[GitHub Releases](https://github.com/astrovm/AdventureMods/releases/latest/download/Adventure_Mods-x86_64.AppImage)からダウンロードしてGear Leverでインストールする。
+Flatpakをインストールする。
+
+```bash
+flatpak install https://flatpak.4st.li/io.github.astrovm.AdventureMods.flatpakref
+```
+
+Adventure Modsを起動してセットアップウィザードに従う。
 
 ## GTA IV
 
@@ -699,9 +701,14 @@ ssh-keygen -t ed25519 -C "~@4st.li" && \
 
 # Braveの拡張機能
 
+- [10ten Japanese Reader (Rikaichamp)](https://chromewebstore.google.com/detail/10ten-japanese-reader-rik/pnmaklegiibbioifkmfkgpfnmdehdfan)
 - [Augmented Steam](https://chromewebstore.google.com/detail/augmented-steam/dnhpnfgdlenaccegplpojghhmaamnnfp)
+- [ChatGPT](https://chromewebstore.google.com/detail/chatgpt/hehggadaopoacecdllhhajmbjkdcmajg)
+- [Dark Reader](https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh)
 - [DuckDuckGo Search & Tracker Protection](https://chromewebstore.google.com/detail/duckduckgo-search-tracker-protection/bkdgflcldnnnapblkhphbgpggdiikppg)
 - [JSON Formatter](https://chromewebstore.google.com/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa)
+- [Language Reactor](https://chromewebstore.google.com/detail/language-reactor/hoombieeljmmljlkjmnheibnpciblicm)
+- [Phantom](https://chromewebstore.google.com/detail/phantom/bfnaelmomeimhlpmgjnjophhpkkoljpa)
 - [Privacy Settings](https://chromewebstore.google.com/detail/privacy-settings/ijadljdlbkfhdoblhaedfgepliodmomj)
 - [Proton Pass](https://chromewebstore.google.com/detail/proton-pass-free-password/ghmbeldphafepmbegfdlkpapadhbakde)
 - [ProtonDB for Steam](https://chromewebstore.google.com/detail/protondb-for-steam/ngonfifpkpeefnhelnfdkficaiihklid)
