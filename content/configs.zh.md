@@ -278,10 +278,8 @@ EOF
 
 ## Ubuntu Pro
 
-在 <https://ubuntu.com/pro/dashboard> 获取令牌。
-
 ```bash
-sudo pro attach <你的令牌>
+sudo pro attach
 pro status
 ```
 
@@ -490,7 +488,7 @@ export PNPM_HOME="$HOME/.local/share/pnpm"
 path_prepend "$PNPM_HOME"
 
 # rust/cargo
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+[ -r "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # solana
 path_prepend "$HOME/.local/share/solana/install/active_release/bin"

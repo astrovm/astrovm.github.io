@@ -278,10 +278,8 @@ EOF
 
 ## Ubuntu Pro
 
-Obtener token en <https://ubuntu.com/pro/dashboard>.
-
 ```bash
-sudo pro attach <TU_TOKEN>
+sudo pro attach
 pro status
 ```
 
@@ -490,7 +488,7 @@ export PNPM_HOME="$HOME/.local/share/pnpm"
 path_prepend "$PNPM_HOME"
 
 # rust/cargo
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+[ -r "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 
 # solana
 path_prepend "$HOME/.local/share/solana/install/active_release/bin"
