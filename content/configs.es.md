@@ -53,7 +53,7 @@ Disco de datos:
 
 ```bash
 for p in preempt=full pcie_aspm=off; do
-  grep -q "$p" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
+  grep -Fq "$p" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
 done && sudo update-grub
 ```
 
@@ -291,8 +291,8 @@ pro status
 
 ```bash
 sudo apt install extrepo && \
-  sudo extrepo enable brave_release librewolf steam tailscale vscode
-sudo apt update && \
+  sudo extrepo enable brave_release librewolf steam tailscale vscode && \
+  sudo apt update && \
   sudo apt install brave-browser code librewolf steam tailscale && \
   sudo tailscale up
 ```
@@ -416,7 +416,7 @@ curl -fsSL https://chatgpt.com/codex/install.sh | sh
 ## Codex Desktop
 
 ```bash
-curl -fsSLo /tmp/chatgpt.deb \
+curl -fsSL -o /tmp/chatgpt.deb \
   https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb && \
   sudo apt install /tmp/chatgpt.deb && \
   rm /tmp/chatgpt.deb
@@ -445,8 +445,8 @@ Config:
 ## Ghostty
 
 ```bash
-mkdir -p ~/.config/ghostty && \
-  tee ~/.config/ghostty/config.ghostty > /dev/null << 'EOF'
+mkdir -p "$HOME/.config/ghostty" && \
+  tee "$HOME/.config/ghostty/config.ghostty" > /dev/null << 'EOF'
 background-opacity = "0.9"
 font-family = "UbuntuMono Nerd Font"
 font-size = "14"
@@ -551,8 +551,8 @@ fi
 # aliases
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-if [ -r ~/.bash_aliases ]; then
-  . ~/.bash_aliases
+if [ -r "$HOME/.bash_aliases" ]; then
+  . "$HOME/.bash_aliases"
 fi
 
 if ! shopt -oq posix; then
