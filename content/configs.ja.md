@@ -243,8 +243,10 @@ sudo apt install \
 ```
 
 ```bash
-mkdir -p ~/.local/bin && \
-  ln -sfn "$(command -v fdfind)" ~/.local/bin/fd
+if command -v fdfind >/dev/null; then
+  mkdir -p ~/.local/bin && \
+    ln -sfn "$(command -v fdfind)" ~/.local/bin/fd
+fi
 ```
 
 ## ユーザーパーミッション
@@ -252,8 +254,6 @@ mkdir -p ~/.local/bin && \
 ```bash
 sudo usermod -aG kvm,libvirt,wireshark "$USER"
 ```
-
-ログアウトして再度ログイン。
 
 ## ROCm
 
