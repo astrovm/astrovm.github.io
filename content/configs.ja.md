@@ -111,9 +111,6 @@ sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compres
 sudo vdostats --human-readable
 ```
 
-- `noatime`はmetadataの書き込みを減らす。
-- `compress=zstd:3`はBtrfs rootで透過圧縮を有効にする。
-
 ## sysctl
 
 ```bash
@@ -347,8 +344,6 @@ eval "$(fnm env --use-on-cd --shell bash)" && \
 # npm: サードパーティのスクリプトを実行させない
 npm config set ignore-scripts true --location=user
 
-# pnpm 11+: 公開後1日未満のパッケージを避ける組み込みポリシー
-
 # bun: スクリプトと公開されたばかりのパッケージをブロック
 cat > ~/.bunfig.toml << 'EOF'
 [install]
@@ -573,11 +568,13 @@ command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
 command -v starship >/dev/null && eval "$(starship init bash)"
 
 # thefuck - lazy load
-fuck() {
-  unset -f fuck
-  eval "$(thefuck --alias)"
-  fuck "$@"
-}
+if command -v thefuck >/dev/null; then
+  fuck() {
+    unset -f fuck
+    eval "$(thefuck --alias)"
+    fuck "$@"
+  }
+fi
 
 # fzf
 command -v fzf >/dev/null && eval "$(fzf --bash)"

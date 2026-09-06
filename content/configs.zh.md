@@ -111,9 +111,6 @@ sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compres
 sudo vdostats --human-readable
 ```
 
-- `noatime` 减少 metadata 写入。
-- `compress=zstd:3` 在 Btrfs root 上启用透明压缩。
-
 ## sysctl
 
 ```bash
@@ -347,8 +344,6 @@ eval "$(fnm env --use-on-cd --shell bash)" && \
 # npm: 不让第三方脚本执行
 npm config set ignore-scripts true --location=user
 
-# pnpm 11+：内置 1 天新包等待策略
-
 # bun: 堵住脚本和刚发布的包
 cat > ~/.bunfig.toml << 'EOF'
 [install]
@@ -573,11 +568,13 @@ command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
 command -v starship >/dev/null && eval "$(starship init bash)"
 
 # thefuck - lazy load
-fuck() {
-  unset -f fuck
-  eval "$(thefuck --alias)"
-  fuck "$@"
-}
+if command -v thefuck >/dev/null; then
+  fuck() {
+    unset -f fuck
+    eval "$(thefuck --alias)"
+    fuck "$@"
+  }
+fi
 
 # fzf
 command -v fzf >/dev/null && eval "$(fzf --bash)"

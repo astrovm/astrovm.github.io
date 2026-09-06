@@ -111,9 +111,6 @@ sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compres
 sudo vdostats --human-readable
 ```
 
-- `noatime` reduce las escrituras de metadata.
-- `compress=zstd:3` habilita compresión transparente en el root Btrfs.
-
 ## sysctl
 
 ```bash
@@ -347,8 +344,6 @@ Hardening contra supply chain attacks: bloquear scripts de instalación y evitar
 # npm: no ejecutar scripts de terceros
 npm config set ignore-scripts true --location=user
 
-# pnpm 11+: política integrada de 1 día para paquetes nuevos
-
 # bun: bloquear scripts y paquetes recién publicados
 cat > ~/.bunfig.toml << 'EOF'
 [install]
@@ -573,11 +568,13 @@ command -v fnm >/dev/null && eval "$(fnm env --use-on-cd --shell bash)"
 command -v starship >/dev/null && eval "$(starship init bash)"
 
 # thefuck - lazy load
-fuck() {
-  unset -f fuck
-  eval "$(thefuck --alias)"
-  fuck "$@"
-}
+if command -v thefuck >/dev/null; then
+  fuck() {
+    unset -f fuck
+    eval "$(thefuck --alias)"
+    fuck "$@"
+  }
+fi
 
 # fzf
 command -v fzf >/dev/null && eval "$(fzf --bash)"
