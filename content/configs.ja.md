@@ -417,7 +417,7 @@ curl -fsSL https://chatgpt.com/codex/install.sh | sh
 ## Codex Desktop
 
 ```bash
-curl -fsSLo /tmp/chatgpt.deb https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb && sudo apt install -y /tmp/chatgpt.deb && rm /tmp/chatgpt.deb
+curl -fsSLo /tmp/chatgpt.deb https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb && sudo apt install /tmp/chatgpt.deb && rm /tmp/chatgpt.deb
 ```
 
 ## Trezor Suite
@@ -533,8 +533,6 @@ HISTFILESIZE=100000
 shopt -s checkwinsize
 shopt -s globstar
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# PS1 is handled by starship (see below)
 
 if [ -x /usr/bin/dircolors ]; then
   if [ -r ~/.dircolors ]; then
@@ -691,8 +689,8 @@ git config --global user.name "astrovm" && \
   git config --global fetch.prune true && \
   git config --global rerere.enabled true
 
-ssh-keygen -t ed25519 -C "~@4st.li"
-eval "$(ssh-agent -s)" && \
+ssh-keygen -t ed25519 -C "~@4st.li" && \
+  eval "$(ssh-agent -s)" && \
   ssh-add ~/.ssh/id_ed25519 && \
   cat ~/.ssh/id_ed25519.pub
 ```
