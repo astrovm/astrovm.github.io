@@ -205,14 +205,14 @@ sudo systemctl restart NetworkManager
 
 ```bash
 sudo apt install \
-  7zip adb antiword aria2 aspell-es atuin audacity autoconf automake build-essential axel bat \
-  bear bind9-dnsutils ble.sh bleachbit brightnessctl btop buildah \
-  ca-certificates cabextract clamav clang cmake cmatrix cockpit cockpit-podman cowsay \
-  criu curl ddcui ddcutil diffoscope direnv distrobox duf \
-  editorconfig expect eza fastboot fcitx5-mozc fd-find ffmpeg ffmpegthumbnailer filelight \
-  firejail flatpak fortune-mod fzf gamemode gdb ghostty gifsicle \
-  git glab gnupg golang-go gwenview handbrake hashcat httpie hugo \
-  hunspell-en-us hunspell-es hw-probe hyperfine hyphen-en-us hyphen-es \
+  7zip adb antiword aria2 aspell-es atuin audacity autoconf automake \
+  build-essential axel bat bear bind9-dnsutils ble.sh bleachbit brightnessctl \
+  btop buildah ca-certificates cabextract clamav clang cmake cmatrix cockpit \
+  cockpit-podman cowsay criu curl ddcui ddcutil diffoscope direnv distrobox \
+  duf editorconfig expect eza fastboot fcitx5-mozc fd-find ffmpeg \
+  ffmpegthumbnailer filelight firejail flatpak fortune-mod fzf gamemode gdb \
+  ghostty gifsicle git glab gnupg golang-go gwenview handbrake hashcat httpie \
+  hugo hunspell-en-us hunspell-es hw-probe hyperfine hyphen-en-us hyphen-es \
   inotify-tools iotop-c isoimagewriter jo jq just kcalc kde-config-flatpak \
   lazygit libfuse-dev libfuse3-dev libtool libvirt-daemon-system \
   magic-wormhole meson moreutils mpv mythes-en-us mythes-es ncdu needrestart \
@@ -220,11 +220,11 @@ sudo apt install \
   pandoc pdfgrep pipx pkg-config plasma-discover-backend-flatpak playerctl \
   pngquant podman podman-docker podman-toolbox poppler-utils pre-commit procs \
   python-is-python3 python3 python3-dev python3-full python3-venv \
-  qemu-system-x86 redis-tools ripgrep-all shellcheck shfmt sl \
-  speedtest-cli ssh sshpass starship tealdeer thefuck tidy timeshift tmux \
-  toilet torbrowser-launcher trash-cli tree tshark ufw ugrep universal-ctags \
-  unrar unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet ydotool yt-dlp \
-  zoxide
+  qemu-system-x86 redis-tools ripgrep-all shellcheck shfmt sl speedtest-cli \
+  ssh sshpass starship tealdeer thefuck tidy timeshift tmux toilet \
+  torbrowser-launcher trash-cli tree tshark ufw ugrep universal-ctags unrar \
+  unzip valgrind virt-manager vlc wget whois wireshark xmlstarlet ydotool \
+  yt-dlp zoxide
 ```
 
 ```bash
@@ -326,7 +326,9 @@ Hardening against supply chain attacks: block install scripts and avoid newly pu
 ```bash
 # npm: don't run third-party scripts
 npm config set ignore-scripts true --location=user
+```
 
+```bash
 # bun: block scripts and newly published packages
 cat > ~/.bunfig.toml << 'EOF'
 [install]
@@ -446,7 +448,7 @@ EOF
 
 `~/.profile`:
 
-```bash
+```sh
 # path helper
 path_prepend() {
   [ -d "$1" ] || return 0
@@ -604,7 +606,8 @@ sudo systemctl enable --now ssh
 ## UFW
 
 ```bash
-sudo ufw default deny incoming && \
+sudo apt install ufw && \
+  sudo ufw default deny incoming && \
   sudo ufw default allow outgoing && \
   sudo ufw allow OpenSSH && \
   sudo ufw allow kdeconnect && \
@@ -679,8 +682,8 @@ git config --global user.name "astrovm" && \
 
 ssh-keygen -t ed25519 -C "~@4st.li" && \
   eval "$(ssh-agent -s)" && \
-  ssh-add ~/.ssh/id_ed25519 && \
-  cat ~/.ssh/id_ed25519.pub
+  ssh-add "$HOME/.ssh/id_ed25519" && \
+  cat "$HOME/.ssh/id_ed25519.pub"
 ```
 
 Paste the public key into <https://github.com/settings/ssh>.
