@@ -290,11 +290,11 @@ pro status
 [extrepo](https://packages.debian.org/sid/extrepo) gestiona repositorios externos. Buscá con `extrepo search`, habilitá con `extrepo enable`.
 
 ```bash
-sudo apt install extrepo
-sudo extrepo enable brave_release librewolf steam tailscale vscode
+sudo apt install extrepo && \
+  sudo extrepo enable brave_release librewolf steam tailscale vscode
 sudo apt update && \
-  sudo apt install brave-browser code librewolf steam tailscale
-sudo tailscale up
+  sudo apt install brave-browser code librewolf steam tailscale && \
+  sudo tailscale up
 ```
 
 # Gestores y runtimes
@@ -310,8 +310,8 @@ sudo tailscale up
 ## Topgrade config
 
 ```bash
-mkdir -p ~/.config && \
-  cat > ~/.config/topgrade.toml << 'EOF'
+mkdir -p "$HOME/.config" && \
+  cat > "$HOME/.config/topgrade.toml" << 'EOF'
 [misc]
 assume_yes = true
 cleanup = true
@@ -416,7 +416,10 @@ curl -fsSL https://chatgpt.com/codex/install.sh | sh
 ## Codex Desktop
 
 ```bash
-curl -fsSLo /tmp/chatgpt.deb https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb && sudo apt install /tmp/chatgpt.deb && rm /tmp/chatgpt.deb
+curl -fsSLo /tmp/chatgpt.deb \
+  https://persistent.oaistatic.com/codex-app-prod/linux/deb/latest/chatgpt_amd64.deb && \
+  sudo apt install /tmp/chatgpt.deb && \
+  rm /tmp/chatgpt.deb
 ```
 
 ## Trezor Suite
@@ -553,9 +556,9 @@ if [ -r ~/.bash_aliases ]; then
 fi
 
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
+  if [ -r /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
+  elif [ -r /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
 fi
