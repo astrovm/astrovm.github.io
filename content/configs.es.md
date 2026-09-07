@@ -52,15 +52,12 @@ Disco de datos:
 ## GRUB
 
 ```bash
-for p in preempt=full pcie_aspm=off; do
-  grep -Eq "^[[:space:]]*GRUB_CMDLINE_LINUX_DEFAULT=[\"']([^\"']*[[:space:]])?${p}([[:space:]][^\"']*)?[\"']" /etc/default/grub || sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\([\"']\)\(.*\)\1/GRUB_CMDLINE_LINUX_DEFAULT=\1\2 $p\1/" /etc/default/grub
-done && sudo update-grub
-```
+sudo tee /etc/default/grub.d/99-preempt.cfg > /dev/null << 'EOF'
+GRUB_CMDLINE_LINUX_DEFAULT="$GRUB_CMDLINE_LINUX_DEFAULT preempt=full"
+EOF
 
-- `preempt=full` - menor latencia de scheduling.
-- `pcie_aspm=off` - workaround para WiFi Intel AX200 trabada en D3cold.
-- No uso `quiet` porque prefiero ver más info al bootear.
-- `cryptdevice=...` y `root=...` dependen de cada instalación.
+sudo update-grub
+```
 
 ## LUKS performance
 
@@ -170,16 +167,8 @@ powerprofilesctl set performance
 ```bash
 sudo mkdir -p /etc/modprobe.d && \
   sudo tee /etc/modprobe.d/iwlwifi-fix.conf > /dev/null << 'EOF'
-options iwlwifi power_save=0
 options iwlmvm power_scheme=1
 EOF
-
-sudo tee /etc/NetworkManager/conf.d/99-disable-wifi-powersave.conf > /dev/null << 'EOF'
-[connection]
-wifi.powersave=2
-EOF
-
-sudo systemctl restart NetworkManager
 ```
 
 ## NetworkManager
