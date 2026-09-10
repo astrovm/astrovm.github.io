@@ -187,29 +187,48 @@ sudo systemctl restart NetworkManager
 ## apt
 
 ```bash
-sudo apt install \
-  autoconf automake bear build-essential clang cmake gdb golang-go \
-  libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config \
-  python-is-python3 python3 python3-dev python3-full python3-venv valgrind \
-  atuin ble.sh direnv editorconfig git jo jq \
-  moreutils pipx pre-commit \
-  starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide \
-  aria2 axel bind9-dnsutils ca-certificates curl gnupg hashcat httpie \
-  magic-wormhole nethogs nload nmap redis-tools speedtest-cli ssh sshpass \
-  torbrowser-launcher tshark ufw wget whois wireshark \
-  audacity ffmpeg ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer \
-  pdfgrep playerctl pngquant poppler-utils tidy vlc \
-  buildah cockpit cockpit-podman criu distrobox libvirt-daemon-system podman \
-  podman-docker podman-toolbox qemu-system-x86 virt-manager \
-  adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty \
-  gwenview isoimagewriter kcalc kde-config-flatpak okular openrgb \
-  plasma-discover-backend-flatpak ydotool \
-  aspell-es fcitx5-mozc hunspell-en-us hunspell-es hyphen-en-us hyphen-es \
-  mythes-en-us mythes-es \
-  7zip antiword bleachbit btop cabextract clamav diffoscope duf expect \
-  firejail hw-probe hyperfine inotify-tools iotop-c ncdu needrestart nvtop \
-  procs timeshift trash-cli tree unrar unzip \
+apt_packages=(
+  # Build and development
+  autoconf automake bear build-essential clang cmake gdb golang-go
+  libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config
+  python-is-python3 python3 python3-dev python3-full python3-venv valgrind
+
+  # Shell and CLI
+  atuin ble.sh direnv editorconfig git jo jq moreutils pipx pre-commit
+  starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide
+
+  # Networking and security
+  aria2 axel bind9-dnsutils ca-certificates curl gnupg hashcat httpie
+  magic-wormhole nethogs nload nmap redis-tools speedtest-cli ssh sshpass
+  torbrowser-launcher tshark ufw wget whois wireshark
+
+  # Audio, video, and images
+  audacity ffmpeg ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer
+  pdfgrep playerctl pngquant poppler-utils tidy vlc
+
+  # Containers and virtualization
+  buildah cockpit cockpit-podman criu distrobox libvirt-daemon-system podman
+  podman-docker podman-toolbox qemu-system-x86 virt-manager
+
+  # Hardware and desktop
+  adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty
+  gwenview isoimagewriter kcalc kde-config-flatpak okular openrgb
+  plasma-discover-backend-flatpak ydotool
+
+  # Languages and spell checking
+  aspell-es fcitx5-mozc hunspell-en-us hunspell-es hyphen-en-us hyphen-es
+  mythes-en-us mythes-es
+
+  # System utilities and maintenance
+  7zip antiword bleachbit btop cabextract clamav diffoscope duf expect firejail
+  hw-probe hyperfine inotify-tools iotop-c ncdu needrestart nvtop procs
+  timeshift trash-cli tree unrar unzip
+
+  # Fun
   cmatrix cowsay fortune-mod sl toilet
+)
+
+sudo apt install "${apt_packages[@]}"
 ```
 
 ```bash
