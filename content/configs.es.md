@@ -189,22 +189,22 @@ sudo systemctl restart NetworkManager
 ```bash
 apt_packages=(
   # Build and development
-  autoconf automake bear build-essential clang cmake gdb
+  autoconf automake bear build-essential clang cmake
   libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config
-  python-is-python3 python3 python3-dev python3-full python3-venv valgrind
+  python-is-python3 python3-dev python3-full python3-venv valgrind
 
   # Shell and CLI
-  atuin ble.sh direnv editorconfig git jo jq moreutils pipx pre-commit
+  atuin ble.sh direnv editorconfig jo moreutils pipx pre-commit
   starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide
 
   # Networking and security
-  aria2 axel bind9-dnsutils ca-certificates curl gnupg hashcat httpie
+  aria2 axel hashcat httpie
   magic-wormhole nethogs nload nmap redis-tools speedtest-cli ssh sshpass
-  torbrowser-launcher tshark ufw wget whois wireshark
+  torbrowser-launcher tshark whois wireshark
 
   # Audio, video, and images
-  audacity ffmpeg ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer
-  pdfgrep playerctl pngquant poppler-utils tidy vlc
+  audacity ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer
+  pdfgrep playerctl pngquant tidy vlc
 
   # Containers and virtualization
   buildah cockpit cockpit-podman criu distrobox libvirt-daemon-system podman
@@ -212,17 +212,17 @@ apt_packages=(
 
   # Hardware and desktop
   adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty
-  gwenview isoimagewriter kcalc kde-config-flatpak okular openrgb
+  isoimagewriter kde-config-flatpak openrgb
   plasma-discover-backend-flatpak ydotool
 
   # Languages and spell checking
-  aspell-es fcitx5-mozc hunspell-en-us hunspell-es hyphen-en-us hyphen-es
+  aspell-es fcitx5-mozc hunspell-es hyphen-en-us hyphen-es
   mythes-en-us mythes-es
 
   # System utilities and maintenance
-  7zip antiword bleachbit btop cabextract clamav diffoscope duf expect firejail
+  antiword bleachbit btop cabextract clamav diffoscope duf expect firejail
   hw-probe hyperfine inotify-tools iotop-c ncdu needrestart nvtop procs
-  timeshift trash-cli tree unrar unzip
+  timeshift trash-cli tree unrar
 
   # Fun
   cmatrix cowsay fortune-mod sl toilet
