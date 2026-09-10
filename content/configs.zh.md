@@ -485,6 +485,9 @@ path_prepend "$HOME/.opencode/bin"
 # grok
 path_prepend "$HOME/.grok/bin"
 
+# foundry
+path_prepend "$HOME/.foundry/bin"
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
   # include .bashrc if it exists
@@ -576,9 +579,6 @@ fi
 
 # grok completion
 command -v grok >/dev/null && [[ -r "$HOME/.grok/completions/bash/grok.bash" ]] && source "$HOME/.grok/completions/bash/grok.bash"
-
-# Foundry Ethereum development tools
-export PATH="$HOME/.foundry/bin:$PATH"
 
 # ble.sh attach
 [[ ! ${BLE_VERSION-} ]] || ble-attach
