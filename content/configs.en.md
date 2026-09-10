@@ -191,7 +191,7 @@ sudo apt install \
   autoconf automake bear build-essential clang cmake gdb golang-go hugo \
   libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config \
   python-is-python3 python3 python3-dev python3-full python3-venv valgrind \
-  atuin bat ble.sh direnv editorconfig eza fd-find fzf git glab jo jq just \
+  atuin bat ble.sh direnv editorconfig eza fd-find fzf git glab jo jq \
   lazygit moreutils neovim pipx pre-commit ripgrep-all shellcheck shfmt \
   starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide \
   aria2 axel bind9-dnsutils ca-certificates curl gnupg hashcat httpie \
@@ -278,7 +278,7 @@ sudo apt install extrepo && \
 ```bash
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-  brew install croc fnm gh topgrade uv yq
+  brew install croc fnm gh just topgrade uv yq
 ```
 
 ## Topgrade config
