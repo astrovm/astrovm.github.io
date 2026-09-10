@@ -212,7 +212,7 @@ apt_packages=(
 
   # Hardware and desktop
   adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty
-  isoimagewriter kde-config-flatpak openrgb
+  kde-config-flatpak openrgb
   plasma-discover-backend-flatpak ydotool
 
   # Languages and spell checking
@@ -388,7 +388,8 @@ flatpak install flathub \
   io.github.hedge_dev.hedgemodmanager io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever net.lutris.Lutris net.retrodeck.retrodeck \
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 org.gimp.GIMP \
-  org.kde.kdenlive org.kde.krita org.kde.yakuake org.libreoffice.LibreOffice \
+  org.kde.isoimagewriter org.kde.kdenlive org.kde.krita org.kde.yakuake \
+  org.libreoffice.LibreOffice \
   org.localsend.localsend_app org.qbittorrent.qBittorrent org.signal.Signal \
   org.telegram.desktop
 ```
