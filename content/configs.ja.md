@@ -187,29 +187,48 @@ sudo systemctl restart NetworkManager
 ## apt
 
 ```bash
-sudo apt install \
-  autoconf automake bear build-essential clang cmake gdb golang-go \
-  libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config \
-  python-is-python3 python3 python3-dev python3-full python3-venv valgrind \
-  atuin bat ble.sh direnv editorconfig eza fd-find fzf git jo jq \
-  moreutils pipx pre-commit shellcheck shfmt \
-  starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide \
-  aria2 axel bind9-dnsutils ca-certificates curl gnupg hashcat httpie \
-  magic-wormhole nethogs nload nmap redis-tools speedtest-cli ssh sshpass \
-  torbrowser-launcher tshark ufw wget whois wireshark \
-  audacity ffmpeg ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer \
-  pdfgrep playerctl pngquant poppler-utils tidy vlc \
-  buildah cockpit cockpit-podman criu distrobox libvirt-daemon-system podman \
-  podman-docker podman-toolbox qemu-system-x86 virt-manager \
-  adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty \
-  gwenview isoimagewriter kcalc kde-config-flatpak okular openrgb \
-  plasma-discover-backend-flatpak ydotool \
-  aspell-es fcitx5-mozc hunspell-en-us hunspell-es hyphen-en-us hyphen-es \
-  mythes-en-us mythes-es \
-  7zip antiword bleachbit btop cabextract clamav diffoscope duf expect \
-  firejail hw-probe hyperfine inotify-tools iotop-c ncdu needrestart nvtop \
-  procs timeshift trash-cli tree unrar unzip \
+apt_packages=(
+  # Build and development
+  autoconf automake bear build-essential clang cmake
+  libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config
+  python-is-python3 python3-dev python3-full python3-venv valgrind
+
+  # Shell and CLI
+  atuin ble.sh direnv editorconfig jo moreutils pipx pre-commit
+  starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide
+
+  # Networking and security
+  aria2 axel hashcat httpie
+  magic-wormhole nethogs nload nmap redis-tools speedtest-cli ssh sshpass
+  torbrowser-launcher tshark whois wireshark
+
+  # Audio, video, and images
+  audacity ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer
+  pdfgrep playerctl pngquant tidy vlc
+
+  # Containers and virtualization
+  buildah cockpit cockpit-podman criu distrobox libvirt-daemon-system podman
+  podman-docker podman-toolbox qemu-system-x86 virt-manager
+
+  # Hardware and desktop
+  adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty
+  kde-config-flatpak openrgb
+  plasma-discover-backend-flatpak ydotool
+
+  # Languages and spell checking
+  aspell-es fcitx5-mozc hunspell-es hyphen-en-us hyphen-es
+  mythes-en-us mythes-es
+
+  # System utilities and maintenance
+  antiword bleachbit btop cabextract clamav diffoscope duf expect firejail
+  hw-probe hyperfine inotify-tools iotop-c ncdu needrestart nvtop procs
+  timeshift trash-cli tree unrar
+
+  # Fun
   cmatrix cowsay fortune-mod sl toilet
+)
+
+sudo apt install "${apt_packages[@]}"
 ```
 
 ```bash
@@ -278,8 +297,8 @@ sudo apt install extrepo && \
 ```bash
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-  brew install croc fnm gh glab hugo just lazygit neovim pandoc pinact \
-    ripgrep-all topgrade uv yq yt-dlp
+  brew install bat croc eza fd fnm gh glab go hugo just lazygit neovim pandoc \
+    pinact ripgrep-all shellcheck shfmt topgrade uv yq yt-dlp
 ```
 
 ## Topgrade config
@@ -369,7 +388,8 @@ flatpak install flathub \
   io.github.hedge_dev.hedgemodmanager io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever net.lutris.Lutris net.retrodeck.retrodeck \
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 org.gimp.GIMP \
-  org.kde.kdenlive org.kde.krita org.kde.yakuake org.libreoffice.LibreOffice \
+  org.kde.isoimagewriter org.kde.kdenlive org.kde.krita org.kde.yakuake \
+  org.libreoffice.LibreOffice \
   org.localsend.localsend_app org.qbittorrent.qBittorrent org.signal.Signal \
   org.telegram.desktop
 ```
@@ -678,7 +698,7 @@ git config --global user.name "astrovm" && \
   git config --global pull.rebase true && \
   git config --global rebase.autoStash true && \
   git config --global core.autocrlf input && \
-  git config --global core.pager batcat && \
+  git config --global core.pager bat && \
   git config --global fetch.prune true && \
   git config --global rerere.enabled true
 ```
