@@ -189,7 +189,7 @@ sudo systemctl restart NetworkManager
 ```bash
 apt_packages=(
   # Build and development
-  autoconf automake bear build-essential clang cmake gdb golang-go
+  autoconf automake bear build-essential clang cmake gdb
   libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config
   python-is-python3 python3 python3-dev python3-full python3-venv valgrind
 
@@ -297,7 +297,7 @@ sudo apt install extrepo && \
 ```bash
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-  brew install bat croc eza fd fnm gh glab hugo just lazygit neovim pandoc \
+  brew install bat croc eza fd fnm gh glab go hugo just lazygit neovim pandoc \
     pinact ripgrep-all shellcheck shfmt topgrade uv yq yt-dlp
 ```
 
