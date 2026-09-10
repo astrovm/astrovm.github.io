@@ -191,8 +191,8 @@ sudo apt install \
   autoconf automake bear build-essential clang cmake gdb golang-go \
   libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config \
   python-is-python3 python3 python3-dev python3-full python3-venv valgrind \
-  atuin bat ble.sh direnv editorconfig eza fd-find fzf git jo jq \
-  moreutils pipx pre-commit shellcheck shfmt \
+  atuin ble.sh direnv editorconfig git jo jq \
+  moreutils pipx pre-commit \
   starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide \
   aria2 axel bind9-dnsutils ca-certificates curl gnupg hashcat httpie \
   magic-wormhole nethogs nload nmap redis-tools speedtest-cli ssh sshpass \
@@ -278,8 +278,8 @@ sudo apt install extrepo && \
 ```bash
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-  brew install croc fnm gh glab hugo just lazygit neovim pandoc pinact \
-    ripgrep-all topgrade uv yq yt-dlp
+  brew install bat croc eza fd fnm gh glab hugo just lazygit neovim pandoc \
+    pinact ripgrep-all shellcheck shfmt topgrade uv yq yt-dlp
 ```
 
 ## Topgrade config
@@ -678,7 +678,7 @@ git config --global user.name "astrovm" && \
   git config --global pull.rebase true && \
   git config --global rebase.autoStash true && \
   git config --global core.autocrlf input && \
-  git config --global core.pager batcat && \
+  git config --global core.pager bat && \
   git config --global fetch.prune true && \
   git config --global rerere.enabled true
 ```
