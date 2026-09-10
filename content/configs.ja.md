@@ -194,12 +194,11 @@ apt_packages=(
   python-is-python3 python3-dev python3-full python3-venv valgrind
 
   # Shell and CLI
-  atuin ble.sh direnv editorconfig jo moreutils pipx pre-commit
-  starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide
+  ble.sh direnv jo thefuck universal-ctags xmlstarlet
 
   # Networking and security
   aria2 axel hashcat httpie
-  magic-wormhole nethogs nload nmap redis-tools speedtest-cli ssh sshpass
+  nethogs nload nmap redis-tools speedtest-cli ssh sshpass
   torbrowser-launcher tshark whois wireshark
 
   # Audio, video, and images
@@ -225,7 +224,7 @@ apt_packages=(
   timeshift trash-cli tree unrar
 
   # Fun
-  cmatrix cowsay fortune-mod sl toilet
+  cmatrix fortune-mod sl toilet
 )
 
 sudo apt install "${apt_packages[@]}"
@@ -297,8 +296,9 @@ sudo apt install extrepo && \
 ```bash
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-  brew install bat croc eza fd fnm gh glab go hugo just lazygit neovim pandoc \
-    pinact ripgrep-all shellcheck shfmt topgrade uv yq yt-dlp
+  brew install atuin bat cowsay croc editorconfig eza fd fnm gh glab go hugo just \
+    lazygit magic-wormhole moreutils neovim pandoc pipx pre-commit ripgrep-all \
+    shellcheck shfmt starship tealdeer tmux topgrade ugrep uv yq yt-dlp zoxide
 ```
 
 ## Topgrade config
