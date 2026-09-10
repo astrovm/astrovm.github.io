@@ -192,7 +192,7 @@ sudo apt install \
   libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config \
   python-is-python3 python3 python3-dev python3-full python3-venv valgrind \
   atuin bat ble.sh direnv editorconfig eza fd-find fzf git glab jo jq \
-  lazygit moreutils neovim pipx pre-commit ripgrep-all shellcheck shfmt \
+  lazygit moreutils neovim pipx pre-commit shellcheck shfmt \
   starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide \
   aria2 axel bind9-dnsutils ca-certificates curl gnupg hashcat httpie \
   magic-wormhole nethogs nload nmap redis-tools speedtest-cli ssh sshpass \
@@ -278,7 +278,7 @@ sudo apt install extrepo && \
 ```bash
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-  brew install croc fnm gh just pinact topgrade uv yq
+  brew install croc fnm gh just pinact ripgrep-all topgrade uv yq
 ```
 
 ## Topgrade config
