@@ -278,7 +278,7 @@ sudo apt install extrepo && \
 ```bash
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-  brew install croc fnm gh just topgrade uv yq
+  brew install croc fnm gh just pinact topgrade uv yq
 ```
 
 ## Topgrade config
