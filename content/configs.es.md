@@ -188,17 +188,17 @@ sudo systemctl restart NetworkManager
 
 ```bash
 sudo apt install \
-  autoconf automake bear build-essential clang cmake gdb golang-go hugo \
+  autoconf automake bear build-essential clang cmake gdb golang-go \
   libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config \
   python-is-python3 python3 python3-dev python3-full python3-venv valgrind \
-  atuin bat ble.sh direnv editorconfig eza fd-find fzf git glab jo jq just \
-  lazygit moreutils neovim pipx pre-commit ripgrep-all shellcheck shfmt \
+  atuin bat ble.sh direnv editorconfig eza fd-find fzf git jo jq \
+  moreutils pipx pre-commit shellcheck shfmt \
   starship tealdeer thefuck tmux ugrep universal-ctags xmlstarlet zoxide \
   aria2 axel bind9-dnsutils ca-certificates curl gnupg hashcat httpie \
   magic-wormhole nethogs nload nmap redis-tools speedtest-cli ssh sshpass \
   torbrowser-launcher tshark ufw wget whois wireshark \
   audacity ffmpeg ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer \
-  pandoc pdfgrep playerctl pngquant poppler-utils tidy vlc yt-dlp \
+  pdfgrep playerctl pngquant poppler-utils tidy vlc \
   buildah cockpit cockpit-podman criu distrobox libvirt-daemon-system podman \
   podman-docker podman-toolbox qemu-system-x86 virt-manager \
   adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty \
@@ -278,7 +278,8 @@ sudo apt install extrepo && \
 ```bash
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-  brew install croc fnm gh topgrade uv yq
+  brew install croc fnm gh glab hugo just lazygit neovim pandoc pinact \
+    ripgrep-all topgrade uv yq yt-dlp
 ```
 
 ## Topgrade config
