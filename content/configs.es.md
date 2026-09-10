@@ -577,6 +577,9 @@ fi
 # grok completion
 command -v grok >/dev/null && [[ -r "$HOME/.grok/completions/bash/grok.bash" ]] && source "$HOME/.grok/completions/bash/grok.bash"
 
+# Foundry Ethereum development tools
+export PATH="$HOME/.foundry/bin:$PATH"
+
 # ble.sh attach
 [[ ! ${BLE_VERSION-} ]] || ble-attach
 ```
@@ -677,6 +680,35 @@ git config --global user.name "astrovm" && \
   git config --global core.pager batcat && \
   git config --global fetch.prune true && \
   git config --global rerere.enabled true
+```
+
+Exigí una referencia explícita al hacer push:
+
+```bash
+git config --global push.default nothing
+```
+
+Usá un hook global de pre-push para impedir pushes directos a `main` y `master`:
+
+```bash
+mkdir -p "$HOME/.config/git/hooks"
+git config --global core.hooksPath "$HOME/.config/git/hooks"
+cat > "$HOME/.config/git/hooks/pre-push" <<'EOF'
+#!/bin/sh
+
+while read local_ref local_oid remote_ref remote_oid; do
+    case "$remote_ref" in
+        refs/heads/main|refs/heads/master)
+            echo "Blocked: direct pushes to ${remote_ref#refs/heads/} are not allowed." >&2
+            echo "Create a branch and open a pull request instead." >&2
+            exit 1
+            ;;
+    esac
+done
+
+exit 0
+EOF
+chmod +x "$HOME/.config/git/hooks/pre-push"
 ```
 
 ```bash
