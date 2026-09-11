@@ -222,9 +222,6 @@ apt_packages=(
   antiword bleachbit btop cabextract clamav diffoscope duf expect firejail
   hw-probe hyperfine inotify-tools iotop-c ncdu needrestart nvtop procs
   timeshift trash-cli tree unrar
-
-  # Fun
-  cmatrix fortune-mod sl toilet
 )
 
 sudo apt install "${apt_packages[@]}"
@@ -296,9 +293,9 @@ sudo apt install extrepo && \
 ```bash
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-  brew install atuin bat cowsay croc editorconfig eza fd fnm gh glab go hugo just \
+  brew install atuin bat cmatrix cowsay croc editorconfig eza fd fnm fortune gh glab go hugo just \
     lazygit magic-wormhole moreutils neovim pandoc pipx pre-commit ripgrep-all \
-    shellcheck shfmt starship tealdeer tmux topgrade ugrep uv yq yt-dlp zoxide
+    shellcheck shfmt starship tealdeer toilet tmux topgrade ugrep uv yq yt-dlp zoxide
 ```
 
 ## Topgrade config
