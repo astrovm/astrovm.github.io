@@ -490,6 +490,9 @@ if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
+# prefer distro executables when both package managers provide the same name
+export PATH="/usr/bin:/bin:$PATH"
+
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 path_prepend "$PNPM_HOME"
