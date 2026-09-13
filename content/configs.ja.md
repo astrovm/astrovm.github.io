@@ -217,7 +217,7 @@ apt_packages=(
   mythes-en-us mythes-es
 
   # System utilities and maintenance
-  antiword clamav firejail hw-probe iotop-c needrestart
+  antiword clamav firejail hw-probe iotop-c
   timeshift unrar
 )
 
