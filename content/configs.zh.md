@@ -189,9 +189,9 @@ sudo systemctl restart NetworkManager
 ```bash
 apt_packages=(
   # Build and development
-  autoconf automake bear build-essential clang cmake
-  libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config
-  python-is-python3 python3-dev python3-full python3-venv valgrind
+  autoconf automake bear build-essential clang cmake libfuse-dev libfuse3-dev
+  libtool meson ninja-build pkg-config python-is-python3 python3-dev
+  python3-full python3-venv valgrind
 
   # Shell and CLI
   ble.sh
@@ -209,16 +209,14 @@ apt_packages=(
 
   # Hardware and desktop
   adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty
-  kde-config-flatpak openrgb
-  plasma-discover-backend-flatpak ydotool
+  kde-config-flatpak openrgb plasma-discover-backend-flatpak ydotool
 
   # Languages and spell checking
-  aspell-es fcitx5-mozc hunspell-es hyphen-en-us hyphen-es
-  mythes-en-us mythes-es
+  aspell-es fcitx5-mozc hunspell-es hyphen-en-us hyphen-es mythes-en-us
+  mythes-es
 
   # System utilities and maintenance
-  antiword clamav firejail hw-probe iotop-c
-  timeshift unrar
+  antiword clamav firejail hw-probe iotop-c timeshift unrar
 )
 
 sudo apt install "${apt_packages[@]}"
@@ -292,20 +290,13 @@ sudo apt install extrepo && \
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
   brew install \
-    aria2 atuin axel bat btop \
-    cmatrix cowsay croc \
-    diffoscope direnv duf editorconfig expect \
-    eza fd ffmpegthumbnailer fnm fortune \
-    gh gifsicle glab go hashcat \
-    httpie hugo hyperfine inotify-tools jo \
-    just lazygit magic-wormhole moreutils ncdu \
-    nethogs neovim nload nmap nvtop \
-    pandoc pdfgrep pipx pngquant pre-commit \
-    procs ripgrep-all shellcheck shfmt speedtest-cli \
-    sshpass starship tealdeer thefuck tidy-html5 \
-    tmux toilet topgrade trash-cli tree \
-    ugrep universal-ctags uv whois xmlstarlet \
-    yt-dlp zoxide
+    aria2 atuin axel bat btop cmatrix cowsay croc diffoscope direnv duf \
+    editorconfig expect eza fd ffmpegthumbnailer fnm fortune gh gifsicle glab go \
+    hashcat httpie hugo hyperfine inotify-tools jo just lazygit magic-wormhole \
+    moreutils ncdu nethogs neovim nload nmap nvtop pandoc pdfgrep pipx pngquant \
+    pre-commit procs ripgrep-all shellcheck shfmt speedtest-cli sshpass starship \
+    tealdeer thefuck tidy-html5 tmux toilet topgrade trash-cli tree ugrep \
+    universal-ctags uv whois xmlstarlet yt-dlp zoxide
 ```
 
 ## Topgrade config
@@ -388,15 +379,13 @@ flatpak remote-add --if-not-exists flathub \
 ```bash
 flatpak install flathub \
   com.calibre_ebook.calibre com.github.wwmm.easyeffects \
-  com.github.PintaProject.Pinta com.github.tchx84.Flatseal \
-  com.obsproject.Studio com.spotify.Client \
-  com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus \
-  dev.vencord.Vesktop io.github.flattool.Warehouse \
+  com.github.PintaProject.Pinta com.github.tchx84.Flatseal com.obsproject.Studio \
+  com.spotify.Client com.stremio.Stremio com.usebottles.bottles \
+  com.vysp3r.ProtonPlus dev.vencord.Vesktop io.github.flattool.Warehouse \
   io.github.hedge_dev.hedgemodmanager io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever net.lutris.Lutris net.retrodeck.retrodeck \
-  org.bleachbit.BleachBit org.gimp.GIMP \
-  org.kde.isoimagewriter org.kde.kdenlive org.kde.krita \
-  org.kde.yakuake org.localsend.localsend_app \
+  org.bleachbit.BleachBit org.gimp.GIMP org.kde.isoimagewriter org.kde.kdenlive \
+  org.kde.krita org.kde.yakuake org.localsend.localsend_app \
   org.qbittorrent.qBittorrent org.signal.Signal org.telegram.desktop
 ```
 
