@@ -202,7 +202,7 @@ apt_packages=(
   torbrowser-launcher tshark whois wireshark
 
   # Audio, video, and images
-  audacity ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer
+  ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer
   pdfgrep playerctl pngquant tidy vlc
 
   # Containers and virtualization
@@ -219,7 +219,7 @@ apt_packages=(
   mythes-en-us mythes-es
 
   # System utilities and maintenance
-  antiword bleachbit btop cabextract clamav diffoscope duf expect firejail
+  antiword btop cabextract clamav diffoscope duf expect firejail
   hw-probe hyperfine inotify-tools iotop-c ncdu needrestart nvtop procs
   timeshift trash-cli tree unrar
 )
@@ -377,6 +377,7 @@ flatpak install flathub \
   dev.vencord.Vesktop io.github.flattool.Warehouse \
   io.github.hedge_dev.hedgemodmanager io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever net.lutris.Lutris net.retrodeck.retrodeck \
+  org.bleachbit.BleachBit \
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 org.gimp.GIMP \
   org.kde.isoimagewriter org.kde.kdenlive org.kde.krita org.kde.yakuake \
   org.localsend.localsend_app org.qbittorrent.qBittorrent org.signal.Signal \
