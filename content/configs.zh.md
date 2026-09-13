@@ -224,6 +224,15 @@ apt_packages=(
 sudo apt install "${apt_packages[@]}"
 ```
 
+## 元软件包
+
+```bash
+sudo apt install --no-install-recommends \
+  kubuntu-desktop performance-tools ubuntu-minimal
+sudo apt install --install-recommends \
+  kubuntu-restricted-addons kubuntu-restricted-extras
+```
+
 ## 用户权限
 
 ```bash
