@@ -227,9 +227,8 @@ sudo apt install "${apt_packages[@]}"
 ## Meta-packages
 
 ```bash
-sudo apt install --no-install-recommends \
-  kubuntu-desktop performance-tools ubuntu-minimal
 sudo apt install --install-recommends \
+  kubuntu-desktop performance-tools ubuntu-minimal \
   kubuntu-restricted-addons kubuntu-restricted-extras
 ```
 
