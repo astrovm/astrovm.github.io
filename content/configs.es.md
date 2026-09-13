@@ -7,7 +7,7 @@ hideComments = true
 
 **PC Master Race**
 
-- OS: [Kubuntu 26.04 LTS](https://kubuntu.org/)
+- OS: [Kubuntu 26.04.1 LTS](https://kubuntu.org/)
 - CPU: AMD Ryzen 5 3600
 - GPU: AMD Radeon RX 6800 16 GB
 - RAM: 32 GB (4×8 GB GeIL Super Luce DDR4 3200 MHz)
@@ -19,7 +19,7 @@ hideComments = true
 
 # Instalación base
 
-Kubuntu 26.04 instalado en modo UEFI. Los dos NVMe usan LUKS2.
+Kubuntu 26.04.1 instalado en modo UEFI. Los dos NVMe usan LUKS2.
 
 Disco del sistema:
 
@@ -227,13 +227,6 @@ apt_packages=(
 sudo apt install "${apt_packages[@]}"
 ```
 
-```bash
-if command -v fdfind >/dev/null; then
-  mkdir -p "$HOME/.local/bin" && \
-    ln -sfn "$(command -v fdfind)" "$HOME/.local/bin/fd"
-fi
-```
-
 ## Permisos de usuario
 
 ```bash
@@ -386,7 +379,6 @@ flatpak install flathub \
   it.mijorus.gearlever net.lutris.Lutris net.retrodeck.retrodeck \
   org.freedesktop.Platform.VulkanLayer.OBSVkCapture//25.08 org.gimp.GIMP \
   org.kde.isoimagewriter org.kde.kdenlive org.kde.krita org.kde.yakuake \
-  org.libreoffice.LibreOffice \
   org.localsend.localsend_app org.qbittorrent.qBittorrent org.signal.Signal \
   org.telegram.desktop
 ```
