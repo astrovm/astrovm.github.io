@@ -197,7 +197,7 @@ apt_packages=(
   ble.sh
 
   # Networking and security
-  redis-tools ssh
+  hashcat redis-tools ssh
   torbrowser-launcher tshark wireshark
 
   # Audio, video, and images
@@ -296,7 +296,7 @@ sudo apt install extrepo && \
     cmatrix cowsay croc \
     diffoscope direnv duf editorconfig expect \
     eza fd ffmpegthumbnailer fnm fortune \
-    gh gifsicle glab go hashcat \
+    gh gifsicle glab go \
     httpie hugo hyperfine inotify-tools jo \
     just lazygit magic-wormhole moreutils ncdu \
     nethogs neovim nload nmap nvtop \
