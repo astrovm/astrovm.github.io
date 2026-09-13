@@ -194,16 +194,14 @@ apt_packages=(
   python-is-python3 python3-dev python3-full python3-venv valgrind
 
   # Shell and CLI
-  ble.sh direnv jo thefuck universal-ctags xmlstarlet
+  ble.sh
 
   # Networking and security
-  aria2 axel hashcat httpie
-  nethogs nload nmap redis-tools speedtest-cli ssh sshpass
-  torbrowser-launcher tshark whois wireshark
+  redis-tools ssh
+  torbrowser-launcher tshark wireshark
 
   # Audio, video, and images
-  ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer
-  pdfgrep playerctl pngquant tidy vlc
+  handbrake mpv optipng pamixer playerctl vlc
 
   # Containers and virtualization
   buildah cockpit cockpit-podman criu distrobox libvirt-daemon-system podman
@@ -219,9 +217,8 @@ apt_packages=(
   mythes-en-us mythes-es
 
   # System utilities and maintenance
-  antiword btop cabextract clamav diffoscope duf expect firejail
-  hw-probe hyperfine inotify-tools iotop-c ncdu needrestart nvtop procs
-  timeshift trash-cli tree unrar
+  antiword clamav firejail hw-probe iotop-c needrestart
+  timeshift unrar
 )
 
 sudo apt install "${apt_packages[@]}"
@@ -286,9 +283,21 @@ sudo apt install extrepo && \
 ```bash
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
-  brew install atuin bat cmatrix cowsay croc editorconfig eza fd fnm fortune gh glab go hugo just \
-    lazygit magic-wormhole moreutils neovim pandoc pipx pre-commit ripgrep-all \
-    shellcheck shfmt starship tealdeer tmux toilet topgrade ugrep uv yq yt-dlp zoxide
+  brew install \
+    aria2 atuin axel bat btop \
+    cabextract cmatrix cowsay croc \
+    diffoscope direnv duf editorconfig expect \
+    eza fd ffmpegthumbnailer fnm fortune \
+    gh gifsicle glab go hashcat \
+    httpie hugo hyperfine inotify-tools jo \
+    just lazygit magic-wormhole moreutils ncdu \
+    nethogs neovim nload nmap nvtop \
+    pandoc pdfgrep pipx pngquant pre-commit \
+    procs ripgrep-all shellcheck shfmt speedtest-cli \
+    sshpass starship tealdeer thefuck tidy-html5 \
+    tmux toilet topgrade trash-cli tree \
+    ugrep universal-ctags uv whois xmlstarlet \
+    yt-dlp zoxide
 ```
 
 ## Topgrade config
