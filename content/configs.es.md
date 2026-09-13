@@ -293,7 +293,7 @@ sudo apt install extrepo && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
   brew install \
     aria2 atuin axel bat btop \
-    cabextract cmatrix cowsay croc \
+    cmatrix cowsay croc \
     diffoscope direnv duf editorconfig expect \
     eza fd ffmpegthumbnailer fnm fortune \
     gh gifsicle glab go hashcat \
@@ -563,6 +563,13 @@ fi
 
 # aliases
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+if command -v eza >/dev/null 2>&1; then
+  alias ls='eza --group-directories-first'
+  alias l='eza --grid --classify --group-directories-first'
+  alias la='eza --almost-all --group-directories-first'
+  alias ll='eza --long --all --classify --group-directories-first'
+fi
 
 if [ -r "$HOME/.bash_aliases" ]; then
   . "$HOME/.bash_aliases"
