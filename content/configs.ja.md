@@ -293,7 +293,7 @@ sudo apt install extrepo && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
   brew install \
     aria2 atuin axel bat btop \
-    cabextract cmatrix cowsay croc \
+    cmatrix cowsay croc \
     diffoscope direnv duf editorconfig expect \
     eza fd ffmpegthumbnailer fnm fortune \
     gh gifsicle glab go hashcat \
