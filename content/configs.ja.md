@@ -227,8 +227,6 @@ apt_packages=(
 sudo apt install "${apt_packages[@]}"
 ```
 
-```
-
 ## ユーザーパーミッション
 
 ```bash
