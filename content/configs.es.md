@@ -564,6 +564,13 @@ fi
 # aliases
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+if command -v eza >/dev/null 2>&1; then
+  alias ls='eza --group-directories-first'
+  alias l='eza --grid --classify --group-directories-first'
+  alias la='eza --almost-all --group-directories-first'
+  alias ll='eza --long --all --classify --group-directories-first'
+fi
+
 if [ -r "$HOME/.bash_aliases" ]; then
   . "$HOME/.bash_aliases"
 fi
