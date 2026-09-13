@@ -370,7 +370,8 @@ flatpak remote-add --if-not-exists flathub \
 
 ```bash
 flatpak install flathub \
-  com.github.wwmm.easyeffects com.github.PintaProject.Pinta \
+  com.calibre_ebook.calibre com.github.wwmm.easyeffects \
+  com.github.PintaProject.Pinta \
   com.github.tchx84.Flatseal com.obsproject.Studio com.spotify.Client \
   com.stremio.Stremio com.usebottles.bottles com.vysp3r.ProtonPlus \
   dev.vencord.Vesktop io.github.flattool.Warehouse \
