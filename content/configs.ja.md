@@ -376,9 +376,9 @@ flatpak install flathub \
   dev.vencord.Vesktop io.github.flattool.Warehouse \
   io.github.hedge_dev.hedgemodmanager io.podman_desktop.PodmanDesktop \
   it.mijorus.gearlever net.lutris.Lutris net.retrodeck.retrodeck \
-  org.bleachbit.BleachBit org.gimp.GIMP org.kde.isoimagewriter \
-  org.kde.kdenlive \
-  org.kde.krita org.kde.yakuake org.localsend.localsend_app \
+  org.bleachbit.BleachBit org.gimp.GIMP \
+  org.kde.isoimagewriter org.kde.kdenlive org.kde.krita \
+  org.kde.yakuake org.localsend.localsend_app \
   org.qbittorrent.qBittorrent org.signal.Signal org.telegram.desktop
 ```
 
