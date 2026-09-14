@@ -68,6 +68,13 @@ system_crypt UUID=<system-luks-uuid> none luks,discard,no-read-workqueue,no-writ
 data_crypt UUID=<data-luks-uuid> /etc/cryptsetup-keys.d/data_crypt.key luks,discard,no-read-workqueue,no-write-workqueue,nofail
 ```
 
+```bash
+# After creating the key file or changing /etc/crypttab:
+sudo chown root:root /etc/cryptsetup-keys.d/data_crypt.key
+sudo chmod 600 /etc/cryptsetup-keys.d/data_crypt.key
+sudo update-initramfs -u -k all
+```
+
 有効なmappingを確認：
 
 ```bash
@@ -104,8 +111,10 @@ activation {
 自動拡張には、`dmeventd`による各VDOプールの監視が必要。`lvs`の出力で`seg_monitor`が`monitored`になっていることを確認する。
 
 ```bash
+sudo systemctl enable --now lvm2-monitor.service
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
 sudo vdostats --human-readable
+sudo systemctl enable --now fstrim.timer
 ```
 
 ## sysctl
@@ -630,7 +639,7 @@ sudo systemctl enable --now ssh
 sudo apt install ufw && \
   sudo ufw default deny incoming && \
   sudo ufw default allow outgoing && \
-  sudo ufw allow OpenSSH && \
+  sudo ufw limit OpenSSH && \
   sudo ufw allow kdeconnect && \
   sudo ufw enable
 ```
