@@ -717,12 +717,6 @@ git config --global user.name "astrovm" && \
   git config --global rerere.enabled true
 ```
 
-配置 Git，要求 push 时显式指定 refspec：
-
-```bash
-git config --global push.default nothing
-```
-
 使用全局 pre-push hook，禁止直接 push 到 `main` 和 `master`：
 
 ```bash

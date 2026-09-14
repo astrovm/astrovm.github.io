@@ -717,12 +717,6 @@ git config --global user.name "astrovm" && \
   git config --global rerere.enabled true
 ```
 
-Exigí una referencia explícita al hacer push:
-
-```bash
-git config --global push.default nothing
-```
-
 Usá un hook global de pre-push para impedir pushes directos a `main` y `master`:
 
 ```bash

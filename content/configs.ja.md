@@ -717,12 +717,6 @@ git config --global user.name "astrovm" && \
   git config --global rerere.enabled true
 ```
 
-明示的な push 先の refspec を必須にする：
-
-```bash
-git config --global push.default nothing
-```
-
 グローバルな pre-push hook を使って、`main` と `master` への直接 push を禁止する：
 
 ```bash
