@@ -68,15 +68,18 @@ system_crypt UUID=<system-luks-uuid> none luks,discard,no-read-workqueue,no-writ
 data_crypt UUID=<data-luks-uuid> /etc/cryptsetup-keys.d/data_crypt.key luks,discard,no-read-workqueue,no-write-workqueue,nofail
 ```
 
+```bash
+# After creating the key file or changing /etc/crypttab:
+sudo chown root:root /etc/cryptsetup-keys.d/data_crypt.key
+sudo chmod 600 /etc/cryptsetup-keys.d/data_crypt.key
+sudo update-initramfs -u -k all
+```
+
 Para verificar los mappings activos:
 
 ```bash
 sudo cryptsetup status system_crypt
 sudo cryptsetup status data_crypt
-
-sudo chown root:root /etc/cryptsetup-keys.d/data_crypt.key
-sudo chmod 600 /etc/cryptsetup-keys.d/data_crypt.key
-sudo update-initramfs -u -k all
 ```
 
 - `no-read-workqueue` / `no-write-workqueue` saltean las workqueues internas de dm-crypt en los NVMe.
@@ -108,9 +111,9 @@ activation {
 La extensión automática requiere que `dmeventd` monitoree cada pool VDO. Verificar que `seg_monitor` muestre `monitored` en la salida de `lvs`.
 
 ```bash
+sudo systemctl enable --now lvm2-monitor.service
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
 sudo vdostats --human-readable
-sudo systemctl enable --now lvm2-monitor.service
 sudo systemctl enable --now fstrim.timer
 ```
 
