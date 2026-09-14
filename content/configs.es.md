@@ -73,6 +73,10 @@ Para verificar los mappings activos:
 ```bash
 sudo cryptsetup status system_crypt
 sudo cryptsetup status data_crypt
+
+sudo chown root:root /etc/cryptsetup-keys.d/data_crypt.key
+sudo chmod 600 /etc/cryptsetup-keys.d/data_crypt.key
+sudo update-initramfs -u -k all
 ```
 
 - `no-read-workqueue` / `no-write-workqueue` saltean las workqueues internas de dm-crypt en los NVMe.
@@ -106,6 +110,8 @@ La extensión automática requiere que `dmeventd` monitoree cada pool VDO. Verif
 ```bash
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
 sudo vdostats --human-readable
+sudo systemctl enable --now lvm2-monitor.service
+sudo systemctl enable --now fstrim.timer
 ```
 
 ## sysctl
@@ -630,7 +636,7 @@ sudo systemctl enable --now ssh
 sudo apt install ufw && \
   sudo ufw default deny incoming && \
   sudo ufw default allow outgoing && \
-  sudo ufw allow OpenSSH && \
+  sudo ufw limit OpenSSH && \
   sudo ufw allow kdeconnect && \
   sudo ufw enable
 ```
