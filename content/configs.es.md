@@ -203,14 +203,14 @@ apt_packages=(
   python3-full python3-venv valgrind
 
   # Shell and CLI
-  ble.sh
+  ble.sh toilet
 
   # Networking and security
-  redis-tools ssh
+  hashcat nmap redis-tools ssh
   torbrowser-launcher tshark wireshark
 
   # Audio, video, and images
-  handbrake mpv optipng pamixer playerctl vlc
+  ffmpegthumbnailer handbrake mpv optipng pamixer playerctl vlc
 
   # Containers and virtualization
   buildah cockpit cockpit-podman criu distrobox libvirt-daemon-system podman
@@ -218,14 +218,14 @@ apt_packages=(
 
   # Hardware and desktop
   adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty
-  kde-config-flatpak openrgb plasma-discover-backend-flatpak ydotool
+  kde-config-flatpak nvtop openrgb plasma-discover-backend-flatpak ydotool
 
   # Languages and spell checking
   aspell-es fcitx5-mozc hunspell-es hyphen-en-us hyphen-es mythes-en-us
   mythes-es
 
   # System utilities and maintenance
-  antiword clamav firejail hw-probe iotop-c timeshift unrar
+  antiword clamav diffoscope firejail hw-probe iotop-c pdfgrep timeshift unrar
 )
 
 sudo apt install "${apt_packages[@]}"
@@ -299,13 +299,13 @@ sudo apt install extrepo && \
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
   brew install \
-    aria2 atuin axel bat btop cmatrix cowsay croc diffoscope direnv duf \
-    editorconfig expect eza fd ffmpegthumbnailer fnm fortune gh gifsicle glab go \
-    hashcat httpie hugo hyperfine inotify-tools jo just lazygit magic-wormhole \
-    moreutils ncdu nethogs neovim nload nmap nvtop pandoc pdfgrep pipx pngquant \
+    aria2 atuin axel bat btop cmatrix cowsay croc direnv duf \
+    editorconfig expect eza fd fnm fortune gh gifsicle glab go \
+    httpie hugo hyperfine inotify-tools jo just lazygit magic-wormhole \
+    moreutils ncdu nethogs neovim nload pandoc pinact pipx pngquant \
     pre-commit procs ripgrep-all shellcheck shfmt speedtest-cli sshpass starship \
-    tealdeer thefuck tidy-html5 tmux toilet topgrade trash-cli tree ugrep \
-    universal-ctags uv whois xmlstarlet yt-dlp zoxide
+    tealdeer thefuck tidy-html5 tmux topgrade trash-cli tree typst ugrep \
+    universal-ctags uv whois xmlstarlet yq yt-dlp zoxide
 ```
 
 ## Topgrade config
