@@ -217,8 +217,9 @@ apt_packages=(
   podman-docker podman-toolbox qemu-system-x86 virt-manager
 
   # Hardware and desktop
-  adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode ghostty
-  kde-config-flatpak nvtop openrgb plasma-discover-backend-flatpak ydotool
+  adb brightnessctl ddcui ddcutil fastboot filelight flatpak gamemode
+  gamescope ghostty kde-config-flatpak mangoapp nvtop openrgb
+  plasma-discover-backend-flatpak ydotool
 
   # Languages and spell checking
   aspell-es fcitx5-mozc hunspell-es hyphen-en-us hyphen-es mythes-en-us
