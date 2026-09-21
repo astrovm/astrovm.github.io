@@ -13,4 +13,4 @@ hideComments = true
 
 - [bitcoin/lightning](https://checkout.opennode.com/p/32c4dcff-1ef4-44ba-908e-cccf7f564233)
 
-- <a href="monero:8BVAgmF6bwQeW8Y6UEFut7YzKyQCE19UANt9avx64ZjsApwvCaaMhVZYd6LwqpKjsaRyJaVvTjxapK3chj3JUv4cUepKCjB">monero</a>
+- {{< monero >}}

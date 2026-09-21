@@ -26,3 +26,40 @@ a {
 .navigation-menu {
   margin-bottom: 0;
 }
+
+.monero-donation summary {
+  cursor: pointer;
+}
+
+.monero-donation__content {
+  padding-top: 1rem;
+}
+
+.monero-donation__address {
+  display: block;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  user-select: text;
+  margin-bottom: 1rem;
+}
+
+.monero-donation__copy[hidden] {
+  display: none;
+}
+
+.monero-donation__status {
+  display: block;
+}
+
+.monero-donation__qr {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-top: 1rem;
+}
+
+.monero-donation summary:focus-visible,
+.monero-donation__copy:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
