@@ -27,13 +27,12 @@ a {
   margin-bottom: 0;
 }
 
-.monero-donation details,
 .monero-donation summary {
   display: inline;
 }
 
 .monero-donation summary {
-  margin-inline-start: 0.5ch;
+  color: var(--accent);
   cursor: pointer;
   text-decoration: underline;
 }
