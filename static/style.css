@@ -26,3 +26,68 @@ a {
 .navigation-menu {
   margin-bottom: 0;
 }
+
+.monero-donation summary {
+  display: inline;
+  color: var(--accent);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.monero-donation summary::-webkit-details-marker {
+  display: none;
+}
+
+.monero-donation__content {
+  padding-top: 1rem;
+}
+
+.monero-donation__address {
+  display: block;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  user-select: text;
+  margin-bottom: 1rem;
+  border: 0;
+  padding: 0;
+  background: none;
+}
+
+.monero-donation__copy[hidden] {
+  display: none;
+}
+
+.monero-donation__status {
+  display: block;
+}
+
+.monero-donation__qr {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-top: 1rem;
+}
+
+.monero-donation summary:focus-visible,
+.monero-donation__copy:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+
+.monero-donation__copy {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
+}
+
+.monero-donation__arrow {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.monero-donation[open] .monero-donation__arrow {
+  transform: rotate(90deg);
+}
