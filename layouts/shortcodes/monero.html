@@ -7,7 +7,7 @@
 {{- $text := index $labels .Page.Language.Lang -}}
 {{- $address := "8BVAgmF6bwQeW8Y6UEFut7YzKyQCE19UANt9avx64ZjsApwvCaaMhVZYd6LwqpKjsaRyJaVvTjxapK3chj3JUv4cUepKCjB" -}}
 <details class="monero-donation">
-  <summary>monero</summary>
+  <summary>monero <span class="monero-donation__arrow" aria-hidden="true">▸</span></summary>
   <div class="monero-donation__content">
     <a class="monero-donation__address" href="{{ printf "monero:%s" $address | safeURL }}">{{ $address }}</a>
     <button type="button" class="monero-donation__copy" data-copied="{{ $text.copied }}" data-failed="{{ $text.failed }}" hidden>{{ $text.copy }}</button>

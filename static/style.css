@@ -29,9 +29,6 @@ a {
 
 .monero-donation summary {
   display: inline;
-}
-
-.monero-donation summary {
   color: var(--accent);
   cursor: pointer;
   text-decoration: underline;
@@ -84,4 +81,13 @@ a {
   color: inherit;
   font: inherit;
   text-decoration: underline;
+}
+
+.monero-donation__arrow {
+  display: inline-block;
+  text-decoration: none;
+}
+
+.monero-donation[open] .monero-donation__arrow {
+  transform: rotate(90deg);
 }
