@@ -5,12 +5,16 @@
   "zh" (dict "show" "显示地址" "copy" "复制地址" "copied" "地址已复制" "failed" "无法复制。请选中地址并手动复制。" "qr" "Monero地址二维码")
 -}}
 {{- $text := index $labels .Page.Language.Lang -}}
-<details class="monero-donation">
-  <summary>monero — {{ $text.show }}</summary>
-  <div class="monero-donation__content">
-    <code class="monero-donation__address">8BVAgmF6bwQeW8Y6UEFut7YzKyQCE19UANt9avx64ZjsApwvCaaMhVZYd6LwqpKjsaRyJaVvTjxapK3chj3JUv4cUepKCjB</code>
-    <button type="button" class="monero-donation__copy" data-copied="{{ $text.copied }}" data-failed="{{ $text.failed }}" hidden>{{ $text.copy }}</button>
-    <span class="monero-donation__status" role="status"></span>
-    <img class="monero-donation__qr" src="{{ "images/monero-qr.png" | relURL }}" alt="{{ $text.qr }}" width="245" height="245" loading="lazy">
-  </div>
-</details>
+{{- $address := "8BVAgmF6bwQeW8Y6UEFut7YzKyQCE19UANt9avx64ZjsApwvCaaMhVZYd6LwqpKjsaRyJaVvTjxapK3chj3JUv4cUepKCjB" -}}
+<div class="monero-donation">
+  <a href="{{ printf "monero:%s" $address | safeURL }}">monero</a>
+  <details>
+    <summary>({{ $text.show }})</summary>
+    <div class="monero-donation__content">
+      <code class="monero-donation__address">{{ $address }}</code>
+      <button type="button" class="monero-donation__copy" data-copied="{{ $text.copied }}" data-failed="{{ $text.failed }}" hidden>{{ $text.copy }}</button>
+      <span class="monero-donation__status" role="status"></span>
+      <img class="monero-donation__qr" src="{{ "images/monero-qr.png" | relURL }}" alt="{{ $text.qr }}" width="245" height="245" loading="lazy">
+    </div>
+  </details>
+</div>

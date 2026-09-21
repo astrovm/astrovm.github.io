@@ -27,8 +27,19 @@ a {
   margin-bottom: 0;
 }
 
+.monero-donation details,
 .monero-donation summary {
+  display: inline;
+}
+
+.monero-donation summary {
+  margin-inline-start: 0.5ch;
   cursor: pointer;
+  text-decoration: underline;
+}
+
+.monero-donation summary::-webkit-details-marker {
+  display: none;
 }
 
 .monero-donation__content {
@@ -41,6 +52,9 @@ a {
   white-space: normal;
   user-select: text;
   margin-bottom: 1rem;
+  border: 0;
+  padding: 0;
+  background: none;
 }
 
 .monero-donation__copy[hidden] {
@@ -62,4 +76,13 @@ a {
 .monero-donation__copy:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 4px;
+}
+
+.monero-donation__copy {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-decoration: underline;
 }
