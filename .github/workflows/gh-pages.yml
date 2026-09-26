@@ -34,6 +34,11 @@ jobs:
       - name: Install JS deps
         run: bun install --frozen-lockfile
 
+      - name: Typecheck and test utils (95% coverage gate)
+        run: |
+          bun run typecheck
+          bun run test
+
       - name: Build
         run: |
           hugo --minify
@@ -52,4 +57,4 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
-        uses: actions/deploy-pages@cd2ce8fcbc39b97be8ca5fce6e763baed58fa128 # v5.0.0
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
