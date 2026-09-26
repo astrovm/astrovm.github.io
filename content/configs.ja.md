@@ -130,8 +130,17 @@ fs.inotify.max_user_watches = 524288
 fs.inotify.max_queued_events = 16384
 EOF
 
+sudo tee /etc/sysctl.d/99-responsiveness.conf > /dev/null << 'EOF'
+vm.dirty_bytes = 268435456
+vm.dirty_background_bytes = 67108864
+vm.page-cluster = 0
+EOF
+
 sudo sysctl --system
 ```
+
+- `dirty_bytes` / `dirty_background_bytes` で未書き込みのpage cacheを256 MiB / 64 MiBに制限。LUKSとVDO経由のwritebackが数GB単位で詰まらず、小さく分かれて流れる。
+- `page-cluster = 0` でzramから8ページではなく1ページずつ読む。
 
 ## zram
 
@@ -169,6 +178,32 @@ sudo apt install systemd-oomd && \
 
 ```bash
 powerprofilesctl set performance
+```
+
+## レスポンス
+
+T3 Codeと、そのエージェントが起動するビルドやテストのCPU weightをデスクトップより下げる。他に使うものがなければ全コアを使う。
+
+```bash
+mkdir -p ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d && \
+  tee ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d/background.conf > /dev/null << 'EOF'
+[Scope]
+CPUWeight=20
+EOF
+
+systemctl --user daemon-reload
+```
+
+その他の重い単発コマンド：
+
+```bash
+systemd-run --user --scope -p CPUWeight=20 <command>
+```
+
+Balooのファイルインデックスを無効化：
+
+```bash
+balooctl6 disable && balooctl6 purge
 ```
 
 ## Intel AX200 WiFi
@@ -666,6 +701,7 @@ wget -O /tmp/UnleashedRecomp-Flatpak.zip \
 ## Steam
 
 - Steam Playを有効化
+- **設定 → ダウンロード → Vulkanシェーダーのバックグラウンド処理を許可** を無効化
 - ゲームごとの起動オプション：
 
 ```bash
