@@ -10,6 +10,7 @@ Currently using the [Terminal theme](https://github.com/panr/hugo-theme-terminal
 git submodule update --init --recursive  # get the Terminal theme
 bun install                             # xterm (+ webgl) for the floating terminal
 hugo server                             # or: hugo --minify
+bun run typecheck && bun run test       # utils/ tests, 95% coverage gate
 ```
 
 CI runs the same `bun install --frozen-lockfile` step before Hugo (see `.github/workflows/gh-pages.yml`).
