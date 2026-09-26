@@ -130,8 +130,17 @@ fs.inotify.max_user_watches = 524288
 fs.inotify.max_queued_events = 16384
 EOF
 
+sudo tee /etc/sysctl.d/99-responsiveness.conf > /dev/null << 'EOF'
+vm.dirty_bytes = 268435456
+vm.dirty_background_bytes = 67108864
+vm.page-cluster = 0
+EOF
+
 sudo sysctl --system
 ```
+
+- `dirty_bytes` / `dirty_background_bytes` cap unwritten page cache at 256 MiB / 64 MiB, so writeback through LUKS and VDO happens in small bursts instead of multi-GB stalls.
+- `page-cluster = 0` reads one page at a time from zram instead of 8.
 
 ## zram
 
@@ -169,6 +178,32 @@ sudo apt install systemd-oomd && \
 
 ```bash
 powerprofilesctl set performance
+```
+
+## Responsiveness
+
+T3 Code and the builds and tests its agents start get a lower CPU weight than the desktop. They still use every core when nothing else needs it.
+
+```bash
+mkdir -p ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d && \
+  tee ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d/background.conf > /dev/null << 'EOF'
+[Scope]
+CPUWeight=20
+EOF
+
+systemctl --user daemon-reload
+```
+
+Other heavy one-off commands:
+
+```bash
+systemd-run --user --scope -p CPUWeight=20 <command>
+```
+
+Disable Baloo file indexing:
+
+```bash
+balooctl6 disable && balooctl6 purge
 ```
 
 ## Intel AX200 WiFi
@@ -666,6 +701,7 @@ wget -O /tmp/UnleashedRecomp-Flatpak.zip \
 ## Steam
 
 - Enable Steam Play
+- Disable **Settings → Downloads → Allow background processing of Vulkan shaders**
 - Launch options per game:
 
 ```bash

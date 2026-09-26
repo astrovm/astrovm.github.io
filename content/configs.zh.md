@@ -130,8 +130,17 @@ fs.inotify.max_user_watches = 524288
 fs.inotify.max_queued_events = 16384
 EOF
 
+sudo tee /etc/sysctl.d/99-responsiveness.conf > /dev/null << 'EOF'
+vm.dirty_bytes = 268435456
+vm.dirty_background_bytes = 67108864
+vm.page-cluster = 0
+EOF
+
 sudo sysctl --system
 ```
+
+- `dirty_bytes` / `dirty_background_bytes` 把未写入的 page cache 限制在 256 MiB / 64 MiB，让经过 LUKS 和 VDO 的 writeback 分成小批写入，而不是一次卡住好几 GB。
+- `page-cluster = 0` 让 zram 每次只读 1 页，而不是 8 页。
 
 ## zram
 
@@ -169,6 +178,32 @@ sudo apt install systemd-oomd && \
 
 ```bash
 powerprofilesctl set performance
+```
+
+## 响应速度
+
+T3 Code 以及它的 agent 启动的构建和测试的 CPU weight 比桌面低。没有其他程序需要时仍然会用满所有核心。
+
+```bash
+mkdir -p ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d && \
+  tee ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d/background.conf > /dev/null << 'EOF'
+[Scope]
+CPUWeight=20
+EOF
+
+systemctl --user daemon-reload
+```
+
+其他一次性的重负载命令：
+
+```bash
+systemd-run --user --scope -p CPUWeight=20 <command>
+```
+
+禁用 Baloo 文件索引：
+
+```bash
+balooctl6 disable && balooctl6 purge
 ```
 
 ## Intel AX200 WiFi
@@ -666,6 +701,7 @@ wget -O /tmp/UnleashedRecomp-Flatpak.zip \
 ## Steam
 
 - 启用 Steam Play
+- 关闭 **设置 → 下载 → 允许后台处理 Vulkan 着色器**
 - 每个游戏设置启动选项：
 
 ```bash
