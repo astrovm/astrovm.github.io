@@ -27,11 +27,11 @@ hasCJKLanguage = true
   [[module.mounts]]
     source = "node_modules/@xterm/xterm/lib"
     target = "assets/xterm"
-    excludeFiles = ["**/*.map", "**/*.mjs"]
+    files = ["! **/*.map", "! **/*.mjs"]
   [[module.mounts]]
     source = "node_modules/@xterm/addon-webgl/lib"
     target = "assets/xterm"
-    excludeFiles = ["**/*.map", "**/*.mjs"]
+    files = ["! **/*.map", "! **/*.mjs"]
 
 [markup.goldmark.renderer]
   unsafe = true
@@ -95,8 +95,8 @@ hasCJKLanguage = true
 
 [languages]
   [languages.en]
-    languageName = "english"
-    languageCode = "en"
+    label = "english"
+    locale = "en"
     title = "astro@web"
 
     [languages.en.params]
@@ -145,8 +145,8 @@ hasCJKLanguage = true
         weight = 5
 
   [languages.es]
-    languageName = "español"
-    languageCode = "es"
+    label = "español"
+    locale = "es"
     title = "astro@web"
 
     [languages.es.params]
@@ -195,8 +195,8 @@ hasCJKLanguage = true
         weight = 5
 
   [languages.ja]
-    languageName = "日本語"
-    languageCode = "ja"
+    label = "日本語"
+    locale = "ja"
     title = "astro@web"
 
     [languages.ja.params]
@@ -245,8 +245,8 @@ hasCJKLanguage = true
         weight = 5
 
   [languages.zh]
-    languageName = "中文"
-    languageCode = "zh"
+    label = "中文"
+    locale = "zh"
     title = "astro@web"
 
     [languages.zh.params]
