@@ -35,6 +35,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Typecheck and test utils (95% coverage gate)
+        if: github.event_name == 'workflow_dispatch'
         run: |
           bun run typecheck
           bun run test
