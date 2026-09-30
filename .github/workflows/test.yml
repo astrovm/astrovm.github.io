@@ -28,6 +28,6 @@ jobs:
       - name: Typecheck
         run: bun run typecheck
 
-      # bunfig.toml enforces >= 95% line and function coverage.
+      # bunfig.toml enforces >= 100% line and function coverage.
       - name: Test with coverage
         run: bun run test
