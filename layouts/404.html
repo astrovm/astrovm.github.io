@@ -1,0 +1,16 @@
+{{ define "main" }}
+  {{- $lost := dict
+    "en" (slice "this page ran away. the cat is looking for it (=;ω;=)" "go home")
+    "es" (slice "esta página se escapó. el gato la está buscando (=;ω;=)" "volver al inicio")
+    "ja" (slice "このページは逃げちゃった。ネコが探してる (=;ω;=)" "ホームへ")
+    "zh" (slice "这个页面跑掉了。猫咪正在找它 (=;ω;=)" "回首页")
+  }}
+  {{- $text := index $lost .Site.Language.Lang | default (index $lost "en") }}
+  <div class="post lost-page">
+    <h1 class="post-title">404</h1>
+    <div class="post-content">
+      <p>{{ index $text 0 }}</p>
+      <p class="lost-actions"><a class="lost-home" href="{{ "/" | relLangURL }}">[{{ index $text 1 }}]</a></p>
+    </div>
+  </div>
+{{ end }}

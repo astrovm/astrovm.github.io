@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31" font-family="Fira Code, Menlo, Consolas, monospace" font-weight="700">
+  <rect width="88" height="31" fill="#211f2b"/>
+  <path d="M0 0h88v1H1v30H0z" fill="#ffffff66"/>
+  <path d="M88 31H0v-1h87V0h1z" fill="#00000088"/>
+  <rect x="3" y="3" width="25" height="25" fill="#f462c6"/>
+  <text x="15.5" y="21" font-size="15" text-anchor="middle" fill="#211f2b">$_</text>
+  <text x="58" y="15" font-size="11" text-anchor="middle" fill="#f462c6">LINUX</text>
+  <text x="58" y="25" font-size="7" text-anchor="middle" fill="#eceae5">apps here</text>
+</svg>

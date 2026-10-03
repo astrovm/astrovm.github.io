@@ -14,3 +14,22 @@ bun run typecheck && bun run test       # utils/ tests, 100% coverage gate
 ```
 
 CI runs the same `bun install --frozen-lockfile` step before Hugo (see `.github/workflows/gh-pages.yml`).
+
+## Fun stuff
+
+- `assets/oneko.js`: the cat. Same file as on flatpak.4st.li.
+- `assets/fun.js`: clock, last commit, rings, Konami code, seasons, hit counter, sounds, reading cat, 404 and ghost cats.
+- Add `?today=2026-10-31` (or `2026-03-03T03:00`) to any page to try another day or time.
+
+### Ghost cats
+
+Other visitors on the same page show up as faded cats. The relay is a Cloudflare Worker in `workers/ghosts`:
+
+```bash
+cd workers/ghosts
+npx wrangler login
+npx wrangler deploy
+```
+
+Then put its address in `config.toml`, for example `ghostsUrl = "wss://ghost-cats.<your-subdomain>.workers.dev"`. Empty turns them off.
+

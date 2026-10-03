@@ -398,6 +398,63 @@ document.addEventListener("DOMContentLoaded", () => {
       state.pendingUser = args[0] || "root"; // If no user specified, default to root
       terminal.print(`Password for ${state.pendingUser}:`);
     },
+
+    // Not in help on purpose: these are for people who poke around.
+    ls: () => {
+      terminal.print(Object.keys(files).join("  "));
+    },
+    cat: (args) => {
+      const name = args[0];
+      if (!name) {
+        terminal.print("cat: which file? try ls");
+      } else if (files[name]) {
+        files[name]().split("\n").forEach((line) => terminal.print(line));
+      } else {
+        terminal.print(`cat: ${name}: No such file or directory`);
+      }
+    },
+    neofetch: () => {
+      const rings = Number(localStorage.getItem("fun.rings") || 0);
+      const cats = window.oneko ? window.oneko.cats().length : 0;
+      const up = Math.round(performance.now() / 1000);
+      [
+        "   /\\_/\\     astro@4st.li",
+        "  ( o.o )    ------------",
+        "   > ^ <     OS: 4st.li (Hugo)",
+        "  /     \\    Host: GitHub Pages",
+        " (       )   Shell: astrosh",
+        "  \\_____/    Theme: terminal, pink",
+        `             Cats: ${cats}`,
+        `             Rings: ${rings}`,
+        `             Uptime: ${up}s`,
+      ].forEach((line) => terminal.print(line));
+    },
+    sudo: (args) => {
+      if (args.join(" ") === "make me a sandwich") {
+        terminal.print("okay. here you go: [=========]");
+      } else {
+        terminal.print("you are not in the sudoers file. this incident will be reported to the cat.");
+      }
+    },
+    pet: () => {
+      if (window.oneko) {
+        window.oneko.pet();
+        terminal.print("purr ♡");
+      } else {
+        terminal.print("no cat here (=；ω；=)");
+      }
+    },
+  };
+
+  const files = {
+    "about.txt": () => "astro <(^^,)>\nprojects: 4st.li/projects\nsource: github.com/astrovm",
+    "neko.txt": () =>
+      "the cat knows tricks:\n  type pspsps to call it\n  type nyan for a rainbow\n  throw the yarn ball in the corner\n  pet it when it sits on a button",
+    "rings.txt": () => {
+      const rings = Number(localStorage.getItem("fun.rings") || 0);
+      return `you have ${rings} rings.\na few hide on every page, new ones every day.\nup up down down left right left right b a`;
+    },
+    "secrets.txt": () => "nice try (=^･ω･^=)\nthe password is not here.\n...or is it? (it is not)",
   };
 
   const getCompletions = (input) => {
@@ -413,6 +470,8 @@ document.addEventListener("DOMContentLoaded", () => {
         case "su":
           // Example: could suggest usernames here
           return ["root", "admin"];
+        case "cat":
+          return Object.keys(files);
         default:
           return [];
       }
