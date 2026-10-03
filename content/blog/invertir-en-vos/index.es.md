@@ -44,4 +44,4 @@ La gente aprende las cosas viviéndolas en carne propia. En las sociedades donde
 
 Esto es trasladable a todo, por ejemplo con el cuerpo pasa lo mismo, no se trata de qué rutina es mejor, es literalmente entender el principio de sobrecarga progresiva y poder visualizar la proyección en el tiempo con tu mente. Si no, no vas a entender para qué verga hacés lo que hacés.
 
-![Neo en su cubiculo](5fi91nw2d1161.png)
+![Neo en su cubículo](5fi91nw2d1161.png)

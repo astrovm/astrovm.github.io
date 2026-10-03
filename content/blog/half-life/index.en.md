@@ -34,7 +34,7 @@ D:
 
 :((( What did I just do??
 
-And then I started defending myself. In Half-Life, combats are a puzzle to solve; it's not like those games where you have to die to know something and then retry it, like brute-forcing the game (I always wondered how you get to know those things without dying first). In Half-Life, you have to actually value your life and treat it like the most important thing you have.
+And then I started defending myself. In Half-Life, combat is a puzzle to solve; it's not like those games where you have to die to know something and then retry it, like brute-forcing the game (I always wondered how you get to know those things without dying first). In Half-Life, you have to actually value your life and treat it like the most important thing you have.
 
 You are a man of science, not an assassin. If you see a threat, you first run to protect yourself, then think about how to use your tools, environment, and knowledge against the enemy. If you don't really need to kill anyone, you don't, but if you do, now you have a plan.
 
@@ -49,10 +49,10 @@ The game has some interesting messages:
 - Don't expect someone to tell you what you have to do; think, try, and break stuff.
 - When everything goes to hell, you may have your friends to help you, but if you don't, you are alone with yourself and maybe some cool weapons.
 - Your search for freedom may never come to an end.
-- Your worst enemy seems to be an inter-dimensional bureaucrat who wants to give you a job.
+- Your worst enemy seems to be an interdimensional bureaucrat who wants to give you a job.
 - Talking is not so important.
 
-<video src="/en/blog/half-life/mashup.webm" width="100%" preload autoplay muted playsinline loop></video>
+<video src="/en/blog/half-life/mashup.webm" width="100%" preload="metadata" autoplay muted playsinline loop></video>
 
 I've seen a lot of people having trouble playing Half-Life because they expect the game to tell them what to do, and if the game doesn't tell them, they'll do nothing! The game is all about curiosity and trying new ideas, and that extends to much more than the story.
 

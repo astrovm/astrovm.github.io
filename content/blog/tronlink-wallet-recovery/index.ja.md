@@ -31,6 +31,8 @@ readingTime = true
 
 <https://github.com/astrovm/2026-03-tronlink-wallet-recovery-reference>
 
+公開しているウォレットファイル、hash、認証情報、seed phraseは、すべて検証用の合成データであり、クライアントの個人データではない。
+
 ## フェーズ1: スマホからウォレットを抜き出す
 
 TronLinkの機密データはアプリのプライベートディレクトリに保存されている：
@@ -191,7 +193,7 @@ Codexの助けを借りてPythonのフレームワーク`smart_recovery/`を構�
 考え方としては、優先度別にパターンファミリーを生成し、確率の高いものから消化してからbrute forceに落ちるようにする。いくつかのファミリー：
 
 | ファミリー | パターン | 例 |
-|---|---|---|
+| --- | --- | --- |
 | `compose.name-number` | 名前 + 数字 | `Carlitos7`, `Turco1991`, `Zulemita91` |
 | `compose.name-extension-number` | 名前 + 姓 + 数字 | `CarlitosMenem7`, `Turcosaul991`, `Carlossaul91` |
 | `compose.name-number-symbol` | 名前 + 数字 + 記号 | `Carlitos7!`, `Turco1991#`, `Zulemita7@` |
