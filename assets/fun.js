@@ -1,6 +1,6 @@
-// Things that make the site feel alive: a Buenos Aires clock, the last commit,
-// rings to collect, the Konami code, seasons, a hit counter, sounds, a reading
-// cat, the lost 404 page and ghost cats of other visitors.
+// Things that make the site feel alive: Buenos Aires time and weather, the
+// last commit, special days, a hit counter, sounds, a reading cat, the lost
+// 404 page and ghost cats of other visitors.
 // Add ?today=2026-10-31 to the URL to pretend it is another day.
 (function fun() {
   const lang = (document.documentElement.lang || "en").slice(0, 2);
@@ -12,7 +12,6 @@
   const today = pretend && !Number.isNaN(Date.parse(pretend)) ? new Date(pretend) : new Date();
   const month = today.getMonth() + 1;
   const day = today.getDate();
-  const dayKey = today.toISOString().slice(0, 10);
 
   const words = {
     en: {
@@ -21,10 +20,6 @@
       commit: (when, repo) => `last commit ${when} in ${repo}`,
       visitor: (n) => `you are visitor #${n}`,
       sound: (on) => `♪ sound: ${on ? "on" : "off"}`,
-      gold: (on) => `◯ gold theme: ${on ? "on" : "off"}`,
-      unlocked: "100 rings! the cat got a crown, and you got a gold theme",
-      konami: "ring rain! don't let the cat touch you",
-      ouch: "ouch!",
     },
     es: {
       clock: (time) => `${time} en Buenos Aires`,
@@ -32,10 +27,6 @@
       commit: (when, repo) => `último commit ${when} en ${repo}`,
       visitor: (n) => `sos el visitante #${n}`,
       sound: (on) => `♪ sonido: ${on ? "sí" : "no"}`,
-      gold: (on) => `◯ tema dorado: ${on ? "sí" : "no"}`,
-      unlocked: "¡100 anillos! el gato ganó una corona y vos un tema dorado",
-      konami: "¡lluvia de anillos! que no te toque el gato",
-      ouch: "¡auch!",
     },
     ja: {
       clock: (time) => `ブエノスアイレスは${time}`,
@@ -43,10 +34,6 @@
       commit: (when, repo) => `${repo}に最後のコミット：${when}`,
       visitor: (n) => `あなたは${n}人目の訪問者`,
       sound: (on) => `♪ 音：${on ? "オン" : "オフ"}`,
-      gold: (on) => `◯ ゴールドテーマ：${on ? "オン" : "オフ"}`,
-      unlocked: "リング100個！ネコは王冠を、あなたはゴールドテーマを手に入れた",
-      konami: "リングの雨！ネコに触られないで",
-      ouch: "いたっ！",
     },
     zh: {
       clock: (time) => `布宜诺斯艾利斯 ${time}`,
@@ -54,10 +41,6 @@
       commit: (when, repo) => `最近一次提交：${when}，${repo}`,
       visitor: (n) => `你是第${n}位访客`,
       sound: (on) => `♪ 声音：${on ? "开" : "关"}`,
-      gold: (on) => `◯ 金色主题：${on ? "开" : "关"}`,
-      unlocked: "100个金环！猫咪得到王冠，你得到金色主题",
-      konami: "金环雨！别被猫碰到",
-      ouch: "哎哟！",
     },
   }[lang] || null;
   const say = words || {};
@@ -82,19 +65,6 @@
 
   const $ = (selector) => document.querySelector(selector);
   const between = (min, max) => min + Math.random() * (max - min);
-  let pointer = null;
-  document.addEventListener("pointermove", (event) => {
-    pointer = { x: event.clientX, y: event.clientY };
-  });
-
-  function toast(text) {
-    const el = document.createElement("div");
-    el.className = "fun-toast";
-    el.textContent = text;
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 4200);
-  }
-
   // Sounds, off unless you turn them on.
 
   let audio = null;
@@ -121,12 +91,6 @@
         osc.stop(start + at + length);
       });
     },
-    ring() {
-      this.tone("square", [
-        [1319, 0, 0.07],
-        [1976, 0.07, 0.25],
-      ]);
-    },
     meow() {
       this.tone(
         "triangle",
@@ -137,17 +101,10 @@
         0.1,
       );
     },
-    drop() {
-      this.tone("square", [
-        [1600, 0, 0.06, 1200],
-        [1200, 0.06, 0.06, 900],
-        [900, 0.12, 0.1, 600],
-      ]);
-    },
   };
   window.addEventListener("oneko:meow", () => sound.meow());
 
-  // Status line in the header: clock, last commit and rings.
+  // Status line in the header: Buenos Aires time and weather, and the last commit.
 
   function statusLine() {
     const status = $("#site-status");
@@ -172,7 +129,66 @@
     tick();
     setInterval(tick, 30000);
 
+    weather();
     lastCommit();
+  }
+
+  // Open-Meteo is free and needs no key. Weather codes: https://open-meteo.com/en/docs
+  function weatherIcon(code, isDay) {
+    const text = "\uFE0E";
+    if (code <= 1) {
+      return (isDay ? "☀" : "☾") + text;
+    }
+    if (code === 2) {
+      return `⛅${text}`;
+    }
+    if (code === 3) {
+      return `☁${text}`;
+    }
+    if (code === 45 || code === 48) {
+      return "≋";
+    }
+    if ((code >= 71 && code <= 77) || code === 85 || code === 86) {
+      return `❄${text}`;
+    }
+    if (code >= 95) {
+      return `⚡${text}`;
+    }
+    return `☂${text}`;
+  }
+
+  async function weather() {
+    const el = $("#status-weather");
+    let now = null;
+    try {
+      now = JSON.parse(sessionStorage.getItem("fun.weather"));
+    } catch {
+      now = null;
+    }
+    if (!now || Date.now() - now.checked > 30 * 60 * 1000) {
+      try {
+        const response = await fetch(
+          "https://api.open-meteo.com/v1/forecast?latitude=-34.61&longitude=-58.38&current=temperature_2m,weather_code,is_day",
+        );
+        if (!response.ok) {
+          return;
+        }
+        const { current } = await response.json();
+        now = {
+          temperature: Math.round(current.temperature_2m),
+          icon: weatherIcon(current.weather_code, current.is_day === 1),
+          checked: Date.now(),
+        };
+        sessionStorage.setItem("fun.weather", JSON.stringify(now));
+      } catch {
+        return;
+      }
+    }
+    const icon = document.createElement("span");
+    icon.className = "weather-icon";
+    icon.textContent = now.icon;
+    el.replaceChildren(icon, ` ${now.temperature}°C`);
+    el.hidden = false;
   }
 
   async function lastCommit() {
@@ -213,205 +229,6 @@
     const [before, after] = say.commit(when, "\u0000").split("\u0000");
     el.replaceChildren(before, link, after);
     el.hidden = false;
-  }
-
-  // Rings: a few hide on every page each day. Collect them all.
-
-  const rings = {
-    total: store.get("rings", 0),
-    collected: new Set(store.get("collected", []).filter((id) => id.startsWith(dayKey))),
-    unlocked: store.get("unlocked", false),
-
-    show() {
-      const count = $("#ring-count");
-      if (count) {
-        count.textContent = this.total;
-        count.parentElement.hidden = false;
-      }
-    },
-
-    add(n, x, y) {
-      this.total = Math.max(0, this.total + n);
-      store.set("rings", this.total);
-      this.show();
-      if (n > 0) {
-        sound.ring();
-        sparkle(x, y);
-      }
-      if (!this.unlocked && this.total >= 100) {
-        this.unlocked = true;
-        store.set("unlocked", true);
-        toast(say.unlocked);
-        crown();
-        goldToggle();
-      }
-    },
-
-    collect(id) {
-      this.collected.add(id);
-      store.set("collected", [...this.collected]);
-    },
-  };
-
-  function seededRandom(seed) {
-    let h = 1779033703;
-    for (const char of seed) {
-      h = Math.imul(h ^ char.charCodeAt(0), 3432918353);
-      h = (h << 13) | (h >>> 19);
-    }
-    return () => {
-      h = Math.imul(h ^ (h >>> 16), 2246822507);
-      h = Math.imul(h ^ (h >>> 13), 3266489909);
-      return ((h ^= h >>> 16) >>> 0) / 4294967296;
-    };
-  }
-
-  function makeRing(className = "") {
-    const ring = document.createElement("span");
-    ring.className = `fun-ring ${className}`.trim();
-    ring.setAttribute("aria-hidden", "true");
-    return ring;
-  }
-
-  // Hover with a mouse, tap with a finger.
-  function onGrab(ring, grab) {
-    let taken = false;
-    const take = (event) => {
-      if (taken) {
-        return;
-      }
-      taken = true;
-      event.preventDefault();
-      const rect = ring.getBoundingClientRect();
-      grab(rect.left + rect.width / 2, rect.top + rect.height / 2);
-      ring.remove();
-    };
-    ring.addEventListener(touch ? "pointerdown" : "pointerenter", take);
-  }
-
-  function sparkle(x, y) {
-    for (let i = 0; i < 4; i += 1) {
-      const star = document.createElement("span");
-      star.className = "fun-sparkle";
-      star.textContent = "✦";
-      star.style.left = `${x}px`;
-      star.style.top = `${y}px`;
-      star.style.setProperty("--dx", `${between(-18, 18)}px`);
-      star.style.setProperty("--dy", `${between(-22, -6)}px`);
-      document.body.appendChild(star);
-      setTimeout(() => star.remove(), 600);
-    }
-  }
-
-  function hideRings() {
-    const area = $(".content") || document.body;
-    const box = area.getBoundingClientRect();
-    const top = box.top + window.scrollY;
-    const height = Math.max(400, area.scrollHeight);
-    const rand = seededRandom(`${dayKey}${window.location.pathname}`);
-    for (let i = 0; i < 5; i += 1) {
-      const x = box.left + window.scrollX + rand() * (box.width - 24);
-      const y = top + 40 + rand() * (height - 80);
-      const id = `${dayKey}:${window.location.pathname}:${i}`;
-      if (rings.collected.has(id)) {
-        continue;
-      }
-      const ring = makeRing();
-      ring.style.left = `${x}px`;
-      ring.style.top = `${y}px`;
-      document.body.appendChild(ring);
-      onGrab(ring, (cx, cy) => {
-        rings.collect(id);
-        rings.add(1, cx, cy);
-      });
-    }
-  }
-
-  // Rings that fly or fall on screen for a moment.
-  function looseRing(x, y, vx, vy, life) {
-    const ring = makeRing("fun-ring-loose");
-    document.body.appendChild(ring);
-    let px = x;
-    let py = y;
-    const born = performance.now();
-    onGrab(ring, (cx, cy) => rings.add(1, cx, cy));
-    const fly = (now) => {
-      if (!ring.isConnected) {
-        return;
-      }
-      px += vx;
-      py += vy;
-      vy += 0.15;
-      vx *= 0.99;
-      if (py > window.innerHeight - 20 && vy > 0) {
-        vy = -vy * 0.6;
-      }
-      ring.style.left = `${px}px`;
-      ring.style.top = `${py}px`;
-      if (now - born > life) {
-        ring.remove();
-        return;
-      }
-      ring.style.opacity = now - born > life - 800 ? "0.4" : "1";
-      requestAnimationFrame(fly);
-    };
-    requestAnimationFrame(fly);
-  }
-
-  function crown() {
-    if (window.oneko && rings.unlocked && !seasonalHat) {
-      window.oneko.hat("crown");
-    }
-  }
-
-  // Up up down down left right left right B A.
-
-  function listenForKonami() {
-    const code = ["arrowup", "arrowup", "arrowdown", "arrowdown", "arrowleft", "arrowright", "arrowleft", "arrowright", "b", "a"];
-    let at = 0;
-    document.addEventListener("keydown", (event) => {
-      const key = event.key.toLowerCase();
-      at = key === code[at] ? at + 1 : key === code[0] ? 1 : 0;
-      if (at === code.length) {
-        at = 0;
-        ringRain();
-      }
-    });
-  }
-
-  let ringModeUntil = 0;
-  let lastHit = 0;
-
-  function ringRain() {
-    toast(say.konami);
-    for (let i = 0; i < 30; i += 1) {
-      setTimeout(
-        () => looseRing(between(20, window.innerWidth - 20), -20, between(-1, 1), between(1, 3), 6000),
-        i * 100,
-      );
-    }
-    ringModeUntil = Date.now() + 20000;
-    const check = () => {
-      if (Date.now() > ringModeUntil) {
-        return;
-      }
-      if (window.oneko && pointer && Date.now() - lastHit > 2000) {
-        const hit = window.oneko.cats().some((cat) => Math.hypot(cat.x - pointer.x, cat.y - pointer.y) < 26);
-        if (hit && rings.total > 0) {
-          lastHit = Date.now();
-          const lost = Math.min(rings.total, 10);
-          rings.add(-lost);
-          sound.drop();
-          toast(say.ouch);
-          for (let i = 0; i < lost; i += 1) {
-            const angle = (i / lost) * Math.PI * 2;
-            looseRing(pointer.x, pointer.y, Math.cos(angle) * 5, Math.sin(angle) * 5 - 3, 2500);
-          }
-        }
-      }
-      setTimeout(check, 100);
-    };
-    check();
   }
 
   // Seasons and special days.
@@ -565,7 +382,7 @@
     }
   }
 
-  // Footer: hit counter, sound and the gold theme.
+  // Footer: hit counter and sound.
 
   async function visitorCount() {
     const el = $("#visitor-count");
@@ -606,41 +423,8 @@
       sound.on = !sound.on;
       store.set("sound", sound.on);
       label();
-      sound.ring();
+      sound.meow();
     });
-  }
-
-  function goldToggle() {
-    const button = $("#gold-toggle");
-    if (!button || !words || !rings.unlocked) {
-      return;
-    }
-    let on = store.get("gold", false);
-    const apply = () => {
-      button.textContent = say.gold(on);
-      button.setAttribute("aria-pressed", String(on));
-      if (on) {
-        accent("#ffcc00");
-      } else {
-        document.documentElement.style.removeProperty("--accent");
-        seasonsAccent();
-      }
-    };
-    apply();
-    button.hidden = false;
-    button.onclick = () => {
-      on = !on;
-      store.set("gold", on);
-      apply();
-    };
-  }
-
-  function seasonsAccent() {
-    if (month === 10 && day === 31) {
-      accent("#ff8c1a");
-    } else if (document.documentElement.classList.contains("fun-argentina")) {
-      accent("#74acdf");
-    }
   }
 
   // A tiny cat runs along the top while you read a post.
@@ -818,16 +602,9 @@
 
   function main() {
     statusLine();
-    rings.show();
-    if (!calm) {
-      hideRings();
-    }
-    listenForKonami();
     seasons();
-    crown();
     visitorCount();
     soundToggle();
-    goldToggle();
     readingCat();
     lostPage();
     ghosts();

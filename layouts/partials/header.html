@@ -13,10 +13,10 @@
   {{ if len $.Site.Menus }}
     {{ partial "menu.html" . }}
   {{ end }}
-  {{- /* Filled in by fun.js: Buenos Aires clock, last commit and rings. */}}
+  {{- /* Filled in by fun.js: Buenos Aires time and weather, and the last commit. */}}
   <div id="site-status" class="site-status" hidden>
     <span id="status-clock"></span>
+    <span id="status-weather" hidden></span>
     <span id="status-commit" hidden></span>
-    <span class="ring-counter" hidden><span class="fun-ring fun-ring-icon" aria-hidden="true"></span><span id="ring-count">0</span></span>
   </div>
 </header>
