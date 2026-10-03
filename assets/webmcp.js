@@ -35,5 +35,17 @@
     };
   });
 
+  registerTool('play_with_cat', 'Play with the pixel cat that lives on the page', {
+    type: 'object',
+    properties: { action: { type: 'string', enum: ['pet', 'treat', 'yarn', 'hunt', 'box', 'nyan', 'call'] } },
+    required: ['action']
+  }, function(args) {
+    var cat = window.oneko;
+    var actions = { pet: 'pet', treat: 'treat', yarn: 'play', hunt: 'hunt', box: 'box', nyan: 'nyan', call: 'pspsps' };
+    if (!cat || !actions[args.action]) return { played: false };
+    cat[actions[args.action]]();
+    return { played: args.action };
+  });
+
   window.addEventListener('beforeunload', function() { ctrl.abort(); });
 })();

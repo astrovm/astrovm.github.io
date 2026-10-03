@@ -1,6 +1,6 @@
 // Things that make the site feel alive: Buenos Aires time and weather, the
 // last commit, special days, sounds, a reading cat, the lost
-// 404 page and ghost cats of other visitors.
+// 404 page, a sad tab title when you leave and ghost cats of other visitors.
 // Add ?today=2026-10-31 to the URL to pretend it is another day.
 (function fun() {
   const lang = (document.documentElement.lang || "en").slice(0, 2);
@@ -17,24 +17,28 @@
     en: {
       clock: "time in Buenos Aires",
       asleep: "astro is probably asleep",
+      miss: "come back",
       commit: (when, repo) => `git: ${repo}, ${when}`,
       sound: (on) => `♪ sound: ${on ? "on" : "off"}`,
     },
     es: {
       clock: "hora en Buenos Aires",
       asleep: "astro seguro está durmiendo",
+      miss: "volvé",
       commit: (when, repo) => `git: ${repo}, ${when}`,
       sound: (on) => `♪ sonido: ${on ? "sí" : "no"}`,
     },
     ja: {
       clock: "ブエノスアイレスの時刻",
       asleep: "astroはたぶん寝てる",
+      miss: "もどってきて",
       commit: (when, repo) => `git: ${repo} ${when}`,
       sound: (on) => `♪ 音：${on ? "オン" : "オフ"}`,
     },
     zh: {
       clock: "布宜诺斯艾利斯时间",
       asleep: "astro大概在睡觉",
+      miss: "快回来",
       commit: (when, repo) => `git: ${repo} ${when}`,
       sound: (on) => `♪ 声音：${on ? "开" : "关"}`,
     },
@@ -99,6 +103,16 @@
     },
   };
   window.addEventListener("oneko:meow", () => sound.meow());
+  // A low rumble that wobbles, like a purr.
+  window.addEventListener("oneko:purr", () =>
+    sound.tone("sawtooth", [0, 0.25, 0.5, 0.75, 1].map((at) => [32, at, 0.2, 26]), 0.05),
+  );
+  window.addEventListener("oneko:nom", () =>
+    sound.tone("square", [
+      [660, 0, 0.08],
+      [880, 0.1, 0.12],
+    ]),
+  );
 
   // Buenos Aires time and weather next to the menu, and the last commit in the footer.
 
@@ -253,6 +267,8 @@
     const christmas = month === 12 && day === 25;
     const argentina = (month === 5 && day === 25) || (month === 6 && day === 20) || (month === 7 && day === 9);
     const sonicDay = month === 6 && day === 23;
+    // Spring starts on September 21 in Argentina.
+    const spring = month === 9 && day >= 21 && day <= 23;
 
     if (halloween) {
       seasonalHat = "pumpkin";
@@ -271,6 +287,9 @@
     if (argentina) {
       accent("#74acdf");
       document.documentElement.classList.add("fun-argentina");
+    }
+    if (spring && !calm) {
+      setInterval(petal, 700);
     }
     if (sonicDay && !calm) {
       setTimeout(sonicRun, 3000);
@@ -294,6 +313,21 @@
       el.style.transform = `translate(${fromLeft ? window.innerWidth + 60 : -window.innerWidth - 60}px, ${between(-80, 80)}px)`;
     });
     setTimeout(() => el.remove(), 7000);
+  }
+
+  function petal() {
+    if (document.hidden) {
+      return;
+    }
+    const el = document.createElement("span");
+    el.className = "fun-petal";
+    el.setAttribute("aria-hidden", "true");
+    const time = between(6, 10);
+    el.style.left = `${between(0, window.innerWidth)}px`;
+    el.style.setProperty("--drift", `${between(-120, 120)}px`);
+    el.style.animationDuration = `${time}s, ${between(0.8, 1.6)}s`;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), time * 1000);
   }
 
   // Snow falls, piles up on the logo and post titles, and the cat knocks it off.
@@ -490,6 +524,27 @@
     }
   }
 
+  // The tab title gets sad while you are away.
+
+  function missYou() {
+    if (!words) {
+      return;
+    }
+    const title = document.title;
+    document.addEventListener("visibilitychange", () => {
+      document.title = document.hidden ? `(=;ェ;=) ${say.miss}` : title;
+    });
+  }
+
+  // A hello for people who open the console.
+
+  function hello() {
+    console.log(
+      "%c  ∧,,,∧\n ( ̳•·•̳)  hi! the cat takes orders here:\n /    づ♡ oneko.treat(), hunt(), box(), pounce(), nyan(), pspsps(), friend(), play()",
+      "color: #f462c6; font: 700 13px/1.5 monospace",
+    );
+  }
+
   // Ghost cats: other people reading the same page right now.
 
   function ghosts() {
@@ -593,6 +648,8 @@
     soundToggle();
     readingCat();
     lostPage();
+    missYou();
+    hello();
     ghosts();
   }
 
