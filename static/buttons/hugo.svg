@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="88" height="31" viewBox="0 0 88 31" font-family="Fira Code, Menlo, Consolas, monospace" font-weight="700">
-  <rect width="88" height="31" fill="#1b1b2f"/>
-  <path d="M0 0h88v1H1v30H0z" fill="#ffffff66"/>
-  <path d="M88 31H0v-1h87V0h1z" fill="#00000088"/>
-  <text x="44" y="12" font-size="7" text-anchor="middle" fill="#eceae5">made with</text>
-  <text x="44" y="25" font-size="13" text-anchor="middle" fill="#ff4088">HUGO</text>
-</svg>

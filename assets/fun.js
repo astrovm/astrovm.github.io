@@ -17,28 +17,28 @@
     en: {
       clock: (time) => `${time} in Buenos Aires`,
       asleep: "astro is probably asleep",
-      commit: (when, repo) => `last commit ${when} in ${repo}`,
+      commit: (when, repo) => `git: ${repo}, ${when}`,
       visitor: (n) => `you are visitor #${n}`,
       sound: (on) => `♪ sound: ${on ? "on" : "off"}`,
     },
     es: {
       clock: (time) => `${time} en Buenos Aires`,
       asleep: "astro seguro está durmiendo",
-      commit: (when, repo) => `último commit ${when} en ${repo}`,
+      commit: (when, repo) => `git: ${repo}, ${when}`,
       visitor: (n) => `sos el visitante #${n}`,
       sound: (on) => `♪ sonido: ${on ? "sí" : "no"}`,
     },
     ja: {
       clock: (time) => `ブエノスアイレスは${time}`,
       asleep: "astroはたぶん寝てる",
-      commit: (when, repo) => `${repo}に最後のコミット：${when}`,
+      commit: (when, repo) => `git: ${repo} ${when}`,
       visitor: (n) => `あなたは${n}人目の訪問者`,
       sound: (on) => `♪ 音：${on ? "オン" : "オフ"}`,
     },
     zh: {
       clock: (time) => `布宜诺斯艾利斯 ${time}`,
       asleep: "astro大概在睡觉",
-      commit: (when, repo) => `最近一次提交：${when}，${repo}`,
+      commit: (when, repo) => `git: ${repo} ${when}`,
       visitor: (n) => `你是第${n}位访客`,
       sound: (on) => `♪ 声音：${on ? "开" : "关"}`,
     },
@@ -216,7 +216,7 @@
       }
     }
     const minutes = Math.round((Date.parse(push.at) - Date.now()) / 60000);
-    const relative = new Intl.RelativeTimeFormat(lang, { numeric: "auto" });
+    const relative = new Intl.RelativeTimeFormat(lang, { numeric: "auto", style: "short" });
     const when =
       Math.abs(minutes) < 60
         ? relative.format(minutes, "minute")

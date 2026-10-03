@@ -174,7 +174,7 @@ a {
   }
 }
 
-/* fun.js: status line, special days, footer buttons, reading cat, ghosts */
+/* fun.js: status line, special days, footer, reading cat, ghosts */
 
 .site-status {
   display: flex;
@@ -293,18 +293,6 @@ a {
 .footer__inner {
   flex-direction: column;
   gap: 1rem;
-}
-
-.web-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 6px;
-}
-
-.web-buttons img {
-  display: block;
-  image-rendering: pixelated;
 }
 
 .footer-fun {
