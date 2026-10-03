@@ -22,6 +22,9 @@ hasCJKLanguage = true
     source = "static"
     target = "static"
   [[module.mounts]]
+    source = "data"
+    target = "data"
+  [[module.mounts]]
     source = "node_modules/@xterm/xterm/css"
     target = "assets/xterm"
   [[module.mounts]]
