@@ -8,10 +8,9 @@
 {{ $sonicJS := resources.Get "sonic-favicon.js" | fingerprint }}
 {{ $enc := resources.Get "terminal-window/encrypted-commands.js.enc" | fingerprint }}
 <script>window.__ENC_URL__="{{ $enc.Permalink }}";</script>
-<link rel="stylesheet" href="{{ $xtermCSS.Permalink }}" />
 <link rel="stylesheet" href="{{ $twCSS.Permalink }}" />
-<script src="{{ $xtermJS.Permalink }}" defer></script>
-<script src="{{ $webglJS.Permalink }}" defer></script>
+{{- /* xterm only loads when someone opens the terminal (see terminal-window.js). */}}
+<script>window.__XTERM__={css:{{ $xtermCSS.Permalink }},js:{{ $xtermJS.Permalink }},webgl:{{ $webglJS.Permalink }}};</script>
 <script src="{{ $twJS.Permalink }}" defer></script>
 <script src="{{ $langJS.Permalink }}" defer></script>
 <script src="{{ $onekoJS.Permalink }}" defer></script>

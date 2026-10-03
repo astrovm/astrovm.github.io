@@ -1,5 +1,5 @@
 // Things that make the site feel alive: Buenos Aires time and weather, the
-// last commit, special days, a hit counter, sounds, a reading cat, the lost
+// last commit, special days, sounds, a reading cat, the lost
 // 404 page and ghost cats of other visitors.
 // Add ?today=2026-10-31 to the URL to pretend it is another day.
 (function fun() {
@@ -18,28 +18,24 @@
       clock: (time) => `${time} in Buenos Aires`,
       asleep: "astro is probably asleep",
       commit: (when, repo) => `git: ${repo}, ${when}`,
-      visitor: (n) => `you are visitor #${n}`,
       sound: (on) => `♪ sound: ${on ? "on" : "off"}`,
     },
     es: {
       clock: (time) => `${time} en Buenos Aires`,
       asleep: "astro seguro está durmiendo",
       commit: (when, repo) => `git: ${repo}, ${when}`,
-      visitor: (n) => `sos el visitante #${n}`,
       sound: (on) => `♪ sonido: ${on ? "sí" : "no"}`,
     },
     ja: {
       clock: (time) => `ブエノスアイレスは${time}`,
       asleep: "astroはたぶん寝てる",
       commit: (when, repo) => `git: ${repo} ${when}`,
-      visitor: (n) => `あなたは${n}人目の訪問者`,
       sound: (on) => `♪ 音：${on ? "オン" : "オフ"}`,
     },
     zh: {
       clock: (time) => `布宜诺斯艾利斯 ${time}`,
       asleep: "astro大概在睡觉",
       commit: (when, repo) => `git: ${repo} ${when}`,
-      visitor: (n) => `你是第${n}位访客`,
       sound: (on) => `♪ 声音：${on ? "开" : "关"}`,
     },
   }[lang] || null;
@@ -111,7 +107,6 @@
     if (!status || !words) {
       return;
     }
-    status.hidden = false;
 
     const clock = $("#status-clock");
     const tick = () => {
@@ -382,31 +377,7 @@
     }
   }
 
-  // Footer: hit counter and sound.
-
-  async function visitorCount() {
-    const el = $("#visitor-count");
-    if (!el || !words) {
-      return;
-    }
-    // Count each visit once, then keep showing the same number.
-    let number = sessionStorage.getItem("fun.visitor");
-    if (!number) {
-      try {
-        const response = await fetch("https://abacus.jasoncameron.dev/hit/4st.li/visits");
-        if (!response.ok) {
-          return;
-        }
-        number = String((await response.json()).value);
-        sessionStorage.setItem("fun.visitor", number);
-      } catch {
-        // The counter is decoration; without it the footer just has the buttons.
-        return;
-      }
-    }
-    el.textContent = say.visitor(number.padStart(6, "0"));
-    el.hidden = false;
-  }
+  // Footer: sound.
 
   function soundToggle() {
     const button = $("#sound-toggle");
@@ -603,7 +574,6 @@
   function main() {
     statusLine();
     seasons();
-    visitorCount();
     soundToggle();
     readingCat();
     lostPage();

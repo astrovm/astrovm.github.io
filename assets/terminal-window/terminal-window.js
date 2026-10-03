@@ -131,6 +131,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const closeTerminal = () => ui.close();
 
+  // xterm is about 200 KB, so it only loads the first time the terminal opens.
+  let xtermLoading = null;
+  const loadXterm = () => {
+    if (window.Terminal) {
+      return Promise.resolve();
+    }
+    if (!xtermLoading) {
+      const files = window.__XTERM__ || {};
+      const script = (src) =>
+        new Promise((resolve, reject) => {
+          const el = document.createElement("script");
+          el.src = src;
+          el.onload = resolve;
+          el.onerror = reject;
+          document.head.appendChild(el);
+        });
+      const style = document.createElement("link");
+      style.rel = "stylesheet";
+      style.href = files.css;
+      document.head.appendChild(style);
+      xtermLoading = script(files.js).then(() => script(files.webgl));
+    }
+    return xtermLoading;
+  };
+
   const initializeTerminal = () => {
     // Initialize xterm.js
     state.term = new Terminal({
@@ -155,7 +180,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // Several things can ask to open it while xterm is still loading; open it once.
+  let opening = null;
   const activateTerminal = () => {
+    opening = opening || openTerminal().finally(() => (opening = null));
+    return opening;
+  };
+
+  const openTerminal = async () => {
+    await loadXterm();
     if (!state.active) {
       // Reinitialize terminal if needed
       if (!state.term) {
@@ -746,16 +779,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentTitle = document.title.toLowerCase().trim();
     if (
       !state.active &&
+      !opening &&
       !blinkStates.map((s) => s.toLowerCase().trim()).includes(currentTitle)
     ) {
       const command = currentTitle
         .replace(blinkStates[0].toLowerCase().trim(), "")
         .trim();
-      activateTerminal();
-      setTimeout(() => {
+      activateTerminal().then(() => {
         state.term.write(`${command}\r\n`);
         processCommand(command);
-      }, 100);
+      });
     }
   };
 

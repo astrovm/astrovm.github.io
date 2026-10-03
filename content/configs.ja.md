@@ -1,6 +1,8 @@
 +++
 title = "設定"
 hideComments = true
+toc = true
+tocTitle = "このページの内容"
 +++
 
 # デバイス

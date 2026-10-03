@@ -1,6 +1,8 @@
 +++
 title = "configs"
 hideComments = true
+toc = true
+tocTitle = "on this page"
 +++
 
 # Devices
