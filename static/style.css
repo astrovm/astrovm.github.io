@@ -117,7 +117,7 @@ a {
   flex-direction: column;
   gap: 0.35rem;
   height: 100%;
-  padding: 0.9rem 1rem;
+  padding: 0 1rem 0.9rem;
   border: 2px solid color-mix(in srgb, var(--foreground) 12%, transparent);
   background: color-mix(in srgb, var(--foreground) 4%, var(--background));
   color: var(--foreground);
@@ -132,6 +132,23 @@ a {
   border-color: var(--accent);
   box-shadow: 5px 5px 0 var(--accent);
   transform: translate(-2px, -2px);
+}
+
+.project-image {
+  display: block;
+  width: calc(100% + 2rem);
+  max-width: none;
+  aspect-ratio: 16 / 10;
+  margin: 0 -1rem 0.5rem;
+  border-bottom: 2px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+  object-fit: cover;
+  object-position: top;
+}
+
+.project-image-contain {
+  padding: 1.25rem;
+  background: color-mix(in srgb, var(--accent) 12%, var(--background));
+  object-fit: contain;
 }
 
 .project-name {

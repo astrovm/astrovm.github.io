@@ -5,6 +5,9 @@
   {{- $url := urls.Parse .url }}
   <li>
     <a class="project-card" href="{{ .url }}">
+      {{- if .image }}
+      <img class="project-image{{ if eq .fit "contain" }} project-image-contain{{ end }}" src="{{ printf "images/projects/%s.webp" .image | absURL }}" alt="" loading="lazy">
+      {{- end }}
       <span class="project-name">{{ .name }}</span>
       <span class="project-description">{{ index . $lang | default .en }}</span>
       <span class="project-host">{{ $url.Host }}{{ strings.TrimSuffix "/" $url.Path }}</span>
