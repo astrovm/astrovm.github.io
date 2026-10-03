@@ -371,3 +371,8 @@ a {
   max-width: 100%;
   height: auto;
 }
+
+/* Project pictures bleed to the card edges, so they skip that limit. */
+.post-content .project-image {
+  max-width: none;
+}
