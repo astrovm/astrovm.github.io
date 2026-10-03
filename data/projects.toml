@@ -1,0 +1,121 @@
+# The projects page in every language. Keep entries in alphabetical order.
+
+[[projects]]
+name = "Adventure Mods"
+url = "https://github.com/astrovm/AdventureMods"
+en = "Set up mods for Sonic Adventure DX and Sonic Adventure 2 on Linux"
+es = "Configura mods para Sonic Adventure DX y Sonic Adventure 2 en Linux"
+ja = "LinuxでSonic Adventure DXとSonic Adventure 2のMod環境をセットアップする"
+zh = "在Linux上为Sonic Adventure DX和Sonic Adventure 2配置模组"
+
+[[projects]]
+name = "Amy OS"
+url = "https://github.com/astrovm/amyos"
+en = "A custom Fedora Atomic image built on top of Bazzite"
+es = "Imagen personalizada de Fedora Atomic basada en Bazzite"
+ja = "Bazziteをベースにしたカスタムの Fedora Atomic イメージ"
+zh = "基于Bazzite的自定义Fedora Atomic镜像"
+
+[[projects]]
+name = "Anomalous"
+url = "https://anomalous.xyz/"
+en = "An Anomalous Research Society"
+es = "Sociedad de investigaciones anómalas"
+ja = "異常研究協会"
+zh = "异常研究协会"
+
+[[projects]]
+name = "Crosstune"
+url = "https://crosstune.4st.li/"
+en = "Open any music link in your favorite app"
+es = "Abre cualquier link de música en tu app favorita"
+ja = "どんな音楽リンクも好きなアプリで開く"
+zh = "用你喜欢的应用打开任何音乐链接"
+
+[[projects]]
+name = "Flash Collection"
+url = "https://flash.4st.li/"
+en = "Flash games archive"
+es = "Archivo de juegos Flash"
+ja = "Flashゲームアーカイブ"
+zh = "Flash游戏存档"
+
+[[projects]]
+name = "Flatpak repo"
+url = "https://flatpak.4st.li/"
+en = "Install my Linux apps with Flatpak"
+es = "Mis apps para Linux en Flatpak"
+ja = "私のLinuxアプリをFlatpakでインストール"
+zh = "用Flatpak安装我的Linux应用"
+
+[[projects]]
+name = "hosty"
+url = "https://4st.li/hosty/"
+en = "System-wide ad blocker for Linux, BSD and Mac"
+es = "Bloqueador de anuncios para todo el sistema en Linux, BSD y Mac"
+ja = "Linux、BSD、Mac向けのシステム全体の広告ブロッカー"
+zh = "适用于Linux、BSD和Mac的系统级广告拦截器"
+
+[[projects]]
+name = "Inside the firewall"
+url = "https://4st.li/insidethefirewall"
+en = "Videogame I made in 2013"
+es = "Juego que hice en 2013"
+ja = "2013年に作ったゲーム"
+zh = "我在2013年做的游戏"
+
+[[projects]]
+name = "magi"
+url = "https://magi.4st.li/"
+en = "A wizard worm that powers an orb"
+es = "Un gusano mago que le da poder a un orbe"
+ja = "オーブに力を与える魔法使いのワーム"
+zh = "为宝珠提供能量的巫师蠕虫"
+
+[[projects]]
+name = "PkgDeck"
+url = "https://github.com/astrovm/PkgDeck"
+en = "One app for every package manager"
+es = "Una app para todos tus gestores de paquetes"
+ja = "すべてのパッケージマネージャーをひとつのアプリで"
+zh = "一个应用管理所有包管理器"
+
+[[projects]]
+name = "Respondedor de boludos"
+url = "https://t.me/respondedorbot"
+en = "Telegram bot with AI based on Argentina internet culture"
+es = "Bot de Telegram con IA basada en la cultura de internet argentina"
+ja = "アルゼンチンのネット文化に基づいたAI搭載のTelegramボット"
+zh = "基于阿根廷网络文化的AI Telegram机器人"
+
+[[projects]]
+name = "Tdarg"
+url = "https://tdarg.4st.li/"
+en = "A web with information about ADHD in Argentina"
+es = "Una web con información sobre TDAH en Argentina"
+ja = "アルゼンチンのADHDに関する情報サイト"
+zh = "关于阿根廷ADHD信息的网站"
+
+[[projects]]
+name = "Timba"
+url = "https://timba.cc/"
+en = "Coinflip game on Solana"
+es = "Juego de cara o cruz en Solana"
+ja = "Solana上のコイントスゲーム"
+zh = "Solana上的抛硬币游戏"
+
+[[projects]]
+name = "YTMusicFS"
+url = "https://github.com/astrovm/ytmusicfs"
+en = "A FUSE filesystem for YT Music"
+es = "Un sistema de archivos FUSE para YT Music"
+ja = "YT Music用のFUSEファイルシステム"
+zh = "YT Music的FUSE文件系统"
+
+[[selfhosted]]
+name = "FreshRSS"
+url = "https://news.4st.li/"
+en = "News aggregator"
+es = "Agregador de noticias"
+ja = "ニュースアグリゲーター"
+zh = "新闻聚合器"

@@ -3,26 +3,8 @@ title = "proyectos"
 hideComments = true
 +++
 
-- [Amy OS](https://github.com/astrovm/amyos) Imagen personalizada de Fedora Atomic basada en Bazzite
-
-- [Adventure Mods](https://github.com/astrovm/AdventureMods) Configura mods para Sonic Adventure DX y Sonic Adventure 2 en Linux
-
-- [Anomalous](https://anomalous.xyz/) Sociedad de investigaciones anómalas
-
-- [Crosstune](https://github.com/astrovm/crosstune) Abre enlaces de canciones de Spotify en YouTube Music o YouTube en Android
-
-- [Flash Collection](https://flash.4st.li/) Archivo de juegos Flash
-
-- [Inside the firewall](https://4st.li/insidethefirewall) Juego que hice en 2013
-
-- [Respondedor de boludos](https://t.me/respondedorbot) Bot de Telegram con IA basada en la cultura de internet argentina
-
-- [Timba](https://timba.cc/) Juego de cara o cruz en Solana
-
-- [Tdarg](https://tdarg.4st.li/) Una web con información sobre TDAH en Argentina
-
-- [YTMusicFS](https://github.com/astrovm/ytmusicfs) Un sistema de archivos FUSE para YT Music
+{{< projects "projects" >}}
 
 **instancias self-hosteadas**
 
-- [FreshRSS](https://news.4st.li/) Agregador de noticias
+{{< projects "selfhosted" >}}
