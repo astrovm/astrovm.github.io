@@ -15,6 +15,9 @@
 <script src="{{ $twJS.Permalink }}" defer></script>
 <script src="{{ $langJS.Permalink }}" defer></script>
 <script src="{{ $onekoJS.Permalink }}" defer></script>
+{{ $funJS := resources.Get "fun.js" | fingerprint }}
+{{ with site.Params.ghostsUrl }}<script>window.__GHOSTS_URL__={{ . }};</script>{{ end }}
+<script src="{{ $funJS.Permalink }}" defer></script>
 <script src="{{ $sonicJS.Permalink }}" defer></script>
 {{ $webmcpJS := resources.Get "webmcp.js" | fingerprint }}
 <script src="{{ $webmcpJS.Permalink }}" defer></script>

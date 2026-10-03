@@ -24,3 +24,6 @@ Thumbs.db
 # Plaintext ROMs (encrypted versions are tracked)
 static/roms/*.md
 static/roms/*.bin
+
+# Wrangler local state
+.wrangler/

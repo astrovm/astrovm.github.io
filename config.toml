@@ -40,6 +40,9 @@ hasCJKLanguage = true
   unsafe = true
 
 [params]
+  # WebSocket address of the ghost cats Worker (workers/ghosts). Empty turns them off.
+  ghostsUrl = ""
+
   # dir name of your main content (default is `content/posts`).
   # the list of set content will show up on your index page (baseurl).
   contentTypeName = "blog"
