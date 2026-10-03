@@ -31,6 +31,8 @@ readingTime = true
 
 <https://github.com/astrovm/2026-03-tronlink-wallet-recovery-reference>
 
+公开的 wallet 文件、hash、凭据和 seed phrase 都是实验室使用的合成数据，不是客户的私人数据。
+
 ## 第一阶段：从手机里提取钱包
 
 TronLink 把所有敏感数据存在 app 的私有目录下：
@@ -191,7 +193,7 @@ $ethereum$s*16384*8*1*2ef2a618edbf5185c6e7062a39d5dcdb81ba683dc2f8ca01ce8ed8c595
 思路是按优先级生成模式族，先把最可能的跑完，再往下走到 brute force。部分模式族：
 
 | 模式族 | 模式 | 示例 |
-|---|---|---|
+| --- | --- | --- |
 | `compose.name-number` | 名字 + 数字 | `Carlitos7`、`Turco1991`、`Zulemita91` |
 | `compose.name-extension-number` | 名字 + 姓氏 + 数字 | `CarlitosMenem7`、`Turcosaul991`、`Carlossaul91` |
 | `compose.name-number-symbol` | 名字 + 数字 + 符号 | `Carlitos7!`、`Turco1991#`、`Zulemita7@` |

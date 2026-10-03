@@ -18,7 +18,7 @@ Lo primero que hago en estos casos es anotar todo, cualquier detalle puede ser c
 - App: TronLink Pro
 - Regla de contraseña: mínimo 8 caracteres, una mayúscula, una minúscula y un número
 
-Le pido que me tire todo lo que recuerde sobre la contraseña. Palabras, números, símbolos, nombres, apodos, familiares, fechas, patrones, cualquier cosa que le venga a la cabeza. Abro la app y pruebo un par de contraseñas manualmente. A los pocos intentos me bloquea por 1 hora.
+Le pido que me tire todo lo que recuerde sobre la contraseña. Palabras, números, símbolos, nombres, apodos, familiares, fechas, patrones, cualquier cosa que le venga a la cabeza. Abro la app y pruebo un par de contraseñas manualmente. A los pocos intentos me bloquea durante una hora.
 
 <img alt="Pantalla de creación de wallet en TronLink Pro mostrando los requisitos de contraseña" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: min(280px, 100%)" />
 
@@ -30,6 +30,8 @@ Seguir por ese camino va a ser imposible, así que el trabajo se parte en dos:
 Todo lo que cuento acá está replicado en este repositorio:
 
 <https://github.com/astrovm/2026-03-tronlink-wallet-recovery-reference>
+
+Los archivos de la wallet, el hash, las credenciales y la seed phrase publicados son datos sintéticos de laboratorio. No son los datos privados del cliente.
 
 ## Fase 1: sacar la wallet del teléfono
 
@@ -123,7 +125,7 @@ Injection sent. Waiting for listener...
 Listener is UP!
 ```
 
-`Listener is UP!`. Funciona. Ya tengo confirmado que puedo entrar. Ahora falta hacerlo en el teléfono real, donde no hay margen de error.
+`Listener is UP!` Funciona. Ya tengo confirmado que puedo entrar. Ahora falta hacerlo en el teléfono real, donde no hay margen de error.
 
 ### Extraer el dump completo
 
@@ -135,7 +137,7 @@ En vez de ir archivo por archivo, comprimo todo y lo mando directo a la PC por `
 $ printf "tar -czC /data/data/com.tronlinkpro.wallet . | base64; exit\n" | nc 127.0.0.1 1234 | base64 -d > recovery.tar.gz
 ```
 
-![File transfer](file_transfer.gif)
+![Transferencia de archivos](file_transfer.gif)
 
 Con eso me traigo el app data completo: `shared_prefs`, `databases`, etc. Fase 1 completa. El teléfono del cliente queda intacto, sin root, sin bootloader desbloqueado, sin nada roto. Y yo tengo lo que necesito en mi PC.
 
@@ -191,7 +193,7 @@ Con ayuda de Codex me armo un framework en Python, `smart_recovery/`, que toma t
 La idea es generar familias de patrones por prioridad y que agote lo más probable antes de caer en fuerza bruta. Algunas familias:
 
 | Familia | Patrón | Ejemplos |
-|---|---|---|
+| --- | --- | --- |
 | `compose.name-number` | nombre + número | `Carlitos7`, `Turco1991`, `Zulemita91` |
 | `compose.name-extension-number` | nombre + apellido + número | `CarlitosMenem7`, `Turcosaul991`, `Carlossaul91` |
 | `compose.name-number-symbol` | nombre + número + símbolo | `Carlitos7!`, `Turco1991#`, `Zulemita7@` |

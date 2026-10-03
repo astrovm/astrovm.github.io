@@ -4,13 +4,13 @@ date = "2026-03-22T03:00:00-03:00"
 readingTime = true
 +++
 
-Client shows up with a problem I see a lot: they have a TRON wallet on their phone, the seed phrase ended up in the trash years ago, and they don't remember the app password. The money is still there, they can see it on the blockchain, but they can't use it. Luckily they didn't lose the phone or wipe anything in all this time. We agree on a fee and I start looking at what can be done.
+A client shows up with a problem I see a lot: they have a TRON wallet on their phone, the seed phrase ended up in the trash years ago, and they don't remember the app password. The money is still there, they can see it on the blockchain, but they can't use it. Luckily they didn't lose the phone or wipe anything in all this time. We agree on a fee and I start looking at what can be done.
 
 ![Nagato Yuki from Suzumiya Haruhi no Yuuutsu](nagato_yuuki.gif)
 
 <!--more-->
 
-The first thing I do in these cases is write everything down, any detail can be key:
+The first thing I do in these cases is write everything down because any detail can be key:
 
 - Model: Galaxy A31
 - Android: 12
@@ -18,7 +18,7 @@ The first thing I do in these cases is write everything down, any detail can be 
 - App: TronLink Pro
 - Password rule: minimum 8 characters, one uppercase, one lowercase, and one number
 
-I tell them to hit me with everything they remember about the password. Words, numbers, symbols, names, nicknames, family members, dates, patterns, anything that comes to mind. I open the app and try a few passwords manually. After a few attempts it locks me out for 1 hour.
+I tell them to hit me with everything they remember about the password. Words, numbers, symbols, names, nicknames, family members, dates, patterns, anything that comes to mind. I open the app and try a few passwords manually. After a few attempts it locks me out for an hour.
 
 <img alt="TronLink Pro wallet creation screen showing password requirements" src="/en/blog/tronlink-wallet-recovery/utj3xfqnnr_ttx7n2vfop.png" style="max-width: min(280px, 100%)" />
 
@@ -30,6 +30,8 @@ That route's a dead end, so the job splits into two:
 Everything I describe here is replicated in this repository:
 
 <https://github.com/astrovm/2026-03-tronlink-wallet-recovery-reference>
+
+The published wallet files, hash, credentials, and seed phrase are synthetic lab data. They are not the client's private data.
 
 ## Phase 1: getting the wallet off the phone
 
@@ -123,7 +125,7 @@ Injection sent. Waiting for listener...
 Listener is UP!
 ```
 
-`Listener is UP!`. It works. I've now confirmed I can get in. Now I just need to do it on the real phone, where there's no room for error.
+`Listener is UP!` It works. I've now confirmed I can get in. Now I just need to do it on the real phone, where there's no room for error.
 
 ### Extracting the full dump
 
@@ -191,7 +193,7 @@ With Codex's help I build a Python framework, `smart_recovery/`, that takes all 
 The idea is to generate pattern families by priority and exhaust the most likely ones before falling back to brute force. Some families:
 
 | Family | Pattern | Examples |
-|---|---|---|
+| --- | --- | --- |
 | `compose.name-number` | name + number | `Carlitos7`, `Turco1991`, `Zulemita91` |
 | `compose.name-extension-number` | name + surname + number | `CarlitosMenem7`, `Turcosaul991`, `Carlossaul91` |
 | `compose.name-number-symbol` | name + number + symbol | `Carlitos7!`, `Turco1991#`, `Zulemita7@` |
