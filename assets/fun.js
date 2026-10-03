@@ -65,7 +65,7 @@
 
   let audio = null;
   const sound = {
-    on: store.get("sound", false),
+    on: store.get("sound", true),
     tone(type, notes, volume = 0.06) {
       if (!this.on) {
         return;
@@ -119,7 +119,14 @@
       const hour = Number(parts.find((part) => part.type === "hour").value);
       const minute = parts.find((part) => part.type === "minute").value;
       const time = `${String(hour).padStart(2, "0")}:${minute}`;
-      clock.textContent = say.clock(time) + (hour >= 1 && hour < 6 ? ` :: ${say.asleep}` : "");
+      // Phones only get the time, so the status line fits on one row.
+      const full = document.createElement("span");
+      full.className = "status-full";
+      full.textContent = say.clock(time) + (hour >= 1 && hour < 6 ? ` :: ${say.asleep}` : "");
+      const short = document.createElement("span");
+      short.className = "status-short";
+      short.textContent = time;
+      clock.replaceChildren(full, short);
     };
     tick();
     setInterval(tick, 30000);
@@ -419,6 +426,8 @@
       const done = max > 0 ? Math.min(1, window.scrollY / max) : 1;
       bar.style.width = `${done * 100}%`;
       kitty.style.left = `${Math.max(0, done * window.innerWidth - 24)}px`;
+      // At the very top it would sit on the neko, so it waits until you scroll.
+      kitty.hidden = done < 0.02;
     };
     window.addEventListener("scroll", () => {
       lastScroll = Date.now();
