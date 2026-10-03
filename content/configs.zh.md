@@ -1,6 +1,8 @@
 +++
 title = "配置"
 hideComments = true
+toc = true
+tocTitle = "本页内容"
 +++
 
 # 设备

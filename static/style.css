@@ -186,7 +186,17 @@ a {
   font-size: 0.8rem;
 }
 
-.site-status[hidden],
+/* Space is kept for the status line, so the page doesn't jump when it fills in. */
+.site-status {
+  min-height: 1.4rem;
+}
+
+@media (max-width: 684px) {
+  .site-status {
+    min-height: 2.8rem;
+  }
+}
+
 .site-status [hidden] {
   display: none;
 }
@@ -332,4 +342,11 @@ a {
     animation: none;
     transition: none;
   }
+}
+
+/* Images and GIF videos keep their shape now that they have a width and height. */
+.post-content img,
+.post-content video {
+  max-width: 100%;
+  height: auto;
 }

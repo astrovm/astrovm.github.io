@@ -39,6 +39,11 @@ hasCJKLanguage = true
 [markup.goldmark.renderer]
   unsafe = true
 
+# Only pages with toc = true show one (configs): list just the top sections.
+[markup.tableOfContents]
+  startLevel = 1
+  endLevel = 1
+
 [params]
   # WebSocket address of the ghost cats Worker (workers/ghosts). Empty turns them off.
   ghostsUrl = "wss://ghost-cats.astrolince3811.workers.dev"

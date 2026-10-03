@@ -1,0 +1,23 @@
+{{- /*
+  Images in posts. A GIF with an .mp4 next to it plays as a small looping video
+  (a fraction of the size). Other images get their real size, so the page does
+  not jump, and load lazily except the first one.
+*/ -}}
+{{- $url := urls.Parse .Destination -}}
+{{- $image := "" -}}
+{{- $video := "" -}}
+{{- if not $url.IsAbs -}}
+  {{- $image = .Page.Resources.Get $url.Path -}}
+  {{- if strings.HasSuffix $url.Path ".gif" -}}
+    {{- $video = .Page.Resources.Get (strings.TrimSuffix ".gif" $url.Path | printf "%s.mp4") -}}
+  {{- end -}}
+{{- end -}}
+{{- $first := eq .Ordinal 0 -}}
+{{- if $video -}}
+<video src="{{ $video.RelPermalink }}" autoplay loop muted playsinline {{ with $image }}width="{{ .Width }}" height="{{ .Height }}" {{ end }}aria-label="{{ .Text }}" title="{{ .Text }}"></video>
+{{- else -}}
+<img src="{{ with $image }}{{ .RelPermalink }}{{ else }}{{ .Destination | safeURL }}{{ end }}" alt="{{ .Text }}"
+  {{- with .Title }} title="{{ . }}"{{ end }}
+  {{- with $image }}{{ if ne .MediaType.SubType "svg" }} width="{{ .Width }}" height="{{ .Height }}"{{ end }}{{ end }}
+  {{- if $first }} fetchpriority="high"{{ else }} loading="lazy"{{ end }} decoding="async">
+{{- end -}}
