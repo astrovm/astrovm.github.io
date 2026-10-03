@@ -15,25 +15,25 @@
 
   const words = {
     en: {
-      clock: (time) => `${time} in Buenos Aires`,
+      clock: "time in Buenos Aires",
       asleep: "astro is probably asleep",
       commit: (when, repo) => `git: ${repo}, ${when}`,
       sound: (on) => `♪ sound: ${on ? "on" : "off"}`,
     },
     es: {
-      clock: (time) => `${time} en Buenos Aires`,
+      clock: "hora en Buenos Aires",
       asleep: "astro seguro está durmiendo",
       commit: (when, repo) => `git: ${repo}, ${when}`,
       sound: (on) => `♪ sonido: ${on ? "sí" : "no"}`,
     },
     ja: {
-      clock: (time) => `ブエノスアイレスは${time}`,
+      clock: "ブエノスアイレスの時刻",
       asleep: "astroはたぶん寝てる",
       commit: (when, repo) => `git: ${repo} ${when}`,
       sound: (on) => `♪ 音：${on ? "オン" : "オフ"}`,
     },
     zh: {
-      clock: (time) => `布宜诺斯艾利斯 ${time}`,
+      clock: "布宜诺斯艾利斯时间",
       asleep: "astro大概在睡觉",
       commit: (when, repo) => `git: ${repo} ${when}`,
       sound: (on) => `♪ 声音：${on ? "开" : "关"}`,
@@ -100,7 +100,7 @@
   };
   window.addEventListener("oneko:meow", () => sound.meow());
 
-  // Status line in the header: Buenos Aires time and weather, and the last commit.
+  // Buenos Aires time and weather next to the menu, and the last commit in the footer.
 
   function statusLine() {
     const status = $("#site-status");
@@ -119,14 +119,10 @@
       const hour = Number(parts.find((part) => part.type === "hour").value);
       const minute = parts.find((part) => part.type === "minute").value;
       const time = `${String(hour).padStart(2, "0")}:${minute}`;
-      // Phones only get the time, so the status line fits on one row.
-      const full = document.createElement("span");
-      full.className = "status-full";
-      full.textContent = say.clock(time) + (hour >= 1 && hour < 6 ? ` :: ${say.asleep}` : "");
-      const short = document.createElement("span");
-      short.className = "status-short";
-      short.textContent = time;
-      clock.replaceChildren(full, short);
+      // Short so it fits next to the menu. The full name is in the tooltip.
+      const asleep = hour >= 1 && hour < 6;
+      clock.textContent = `${time} BA${asleep ? " 💤" : ""}`;
+      clock.title = asleep ? `${say.clock} :: ${say.asleep}` : say.clock;
     };
     tick();
     setInterval(tick, 30000);
@@ -136,27 +132,28 @@
   }
 
   // Open-Meteo is free and needs no key. Weather codes: https://open-meteo.com/en/docs
+  // Each weather has a plain glyph and an emoji. Clicking the icon swaps them.
   function weatherIcon(code, isDay) {
     const text = "\uFE0E";
     if (code <= 1) {
-      return (isDay ? "☀" : "☾") + text;
+      return isDay ? [`☀${text}`, "☀️"] : [`☾`, "🌙"];
     }
     if (code === 2) {
-      return `⛅${text}`;
+      return [`⛅${text}`, isDay ? "⛅" : "☁️"];
     }
     if (code === 3) {
-      return `☁${text}`;
+      return [`☁${text}`, "☁️"];
     }
     if (code === 45 || code === 48) {
-      return "≋";
+      return ["≋", "🌫️"];
     }
     if ((code >= 71 && code <= 77) || code === 85 || code === 86) {
-      return `❄${text}`;
+      return [`❄${text}`, "❄️"];
     }
     if (code >= 95) {
-      return `⚡${text}`;
+      return [`⚡${text}`, "⛈️"];
     }
-    return `☂${text}`;
+    return [`☂${text}`, "🌧️"];
   }
 
   async function weather() {
@@ -167,7 +164,7 @@
     } catch {
       now = null;
     }
-    if (!now || Date.now() - now.checked > 30 * 60 * 1000) {
+    if (!now || now.code === undefined || Date.now() - now.checked > 30 * 60 * 1000) {
       try {
         const response = await fetch(
           "https://api.open-meteo.com/v1/forecast?latitude=-34.61&longitude=-58.38&current=temperature_2m,weather_code,is_day",
@@ -178,7 +175,8 @@
         const { current } = await response.json();
         now = {
           temperature: Math.round(current.temperature_2m),
-          icon: weatherIcon(current.weather_code, current.is_day === 1),
+          code: current.weather_code,
+          isDay: current.is_day === 1,
           checked: Date.now(),
         };
         sessionStorage.setItem("fun.weather", JSON.stringify(now));
@@ -186,9 +184,18 @@
         return;
       }
     }
-    const icon = document.createElement("span");
+    const [glyph, emoji] = weatherIcon(now.code, now.isDay);
+    const icon = document.createElement("button");
+    icon.type = "button";
     icon.className = "weather-icon";
-    icon.textContent = now.icon;
+    const show = () => {
+      icon.textContent = store.get("weatherEmoji", false) ? emoji : glyph;
+    };
+    icon.addEventListener("click", () => {
+      store.set("weatherEmoji", !store.get("weatherEmoji", false));
+      show();
+    });
+    show();
     el.replaceChildren(icon, ` ${now.temperature}°C`);
     el.hidden = false;
   }
