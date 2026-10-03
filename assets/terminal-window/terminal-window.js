@@ -414,7 +414,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     },
     neofetch: () => {
-      const rings = Number(localStorage.getItem("fun.rings") || 0);
       const cats = window.oneko ? window.oneko.cats().length : 0;
       const up = Math.round(performance.now() / 1000);
       [
@@ -425,7 +424,6 @@ document.addEventListener("DOMContentLoaded", () => {
         " (       )   Shell: astrosh",
         "  \\_____/    Theme: terminal, pink",
         `             Cats: ${cats}`,
-        `             Rings: ${rings}`,
         `             Uptime: ${up}s`,
       ].forEach((line) => terminal.print(line));
     },
@@ -450,10 +448,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "about.txt": () => "astro <(^^,)>\nprojects: 4st.li/projects\nsource: github.com/astrovm",
     "neko.txt": () =>
       "the cat knows tricks:\n  type pspsps to call it\n  type nyan for a rainbow\n  throw the yarn ball in the corner\n  pet it when it sits on a button",
-    "rings.txt": () => {
-      const rings = Number(localStorage.getItem("fun.rings") || 0);
-      return `you have ${rings} rings.\na few hide on every page, new ones every day.\nup up down down left right left right b a`;
-    },
     "secrets.txt": () => "nice try (=^･ω･^=)\nthe password is not here.\n...or is it? (it is not)",
   };
 
