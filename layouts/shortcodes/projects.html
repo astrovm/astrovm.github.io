@@ -1,7 +1,7 @@
 {{- /* Project cards from data/projects.toml. Usage: {{< projects "projects" >}} or {{< projects "selfhosted" >}} */ -}}
 {{- $lang := .Page.Language.Lang -}}
 <ul class="project-list">
-  {{- range index site.Data.projects (.Get 0) }}
+  {{- range index hugo.Data.projects (.Get 0) }}
   {{- $url := urls.Parse .url }}
   <li>
     <a class="project-card" href="{{ .url }}">
