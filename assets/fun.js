@@ -423,8 +423,8 @@
   }
 
   function seasons() {
-    const halloween = month === 10;
-    const christmas = (month === 12 && day >= 15) || (month === 1 && day <= 6);
+    const halloween = month === 10 && day === 31;
+    const christmas = month === 12 && day === 25;
     const argentina = (month === 5 && day === 25) || (month === 6 && day === 20) || (month === 7 && day === 9);
     const sonicDay = month === 6 && day === 23;
 
@@ -636,7 +636,7 @@
   }
 
   function seasonsAccent() {
-    if (month === 10) {
+    if (month === 10 && day === 31) {
       accent("#ff8c1a");
     } else if (document.documentElement.classList.contains("fun-argentina")) {
       accent("#74acdf");
