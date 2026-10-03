@@ -31,5 +31,5 @@ npx wrangler login
 npx wrangler deploy
 ```
 
-Then put its address in `config.toml`, for example `ghostsUrl = "wss://ghost-cats.<your-subdomain>.workers.dev"`. Empty turns them off.
+It runs at `wss://ghost-cats.astrolince3811.workers.dev`, set as `ghostsUrl` in `config.toml`. Empty turns them off.
 

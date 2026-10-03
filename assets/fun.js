@@ -646,7 +646,8 @@
   // A tiny cat runs along the top while you read a post.
 
   function readingCat() {
-    const article = $(".post:not(.on-list):not(.lost-page) .post-content");
+    // Only on blog posts, not on pages like projects or the 404.
+    const article = window.location.pathname.includes("/blog/") && $(".post:not(.on-list) .post-content");
     if (!article || calm) {
       return;
     }

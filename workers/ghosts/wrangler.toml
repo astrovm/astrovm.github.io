@@ -1,4 +1,6 @@
 name = "ghost-cats"
+# The "astro" Cloudflare account.
+account_id = "862d327a982abfbbcd56c2ea3f4060d8"
 main = "src/index.js"
 compatibility_date = "2026-10-01"
 
