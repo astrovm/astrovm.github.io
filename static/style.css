@@ -375,6 +375,40 @@ a {
   transition: transform 250ms cubic-bezier(0.3, 1.5, 0.6, 1);
 }
 
+/* Spring petals that drift down and spin. */
+.fun-petal {
+  position: fixed;
+  top: -16px;
+  z-index: 40;
+  width: 10px;
+  height: 8px;
+  border-radius: 100% 0;
+  background: #ffb7d9;
+  opacity: 0.9;
+  pointer-events: none;
+  animation:
+    fun-petal-fall 8s linear forwards,
+    fun-petal-spin 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes fun-petal-fall {
+  to {
+    translate: var(--drift) calc(100vh + 32px);
+  }
+}
+
+@keyframes fun-petal-spin {
+  from {
+    rotate: -40deg;
+    scale: 1 1;
+  }
+
+  to {
+    rotate: 40deg;
+    scale: 0.4 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .fun-bat,
   .lost-home {
