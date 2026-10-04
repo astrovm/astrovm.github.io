@@ -10,10 +10,29 @@ Currently using the [Terminal theme](https://github.com/panr/hugo-theme-terminal
 git submodule update --init --recursive  # get the Terminal theme
 bun install                             # xterm (+ webgl) for the floating terminal
 hugo server                             # or: hugo --minify
-bun run typecheck && bun run test       # utils/ tests, 100% coverage gate
+bun run typecheck && bun run test       # 100% line and function coverage
 ```
 
 CI runs the same `bun install --frozen-lockfile` step before Hugo (see `.github/workflows/gh-pages.yml`).
+
+## Tests and coverage
+
+`bun run test` enforces 100% line and function coverage. Bun measures `utils/`
+and the ghost message helpers. Istanbul measures every browser script in `assets/`
+and the ghost relay entry point, including code run in isolated VM browsers.
+Each browser and relay file must pass on its own. New browser files start at zero
+until tested. The runner also rejects new utils or Worker helpers missing from
+both reports. Branch and statement coverage are reported too.
+
+Open `coverage/web/index.html` to see the browser and relay report. The same folder
+contains `lcov.info`, `coverage-final.json`, and `coverage-summary.json` for tooling.
+Bun also writes `coverage/bun/lcov.info`. CI saves both reports even when the gate fails.
+
+Run one test while working with `bun test tests/navigation.test.ts`. Use
+`bun run typecheck` and `bun run test` for the complete checks before pushing.
+Tests use synthetic DOM pages, controlled clocks, fake service boundaries and
+synthetic encrypted bundles. They do not read posts, secrets, or live visitor data.
+Vendored code in `themes/terminal` and `static/genesis/Genesis.js` is outside the gate.
 
 ## Fun stuff
 

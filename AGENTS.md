@@ -38,7 +38,7 @@ Same as CI (`.github/workflows/test.yml`). Run them before every push:
 
 ```bash
 bun run typecheck
-bun run test   # 100% line and function coverage on utils/
+bun run test   # 100% line and function coverage on site scripts, utils and the ghost relay
 ```
 
 ## Style
