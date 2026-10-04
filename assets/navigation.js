@@ -78,7 +78,7 @@
       scripts.forEach((script) => script.remove());
       window.dispatchEvent(new Event('site:navigate'));
       // Only the site's comment embed needs to run inside fetched content.
-      scripts.filter((script) => script.src === 'https://utteranc.es/client.js').forEach((script) => {
+      scripts.filter((script) => script.src === 'https://giscus.app/client.js').forEach((script) => {
         const embed = document.createElement('script');
         [...script.attributes].forEach((attr) => embed.setAttribute(attr.name, attr.value));
         content.querySelector('.post')?.append(embed);
