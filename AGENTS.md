@@ -30,7 +30,7 @@ Pages live under the language prefix: `http://localhost:1313/en/`, not `/`.
 
 Add `?today=2026-10-31` (or `2026-03-03T03:00`) to any page to try another day or time.
 
-If you need an example article, use "Run, Think, Shoot, Live", never read the others.
+For an example article, use the hidden test article at `/en/blog/test/` (`content/blog/test/`). It has a bit of everything to try things on. Missing something? Add it there, in all four languages. Don't read the other posts.
 
 ## Checks
 

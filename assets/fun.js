@@ -545,12 +545,13 @@
         else store.set(key, place);
       }
       // Say which section it is when you get to a new one.
-      const reached = headings.findLastIndex((heading) => heading.getBoundingClientRect().top < window.innerHeight * 0.3);
+      // At the very end, the last sections can't scroll up that far, so they count as reached.
+      const reached = now >= 0.98 ? headings.length - 1 : headings.findLastIndex((heading) => heading.getBoundingClientRect().top < window.innerHeight * 0.3);
       // Only once you stay a moment, so racing past a few sections doesn't spam bubbles.
       if (ticks.length && section !== null && reached > section) {
         const name = title(headings[reached]);
         window.clearTimeout(sectionTimer);
-        sectionTimer = setTimeout(() => oneko?.note(name.length > 28 ? `${name.slice(0, 27)}…` : name), 600);
+        sectionTimer = setTimeout(() => oneko?.note(shorten(name, 28)), 600);
       }
       section = section === null ? reached : Math.max(section, reached);
       if (next && now >= 0.98 && !pointedNext) {
@@ -591,6 +592,18 @@
       setTimeout(() => { if (waiting) oneko?.note("you were here"); }, 2500);
     }
     update();
+  }
+
+  // Cut to fit a bubble. Japanese and Chinese letters are twice as wide.
+  function shorten(text, room) {
+    let width = 0;
+    let out = "";
+    for (const letter of text) {
+      width += /[\u1100-\uffef]/.test(letter) ? 2 : 1;
+      if (width > room) return `${out.slice(0, -1)}…`;
+      out += letter;
+    }
+    return text;
   }
 
   // Select some words in a post and the cat offers a link that opens right at them.
@@ -636,10 +649,14 @@
   // Languages without spaces (Japanese, Chinese) match anywhere, so they stay as they are.
   function wholeWords(text, range) {
     const letter = (node, i) => node?.nodeType === 3 && /[\p{L}\p{N}]/u.test(node.data[i] || "");
+    const cut = (node, i) => letter(node, i - 1) && letter(node, i);
+    // Only lines with spaces have words to cut. Each paragraph is checked on its own,
+    // so a Japanese paragraph doesn't get dropped whole.
+    const lines = text.split("\n");
+    const spaced = (line) => /\s/.test(line.trim());
     // Cut the words off the text itself, to keep the line breaks textFragment needs.
-    if (!/\s/.test(text)) return text;
-    if (letter(range.startContainer, range.startOffset - 1) && letter(range.startContainer, range.startOffset)) text = text.replace(/^\S+\s+/, "");
-    if (/\s/.test(text) && letter(range.endContainer, range.endOffset - 1) && letter(range.endContainer, range.endOffset)) text = text.replace(/\s+\S+$/, "");
+    if (spaced(lines[0]) && cut(range.startContainer, range.startOffset)) text = text.replace(/^\S+\s+/, "");
+    if (spaced(text.split("\n").at(-1)) && cut(range.endContainer, range.endOffset)) text = text.replace(/\s+\S+$/, "");
     return text;
   }
 
