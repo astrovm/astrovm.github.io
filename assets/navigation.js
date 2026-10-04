@@ -25,6 +25,25 @@
     }
   }
 
+  // Cloudflare hides emails and decodes them once, on a full load. Fetched pages need it too.
+  function cloudflareEmail(hex) {
+    const key = parseInt(hex.slice(0, 2), 16);
+    let text = '';
+    for (let i = 2; i < hex.length; i += 2) text += '%' + (parseInt(hex.slice(i, i + 2), 16) ^ key).toString(16).padStart(2, '0');
+    try { return decodeURIComponent(text); } catch { return ''; }
+  }
+
+  function revealEmails(root) {
+    root.querySelectorAll('a[href*="/cdn-cgi/l/email-protection#"]').forEach((link) => {
+      const email = cloudflareEmail(link.getAttribute('href').split('#')[1]);
+      if (email) link.setAttribute('href', 'mailto:' + email);
+    });
+    root.querySelectorAll('.__cf_email__[data-cfemail]').forEach((hidden) => {
+      const email = cloudflareEmail(hidden.dataset.cfemail);
+      if (email) hidden.replaceWith(email);
+    });
+  }
+
   // The theme's menus hold its click handlers, so keep them and swap what's inside.
   function swapHeader(next) {
     const header = document.querySelector('.header');
@@ -70,6 +89,7 @@
       document.documentElement.lang = page.documentElement.lang;
       swapHeader(nextHeader);
       content.replaceChildren(...nextContent.childNodes);
+      revealEmails(content);
       // Keep the terminal's title prompt intact. Refresh page metadata only.
       const metadata = 'meta[name="description"], meta[name="keywords"], meta[name="robots"], meta[property^="og:"], meta[property^="article:"], link[rel="canonical"], link[rel="alternate"]';
       document.head.querySelectorAll(metadata).forEach((el) => el.remove());
