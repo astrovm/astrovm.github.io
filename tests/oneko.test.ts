@@ -29,7 +29,7 @@ function catPage({ article = true, reduced = false } = {}) {
     querySelectorAll: () => [],
   });
   const intervals: (() => void)[] = [];
-  const location = { pathname: article ? '/en/blog/story/' : '/en/', search: '' };
+  const location = { pathname: article ? '/en/blog/story/' : '/en/', search: '?today=2026-04-01' };
   const window: any = Object.assign(new EventTarget(), {
     location, innerWidth: 400, innerHeight: 600, scrollY: 0,
     matchMedia: (query: string) => ({ matches: query.includes('reduced-motion') ? reduced : true }),

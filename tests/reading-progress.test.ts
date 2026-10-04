@@ -25,7 +25,7 @@ function page(reduced = false) {
   const timers = new Map<number, () => void>();
   let id = 0;
   const window = Object.assign(new EventTarget(), {
-    location: { pathname: '/en/blog/story/', search: '' },
+    location: { pathname: '/en/blog/story/', search: '?today=2026-04-01' },
     innerWidth: 800, innerHeight: 500, scrollY: 0,
     matchMedia: (query: string) => ({ matches: query.includes('reduced-motion') ? reduced : true }),
     setInterval: (fn: () => void) => { timers.set(++id, fn); return id; },
