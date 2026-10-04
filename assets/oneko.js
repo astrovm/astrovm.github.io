@@ -414,14 +414,19 @@
     // Reading help still talks on articles (force), chatter doesn't.
     say(text, force = false) {
       if ((quiet() && !force) || away) return;
+      // One thing at a time: a new bubble replaces the last one.
+      this.bubble?.remove();
       const bubble = document.createElement("span");
+      this.bubble = bubble;
       bubble.className = "oneko-bubble";
       bubble.textContent = text;
       // Above the cat, or below it when there is no room up top.
       const above = this.y - SIZE - 14;
-      bubble.style.left = `${Math.min(window.innerWidth - 60, Math.max(60, this.x))}px`;
       bubble.style.top = `${above < 4 ? this.y + SIZE / 2 + 6 : above}px`;
       document.body.appendChild(bubble);
+      // Fully on screen, even when it's long.
+      const half = (bubble.offsetWidth || 120) / 2 + 4;
+      bubble.style.left = `${Math.max(half, Math.min(window.innerWidth - half, this.x))}px`;
       setTimeout(() => bubble.remove(), 2300);
     }
 

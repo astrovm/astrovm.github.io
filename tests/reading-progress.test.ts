@@ -197,6 +197,20 @@ test('the first section gets named too, when it starts below the fold', () => {
   expect(b.notes).toEqual(['Intro']);
 });
 
+test('the last section gets named at the very end, even if it never reaches the top', () => {
+  const b = page({ headings: [['Start', 100], ['Last', 1400]] });
+  b.scroll(1000);
+  b.wait();
+  expect(b.notes).toContain('Last');
+});
+
+test('long Japanese section names get cut shorter, since each letter is twice as wide', () => {
+  const b = page({ headings: [['Start', 100], ['とても長いセクションの見出しです', 600]] });
+  b.scroll(600);
+  b.wait();
+  expect(b.notes).toEqual(['とても長いセクションの見出…']);
+});
+
 test('racing past a few sections names only the one you stop at', () => {
   const b = page({ headings: [['One', 400], ['Two', 700], ['Three', 1000]] });
   b.scroll(300);
@@ -269,6 +283,14 @@ test('words cut in half at either end are left out, since links only match whole
   expect(b.copied[0]).toEndWith('#:~:text=was%20a%20sunny%20day.%20I%20noticed%20that%20the');
   expect(b.copied[1]).toEndWith('#:~:text=fine');
   expect(b.copied[2]).toEndWith(`#:~:text=${encodeURIComponent('長'.repeat(5))}`);
+});
+
+test('Japanese across paragraphs keeps both paragraphs, with nothing to cut', async () => {
+  const b = page();
+  b.select('長い段落です。\n\n二つめの段落', { before: 'これは', after: 'です' });
+  b.find('fun-quote').click();
+  await new Promise((r) => setTimeout(r, 0));
+  expect(b.copied[0]).toEndWith(`#:~:text=${encodeURIComponent('長い段落です。')},${encodeURIComponent('二つめの段落')}`);
 });
 
 test('the quote link hides when nothing is selected or the page scrolls', () => {

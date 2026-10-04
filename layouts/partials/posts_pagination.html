@@ -1,0 +1,32 @@
+{{- /*
+  Same as the theme's, but a hidden post (like the test article) isn't in the
+  list, so it has no neighbors. It links to the newest post instead.
+*/ -}}
+{{ $next := .NextInSection }}
+{{ $prev := .PrevInSection }}
+{{ if and (not $next) (not $prev) (eq .Params.build.list "never") }}
+  {{ $next = index (where site.RegularPages "Section" .Section) 0 }}
+{{ end }}
+{{ if or $next $prev }}
+<div class="pagination">
+  <div class="pagination__title">
+    <span class="pagination__title-h">{{ $.Site.Params.ReadOtherPosts }}</span>
+    <hr />
+  </div>
+  <div class="pagination__buttons">
+    {{ with $next }}
+      <a href="{{ .Permalink }}" class="button inline prev">
+        &lt; [<span class="button__text">{{ .Title }}</span>]
+      </a>
+    {{ end }}
+    {{ if and $next $prev }}
+      ::
+    {{ end }}
+    {{ with $prev }}
+      <a href="{{ .Permalink }}" class="button inline next">
+         [<span class="button__text">{{ .Title }}</span>] &gt;
+      </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
