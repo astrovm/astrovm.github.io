@@ -6,6 +6,7 @@
 // From the console: oneko.bite(), knock(), push(), steal(), perch(), scratch(),
 // peek(), nap(), hunt(), box(), pounce(), treat(), pspsps(), nyan(), friend(),
 // pet(), play() and hat("pumpkin").
+// Other people's cats on the same page (fun.js ghost cats) get visits, boops and games of tag.
 // Add ?today=2026-10-31T03:00 to the URL to pretend it is another day or time.
 // Put data-oneko-home on an element and the cat naps there until someone clicks it.
 (function oneko() {
@@ -133,6 +134,8 @@
   let parked = Boolean(home);
   let butterfly = null;
   const treats = [];
+  // Other visitors' cats, from fun.js. Each has x, y, el and meet("boop" or "tag").
+  let friends = () => [];
 
   const random = (list) => list[Math.floor(Math.random() * list.length)];
   const between = (min, max) => min + Math.random() * (max - min);
@@ -398,6 +401,7 @@
 
     setSprite(name, frame) {
       const sprite = spriteSets[name][frame % spriteSets[name].length];
+      this.sprite = sprite;
       this.el.style.backgroundPosition = `${sprite[0] * SIZE}px ${sprite[1] * SIZE}px`;
     }
 
@@ -657,6 +661,9 @@
     mischief() {
       if (lateNight && Math.random() < 0.6) {
         this.idleAnimation = "sleeping";
+        return;
+      }
+      if (Math.random() < 0.3 && this.visit() !== false) {
         return;
       }
       const options = [
@@ -1011,6 +1018,75 @@
           setTimeout(() => el.remove(), 400);
         },
       });
+    }
+
+    // Walk up to another visitor's cat and boop its nose. Sometimes it's a game of tag.
+    visit(friend = random(friends())) {
+      if (!friend || reading()) {
+        return false;
+      }
+      const side = this.x < friend.x ? -1 : 1;
+      const tag = Math.random() < 0.35;
+      return this.start({
+        kind: "visit",
+        el: friend.el,
+        frames: 12,
+        speed: 12,
+        where: () => ({ sx: friend.x + side * 26, sy: friend.y }),
+        act: (frame) => {
+          this.setSprite(side < 0 ? "E" : "W", 0);
+          if (frame === 4) {
+            friend.meet(tag ? "tag" : "boop");
+            puff("♡", "oneko-heart", this.x - side * 13, this.y - SIZE / 2);
+            this.say(tag ? "tag! you're it" : random(["boop", "hi friend", "mrrp ♡"]));
+          }
+        },
+        then: () => tag && this.flee(friend),
+      });
+    }
+
+    // Tagged it, so run.
+    flee(friend) {
+      const dir = this.x < friend.x ? -1 : 1;
+      const spot = {
+        sx: Math.max(40, Math.min(window.innerWidth - 40, this.x + dir * between(150, 300))),
+        sy: between(60, window.innerHeight - 40),
+      };
+      return this.start({
+        kind: "flee",
+        frames: 1,
+        speed: 18,
+        where: () => spot,
+        act: () => {},
+      });
+    }
+
+    // Another cat came over to say hi.
+    booped(friend) {
+      puff("♡", "oneko-heart", this.x, this.y - SIZE / 2);
+      if (quiet() || parked || this.held || this.plan?.stubborn) {
+        return;
+      }
+      this.say(random(["mrrp? ♡", "hi!", "=^.^="]));
+      const side = this.x < friend.x ? "E" : "W";
+      this.start({ kind: "greet", frames: 8, where: () => ({ sx: this.x, sy: this.y }), act: () => this.setSprite(side, 0) });
+    }
+
+    // Another cat tagged it: chase that cat for a bit.
+    tagged(friend) {
+      if (quiet() || parked || this.held || this.plan?.stubborn) {
+        return;
+      }
+      this.say("!");
+      this.chase(() => (friend.el.isConnected ? friend : null), 4000);
+    }
+
+    // Someone new showed up. Sometimes it goes over right away.
+    noticed(friend) {
+      if (!quiet() && !parked && !this.held && !this.plan && Math.random() < 0.5) {
+        this.say("!");
+        this.visit(friend);
+      }
     }
 
     // Wiggle, then leap at the cursor.
@@ -1679,7 +1755,7 @@
       lastPointerAt = Date.now();
       // Mouse moves happen all the time, so only quick jobs get interrupted.
       cats.forEach((cat) => {
-        if (cat.plan && ["nap", "peek", "wander"].includes(cat.plan.kind)) {
+        if (cat.plan && ["nap", "peek", "wander", "visit"].includes(cat.plan.kind)) {
           cat.distract();
         }
       });
@@ -1756,6 +1832,17 @@
     pspsps,
     nyan: startNyan,
     friend: addFriend,
+    // For fun.js ghost cats: what this cat looks like to others, and how it reacts to theirs.
+    me: () => {
+      const cat = first();
+      if (!cat) return null;
+      return { x: cat.x, y: cat.y, sprite: cat.sprite, reading: quiet() && !cat.readerSpot, hidden: away || cat.el.hidden };
+    },
+    friends: (list) => { friends = list || (() => []); },
+    visit: (friend) => first()?.visit(friend),
+    booped: (friend) => first()?.booped(friend),
+    tagged: (friend) => first()?.tagged(friend),
+    noticed: (friend) => first()?.noticed(friend),
   };
 
   window.addEventListener("site:navigate", () => {

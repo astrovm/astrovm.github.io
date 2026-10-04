@@ -492,107 +492,153 @@
     );
   }
 
-  // Ghost cats: other people reading the same page right now.
+  // Ghost cats: the cats of other people on this page right now, in any language.
+  // Each visitor shares where their cat is (as a share of their window) and what it's doing.
+  // On articles they sit on the reading bar. Cats that meet say hi or play tag (oneko.js).
 
   function ghosts() {
     const url = window.__GHOSTS_URL__;
-    if (!url || calm || !("WebSocket" in window)) {
+    const oneko = window.oneko;
+    if (!url || !oneko?.me || !("WebSocket" in window)) {
       return;
     }
-    const area = () => ($(".container") || document.body).getBoundingClientRect();
     const others = new Map();
     let socket = null;
-    let sent = 0;
-    let mine = null;
+    let fails = 0;
+    let retry = null;
+    let shared = "";
+    let sharedAt = 0;
+    let cuddledAt = 0;
 
-    disposers.push(() => {
-      socket?.close();
-      others.forEach((ghost) => ghost.el.remove());
+    const clamp = (n, max) => Math.max(16, Math.min(max - 16, n));
+    const spot = (cat) => ({
+      x: clamp(cat.x * window.innerWidth, window.innerWidth),
+      // Same height as the reading cat in oneko.js.
+      y: cat.r ? 19 : clamp(cat.y * window.innerHeight, window.innerHeight),
     });
-    const connect = () => {
-      if (controller.signal.aborted) return;
-      socket = new WebSocket(`${url}?room=${encodeURIComponent(window.location.pathname)}`);
-      socket.addEventListener("message", (event) => {
-        if (controller.signal.aborted) return;
-        let data;
-        try {
-          data = JSON.parse(event.data);
-        } catch {
-          return;
-        }
-        if (data.gone) {
-          const ghost = others.get(data.id);
-          if (ghost) {
-            ghost.el.remove();
-            others.delete(data.id);
-          }
-          return;
-        }
-        let ghost = others.get(data.id);
-        if (!ghost) {
-          if (others.size >= 30) {
-            return;
-          }
-          const el = document.createElement("div");
-          el.className = "fun-ghost";
-          document.body.appendChild(el);
-          ghost = { el, x: null, y: null, tx: 0, ty: 0 };
-          others.set(data.id, ghost);
-        }
-        const box = area();
-        ghost.tx = box.left + data.x * box.width;
-        ghost.ty = data.y - window.scrollY;
-        ghost.docY = data.y;
+    const forget = (id) => {
+      others.get(id)?.el.remove();
+      others.delete(id);
+    };
+    const nudge = (id, a) => {
+      if (socket?.readyState === WebSocket.OPEN) socket.send(JSON.stringify({ to: id, a }));
+    };
+    // Only cats walking around can be visited, not the ones on the reading bar.
+    oneko.friends(() => [...others.values()].filter((ghost) => !ghost.cat.h && !ghost.cat.r));
+
+    const hear = (data) => {
+      // Without motion we still share our cat, but don't show moving ones.
+      if (calm) return;
+      if (data.from) {
+        const ghost = others.get(data.from);
+        if (ghost) oneko[data.a === "tag" ? "tagged" : "booped"](ghost);
+        return;
+      }
+      if (data.gone) {
+        forget(data.id);
+        return;
+      }
+      let ghost = others.get(data.id);
+      if (!ghost && others.size < 30) {
+        const el = document.createElement("div");
+        el.className = "fun-ghost";
+        el.setAttribute("aria-hidden", "true");
+        document.body.appendChild(el);
+        ghost = { el, ...spot(data), meet: (a) => nudge(data.id, a) };
+        others.set(data.id, ghost);
+        if (!data.h && !data.r) setTimeout(() => oneko.noticed(ghost), 1000);
+      }
+      if (ghost) {
+        ghost.cat = data;
         ghost.seen = Date.now();
+      }
+    };
+
+    const connect = () => {
+      retry = null;
+      if (socket || document.hidden || controller.signal.aborted) return;
+      const ws = new WebSocket(`${url}?v=2&room=${encodeURIComponent(window.location.pathname)}`);
+      socket = ws;
+      ws.addEventListener("open", () => {
+        fails = 0;
+        shared = "";
       });
-      socket.addEventListener("close", () => {
-        if (!controller.signal.aborted) setTimeout(connect, 5000);
+      ws.addEventListener("message", (event) => {
+        try {
+          hear(JSON.parse(event.data));
+        } catch {
+          // Not for us.
+        }
+      });
+      ws.addEventListener("close", () => {
+        if (socket !== ws) return;
+        socket = null;
+        others.forEach((_, id) => forget(id));
+        // Wait longer after each failure, up to a minute.
+        fails += 1;
+        if (!document.hidden) retry = setTimeout(connect, Math.min(60000, 2500 * 2 ** fails));
       });
     };
+    const leave = () => {
+      const ws = socket;
+      socket = null;
+      ws?.close();
+      others.forEach((_, id) => forget(id));
+    };
+    // Hidden tabs leave the room, so their cats don't sit there forever.
+    listen(document, "visibilitychange", () => {
+      if (document.hidden) leave();
+      else if (!retry) connect();
+    });
+    disposers.push(() => {
+      leave();
+      oneko.friends(null);
+    });
     connect();
 
-    if (!touch) {
-      listen(document, "pointermove", (event) => {
-        const box = area();
-        mine = { x: (event.clientX - box.left) / box.width, y: event.clientY + window.scrollY };
-      });
-      setInterval(() => {
-        if (mine && socket.readyState === WebSocket.OPEN && Date.now() - sent > 150) {
-          socket.send(JSON.stringify({ x: Number(mine.x.toFixed(4)), y: Math.round(mine.y) }));
-          sent = Date.now();
-          mine = null;
-        }
-      }, 150);
-    }
-
-    let frame = 0;
+    // Share our cat when it changes, and now and then so others know we're still here.
     setInterval(() => {
-      frame += 1;
+      const cat = oneko.me();
+      if (!cat?.sprite || socket?.readyState !== WebSocket.OPEN) return;
+      const text = JSON.stringify({
+        x: Number((cat.x / window.innerWidth).toFixed(3)),
+        y: Number((cat.y / window.innerHeight).toFixed(3)),
+        s: cat.sprite,
+        r: cat.reading ? 1 : 0,
+        h: cat.hidden ? 1 : 0,
+      });
+      if (text === shared && Date.now() - sharedAt < 10000) return;
+      socket.send(text);
+      shared = text;
+      sharedAt = Date.now();
+    }, 150);
+
+    setInterval(() => {
+      const me = oneko.me();
       for (const [id, ghost] of others) {
-        if (Date.now() - ghost.seen > 15000) {
-          ghost.el.remove();
-          others.delete(id);
+        if (Date.now() - ghost.seen > 30000) {
+          forget(id);
           continue;
         }
-        const ty = ghost.docY - window.scrollY;
-        if (ghost.x === null) {
-          ghost.x = ghost.tx;
-          ghost.y = ty;
-        }
-        const dx = ghost.tx - ghost.x;
-        const dy = ty - ghost.y;
+        const to = spot(ghost.cat);
+        const dx = to.x - ghost.x;
+        const dy = to.y - ghost.y;
         const distance = Math.hypot(dx, dy);
-        let sprite = [-3, -3];
-        if (distance > 12) {
-          const step = Math.min(10, distance);
-          ghost.x += (dx / distance) * step;
-          ghost.y += (dy / distance) * step;
-          const east = dx > 0;
-          sprite = Math.abs(dx) > Math.abs(dy) ? (east ? [-3, frame % 2 ? 0 : -1] : [-4, frame % 2 ? -2 : -3]) : dy > 0 ? [-6, -3] : [-1, -2];
+        // Glide there, quicker the farther it is.
+        const move = Math.min(distance, Math.max(12, distance / 3));
+        if (distance > 0) {
+          ghost.x += (dx / distance) * move;
+          ghost.y += (dy / distance) * move;
         }
+        ghost.el.hidden = Boolean(ghost.cat.h);
         ghost.el.style.left = `${ghost.x - 16}px`;
         ghost.el.style.top = `${ghost.y - 16}px`;
-        ghost.el.style.backgroundPosition = `${sprite[0] * 32}px ${sprite[1] * 32}px`;
+        ghost.el.style.backgroundPosition = `${ghost.cat.s[0] * 32}px ${ghost.cat.s[1] * 32}px`;
+        // Reading the same part of an article together.
+        if (me?.reading && ghost.cat.r && Math.abs(ghost.x - me.x) < 40 && Date.now() - cuddledAt > 8000) {
+          cuddledAt = Date.now();
+          oneko.booped(ghost);
+        }
       }
     }, 100);
   }
