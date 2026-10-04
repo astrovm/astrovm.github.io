@@ -7,6 +7,7 @@ const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 function browser() {
   const listeners = new Map<string, (event: any) => void>();
+  const capturing = new Set<string>();
   const location = {
     href: 'https://example.test/en/',
     get origin() { return new URL(this.href).origin; },
@@ -23,6 +24,21 @@ function browser() {
   let focused = false;
   let rendered = 'home';
   let replacedHeader = false;
+  // A theme menu: the trigger and dropdown carry the theme's click handlers.
+  function menu(label: string, open = false) {
+    const classes = new Set(open ? ['menu', 'open'] : ['menu']);
+    const part = (items: string[]) => ({ childNodes: items, replaceChildren(...nodes: string[]) { this.childNodes = nodes; } });
+    const parts: Record<string, any> = { '.menu__trigger': part([label]), '.menu__dropdown': part([`${label} links`]) };
+    return {
+      label, swappedFor: null as any, classes,
+      classList: { remove: (name: string) => classes.delete(name) },
+      querySelector: (selector: string) => parts[selector],
+      replaceWith(other: any) { this.swappedFor = other; },
+    };
+  }
+  let menus = [menu('english', true)];
+  let nextMenus = [menu('español')];
+  const header = { querySelectorAll: () => menus, replaceWith() { replacedHeader = true; } };
   const content = {
     setAttribute: (key: string, value: string) => attributes.set(key, value),
     removeAttribute: (key: string) => attributes.delete(key),
@@ -40,8 +56,11 @@ function browser() {
     documentElement: { lang: 'en' },
     head: { querySelectorAll: () => [], append() {} },
     getElementById: () => null,
-    querySelector: (selector: string) => selector === '.content' ? content : { replaceWith() { replacedHeader = true; } },
-    addEventListener: (name: string, fn: (event: any) => void) => listeners.set(name, fn),
+    querySelector: (selector: string) => selector === '.content' ? content : header,
+    addEventListener: (name: string, fn: (event: any) => void, capture?: boolean) => {
+      listeners.set(name, fn);
+      if (capture) capturing.add(name);
+    },
   };
   const window = {
     history, scrollX: 0, scrollY: 0,
@@ -55,7 +74,7 @@ function browser() {
       return {
         documentElement: { lang: text === 'spanish' ? 'es' : 'en' },
         head: document.head,
-        querySelector: (selector: string) => selector === '.content' ? { childNodes: [text] } : {},
+        querySelector: (selector: string) => selector === '.content' ? { childNodes: [text] } : { querySelectorAll: () => nextMenus },
       };
     }
   }
@@ -69,7 +88,8 @@ function browser() {
   function respond(index = 0, text = 'article', overrides: any = {}) {
     requests[index].resolve({ ok: true, url: requests[index].url, headers: { get: () => 'text/html' }, text: async () => text, ...overrides });
   }
-  return { click, respond, requests, location, history, window, listeners, fallback, visits, events, scrolls, document,
+  const setMenus = (now: any[], next: any[]) => { menus = now; nextMenus = next; };
+  return { click, respond, requests, location, history, window, listeners, capturing, menu, setMenus, menus: () => menus, nextMenus: () => nextMenus, fallback, visits, events, scrolls, document,
     state: () => ({ rendered, focused, replacedHeader, busy: attributes.has('aria-busy') }) };
 }
 
@@ -83,6 +103,34 @@ test('internal navigation keeps the document, renders the page, focuses its head
   expect(b.location.pathname).toBe('/en/blog/story/');
   expect(b.events).toEqual(['site:navigate']);
   expect(b.scrolls).toEqual([[0, 0]]);
+});
+
+test('links in the theme dropdowns are caught before the theme stops the click', () => {
+  expect(browser().capturing.has('click')).toBe(true);
+});
+
+test('the header keeps the theme menus and their handlers, with the new page inside', async () => {
+  const b = browser();
+  const [kept] = b.menus();
+  const [incoming] = b.nextMenus();
+  b.click('/es/contact/');
+  b.respond();
+  await settle();
+  expect(incoming.swappedFor).toBe(kept);
+  expect(kept.classes.has('open')).toBe(false);
+  expect(kept.querySelector('.menu__trigger').childNodes).toEqual(['español']);
+  expect(kept.querySelector('.menu__dropdown').childNodes).toEqual(['español links']);
+});
+
+test('a header with different menus is replaced whole', async () => {
+  const b = browser();
+  const extra = b.menu('extra');
+  b.setMenus([], [extra]);
+  b.click('/en/contact/');
+  b.respond();
+  await settle();
+  expect(extra.swappedFor).toBe(null);
+  expect(b.state().replacedHeader).toBe(true);
 });
 
 test('language navigation updates the page language', async () => {

@@ -25,6 +25,24 @@
     }
   }
 
+  // The theme's menus hold its click handlers, so keep them and swap what's inside.
+  function swapHeader(next) {
+    const header = document.querySelector('.header');
+    const menus = [...header.querySelectorAll('.menu')];
+    const nextMenus = [...next.querySelectorAll('.menu')];
+    if (menus.length === nextMenus.length) {
+      menus.forEach((menu, i) => {
+        menu.classList.remove('open');
+        for (const part of ['.menu__trigger', '.menu__dropdown']) {
+          const fresh = nextMenus[i].querySelector(part);
+          if (fresh) menu.querySelector(part)?.replaceChildren(...fresh.childNodes);
+        }
+        nextMenus[i].replaceWith(menu);
+      });
+    }
+    header.replaceWith(next);
+  }
+
   async function navigate(url, { pop = false, saved } = {}) {
     pending?.abort();
     const controller = new AbortController();
@@ -50,7 +68,7 @@
         history.replaceState({ ...history.state }, '', destination.href);
       }
       document.documentElement.lang = page.documentElement.lang;
-      document.querySelector('.header').replaceWith(nextHeader);
+      swapHeader(nextHeader);
       content.replaceChildren(...nextContent.childNodes);
       // Keep the terminal's title prompt intact. Refresh page metadata only.
       const metadata = 'meta[name="description"], meta[name="keywords"], meta[name="robots"], meta[property^="og:"], meta[property^="article:"], link[rel="canonical"], link[rel="alternate"]';
@@ -80,6 +98,7 @@
       }
     }
   }
+  // Capture phase, because the theme's dropdowns stop clicks from bubbling up.
   document.addEventListener('click', (event) => {
     const link = event.target.closest('a[href]');
     if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
@@ -96,7 +115,7 @@
     }
     event.preventDefault();
     void navigate(url);
-  });
+  }, true);
   window.addEventListener('popstate', (event) => {
     void navigate(new URL(location.href), { pop: true, saved: event.state?.scroll });
   });
