@@ -4,12 +4,22 @@
     {{ $path = .RelPermalink | strings.TrimPrefix "/en" }}
   {{ end }}
 {{ end }}
+{{/* Discussions are titled with the path, like the old utterances issues. */}}
 <script
-  src="https://utteranc.es/client.js"
-  repo="astrovm/astrovm.github.io"
-  issue-term="{{ $path }}"
-  label="blog-comment"
-  theme="photon-dark"
+  src="https://giscus.app/client.js"
+  data-repo="astrovm/astrovm.github.io"
+  data-repo-id="MDEwOlJlcG9zaXRvcnkxMDUwMDQ4NzE="
+  data-category="Comments"
+  data-category-id="DIC_kwDOBkI_R84DHC28"
+  data-mapping="specific"
+  data-term="{{ $path }}"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="transparent_dark"
+  data-lang="{{ if eq .Lang "zh" }}zh-CN{{ else }}{{ .Lang }}{{ end }}"
+  data-loading="lazy"
   crossorigin="anonymous"
   async
 ></script>
