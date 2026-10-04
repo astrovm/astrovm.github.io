@@ -4,7 +4,7 @@ import { runInNewContext } from 'node:vm';
 
 const source = readFileSync(new URL('../assets/oneko.js', import.meta.url), 'utf8');
 
-function catPage({ article = true, reduced = false } = {}) {
+function catPage({ article = true, reduced = false, width = 400 } = {}) {
   class Element extends EventTarget {
     style: Record<string, any> = {};
     className = '';
@@ -31,12 +31,12 @@ function catPage({ article = true, reduced = false } = {}) {
   const intervals: (() => void)[] = [];
   const location = { pathname: article ? '/en/blog/story/' : '/en/', search: '?today=2026-04-01' };
   const window: any = Object.assign(new EventTarget(), {
-    location, innerWidth: 400, innerHeight: 600, scrollY: 0,
+    location, innerWidth: width, innerHeight: 600, scrollY: 0,
     matchMedia: (query: string) => ({ matches: query.includes('reduced-motion') ? reduced : true }),
   });
   const storage = new Map();
   runInNewContext(source, {
-    window, document, location, URLSearchParams, Date, CustomEvent,
+    window, document, location, URLSearchParams, Date, CustomEvent, performance,
     localStorage: { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) },
     setInterval: (fn: () => void) => intervals.push(fn), setTimeout: () => 1, clearTimeout() {}, requestAnimationFrame() {},
   });
@@ -45,7 +45,8 @@ function catPage({ article = true, reduced = false } = {}) {
     const event = Object.assign(new Event(type, { cancelable: true }), { pointerId: id, pointerType, clientX: x, clientY: y, button: 0 });
     cat.dispatchEvent(event);
   };
-  return { cat, pointer, window, location, document, body, tick: () => intervals.forEach((fn) => fn()) };
+  const yarn = () => body.children.find((el) => el.className === 'oneko-yarn')!;
+  return { cat, yarn, pointer, window, location, document, body, tick: () => intervals.forEach((fn) => fn()) };
 }
 
 test('a reader can drag the cat and leave it in place without petting it', () => {
@@ -140,4 +141,41 @@ test('the progress neko sleeps at the end and keeps extra cats out of articles',
   b.tick();
   expect(b.cat.style.backgroundPosition).toBe('-64px 0px');
   expect(b.body.children.filter((el) => el.className === 'oneko-cat' && !el.hidden)).toHaveLength(1);
+});
+
+test('a held cat swings against the drag, kicks, then lands and grooms', () => {
+  const b = catPage({ article: false });
+  b.pointer('pointerdown', 32, 32);
+  b.pointer('pointermove', 132, 32);
+  expect(parseFloat(b.cat.style.rotate)).toBeLessThan(0);
+  const swing = Math.abs(parseFloat(b.cat.style.rotate));
+  b.tick();
+  expect(Math.abs(parseFloat(b.cat.style.rotate))).toBeLessThan(swing);
+  for (let i = 0; i < 12; i++) b.tick();
+  expect(['-192px -96px', '-224px -64px']).toContain(b.cat.style.backgroundPosition);
+  b.pointer('pointerup', 132, 32);
+  expect(b.cat.style.rotate).toBe('');
+  b.tick();
+  expect(['-160px 0px', '-192px 0px', '-224px 0px']).toContain(b.cat.style.backgroundPosition);
+  expect(b.window.oneko.cats()[0]).toEqual({ x: 132, y: 32 });
+});
+
+test('reduced motion drags the cat without swinging it', () => {
+  const b = catPage({ article: false, reduced: true });
+  b.pointer('pointerdown', 32, 32);
+  b.pointer('pointermove', 132, 32);
+  b.tick();
+  expect(b.cat.style.rotate).toBeUndefined();
+});
+
+test('the cat comes over and paws at yarn while someone holds it up', () => {
+  const b = catPage({ article: false, width: 800 });
+  const at = (type: string, x: number, y: number) =>
+    b.yarn().dispatchEvent(Object.assign(new Event(type, { cancelable: true }), { pointerId: 2, pointerType: 'mouse', clientX: x, clientY: y, button: 0 }));
+  at('pointerdown', 28, 572);
+  at('pointermove', 300, 300);
+  for (let i = 0; i < 40; i++) b.tick();
+  const cat = b.window.oneko.cats()[0];
+  expect(Math.hypot(cat.x - 300, cat.y - 320)).toBeLessThan(12);
+  expect(['0px 0px', '0px -32px']).toContain(b.cat.style.backgroundPosition);
 });
