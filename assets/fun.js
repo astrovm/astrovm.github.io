@@ -1,8 +1,35 @@
 // Things that make the site feel alive: Buenos Aires time and weather, the
-// last commit, special days, sounds, a reading cat, the lost
+// special days, sounds, reading progress, the lost
 // 404 page and ghost cats of other visitors.
 // Add ?today=2026-10-31 to the URL to pretend it is another day.
 (function fun() {
+  const controller = new AbortController();
+  const disposers = [];
+  const timers = new Set();
+  const frames = new Set();
+  const setInterval = (fn, delay) => {
+    const id = window.setInterval(fn, delay);
+    timers.add(id);
+    return id;
+  };
+  const setTimeout = (fn, delay) => {
+    const id = window.setTimeout(() => {
+      timers.delete(id);
+      if (!controller.signal.aborted) fn();
+    }, delay);
+    timers.add(id);
+    return id;
+  };
+  const requestAnimationFrame = (fn) => {
+    const id = window.requestAnimationFrame(() => {
+      frames.delete(id);
+      if (!controller.signal.aborted) fn();
+    });
+    frames.add(id);
+    return id;
+  };
+  const listen = (target, name, fn, options = {}) =>
+    target.addEventListener(name, fn, { ...options, signal: controller.signal });
   const lang = (document.documentElement.lang || "en").slice(0, 2);
   const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const touch = !window.matchMedia("(pointer: fine)").matches;
@@ -17,25 +44,21 @@
     en: {
       clock: "time in Buenos Aires",
       asleep: "astro is probably asleep",
-      commit: (when, repo) => `git: ${repo}, ${when}`,
       sound: (on) => `♪ sound: ${on ? "on" : "off"}`,
     },
     es: {
       clock: "hora en Buenos Aires",
       asleep: "astro seguro está durmiendo",
-      commit: (when, repo) => `git: ${repo}, ${when}`,
       sound: (on) => `♪ sonido: ${on ? "sí" : "no"}`,
     },
     ja: {
       clock: "ブエノスアイレスの時刻",
       asleep: "astroはたぶん寝てる",
-      commit: (when, repo) => `git: ${repo} ${when}`,
       sound: (on) => `♪ 音：${on ? "オン" : "オフ"}`,
     },
     zh: {
       clock: "布宜诺斯艾利斯时间",
       asleep: "astro大概在睡觉",
-      commit: (when, repo) => `git: ${repo} ${when}`,
       sound: (on) => `♪ 声音：${on ? "开" : "关"}`,
     },
   }[lang] || null;
@@ -98,19 +121,19 @@
       );
     },
   };
-  window.addEventListener("oneko:meow", () => sound.meow());
+  listen(window, "oneko:meow", () => sound.meow());
   // A low rumble that wobbles, like a purr.
-  window.addEventListener("oneko:purr", () =>
+  listen(window, "oneko:purr", () =>
     sound.tone("sawtooth", [0, 0.25, 0.5, 0.75, 1].map((at) => [32, at, 0.2, 26]), 0.05),
   );
-  window.addEventListener("oneko:nom", () =>
+  listen(window, "oneko:nom", () =>
     sound.tone("square", [
       [660, 0, 0.08],
       [880, 0.1, 0.12],
     ]),
   );
 
-  // Buenos Aires time and weather next to the menu, and the last commit in the footer.
+  // Buenos Aires time and weather next to the menu.
 
   function statusLine() {
     const status = $("#site-status");
@@ -138,7 +161,6 @@
     setInterval(tick, 30000);
 
     weather();
-    lastCommit();
   }
 
   // Open-Meteo is free and needs no key. Weather codes: https://open-meteo.com/en/docs
@@ -178,6 +200,7 @@
       try {
         const response = await fetch(
           "https://api.open-meteo.com/v1/forecast?latitude=-34.61&longitude=-58.38&current=temperature_2m,weather_code,is_day",
+          { signal: controller.signal },
         );
         if (!response.ok) {
           return;
@@ -194,6 +217,7 @@
         return;
       }
     }
+    if (controller.signal.aborted) return;
     const [glyph, emoji] = weatherIcon(now.code, now.isDay);
     const icon = document.createElement("button");
     icon.type = "button";
@@ -207,46 +231,6 @@
     });
     show();
     el.replaceChildren(icon, ` ${now.temperature}°C`);
-    el.hidden = false;
-  }
-
-  async function lastCommit() {
-    const el = $("#status-commit");
-    let push = null;
-    try {
-      push = JSON.parse(sessionStorage.getItem("fun.commit"));
-    } catch {
-      push = null;
-    }
-    if (!push || Date.now() - push.checked > 10 * 60 * 1000) {
-      try {
-        const response = await fetch("https://api.github.com/users/astrovm/events/public?per_page=30");
-        if (!response.ok) {
-          return;
-        }
-        const event = (await response.json()).find((item) => item.type === "PushEvent");
-        if (!event) {
-          return;
-        }
-        push = { repo: event.repo.name, at: event.created_at, checked: Date.now() };
-        sessionStorage.setItem("fun.commit", JSON.stringify(push));
-      } catch {
-        return;
-      }
-    }
-    const minutes = Math.round((Date.parse(push.at) - Date.now()) / 60000);
-    const relative = new Intl.RelativeTimeFormat(lang, { numeric: "auto", style: "short" });
-    const when =
-      Math.abs(minutes) < 60
-        ? relative.format(minutes, "minute")
-        : Math.abs(minutes) < 60 * 48
-          ? relative.format(Math.round(minutes / 60), "hour")
-          : relative.format(Math.round(minutes / 1440), "day");
-    const link = document.createElement("a");
-    link.href = `https://github.com/${push.repo}`;
-    link.textContent = push.repo.replace(/^astrovm\//, "");
-    const [before, after] = say.commit(when, "\u0000").split("\u0000");
-    el.replaceChildren(before, link, after);
     el.hidden = false;
   }
 
@@ -442,44 +426,23 @@
     });
   }
 
-  // A tiny cat runs along the top while you read a post.
-
-  function readingCat() {
-    // Only on blog posts, not on pages like projects or the 404.
+  // A thin line shows how far through a post you are.
+  function readingProgress() {
     const article = window.location.pathname.includes("/blog/") && $(".post:not(.on-list) .post-content");
-    if (!article || calm) {
-      return;
-    }
+    if (!article) return;
     const bar = document.createElement("div");
     bar.className = "fun-progress";
-    const kitty = document.createElement("div");
-    kitty.className = "fun-progress-cat";
-    document.body.append(bar, kitty);
-    const frames = { idle: [[-3, -3]], E: [[-3, 0], [-3, -1]], sleeping: [[-2, 0], [-2, -1]] };
-    let lastScroll = 0;
-    let frame = 0;
+    bar.setAttribute("aria-hidden", "true");
+    document.body.append(bar);
+    disposers.push(() => bar.remove());
     const update = () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       const done = max > 0 ? Math.min(1, window.scrollY / max) : 1;
       bar.style.width = `${done * 100}%`;
-      kitty.style.left = `${Math.max(0, done * window.innerWidth - 24)}px`;
-      // At the very top it would sit on the neko, so it waits until you scroll.
-      kitty.hidden = done < 0.02;
     };
-    window.addEventListener("scroll", () => {
-      lastScroll = Date.now();
-      update();
-    }, { passive: true });
+    listen(window, "scroll", update, { passive: true });
+    listen(window, "resize", update);
     update();
-    setInterval(() => {
-      frame += 1;
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const finished = window.scrollY >= max - 4;
-      const name = finished ? "sleeping" : Date.now() - lastScroll < 300 ? "E" : "idle";
-      const set = frames[name];
-      const [fx, fy] = set[Math.floor(frame / (name === "sleeping" ? 4 : 1)) % set.length];
-      kitty.style.backgroundPosition = `${fx * 32}px ${fy * 32}px`;
-    }, 120);
   }
 
   // The 404 page: the go home button runs away a few times.
@@ -503,7 +466,7 @@
         }
       });
     } else {
-      document.addEventListener("pointermove", (event) => {
+      listen(document, "pointermove", (event) => {
         if (dodges >= 5) {
           return;
         }
@@ -542,9 +505,15 @@
     let sent = 0;
     let mine = null;
 
+    disposers.push(() => {
+      socket?.close();
+      others.forEach((ghost) => ghost.el.remove());
+    });
     const connect = () => {
+      if (controller.signal.aborted) return;
       socket = new WebSocket(`${url}?room=${encodeURIComponent(window.location.pathname)}`);
       socket.addEventListener("message", (event) => {
+        if (controller.signal.aborted) return;
         let data;
         try {
           data = JSON.parse(event.data);
@@ -576,12 +545,14 @@
         ghost.docY = data.y;
         ghost.seen = Date.now();
       });
-      socket.addEventListener("close", () => setTimeout(connect, 5000));
+      socket.addEventListener("close", () => {
+        if (!controller.signal.aborted) setTimeout(connect, 5000);
+      });
     };
     connect();
 
     if (!touch) {
-      document.addEventListener("pointermove", (event) => {
+      listen(document, "pointermove", (event) => {
         const box = area();
         mine = { x: (event.clientX - box.left) / box.width, y: event.clientY + window.scrollY };
       });
@@ -630,16 +601,26 @@
     statusLine();
     seasons();
     soundToggle();
-    readingCat();
+    readingProgress();
     lostPage();
     hello();
     ghosts();
   }
 
-  // oneko.js loads with defer too; wait for it so hats and chases work.
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", main);
+    document.addEventListener("DOMContentLoaded", main, { once: true, signal: controller.signal });
   } else {
     main();
   }
+  window.addEventListener("site:navigate", () => {
+    controller.abort();
+    audio?.close().catch(() => {});
+    timers.forEach((id) => window.clearInterval(id));
+    frames.forEach((id) => window.cancelAnimationFrame(id));
+    disposers.forEach((dispose) => dispose());
+    document.querySelectorAll('[class^="fun-"]:not(.footer-fun)').forEach((el) => el.remove());
+    document.documentElement.classList.remove("fun-argentina");
+    document.documentElement.style.removeProperty("--accent");
+    fun();
+  }, { once: true });
 })();

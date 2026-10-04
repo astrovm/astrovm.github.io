@@ -1,8 +1,6 @@
 <footer class="footer">
   <div class="footer__inner">
     <div class="footer-fun">
-      {{- /* Filled in by fun.js: the last commit. */}}
-      <span id="status-commit" hidden></span>
       <button id="sound-toggle" class="footer-toggle" type="button" hidden></button>
     </div>
     <div class="copyright">
@@ -10,13 +8,6 @@
     </div>
   </div>
 </footer>
-
-{{ $menu := resources.Get "js/menu.js" | js.Build }}
-{{ $cp := resources.Get "js/code.js" | js.Build }}
-
-{{ $bundle := slice $menu $cp | resources.Concat "bundle.js" | resources.Minify }}
-
-<script type="text/javascript" src="{{ $bundle.RelPermalink }}"></script>
 
 <!-- Extended footer section-->
 {{ partial "extended_footer.html" . }}

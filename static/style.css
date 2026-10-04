@@ -220,10 +220,6 @@ a {
   }
 }
 
-.fun-progress-cat[hidden] {
-  display: none;
-}
-
 /* The theme's mobile menu is narrow and broke words in half. */
 .menu__dropdown {
   min-width: 10rem;
@@ -312,19 +308,6 @@ a {
   z-index: 90;
   height: 3px;
   background: var(--accent);
-}
-
-.fun-progress-cat {
-  position: fixed;
-  top: 3px;
-  z-index: 90;
-  width: 32px;
-  height: 32px;
-  background-image: url("/oneko.gif");
-  image-rendering: pixelated;
-  scale: 0.75;
-  transform-origin: top left;
-  pointer-events: none;
 }
 
 .fun-ghost {
