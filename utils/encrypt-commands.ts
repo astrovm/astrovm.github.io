@@ -88,8 +88,9 @@ export function isBinaryByExt(rel: string): boolean {
   return BINARY_EXT.has(path.extname(rel).toLowerCase());
 }
 
+/** Bytes as base64 decoded at runtime: about a third of the size of a number list. */
 export function makeUint8Literal(buf: Buffer): string {
-  return `new Uint8Array([${Array.from(buf).join(",")}])`;
+  return `Uint8Array.from(atob(${JSON.stringify(buf.toString("base64"))}), (c) => c.charCodeAt(0))`;
 }
 
 export function buildSecretsBlock(assets: { rel: string; buffer: Buffer }[]): string {
@@ -116,17 +117,20 @@ export function readSources(srcDir: string): SourceFile[] {
   }));
 }
 
+export const ASSET_DIR = "oneko_custom/";
+
 /**
- * Each part's password is its filename without extension. For su:* login
- * payloads (.js) the oneko_custom/ assets are prepended as window.__SECRETS__
- * so they exist before the payload runs.
+ * Each part's password is its filename without extension. Files in
+ * oneko_custom/ are not parts of their own: they ride inside the su:* login
+ * payloads (.js) that read window.__SECRETS__, prepended so they exist before
+ * the payload runs.
  */
 export function buildEntries(files: SourceFile[]): { password: string; buffer: Buffer; rel: string }[] {
-  const onekoAssets = files.filter((f) => f.rel.startsWith("oneko_custom/"));
-  return files.map((f) => {
+  const onekoAssets = files.filter((f) => f.rel.startsWith(ASSET_DIR));
+  const entries = files.filter((f) => !f.rel.startsWith(ASSET_DIR)).map((f) => {
     const parsed = path.parse(f.rel);
     const password: string = parsed.name;
-    if (/^su:[^:]+:.+$/i.test(password) && parsed.ext === ".js") {
+    if (/^su:[^:]+:.+$/i.test(password) && parsed.ext === ".js" && f.buffer.includes("__SECRETS__")) {
       const merged: Buffer = Buffer.from(
         "// --- AUTO-INJECTED (oneko_custom assets) ---\n" +
           buildSecretsBlock(onekoAssets) +
@@ -138,6 +142,17 @@ export function buildEntries(files: SourceFile[]): { password: string; buffer: B
     }
     return { password, buffer: f.buffer, rel: f.rel };
   });
+  assertUniquePasswords(entries.map((e) => e.password));
+  return entries;
+}
+
+/** The bundle shares one salt and IV, so a repeated password would reuse an AES-GCM key and nonce. */
+export function assertUniquePasswords(passwords: string[]): void {
+  const seen = new Set<string>();
+  for (const password of passwords) {
+    if (seen.has(password)) throw new Error(`Two parts share the password "${password}"`);
+    seen.add(password);
+  }
 }
 
 /** Bundle layout: [salt][iv]([size u32be][ciphertext][tag])* with one salt+IV for the whole bundle. */
@@ -151,7 +166,9 @@ export function encryptCommands(masterPassword?: string, opts: Options = {}): nu
   const salt: Buffer = crypto.randomBytes(CONFIG.saltLength);
   const iv: Buffer = crypto.randomBytes(CONFIG.ivLength);
 
-  const encryptedParts = buildEntries(files).map(({ password, buffer }) =>
+  const entries = buildEntries(files);
+  if (masterPassword) assertUniquePasswords([...entries.map((e) => e.password), masterPassword]);
+  const encryptedParts = entries.map(({ password, buffer }) =>
     encryptBuffer(buffer, password, salt, iv, iterations)
   );
 
