@@ -240,7 +240,7 @@ apt_packages=(
   python3-full python3-venv valgrind
 
   # Shell and CLI
-  ble.sh toilet
+  ble.sh neovim toilet
 
   # Networking and security
   hashcat nmap redis-tools ssh
@@ -323,11 +323,18 @@ pro status
 
 ```bash
 sudo apt install extrepo && \
-  sudo extrepo enable brave_release librewolf steam tailscale vscode && \
+  sudo sed -i 's/^# - contrib/- contrib/; s/^# - non-free/- non-free/' /etc/extrepo/config.yaml && \
+  sudo extrepo enable brave_release google_chrome librewolf steam tailscale vscode && \
+  sudo sed -i '/^Types:/a Architectures: amd64' \
+    /etc/apt/sources.list.d/extrepo_google_chrome.sources \
+    /etc/apt/sources.list.d/extrepo_librewolf.sources && \
   sudo apt update && \
-  sudo apt install brave-browser code librewolf steam tailscale && \
+  sudo apt install brave-browser code google-chrome-stable librewolf steam tailscale && \
   sudo tailscale up
 ```
+
+- `contrib` and `non-free` policies: needed for repos like Google Chrome.
+- `Architectures: amd64`: Chrome and LibreWolf don't ship i386, so apt stops warning about it. i386 is there for Steam.
 
 # Package managers and runtimes
 
@@ -340,7 +347,7 @@ sudo apt install extrepo && \
     aria2 atuin axel bat btop cmatrix cowsay croc direnv duf \
     editorconfig expect eza fd fnm fortune gh gifsicle glab go \
     httpie hugo hyperfine inotify-tools jo just lazygit magic-wormhole \
-    moreutils ncdu nethogs neovim nload pandoc pinact pipx pngquant \
+    moreutils ncdu nethogs nload pandoc pinact pipx pngquant \
     pre-commit procs ripgrep-all shellcheck shfmt speedtest-cli sshpass starship \
     tealdeer thefuck tidy-html5 tmux topgrade trash-cli tree typst ugrep \
     universal-ctags uv whois xmlstarlet yq yt-dlp zoxide
