@@ -34,6 +34,7 @@ function catPage({ article = true, reduced = false, width = 400 } = {}) {
   const location = { pathname: article ? '/en/blog/story/' : '/en/', search: '?today=2026-04-01' };
   const window: any = Object.assign(new EventTarget(), {
     location, innerWidth: width, innerHeight: 600, scrollY: 0,
+    scrollTo: ({ top }: { top: number }) => { window.scrollY = top; window.dispatchEvent(new Event('scroll')); },
     matchMedia: (query: string) => ({ matches: query.includes('reduced-motion') ? reduced : true }),
   });
   const storage = new Map();
@@ -386,4 +387,103 @@ test('a booped cat turns to say hi', () => {
   b.tick();
   expect(b.window.oneko.cats()).toEqual([{ x: 32, y: 32 }]);
   expect(b.window.oneko.me().sprite).toEqual([-3, 0]);
+});
+
+test('dragging the cat along the reading bar scrolls the post', () => {
+  const b = catPage({ width: 1000 });
+  b.settle();
+  b.pointer('pointerdown', 16, 19);
+  b.pointer('pointermove', 400, 30);
+  expect(b.window.scrollY).toBe(412);
+  expect(b.window.oneko.cats()[0]).toEqual({ x: 400, y: 19 });
+  b.pointer('pointerup', 400, 30);
+  b.cat.dispatchEvent(new Event('click'));
+  b.settle();
+  expect(b.window.oneko.cats()[0]).toEqual({ x: 400, y: 19 });
+  expect(b.window.oneko.me().reading).toBe(true);
+  expect(b.window.oneko.pets()).toBe(0);
+});
+
+test('tapping the reading cat asks the page for help instead of playing', () => {
+  const b = catPage();
+  b.settle();
+  let asked = 0;
+  b.window.addEventListener('oneko:reader-tap', (event: Event) => { asked += 1; event.preventDefault(); });
+  b.pointer('pointerdown', 16, 19);
+  b.pointer('pointerup', 16, 19);
+  b.cat.dispatchEvent(new Event('click'));
+  b.settle();
+  expect(asked).toBe(1);
+  expect(b.window.oneko.cats()[0]).toEqual({ x: 16, y: 19 });
+});
+
+test('the page can send the reading cat to another spot and back', () => {
+  const b = catPage();
+  b.window.oneko.guide(() => ({ x: 300, y: 19 }));
+  b.settle();
+  expect(b.window.oneko.cats()[0]).toEqual({ x: 300, y: 19 });
+  expect(b.window.oneko.me().reading).toBe(false);
+  b.window.oneko.guide(null);
+  b.settle();
+  expect(b.window.oneko.cats()[0]).toEqual({ x: 16, y: 19 });
+});
+
+test('reading help talks on articles, where chatter stays quiet', () => {
+  const b = catPage();
+  b.settle();
+  b.window.oneko.note('~3 min left');
+  expect(b.body.children.some((el) => el.className === 'oneko-bubble' && (el as any).textContent === '~3 min left')).toBe(true);
+});
+
+test('the cat passes the yarn to another visitor\'s cat, and gets it back', () => {
+  const b = catPage({ article: false, width: 1000 });
+  const friend = friendCat(b, 600, 300);
+  b.window.oneko.friends(() => [friend]);
+  b.window.oneko.pass();
+  for (let i = 0; i < 300 && friend.met.length === 0; i++) { b.tick(); b.animate(); }
+  expect(friend.met).toEqual(['pass']);
+  b.tick();
+  expect(b.yarn().hidden).toBe(true);
+
+  b.window.oneko.passed(friend);
+  b.tick();
+  expect(b.yarn().hidden).toBe(false);
+  b.animate();
+  const [me] = b.window.oneko.cats();
+  const left = parseFloat(b.yarn().style.left);
+  expect(Math.abs(left - me.x)).toBeLessThan(Math.abs(600 - me.x));
+});
+
+test('no yarn to pass without another cat around', () => {
+  const b = catPage({ article: false, width: 1000 });
+  expect(b.window.oneko.pass()).toBe(false);
+});
+
+test('scrubbing reaches both ends of a post', () => {
+  const b = catPage({ width: 1000 });
+  b.settle();
+  b.pointer('pointerdown', 16, 19);
+  b.pointer('pointermove', 984, 19);
+  expect(b.window.scrollY).toBe(1000);
+  b.pointer('pointermove', 16, 19);
+  expect(b.window.scrollY).toBe(0);
+});
+
+test('a pass follows a visitor who moves before the yarn arrives', () => {
+  const b = catPage({ article: false, width: 1000 });
+  const friend = friendCat(b, 600, 300);
+  b.window.oneko.friends(() => [friend]);
+  b.window.oneko.pass();
+  for (let i = 0; i < 300 && friend.met.length === 0; i++) {
+    b.tick();
+    if (i === 5) { friend.x = 900; friend.y = 100; }
+    b.animate(60, 1);
+  }
+  expect(friend.met).toEqual(['pass']);
+});
+
+test('a saved guide updates a still reading cat with reduced motion', () => {
+  const b = catPage({ reduced: true, width: 1000 });
+  b.window.oneko.guide(() => ({ x: 500, y: 19 }));
+  expect(b.window.oneko.cats()[0]).toEqual({ x: 500, y: 19 });
 });
