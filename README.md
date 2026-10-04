@@ -18,7 +18,7 @@ CI runs the same `bun install --frozen-lockfile` step before Hugo (see `.github/
 ## Fun stuff
 
 - `assets/oneko.js`: the cat. Same file as on flatpak.4st.li. Rub it to make it purr, type `fish` for a treat, `pspsps` to call it or `nyan` for a rainbow run. Open the console for more.
-- `assets/fun.js`: Buenos Aires time and weather, last commit, special days, sounds, reading cat, 404, sad tab title and ghost cats.
+- `assets/fun.js`: Buenos Aires time and weather, last commit, special days, sounds, reading cat, 404 and ghost cats.
 - Add `?today=2026-10-31` (or `2026-03-03T03:00`) to any page to try another day or time.
 
 ### Ghost cats

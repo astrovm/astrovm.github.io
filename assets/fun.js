@@ -1,6 +1,6 @@
 // Things that make the site feel alive: Buenos Aires time and weather, the
 // last commit, special days, sounds, a reading cat, the lost
-// 404 page, a sad tab title when you leave and ghost cats of other visitors.
+// 404 page and ghost cats of other visitors.
 // Add ?today=2026-10-31 to the URL to pretend it is another day.
 (function fun() {
   const lang = (document.documentElement.lang || "en").slice(0, 2);
@@ -17,28 +17,24 @@
     en: {
       clock: "time in Buenos Aires",
       asleep: "astro is probably asleep",
-      miss: "come back",
       commit: (when, repo) => `git: ${repo}, ${when}`,
       sound: (on) => `♪ sound: ${on ? "on" : "off"}`,
     },
     es: {
       clock: "hora en Buenos Aires",
       asleep: "astro seguro está durmiendo",
-      miss: "volvé",
       commit: (when, repo) => `git: ${repo}, ${when}`,
       sound: (on) => `♪ sonido: ${on ? "sí" : "no"}`,
     },
     ja: {
       clock: "ブエノスアイレスの時刻",
       asleep: "astroはたぶん寝てる",
-      miss: "もどってきて",
       commit: (when, repo) => `git: ${repo} ${when}`,
       sound: (on) => `♪ 音：${on ? "オン" : "オフ"}`,
     },
     zh: {
       clock: "布宜诺斯艾利斯时间",
       asleep: "astro大概在睡觉",
-      miss: "快回来",
       commit: (when, repo) => `git: ${repo} ${when}`,
       sound: (on) => `♪ 声音：${on ? "开" : "关"}`,
     },
@@ -524,18 +520,6 @@
     }
   }
 
-  // The tab title gets sad while you are away.
-
-  function missYou() {
-    if (!words) {
-      return;
-    }
-    const title = document.title;
-    document.addEventListener("visibilitychange", () => {
-      document.title = document.hidden ? `(=;ェ;=) ${say.miss}` : title;
-    });
-  }
-
   // A hello for people who open the console.
 
   function hello() {
@@ -648,7 +632,6 @@
     soundToggle();
     readingCat();
     lostPage();
-    missYou();
     hello();
     ghosts();
   }
