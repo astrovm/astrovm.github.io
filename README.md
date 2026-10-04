@@ -23,7 +23,9 @@ CI runs the same `bun install --frozen-lockfile` step before Hugo (see `.github/
 
 ### Ghost cats
 
-Other visitors on the same page show up as faded cats. The relay is a Cloudflare Worker in `workers/ghosts`:
+Other visitors' cats on the same page show up as faded cats, whatever language they read in. On articles they sit on the reading bar at their spot in the post. Cats that meet boop noses or play tag.
+
+The relay is a Cloudflare Worker in `workers/ghosts`. CI deploys it on every push to `main`, before the site, using the `CLOUDFLARE_WORKERS_TOKEN` secret (an **Edit Cloudflare Workers** token for the astro account). When the messages change, bump `VERSION` there and `v=` in `fun.js`. To deploy by hand:
 
 ```bash
 cd workers/ghosts

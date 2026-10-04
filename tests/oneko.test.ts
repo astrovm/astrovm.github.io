@@ -6,7 +6,7 @@ const source = readFileSync(new URL('../assets/oneko.js', import.meta.url), 'utf
 
 function catPage({ article = true, reduced = false, width = 400 } = {}) {
   class Element extends EventTarget {
-    style: Record<string, any> = {};
+    style: Record<string, any> = { setProperty() {} };
     className = '';
     children: Element[] = [];
     classList = { add() {}, remove() {} };
@@ -310,4 +310,80 @@ test('the cat steps out while another cat takes over, then comes back', () => {
   b.tick();
   expect(b.cat.hidden).toBe(false);
   expect(b.yarn().hidden).toBe(false);
+});
+
+function friendCat(b: ReturnType<typeof catPage>, x: number, y: number) {
+  const met: string[] = [];
+  return { x, y, el: b.document.createElement('div') as any, met, meet: (kind: string) => met.push(kind) };
+}
+
+test('the cat tells ghost cats where it is and whether it sits on the reading bar', () => {
+  const b = catPage();
+  b.settle();
+  expect(b.window.oneko.me()).toMatchObject({ x: 16, y: 19, reading: true, hidden: false });
+  expect(b.window.oneko.me().sprite).toHaveLength(2);
+  b.pointer('pointerdown', 16, 19);
+  b.pointer('pointermove', 100, 200);
+  b.pointer('pointerup', 100, 200);
+  b.tick();
+  expect(b.window.oneko.me()).toMatchObject({ x: 100, y: 200, reading: false });
+});
+
+test('the cat walks up to another visitor\'s cat and boops it or tags it', () => {
+  const b = catPage({ article: false });
+  const friend = friendCat(b, 300, 300);
+  b.window.oneko.visit(friend);
+  for (let i = 0; i < 100 && friend.met.length === 0; i++) b.tick();
+  expect(friend.met).toHaveLength(1);
+  expect(['boop', 'tag']).toContain(friend.met[0]);
+  const [me] = b.window.oneko.cats();
+  expect(me).toEqual({ x: 274, y: 300 });
+});
+
+test('the cat picks a visitor\'s cat on its own when bored', () => {
+  const b = catPage({ article: false });
+  const friend = friendCat(b, 300, 300);
+  b.window.oneko.friends(() => [friend]);
+  for (let i = 0; i < 5000 && friend.met.length === 0; i++) b.tick();
+  expect(friend.met).toHaveLength(1);
+});
+
+test('a visit stops when the other cat leaves', () => {
+  const b = catPage({ article: false });
+  const friend = friendCat(b, 600, 600);
+  b.window.oneko.visit(friend);
+  b.tick();
+  friend.el.isConnected = false;
+  b.settle();
+  expect(friend.met).toEqual([]);
+});
+
+test('readers stay on the bar: no visits or chases, just a heart for a boop', () => {
+  const b = catPage();
+  b.settle();
+  const friend = friendCat(b, 300, 300);
+  expect(b.window.oneko.visit(friend)).toBe(false);
+  b.window.oneko.tagged(friend);
+  b.window.oneko.booped(friend);
+  b.settle();
+  expect(b.window.oneko.cats()).toEqual([{ x: 16, y: 19 }]);
+  expect(b.body.children.some((el) => el.className.includes('oneko-heart'))).toBe(true);
+});
+
+test('a tagged cat chases the one that tagged it', () => {
+  const b = catPage({ article: false });
+  const friend = friendCat(b, 300, 300);
+  b.window.oneko.tagged(friend);
+  for (let i = 0; i < 30; i++) b.tick();
+  const [me] = b.window.oneko.cats();
+  expect(Math.hypot(me.x - 300, me.y - 300)).toBeLessThan(20);
+});
+
+test('a booped cat turns to say hi', () => {
+  const b = catPage({ article: false });
+  const friend = friendCat(b, 300, 32);
+  b.window.oneko.booped(friend);
+  b.tick();
+  expect(b.window.oneko.cats()).toEqual([{ x: 32, y: 32 }]);
+  expect(b.window.oneko.me().sprite).toEqual([-3, 0]);
 });
