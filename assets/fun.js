@@ -538,6 +538,8 @@
         forget(data.id);
         return;
       }
+      // Only cats in the shape we know, in case the relay is older or newer than us.
+      if (!Array.isArray(data.s)) return;
       let ghost = others.get(data.id);
       if (!ghost && others.size < 30) {
         const el = document.createElement("div");
