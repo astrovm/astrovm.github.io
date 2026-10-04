@@ -1,7 +1,7 @@
 // Ghost cats: relays where each visitor's cat is to everyone else on the same page,
 // and passes nudges (boops, tag, the yarn) from one cat to another.
 import { DurableObject } from "cloudflare:workers";
-import { allowedOrigin, parseMessage, roomName } from "./move.js";
+import { allowedOrigin, nudgeTimes, parseMessage, roomName } from "./move.js";
 
 const MAX_VISITORS = 30;
 const MIN_GAP_MS = 80;
@@ -17,7 +17,7 @@ export class Room extends DurableObject {
     }
     const [client, server] = Object.values(new WebSocketPair());
     this.ctx.acceptWebSocket(server);
-    server.serializeAttachment({ id: crypto.randomUUID().slice(0, 8), last: 0, nudged: 0, cat: null });
+    server.serializeAttachment({ id: crypto.randomUUID().slice(0, 8), last: 0, nudged: {}, cat: null });
     // Newcomers see the cats already here, even the ones sitting still.
     for (const socket of sockets) {
       const { id, cat } = socket.deserializeAttachment();
@@ -34,8 +34,9 @@ export class Room extends DurableObject {
       return;
     }
     if (message.to) {
-      if (now - visitor.nudged < MIN_NUDGE_GAP_MS) return;
-      socket.serializeAttachment({ ...visitor, nudged: now });
+      const nudged = nudgeTimes(visitor.nudged, message.a, now, MIN_NUDGE_GAP_MS);
+      if (!nudged) return;
+      socket.serializeAttachment({ ...visitor, nudged });
       const target = this.ctx.getWebSockets().find((other) => other !== socket && other.deserializeAttachment().id === message.to);
       if (target) send(target, JSON.stringify({ from: visitor.id, a: message.a }));
       return;

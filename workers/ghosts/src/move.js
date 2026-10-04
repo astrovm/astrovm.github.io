@@ -48,3 +48,11 @@ export const ALLOWED_ORIGINS = ["https://4st.li", "http://localhost:1313"];
 export function allowedOrigin(origin) {
   return ALLOWED_ORIGINS.includes(origin);
 }
+
+// Each kind of nudge has its own wait, so a boop doesn't eat the yarn right after it.
+// Gives back the new times, or null if it is too soon.
+export function nudgeTimes(nudged, a, now, gap) {
+  const times = nudged && typeof nudged === "object" ? nudged : {};
+  if (now - (times[a] || 0) < gap) return null;
+  return { ...times, [a]: now };
+}

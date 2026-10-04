@@ -88,6 +88,13 @@
         // Private mode: nothing is remembered, which is fine.
       }
     },
+    remove(key) {
+      try {
+        localStorage.removeItem(`fun.${key}`);
+      } catch {
+        // Same as above.
+      }
+    },
   };
 
   const $ = (selector) => document.querySelector(selector);
@@ -511,7 +518,9 @@
       document.body.append(tick);
       return tick;
     });
-    let section = -1;
+    // The last section you got to, once the page knows where you start.
+    let section = null;
+    let sectionTimer = null;
     const placeTicks = () => {
       ticks.forEach((tick, i) => {
         const top = headings[i].getBoundingClientRect().top + window.scrollY - 16;
@@ -537,15 +546,18 @@
       const place = deepest >= 0.95 ? null : Math.round(Math.max(deepest, waiting ? back : 0) * 100) / 100;
       if (place !== stored) {
         stored = place;
-        store.set(key, place);
+        if (place === null) store.remove(key);
+        else store.set(key, place);
       }
       // Say which section it is when you get to a new one.
       const reached = headings.findLastIndex((heading) => heading.getBoundingClientRect().top < window.innerHeight * 0.3);
-      if (ticks.length && reached > section && section !== -1) {
+      // Only once you stay a moment, so racing past a few sections doesn't spam bubbles.
+      if (ticks.length && section !== null && reached > section) {
         const name = title(headings[reached]);
-        oneko?.note(name.length > 28 ? `${name.slice(0, 27)}…` : name);
+        window.clearTimeout(sectionTimer);
+        sectionTimer = setTimeout(() => oneko?.note(name.length > 28 ? `${name.slice(0, 27)}…` : name), 600);
       }
-      section = Math.max(section, reached, 0);
+      section = section === null ? reached : Math.max(section, reached);
       if (next && now >= 0.98 && !pointedNext) {
         pointedNext = true;
         setTimeout(() => { if (done() >= 0.98) oneko?.note("read next?"); }, 1200);
@@ -599,8 +611,8 @@
       window.clearTimeout(timer);
       timer = setTimeout(() => {
         const selection = document.getSelection();
-        quote = selection?.toString().trim() || "";
         const inside = selection?.rangeCount && article.contains(selection.getRangeAt(0).commonAncestorContainer);
+        quote = inside ? wholeWords(selection.toString().trim(), selection.getRangeAt(0)) : "";
         button.hidden = !quote || !inside;
         if (button.hidden) return;
         const rects = selection.getRangeAt(0).getClientRects();
@@ -625,12 +637,29 @@
     });
   }
 
+  // Links only match whole words, so a word cut in half at either end is left out.
+  // Languages without spaces (Japanese, Chinese) match anywhere, so they stay as they are.
+  function wholeWords(text, range) {
+    const letter = (node, i) => node?.nodeType === 3 && /[\p{L}\p{N}]/u.test(node.data[i] || "");
+    // Cut the words off the text itself, to keep the line breaks textFragment needs.
+    if (!/\s/.test(text)) return text;
+    if (letter(range.startContainer, range.startOffset - 1) && letter(range.startContainer, range.startOffset)) text = text.replace(/^\S+\s+/, "");
+    if (/\s/.test(text) && letter(range.endContainer, range.endOffset - 1) && letter(range.endContainer, range.endOffset)) text = text.replace(/\s+\S+$/, "");
+    return text;
+  }
+
   // A text fragment for the words: the start and end of long quotes is enough.
+  // Across paragraphs only a start and an end can match, so those always get both.
   function textFragment(text) {
     const encode = (part) => encodeURIComponent(part).replace(/-/g, "%2D");
-    const words = text.replace(/\s+/g, " ").split(" ");
-    if (words.length > 8) return `${encode(words.slice(0, 4).join(" "))},${encode(words.slice(-4).join(" "))}`;
-    if (words.length === 1 && text.length > 40) return `${encode(text.slice(0, 15))},${encode(text.slice(-15))}`;
+    const lines = text.split(/\s*\n\s*/).map((line) => line.replace(/\s+/g, " "));
+    const words = lines.join(" ").split(" ");
+    // A few words from one end. A long run without spaces (Japanese, Chinese) gets cut by letters.
+    const edge = (line, end) => {
+      const part = end ? line.split(" ").slice(-4).join(" ") : line.split(" ").slice(0, 4).join(" ");
+      return part.length > 40 ? (end ? part.slice(-15) : part.slice(0, 15)) : part;
+    };
+    if (lines.length > 1 || words.length > 8 || (words.length === 1 && text.length > 40)) return `${encode(edge(lines[0], false))},${encode(edge(lines.at(-1), true))}`;
     return encode(words.join(" "));
   }
 
@@ -698,6 +727,7 @@
     let shared = "";
     let sharedAt = 0;
     let cuddledAt = 0;
+    let bouncedAt = 0;
 
     const clamp = (n, max) => Math.max(16, Math.min(max - 16, n));
     const spot = (cat) => ({
@@ -716,14 +746,23 @@
     oneko.friends(() => [...others.values()].filter((ghost) => !ghost.cat.h && !ghost.cat.r));
 
     const hear = (data) => {
-      // Without motion we still share our cat, but don't show moving ones.
-      if (calm) return;
       if (data.from) {
         const ghost = others.get(data.from);
-        const react = { boop: "booped", tag: "tagged", pass: "passed" }[data.a];
-        if (ghost && react) oneko[react]?.(ghost);
+        // Can't take the yarn right now (still, reading, away): it goes straight back.
+        // Only once in a while, so two busy cats don't bounce it forever.
+        if (data.a === "pass" && (calm || !ghost || !oneko.passed(ghost))) {
+          if (Date.now() - bouncedAt > 10000) {
+            bouncedAt = Date.now();
+            nudge(data.from, "pass");
+          }
+          return;
+        }
+        const react = { boop: "booped", tag: "tagged" }[data.a];
+        if (!calm && ghost && react) oneko[react]?.(ghost);
         return;
       }
+      // Without motion we still share our cat, but don't show moving ones.
+      if (calm) return;
       if (data.gone) {
         forget(data.id);
         return;

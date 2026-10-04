@@ -445,13 +445,35 @@ test('the cat passes the yarn to another visitor\'s cat, and gets it back', () =
   b.tick();
   expect(b.yarn().hidden).toBe(true);
 
-  b.window.oneko.passed(friend);
+  expect(b.window.oneko.passed(friend)).toBe(true);
   b.tick();
   expect(b.yarn().hidden).toBe(false);
   b.animate();
   const [me] = b.window.oneko.cats();
   const left = parseFloat(b.yarn().style.left);
   expect(Math.abs(left - me.x)).toBeLessThan(Math.abs(600 - me.x));
+});
+
+test('a cat that sends the yarn straight back is busy, so the yarn goes to others', () => {
+  const b = catPage({ article: false, width: 1000 });
+  const busy = friendCat(b, 600, 300);
+  const other = friendCat(b, 300, 500);
+  b.window.oneko.friends(() => [busy]);
+  b.window.oneko.pass();
+  for (let i = 0; i < 300 && busy.met.length === 0; i++) { b.tick(); b.animate(); }
+  b.window.oneko.passed(busy);
+  expect(b.window.oneko.pass()).toBe(false);
+  b.window.oneko.friends(() => [busy, other]);
+  expect(b.window.oneko.pass()).toBe(true);
+  for (let i = 0; i < 300 && other.met.length === 0; i++) { b.tick(); b.animate(); }
+  expect(other.met).toEqual(['pass']);
+  expect(busy.met).toEqual(['pass']);
+});
+
+test('a reader can\'t take a passed yarn, so it says no', () => {
+  const b = catPage({ width: 1000 });
+  const friend = friendCat(b, 600, 300);
+  expect(b.window.oneko.passed(friend)).toBe(false);
 });
 
 test('no yarn to pass without another cat around', () => {
