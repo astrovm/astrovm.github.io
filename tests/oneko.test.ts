@@ -297,3 +297,17 @@ test('rolling yarn bounces off the cat', () => {
   // Never rolls through the cat to the wall behind it.
   expect(closest).toBeGreaterThan(cat.x + 20);
 });
+
+test('the cat steps out while another cat takes over, then comes back', () => {
+  const b = yarnPage();
+  b.window.oneko.hide();
+  b.settle();
+  b.window.oneko.pet();
+  expect(b.cat.hidden).toBe(true);
+  expect(b.yarn().hidden).toBe(true);
+  expect(b.body.children.filter((el) => el.className === 'oneko-bubble')).toHaveLength(0);
+  b.window.oneko.show();
+  b.tick();
+  expect(b.cat.hidden).toBe(false);
+  expect(b.yarn().hidden).toBe(false);
+});

@@ -106,9 +106,14 @@ describe("helpers", () => {
     expect(isBinaryByExt("README")).toBe(false);
   });
 
-  test("makeUint8Literal renders bytes as a JS Uint8Array", () => {
-    expect(makeUint8Literal(Buffer.from([0, 1, 255]))).toBe("new Uint8Array([0,1,255])");
-    expect(makeUint8Literal(Buffer.alloc(0))).toBe("new Uint8Array([])");
+  test("makeUint8Literal renders bytes as compact base64 that evaluates back to them", () => {
+    const bytes = Buffer.from([0, 1, 127, 128, 255]);
+    const literal = makeUint8Literal(bytes);
+    expect(literal).toContain(JSON.stringify(bytes.toString("base64")));
+    expect(Array.from(new Function(`return ${literal}`)())).toEqual([0, 1, 127, 128, 255]);
+    expect(Array.from(new Function(`return ${makeUint8Literal(Buffer.alloc(0))}`)())).toEqual([]);
+    const big = crypto.randomBytes(30_000);
+    expect(makeUint8Literal(big).length).toBeLessThan(big.length * 1.4);
   });
 
   test("buildSecretsBlock evaluates to window.__SECRETS__ entries", () => {
@@ -151,9 +156,10 @@ describe("readSources / buildEntries", () => {
     ]);
   });
 
-  test("passwords are filenames without extension; su:* .js payloads get secrets prepended", () => {
+  test("passwords are filenames without extension; su:* .js payloads that read secrets get them prepended", () => {
     write("help.txt", "help text");
-    write("su:root:hunter2.js", "console.log('root');");
+    write("su:astro:hunter2.js", "show(window.__SECRETS__);");
+    write("su:root:root.js", "console.log('root');");
     write("su:root:notjs.txt", "plain");
     write("oneko_custom/cat.gif", Buffer.from([1, 2, 3]));
     const entries = buildEntries(readSources(srcDir));
@@ -162,14 +168,27 @@ describe("readSources / buildEntries", () => {
     expect(byRel["help.txt"].password).toBe("help");
     expect(byRel["help.txt"].buffer.toString()).toBe("help text");
     expect(byRel["su:root:notjs.txt"].buffer.toString()).toBe("plain");
-    expect(byRel["oneko_custom/cat.gif"].password).toBe("cat");
+    expect(byRel["su:root:root.js"].buffer.toString()).toBe("console.log('root');");
 
-    const su = byRel["su:root:hunter2.js"];
-    expect(su.password).toBe("su:root:hunter2");
+    const su = byRel["su:astro:hunter2.js"];
+    expect(su.password).toBe("su:astro:hunter2");
     const text = su.buffer.toString();
     expect(text.startsWith("// --- AUTO-INJECTED (oneko_custom assets) ---\n")).toBe(true);
-    expect(text).toContain('window.__SECRETS__["oneko_custom/cat.gif"] = new Uint8Array([1,2,3]);');
-    expect(text.endsWith("// --- END AUTO-INJECTED ---\n\nconsole.log('root');")).toBe(true);
+    expect(text).toContain(`window.__SECRETS__["oneko_custom/cat.gif"] = ${makeUint8Literal(Buffer.from([1, 2, 3]))};`);
+    expect(text.endsWith("// --- END AUTO-INJECTED ---\n\nshow(window.__SECRETS__);")).toBe(true);
+  });
+
+  test("oneko_custom assets never become parts of their own, so a guessable filename opens nothing", () => {
+    write("help.txt", "help text");
+    write("oneko_custom/cat.gif", Buffer.from([1, 2, 3]));
+    write("oneko_custom/cat.js", "draw()");
+    expect(buildEntries(readSources(srcDir)).map((e) => e.rel)).toEqual(["help.txt"]);
+  });
+
+  test("two parts with one password are refused, since they would share a key and IV", () => {
+    write("help.txt", "a");
+    write("help.js", "b");
+    expect(() => buildEntries(readSources(srcDir))).toThrow('Two parts share the password "help"');
   });
 });
 
@@ -181,8 +200,8 @@ describe("encrypt / decrypt round trip", () => {
   });
 
   test("bundle layout is [salt][iv]([size][enc][tag])*", () => {
-    expect(encryptCommands(undefined, opts)).toBe(3);
-    expect(logs[0]).toBe(`Encrypted → ${encFile}  (parts=3)`);
+    expect(encryptCommands(undefined, opts)).toBe(2);
+    expect(logs[0]).toBe(`Encrypted → ${encFile}  (parts=2)`);
     const buf = fs.readFileSync(encFile);
     let off = CONFIG.saltLength + CONFIG.ivLength;
     let parts = 0;
@@ -191,7 +210,7 @@ describe("encrypt / decrypt round trip", () => {
       parts++;
     }
     expect(off).toBe(buf.length);
-    expect(parts).toBe(3);
+    expect(parts).toBe(2);
   });
 
   test("each part opens only with its own password", () => {
@@ -200,6 +219,7 @@ describe("encrypt / decrypt round trip", () => {
     expect(decryptParts(buf, "help", ITER).map(String)).toEqual(["help text"]);
     expect(decryptParts(buf, "whoami", ITER).map(String)).toEqual(["console.log('astro');"]);
     expect(decryptParts(buf, "nope", ITER)).toEqual([]);
+    expect(decryptParts(buf, "cat", ITER)).toEqual([]);
   });
 
   test("parts decrypt with Web Crypto the way terminal-window.js does", async () => {
@@ -242,7 +262,7 @@ describe("encrypt / decrypt round trip", () => {
   });
 
   test("master password restores every source, binary-safe", () => {
-    expect(encryptCommands("master", opts)).toBe(4);
+    expect(encryptCommands("master", opts)).toBe(3);
     const outDir = path.join(tmp, "restored") + "/";
     const written = decryptCommands("master", outDir, opts);
     expect(written).toHaveLength(3);
@@ -262,6 +282,11 @@ describe("encrypt / decrypt round trip", () => {
     fs.writeFileSync(encFile, Buffer.concat([salt, iv, size, encrypted, authTag]));
     expect(() => decryptCommands("m", path.join(tmp, "out") + "/", opts)).toThrow("Refusing to write outside");
     expect(fs.existsSync(path.join(tmp, "evil.txt"))).toBe(false);
+  });
+
+  test("a master password that matches a part is refused", () => {
+    expect(() => encryptCommands("help", opts)).toThrow('Two parts share the password "help"');
+    expect(fs.existsSync(encFile)).toBe(false);
   });
 
   test("wrong password fails", () => {
