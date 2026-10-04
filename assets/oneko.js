@@ -141,6 +141,8 @@
   // fun.js can ask the reading cat to sit somewhere else for a while, like a saved spot.
   let guide = null;
   const guided = (cat) => !cat.readerSpot && guide?.();
+  // Cats that sent the yarn straight back are busy, so it isn't passed to them for a while.
+  const catchers = () => friends().filter((friend) => !(friend.busyUntil > Date.now()));
 
   const random = (list) => list[Math.floor(Math.random() * list.length)];
   const between = (min, max) => min + Math.random() * (max - min);
@@ -1090,7 +1092,7 @@
     }
 
     // Walk around the yarn and kick it over to another visitor's cat.
-    passYarn(friend = random(friends())) {
+    passYarn(friend = random(catchers())) {
       if (!friend || !yarn || yarn.gone || yarn.drag || reading()) {
         return false;
       }
@@ -1561,6 +1563,7 @@
       }
       if (Math.hypot(friend.x - this.x, friend.y - this.y) > 24) return false;
       friend.meet("pass");
+      this.sent = { to: friend, at: Date.now() };
       this.passTo = null;
       this.vx = 0;
       this.vy = 0;
@@ -1665,7 +1668,7 @@
       }
       this.bats += 1;
       // With another visitor's cat around, it sometimes passes instead.
-      const friend = !cat.leader && Math.random() < 0.5 ? random(friends()) : null;
+      const friend = !cat.leader && Math.random() < 0.5 ? random(catchers()) : null;
       if (friend) {
         this.kick(friend);
         return;
@@ -1981,10 +1984,13 @@
     },
     friends: (list) => { friends = list || (() => []); },
     // Another visitor's cat passed the yarn over.
+    // Says whether it took it, so fun.js can send it back if not.
     passed: (friend) => {
-      if (calm || away || quiet() || !first()) return;
+      if (calm || away || quiet() || !first()) return false;
       addYarn();
+      if (yarn.sent?.to === friend && Date.now() - yarn.sent.at < 1500) friend.busyUntil = Date.now() + 30000;
       yarn.receive(friend);
+      return true;
     },
     // For fun.js reading help: a bubble that shows on articles too, and a spot to sit at.
     note: (text) => first()?.say(text, true),

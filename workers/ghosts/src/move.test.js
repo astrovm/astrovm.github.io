@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { allowedOrigin, parseMessage, roomName } from "./move.js";
+import { allowedOrigin, nudgeTimes, parseMessage, roomName } from "./move.js";
 
 const cat = (extra = {}) => JSON.stringify({ x: 0.5, y: 0.25, s: [-3, -3], ...extra });
 
@@ -81,5 +81,19 @@ describe("allowedOrigin", () => {
   test("keeps other sites out", () => {
     expect(allowedOrigin("https://evil.example")).toBe(false);
     expect(allowedOrigin(null)).toBe(false);
+  });
+});
+
+describe("nudgeTimes", () => {
+  test("waits between nudges of the same kind, not between kinds", () => {
+    const boop = nudgeTimes({}, "boop", 10000, 2000);
+    expect(boop).toEqual({ boop: 10000 });
+    expect(nudgeTimes(boop, "boop", 11500, 2000)).toBeNull();
+    expect(nudgeTimes(boop, "pass", 11500, 2000)).toEqual({ boop: 10000, pass: 11500 });
+    expect(nudgeTimes(boop, "boop", 12000, 2000)).toEqual({ boop: 12000 });
+  });
+
+  test("starts fresh from an older visitor's single time", () => {
+    expect(nudgeTimes(0, "tag", 10000, 2000)).toEqual({ tag: 10000 });
   });
 });

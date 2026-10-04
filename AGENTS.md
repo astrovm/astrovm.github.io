@@ -30,6 +30,8 @@ Pages live under the language prefix: `http://localhost:1313/en/`, not `/`.
 
 Add `?today=2026-10-31` (or `2026-03-03T03:00`) to any page to try another day or time.
 
+If you need an example article, use "Run, Think, Shoot, Live", never read the others.
+
 ## Checks
 
 Same as CI (`.github/workflows/test.yml`). Run them before every push:
@@ -44,4 +46,3 @@ bun run test   # 100% line and function coverage on utils/
 - Comments and copy: short, plain words, like talking to a friend.
 - No em dashes.
 - The cat talks in English cat-speak on every language.
-- Respect `prefers-reduced-motion`.

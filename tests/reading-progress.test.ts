@@ -39,6 +39,7 @@ function page({ reduced = false, headings = [], next = false, saved }: Options =
   const content = { querySelectorAll: () => headings.map(heading), contains: () => true };
   const nextLink = Object.assign(new Element(), { getBoundingClientRect: () => ({ top: 300, left: 100, width: 200 }) });
   let selection = '';
+  let range = {};
   const document = Object.assign(new EventTarget(), {
     readyState: 'complete',
     documentElement: { lang: 'en', scrollHeight: 1500, classList: { remove() {} }, style: { removeProperty() {} } },
@@ -53,7 +54,7 @@ function page({ reduced = false, headings = [], next = false, saved }: Options =
     querySelectorAll: () => [...elements],
     getSelection: () => ({
       toString: () => selection, rangeCount: selection ? 1 : 0,
-      getRangeAt: () => ({ commonAncestorContainer: {}, getClientRects: () => [{ right: 300, bottom: 200 }] }),
+      getRangeAt: () => ({ commonAncestorContainer: {}, getClientRects: () => [{ right: 300, bottom: 200 }], ...range }),
     }),
   });
   const timers = new Map<number, () => void>();
@@ -68,7 +69,7 @@ function page({ reduced = false, headings = [], next = false, saved }: Options =
   runInNewContext(source, {
     window, document, AbortController, URLSearchParams, Intl, CustomEvent,
     navigator: { clipboard: { writeText: async (text: string) => { copied.push(text); } } },
-    localStorage: { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) },
+    localStorage: { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value), removeItem: (key: string) => storage.delete(key) },
     console: { log() {} },
   });
   const find = (name: string) => [...elements].find((el) => el.className === name)!;
@@ -76,7 +77,15 @@ function page({ reduced = false, headings = [], next = false, saved }: Options =
   // Run whatever timeouts are waiting, like time passing.
   const wait = () => { const due = [...timeouts.values()]; timeouts.clear(); due.forEach((fn) => fn()); };
   const tapCat = () => window.dispatchEvent(new CustomEvent('oneko:reader-tap', { cancelable: true }));
-  const select = (text: string) => { selection = text; document.dispatchEvent(new Event('selectionchange')); wait(); };
+  // The text nodes around the selection, to know if a word got cut at either end.
+  const select = (text: string, around = { before: ' ', after: ' ' }) => {
+    selection = text;
+    const start = { nodeType: 3, data: around.before + text };
+    const end = { nodeType: 3, data: text + around.after };
+    range = { startContainer: start, startOffset: around.before.length, endContainer: end, endOffset: text.length };
+    document.dispatchEvent(new Event('selectionchange'));
+    wait();
+  };
   return { window, document, timers, elements, find, all, scroll, wait, notes, tapCat, select, copied, storage, nextLink,
     guide: () => guide?.(),
     navigate: (toArticle: boolean) => { article = toArticle; window.dispatchEvent(new Event('site:navigate')); } };
@@ -126,8 +135,9 @@ test('the place is saved, and next time the cat waits there until you tap it', (
 
 test('finished posts start over next time', () => {
   const b = page();
+  b.scroll(600);
   b.scroll(1000);
-  expect(b.storage.get('fun.place./en/blog/story/')).toBe('null');
+  expect(b.storage.has('fun.place./en/blog/story/')).toBe(false);
 });
 
 test('resuming before the saved-place hint hides the stale hint', () => {
@@ -182,7 +192,25 @@ test('sections get ticks you can tap, and the cat names each new one', () => {
   expect(ticks[1].title).toBe('A very long section name that goes on and on');
   ticks[1].click();
   expect(b.window.scrollY).toBe(584);
+  expect(b.notes).toEqual([]);
+  b.wait();
   expect(b.notes).toEqual(['A very long section name th…']);
+});
+
+test('the first section gets named too, when it starts below the fold', () => {
+  const b = page({ headings: [['Intro', 400], ['Middle', 900]] });
+  b.scroll(300);
+  b.wait();
+  expect(b.notes).toEqual(['Intro']);
+});
+
+test('racing past a few sections names only the one you stop at', () => {
+  const b = page({ headings: [['One', 400], ['Two', 700], ['Three', 1000]] });
+  b.scroll(300);
+  b.scroll(600);
+  b.scroll(900);
+  b.wait();
+  expect(b.notes).toEqual(['Three']);
 });
 
 test('one heading is not worth ticks', () => {
@@ -226,6 +254,28 @@ test('long quotes link by their first and last words', async () => {
   await new Promise((r) => setTimeout(r, 0));
   expect(b.copied[0]).toEndWith('#:~:text=one%20two%20three%20four,seven%20eight%20nine%20ten');
   expect(b.copied[1]).toEndWith(`#:~:text=${encodeURIComponent('長'.repeat(15))},${encodeURIComponent('長'.repeat(15))}`);
+});
+
+test('quotes across paragraphs link by where they start and end', async () => {
+  const b = page();
+  b.select('Short title\n\nfirst words of the next one');
+  b.find('fun-quote').click();
+  await new Promise((r) => setTimeout(r, 0));
+  expect(b.copied[0]).toEndWith('#:~:text=Short%20title,of%20the%20next%20one');
+});
+
+test('words cut in half at either end are left out, since links only match whole words', async () => {
+  const b = page();
+  b.select('ng was a sunny day. I noticed that the C', { before: 'It wa', after: 'D box' });
+  b.find('fun-quote').click();
+  b.select('ly fine', { before: 'real', after: '.' });
+  b.find('fun-quote').click();
+  b.select('長'.repeat(5), { before: '長', after: '長' });
+  b.find('fun-quote').click();
+  await new Promise((r) => setTimeout(r, 0));
+  expect(b.copied[0]).toEndWith('#:~:text=was%20a%20sunny%20day.%20I%20noticed%20that%20the');
+  expect(b.copied[1]).toEndWith('#:~:text=fine');
+  expect(b.copied[2]).toEndWith(`#:~:text=${encodeURIComponent('長'.repeat(5))}`);
 });
 
 test('the quote link hides when nothing is selected or the page scrolls', () => {
