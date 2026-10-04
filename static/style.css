@@ -310,6 +310,54 @@ a {
   background: var(--accent);
 }
 
+/* Reading help on the bar: where you were, and a tick per section. */
+.fun-paw[hidden],
+.fun-quote[hidden] {
+  display: none;
+}
+
+.fun-paw,
+.fun-tick {
+  position: fixed;
+  top: 0;
+  z-index: 91;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  translate: -50% 0;
+}
+
+.fun-paw {
+  width: 14px;
+  height: 14px;
+  top: 4px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23f462c6'%3E%3Cellipse cx='10' cy='13' rx='5' ry='4.5'/%3E%3Ccircle cx='4' cy='7' r='2.2'/%3E%3Ccircle cx='8' cy='4' r='2.2'/%3E%3Ccircle cx='12' cy='4' r='2.2'/%3E%3Ccircle cx='16' cy='7' r='2.2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* A thin mark, with a bigger area to tap. */
+.fun-tick {
+  width: 14px;
+  height: 12px;
+  background: linear-gradient(var(--accent), var(--accent)) center top / 2px 8px no-repeat;
+  opacity: 0.7;
+}
+
+.fun-tick:hover,
+.fun-tick:focus-visible {
+  opacity: 1;
+}
+
+.fun-quote {
+  position: fixed;
+  z-index: 92;
+  padding: 2px 8px 2px 24px;
+  border: 2px solid var(--accent);
+  background: #211f2b url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23f462c6'%3E%3Cellipse cx='10' cy='13' rx='5' ry='4.5'/%3E%3Ccircle cx='4' cy='7' r='2.2'/%3E%3Ccircle cx='8' cy='4' r='2.2'/%3E%3Ccircle cx='12' cy='4' r='2.2'/%3E%3Ccircle cx='16' cy='7' r='2.2'/%3E%3C/svg%3E") 6px center / 13px no-repeat;
+  color: #eceae5;
+  font: 700 13px/1.4 monospace;
+  cursor: pointer;
+}
+
 .fun-ghost {
   position: fixed;
   z-index: 2147483640;

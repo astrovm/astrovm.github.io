@@ -1,5 +1,5 @@
 // Ghost cats: relays where each visitor's cat is to everyone else on the same page,
-// and passes nudges (boops, tag) from one cat to another.
+// and passes nudges (boops, tag, the yarn) from one cat to another.
 import { DurableObject } from "cloudflare:workers";
 import { allowedOrigin, parseMessage, roomName } from "./move.js";
 
@@ -7,7 +7,7 @@ const MAX_VISITORS = 30;
 const MIN_GAP_MS = 80;
 const MIN_NUDGE_GAP_MS = 2000;
 // Bump when the messages change, so old pages don't mix with new ones.
-const VERSION = "2";
+const VERSION = "3";
 
 export class Room extends DurableObject {
   async fetch() {

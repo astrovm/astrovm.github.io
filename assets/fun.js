@@ -45,21 +45,29 @@
       clock: "time in Buenos Aires",
       asleep: "astro is probably asleep",
       sound: (on) => `♪ sound: ${on ? "on" : "off"}`,
+      back: "back to where you were",
+      quote: "copy link",
     },
     es: {
       clock: "hora en Buenos Aires",
       asleep: "astro seguro está durmiendo",
       sound: (on) => `♪ sonido: ${on ? "sí" : "no"}`,
+      back: "volver a donde estabas",
+      quote: "copiar link",
     },
     ja: {
       clock: "ブエノスアイレスの時刻",
       asleep: "astroはたぶん寝てる",
       sound: (on) => `♪ 音：${on ? "オン" : "オフ"}`,
+      back: "読んでいた場所に戻る",
+      quote: "リンクをコピー",
     },
     zh: {
       clock: "布宜诺斯艾利斯时间",
       asleep: "astro大概在睡觉",
       sound: (on) => `♪ 声音：${on ? "开" : "关"}`,
+      back: "回到刚才读的地方",
+      quote: "复制链接",
     },
   }[lang] || null;
   const say = words || {};
@@ -426,23 +434,204 @@
     });
   }
 
-  // A thin line shows how far through a post you are.
+  // A thin line shows how far through a post you are, with the reading cat on it (oneko.js).
+  // The cat helps: it keeps your place, marks where you were when you scroll back up,
+  // marks the sections, tells you how much is left and walks over to the next post.
   function readingProgress() {
     const article = window.location.pathname.includes("/blog/") && $(".post:not(.on-list) .post-content");
     if (!article) return;
+    const oneko = window.oneko;
     const bar = document.createElement("div");
     bar.className = "fun-progress";
     bar.setAttribute("aria-hidden", "true");
     document.body.append(bar);
-    disposers.push(() => bar.remove());
-    const update = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      const done = max > 0 ? Math.min(1, window.scrollY / max) : 1;
-      bar.style.width = `${done * 100}%`;
+    disposers.push(() => {
+      bar.remove();
+      oneko?.guide(null);
+    });
+
+    const max = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const done = () => (max() > 0 ? Math.min(1, window.scrollY / max()) : 1);
+    const jump = (top) => window.scrollTo({ top, behavior: calm ? "instant" : "smooth" });
+    // Where the reading cat sits for a given progress (same as oneko.js).
+    const barSpot = (fraction) => ({ x: Math.max(16, Math.min(window.innerWidth - 16, fraction * window.innerWidth - 12)), y: 19 });
+
+    // A paw on the bar marks where you were. Tap it, or the cat, to go back.
+    const key = `place.${window.location.pathname}`;
+    const saved = store.get(key, null);
+    let deepest = done();
+    let back = null;
+    let waiting = false;
+    let farTimer = null;
+    let stored = saved;
+    const paw = document.createElement("button");
+    paw.className = "fun-paw";
+    paw.hidden = true;
+    paw.setAttribute("aria-label", say.back || "back");
+    paw.title = say.back || "";
+    document.body.append(paw);
+    const goBack = () => {
+      if (back === null) return;
+      jump(back * max());
+      mark(null);
     };
+    listen(paw, "click", goBack);
+
+    // At the end, the cat walks over to the next post.
+    const next = $(".pagination__buttons a.next") || $(".pagination__buttons a");
+    const nextSpot = () => {
+      const rect = next.getBoundingClientRect();
+      return rect.top > 40 && rect.top < window.innerHeight ? { x: rect.left + Math.min(rect.width / 2, 40), y: rect.top - 14 } : null;
+    };
+    let pointedNext = false;
+
+    const steer = () => {
+      if (waiting && back !== null) oneko?.guide(() => barSpot(back));
+      else if (next && done() >= 0.98) oneko?.guide(nextSpot);
+      else oneko?.guide(null);
+    };
+    const mark = (fraction, wait = false) => {
+      back = fraction;
+      waiting = wait;
+      paw.hidden = fraction === null;
+      if (fraction !== null) paw.style.left = `${fraction * 100}%`;
+      steer();
+    };
+
+    // Ticks on the bar for each section. Tap one to jump there.
+    const headings = [...article.querySelectorAll("h2, h3")];
+    // Without the # anchor link at the end.
+    const title = (heading) => [...heading.childNodes].filter((node) => !node.classList?.contains("hanchor")).map((node) => node.textContent).join("").trim();
+    const ticks = headings.length < 2 ? [] : headings.map((heading) => {
+      const tick = document.createElement("button");
+      tick.className = "fun-tick";
+      tick.setAttribute("aria-label", title(heading));
+      tick.title = title(heading);
+      listen(tick, "click", () => jump(heading.getBoundingClientRect().top + window.scrollY - 16));
+      document.body.append(tick);
+      return tick;
+    });
+    let section = -1;
+    const placeTicks = () => {
+      ticks.forEach((tick, i) => {
+        const top = headings[i].getBoundingClientRect().top + window.scrollY - 16;
+        tick.style.left = `${Math.min(1, Math.max(0, top / (max() || 1))) * 100}%`;
+      });
+    };
+
+    const update = () => {
+      const now = done();
+      bar.style.width = `${now * 100}%`;
+      deepest = Math.max(deepest, now);
+      // Back where the paw is: no need for it anymore.
+      if (back !== null && now >= back - 0.02) mark(null);
+      // Scrolled way back up: once you stop there a moment, mark where you were.
+      window.clearTimeout(farTimer);
+      if (back === null && (deepest - now) * max() > window.innerHeight * 1.5) {
+        farTimer = setTimeout(() => {
+          mark(deepest);
+          oneko?.note("you were here");
+        }, 1500);
+      }
+      // Remember the place for next time. Finished posts start over.
+      const place = deepest >= 0.95 ? null : Math.round(Math.max(deepest, waiting ? back : 0) * 100) / 100;
+      if (place !== stored) {
+        stored = place;
+        store.set(key, place);
+      }
+      // Say which section it is when you get to a new one.
+      const reached = headings.findLastIndex((heading) => heading.getBoundingClientRect().top < window.innerHeight * 0.3);
+      if (ticks.length && reached > section && section !== -1) {
+        const name = title(headings[reached]);
+        oneko?.note(name.length > 28 ? `${name.slice(0, 27)}…` : name);
+      }
+      section = Math.max(section, reached, 0);
+      if (next && now >= 0.98 && !pointedNext) {
+        pointedNext = true;
+        setTimeout(() => { if (done() >= 0.98) oneko?.note("read next?"); }, 1200);
+      }
+      if (now < 0.95) pointedNext = false;
+      steer();
+    };
+
+    // Tapping the reading cat: back to your place, or how much is left.
+    listen(window, "oneko:reader-tap", (event) => {
+      event.preventDefault();
+      if (back !== null) {
+        goBack();
+        return;
+      }
+      if (next && done() >= 0.98) {
+        next.click();
+        return;
+      }
+      const minutes = parseInt($(".post-reading-time")?.textContent, 10) || 1;
+      const left = Math.ceil(minutes * (1 - done()));
+      oneko?.note(done() >= 0.98 ? "all done ♡" : left <= 1 ? "almost done" : `~${left} min left`);
+    });
+
+    quoteLinks(article);
     listen(window, "scroll", update, { passive: true });
-    listen(window, "resize", update);
+    listen(window, "resize", () => {
+      placeTicks();
+      update();
+    });
+    // Pictures change the page height as they load.
+    listen(window, "load", placeTicks);
+    placeTicks();
+    if (saved > 0.05 && saved < 0.95 && done() < saved - 0.05) {
+      mark(saved, true);
+      setTimeout(() => { if (waiting) oneko?.note("you were here"); }, 2500);
+    }
     update();
+  }
+
+  // Select some words in a post and the cat offers a link that opens right at them.
+  function quoteLinks(article) {
+    const button = document.createElement("button");
+    button.className = "fun-quote";
+    button.hidden = true;
+    button.textContent = say.quote || "copy link";
+    document.body.append(button);
+    let quote = "";
+    let timer = null;
+    listen(document, "selectionchange", () => {
+      window.clearTimeout(timer);
+      timer = setTimeout(() => {
+        const selection = document.getSelection();
+        quote = selection?.toString().trim() || "";
+        const inside = selection?.rangeCount && article.contains(selection.getRangeAt(0).commonAncestorContainer);
+        button.hidden = !quote || !inside;
+        if (button.hidden) return;
+        const rects = selection.getRangeAt(0).getClientRects();
+        const rect = rects[rects.length - 1];
+        if (!rect) { button.hidden = true; return; }
+        button.style.left = `${Math.min(window.innerWidth - 120, Math.max(8, rect.right - 40))}px`;
+        button.style.top = `${Math.min(window.innerHeight - 40, rect.bottom + 8)}px`;
+      }, 300);
+    });
+    // The menu button would scroll away from the words, so it just hides.
+    listen(window, "scroll", () => (button.hidden = true), { passive: true });
+    listen(button, "pointerdown", (event) => event.preventDefault());
+    listen(button, "click", async () => {
+      const url = `${window.location.origin}${window.location.pathname}#:~:text=${textFragment(quote)}`;
+      button.hidden = true;
+      try {
+        await navigator.clipboard.writeText(url);
+        window.oneko?.note("copied ♡");
+      } catch {
+        window.oneko?.note("couldn't copy (=ↀωↀ=)");
+      }
+    });
+  }
+
+  // A text fragment for the words: the start and end of long quotes is enough.
+  function textFragment(text) {
+    const encode = (part) => encodeURIComponent(part).replace(/-/g, "%2D");
+    const words = text.replace(/\s+/g, " ").split(" ");
+    if (words.length > 8) return `${encode(words.slice(0, 4).join(" "))},${encode(words.slice(-4).join(" "))}`;
+    if (words.length === 1 && text.length > 40) return `${encode(text.slice(0, 15))},${encode(text.slice(-15))}`;
+    return encode(words.join(" "));
   }
 
   // The 404 page: the go home button runs away a few times.
@@ -531,7 +720,8 @@
       if (calm) return;
       if (data.from) {
         const ghost = others.get(data.from);
-        if (ghost) oneko[data.a === "tag" ? "tagged" : "booped"](ghost);
+        const react = { boop: "booped", tag: "tagged", pass: "passed" }[data.a];
+        if (ghost && react) oneko[react]?.(ghost);
         return;
       }
       if (data.gone) {
@@ -559,7 +749,7 @@
     const connect = () => {
       retry = null;
       if (socket || document.hidden || controller.signal.aborted) return;
-      const ws = new WebSocket(`${url}?v=2&room=${encodeURIComponent(window.location.pathname)}`);
+      const ws = new WebSocket(`${url}?v=3&room=${encodeURIComponent(window.location.pathname)}`);
       socket = ws;
       ws.addEventListener("open", () => {
         fails = 0;

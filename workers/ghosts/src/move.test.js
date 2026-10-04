@@ -34,6 +34,7 @@ describe("parseMessage", () => {
   test("passes nudges to another cat", () => {
     expect(parseMessage('{"to":"0a1b2c3d","a":"boop"}')).toEqual({ to: "0a1b2c3d", a: "boop" });
     expect(parseMessage('{"to":"0a1b2c3d","a":"tag","x":1}')).toEqual({ to: "0a1b2c3d", a: "tag" });
+    expect(parseMessage('{"to":"0a1b2c3d","a":"pass"}')).toEqual({ to: "0a1b2c3d", a: "pass" });
   });
 
   test("drops odd nudges", () => {

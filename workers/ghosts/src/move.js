@@ -2,8 +2,8 @@
 //
 // Where their cat is: x and y are fractions of their window (0 to 1), s is the
 // sprite it shows, r means it sits on the reading bar and h means it is hidden.
-// A nudge to another cat: to is that cat's id and a is what happened.
-export const NUDGES = ["boop", "tag"];
+// A nudge to another cat: to is that cat's id and a is what happened (a boop, tag or the yarn).
+export const NUDGES = ["boop", "tag", "pass"];
 
 export function parseMessage(message) {
   if (typeof message !== "string" || message.length > 100) {
