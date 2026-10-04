@@ -21,7 +21,9 @@
 {{ $webmcpJS := resources.Get "webmcp.js" | fingerprint }}
 <script src="{{ $webmcpJS.Permalink }}" defer></script>
 <link rel="service-doc" href="/">
-{{ if .HasShortcode "monero" }}
+{{ $pageJS := resources.Get "page.js" | fingerprint }}
+<script src="{{ $pageJS.Permalink }}" defer></script>
+{{ $navigationJS := resources.Get "navigation.js" | fingerprint }}
+<script src="{{ $navigationJS.Permalink }}" defer></script>
 {{ $moneroJS := resources.Get "monero-donation.js" | fingerprint }}
 <script src="{{ $moneroJS.Permalink }}" defer></script>
-{{ end }}
