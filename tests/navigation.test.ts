@@ -19,6 +19,7 @@ function browser() {
   const visits: string[] = [];
   const requests: { url: string; signal: AbortSignal; resolve: (value: any) => void; reject: (error: Error) => void }[] = [];
   const events: string[] = [];
+  const titles: string[] = [];
   const scrolls: [number, number][] = [];
   const attributes = new Map();
   let focused = false;
@@ -66,19 +67,20 @@ function browser() {
     history, scrollX: 0, scrollY: 0,
     fetch: (url: string, { signal }: any) => new Promise((resolve, reject) => requests.push({ url, signal, resolve, reject })),
     addEventListener: document.addEventListener,
-    dispatchEvent: (event: Event) => events.push(event.type),
+    dispatchEvent: (event: CustomEvent) => { events.push(event.type); titles.push(event.detail?.title); },
     scrollTo: (x: number, y: number) => scrolls.push([x, y]),
   };
   class DOMParser {
     parseFromString(text: string) {
       return {
         documentElement: { lang: text === 'spanish' ? 'es' : 'en' },
+        title: `${text} :: astro@web`,
         head: document.head,
         querySelector: (selector: string) => selector === '.content' ? { childNodes: [text] } : { querySelectorAll: () => nextMenus },
       };
     }
   }
-  runInNewContext(source, { window, document, location, history, fetch: window.fetch, DOMParser, URL, AbortController, Event });
+  runInNewContext(source, { window, document, location, history, fetch: window.fetch, DOMParser, URL, AbortController, Event, CustomEvent });
   function click(path: string, extra: any = {}) {
     let prevented = false;
     const link = { href: new URL(path, location.href).href, target: '', hasAttribute: () => false, ...extra.link };
@@ -89,7 +91,7 @@ function browser() {
     requests[index].resolve({ ok: true, url: requests[index].url, headers: { get: () => 'text/html' }, text: async () => text, ...overrides });
   }
   const setMenus = (now: any[], next: any[]) => { menus = now; nextMenus = next; };
-  return { click, respond, requests, location, history, window, listeners, capturing, menu, setMenus, menus: () => menus, nextMenus: () => nextMenus, fallback, visits, events, scrolls, document,
+  return { click, respond, requests, location, history, window, listeners, capturing, menu, setMenus, menus: () => menus, nextMenus: () => nextMenus, fallback, visits, events, titles, scrolls, document,
     state: () => ({ rendered, focused, replacedHeader, busy: attributes.has('aria-busy') }) };
 }
 
@@ -102,6 +104,8 @@ test('internal navigation keeps the document, renders the page, focuses its head
   expect(b.state()).toEqual({ rendered: 'article', focused: true, replacedHeader: true, busy: false });
   expect(b.location.pathname).toBe('/en/blog/story/');
   expect(b.events).toEqual(['site:navigate']);
+  // The terminal owns the tab title, so the new one rides on the event.
+  expect(b.titles).toEqual(['article :: astro@web']);
   expect(b.scrolls).toEqual([[0, 0]]);
 });
 

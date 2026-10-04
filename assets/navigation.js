@@ -90,13 +90,13 @@
       swapHeader(nextHeader);
       content.replaceChildren(...nextContent.childNodes);
       revealEmails(content);
-      // Keep the terminal's title prompt intact. Refresh page metadata only.
+      // The terminal owns document.title, so it picks up the new title from the event.
       const metadata = 'meta[name="description"], meta[name="keywords"], meta[name="robots"], meta[property^="og:"], meta[property^="article:"], link[rel="canonical"], link[rel="alternate"]';
       document.head.querySelectorAll(metadata).forEach((el) => el.remove());
       page.head.querySelectorAll(metadata).forEach((el) => document.head.append(el));
       const scripts = [...content.querySelectorAll('script')];
       scripts.forEach((script) => script.remove());
-      window.dispatchEvent(new Event('site:navigate'));
+      window.dispatchEvent(new CustomEvent('site:navigate', { detail: { title: page.title } }));
       // Only the site's comment embed needs to run inside fetched content.
       scripts.filter((script) => script.src === 'https://giscus.app/client.js').forEach((script) => {
         const embed = document.createElement('script');
