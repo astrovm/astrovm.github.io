@@ -4,9 +4,9 @@ import { runInNewContext } from 'node:vm';
 
 const source = readFileSync(new URL('../assets/fun.js', import.meta.url), 'utf8');
 
-type Options = { reduced?: boolean; headings?: [string, number][]; next?: boolean; saved?: number };
+type Options = { headings?: [string, number][]; next?: boolean; saved?: number };
 
-function page({ reduced = false, headings = [], next = false, saved }: Options = {}) {
+function page({ headings = [], next = false, saved }: Options = {}) {
   class Element extends EventTarget {
     className = '';
     style: Record<string, any> = { setProperty() {} };
@@ -23,7 +23,7 @@ function page({ reduced = false, headings = [], next = false, saved }: Options =
   const window: any = Object.assign(new EventTarget(), {
     location: { origin: 'https://4st.li', pathname: '/en/blog/story/', search: '?today=2026-04-01' },
     innerWidth: 800, innerHeight: 500, scrollY: 0,
-    matchMedia: (query: string) => ({ matches: query.includes('reduced-motion') ? reduced : true }),
+    matchMedia: () => ({ matches: true }),
     setInterval: (fn: () => void) => { timers.set(++id, fn); return id; },
     clearInterval: (key: number) => timers.delete(key),
     setTimeout: (fn: () => void) => { timeouts.set(++id, fn); return id; },
@@ -106,13 +106,6 @@ test('SPA navigation removes the old progress bar before adding one new bar', ()
   expect(b.elements.has(old)).toBe(false);
   b.navigate(false);
   expect(b.elements.size).toBe(0);
-});
-
-test('reduced motion keeps the progress line visible without animation timers', () => {
-  const b = page({ reduced: true });
-  b.scroll(500);
-  expect(b.find('fun-progress').style.width).toBe('50%');
-  expect(b.timers.size).toBe(0);
 });
 
 test('the place is saved, and next time the cat waits there until you tap it', () => {

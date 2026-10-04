@@ -4,7 +4,7 @@ import { runInNewContext } from 'node:vm';
 
 const source = readFileSync(new URL('../assets/oneko.js', import.meta.url), 'utf8');
 
-function catPage({ article = true, reduced = false, width = 400 } = {}) {
+function catPage({ article = true, width = 400 } = {}) {
   class Element extends EventTarget {
     style: Record<string, any> = { setProperty() {} };
     className = '';
@@ -35,7 +35,7 @@ function catPage({ article = true, reduced = false, width = 400 } = {}) {
   const window: any = Object.assign(new EventTarget(), {
     location, innerWidth: width, innerHeight: 600, scrollY: 0,
     scrollTo: ({ top }: { top: number }) => { window.scrollY = top; window.dispatchEvent(new Event('scroll')); },
-    matchMedia: (query: string) => ({ matches: query.includes('reduced-motion') ? reduced : true }),
+    matchMedia: () => ({ matches: true }),
   });
   const storage = new Map();
   runInNewContext(source, {
@@ -80,8 +80,8 @@ test('a reader can drag the cat and leave it in place without petting it', () =>
   expect(b.cat.hasPointerCapture(1)).toBe(false);
 });
 
-test('touch dragging works with reduced motion and clamps the cat inside the viewport', () => {
-  const b = catPage({ reduced: true });
+test('touch dragging clamps the cat inside the viewport', () => {
+  const b = catPage();
   b.pointer('pointerdown', 16, 19, 'touch');
   b.pointer('pointermove', -100, 1000, 'touch');
   b.pointer('pointerup', -100, 1000, 'touch');
@@ -135,19 +135,6 @@ test('one cat follows article progress, then detaches when dragged off the bar',
   expect(b.window.oneko.cats()).toEqual([{ x: 100, y: 200 }]);
 });
 
-test('reduced motion keeps one still sprite following progress until dragged away', () => {
-  const b = catPage({ reduced: true });
-  b.window.scrollY = 500;
-  b.window.dispatchEvent(new Event('scroll'));
-  expect(b.window.oneko.cats()).toEqual([{ x: 188, y: 19 }]);
-  b.pointer('pointerdown', 188, 19, 'touch');
-  b.pointer('pointermove', 100, 200, 'touch');
-  b.pointer('pointerup', 100, 200, 'touch');
-  b.window.scrollY = 900;
-  b.window.dispatchEvent(new Event('scroll'));
-  expect(b.window.oneko.cats()).toEqual([{ x: 100, y: 200 }]);
-});
-
 
 test('the progress neko sleeps at the end and keeps extra cats out of articles', () => {
   const b = catPage();
@@ -175,14 +162,6 @@ test('a held cat swings against the drag, kicks, then lands and grooms', () => {
   expect(b.window.oneko.cats()[0]).toEqual({ x: 132, y: 32 });
 });
 
-test('reduced motion drags the cat without swinging it', () => {
-  const b = catPage({ article: false, reduced: true });
-  b.pointer('pointerdown', 32, 32);
-  b.pointer('pointermove', 132, 32);
-  b.tick();
-  expect(b.cat.style.rotate).toBeUndefined();
-});
-
 test('the cat comes over and paws at yarn while someone holds it up', () => {
   const b = catPage({ article: false, width: 800 });
   const at = (type: string, x: number, y: number) =>
@@ -208,13 +187,6 @@ test('entering an article, the cat runs to the progress bar instead of jumping t
   b.settle();
   expect(b.window.oneko.cats()[0]).toEqual({ x: 16, y: 19 });
   expect(b.body.children.filter((el) => el.className === 'oneko-print')).toHaveLength(0);
-});
-
-test('reduced motion still puts the cat straight on the progress bar', () => {
-  const b = catPage({ reduced: true });
-  b.window.scrollY = 1000;
-  b.window.dispatchEvent(new Event('scroll'));
-  expect(b.window.oneko.cats()).toEqual([{ x: 384, y: 19 }]);
 });
 
 function yarnPage() {
@@ -504,8 +476,3 @@ test('a pass follows a visitor who moves before the yarn arrives', () => {
   expect(friend.met).toEqual(['pass']);
 });
 
-test('a saved guide updates a still reading cat with reduced motion', () => {
-  const b = catPage({ reduced: true, width: 1000 });
-  b.window.oneko.guide(() => ({ x: 500, y: 19 }));
-  expect(b.window.oneko.cats()[0]).toEqual({ x: 500, y: 19 });
-});

@@ -168,12 +168,6 @@ a {
   overflow-wrap: anywhere;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .project-card {
-    transition: none;
-  }
-}
-
 /* fun.js: status line, special days, footer, reading cat, ghosts */
 
 /* Menu on the left, Buenos Aires time and weather on the right. */
@@ -437,14 +431,6 @@ a {
   to {
     rotate: 40deg;
     scale: 0.4 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .fun-bat,
-  .lost-home {
-    animation: none;
-    transition: none;
   }
 }
 
