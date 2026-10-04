@@ -29,6 +29,8 @@ function catPage({ article = true, reduced = false, width = 400 } = {}) {
     querySelectorAll: () => [],
   });
   const intervals: (() => void)[] = [];
+  const frames: (() => void)[] = [];
+  let clock = 0;
   const location = { pathname: article ? '/en/blog/story/' : '/en/', search: '?today=2026-04-01' };
   const window: any = Object.assign(new EventTarget(), {
     location, innerWidth: width, innerHeight: 600, scrollY: 0,
@@ -36,9 +38,9 @@ function catPage({ article = true, reduced = false, width = 400 } = {}) {
   });
   const storage = new Map();
   runInNewContext(source, {
-    window, document, location, URLSearchParams, Date, CustomEvent, performance,
+    window, document, location, URLSearchParams, Date, CustomEvent, performance: { now: () => clock },
     localStorage: { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) },
-    setInterval: (fn: () => void) => intervals.push(fn), setTimeout: () => 1, clearTimeout() {}, requestAnimationFrame() {},
+    setInterval: (fn: () => void) => intervals.push(fn), setTimeout: () => 1, clearTimeout() {}, requestAnimationFrame: (fn: () => void) => frames.push(fn),
   });
   const cat = body.children.find((el) => el.className === 'oneko-cat')!;
   const pointer = (type: string, x: number, y: number, pointerType = 'mouse', id = 1) => {
@@ -46,7 +48,19 @@ function catPage({ article = true, reduced = false, width = 400 } = {}) {
     cat.dispatchEvent(event);
   };
   const yarn = () => body.children.find((el) => el.className === 'oneko-yarn')!;
-  return { cat, yarn, pointer, window, location, document, body, tick: () => intervals.forEach((fn) => fn()) };
+  // Run animation frames at a refresh rate until nothing is left to draw.
+  const animate = (hz = 60, limit = 2000) => {
+    const start = clock;
+    for (let i = 0; i < limit && frames.length; i++) {
+      clock += 1000 / hz;
+      frames.splice(0).forEach((fn) => fn());
+    }
+    return clock - start;
+  };
+  const later = (ms: number) => { clock += ms; };
+  const tick = () => intervals.forEach((fn) => fn());
+  const settle = () => { for (let i = 0; i < 40; i++) tick(); };
+  return { cat, yarn, pointer, animate, later, settle, window, location, document, body, tick };
 }
 
 test('a reader can drag the cat and leave it in place without petting it', () => {
@@ -99,7 +113,7 @@ test('navigation resets the reader placement while preserving the cat instance',
   b.pointer('pointermove', 100, 200);
   b.pointer('pointerup', 100, 200);
   b.window.dispatchEvent(new Event('site:navigate'));
-  b.tick();
+  b.settle();
   expect(b.window.oneko.cats()[0]).toEqual({ x: 16, y: 19 });
   expect(b.cat).toBe(original);
 });
@@ -109,7 +123,7 @@ test('one cat follows article progress, then detaches when dragged off the bar',
   const b = catPage();
   b.window.scrollY = 500;
   b.window.dispatchEvent(new Event('scroll'));
-  b.tick();
+  b.settle();
   expect(b.window.oneko.cats()).toEqual([{ x: 188, y: 19 }]);
   b.pointer('pointerdown', 188, 19);
   b.pointer('pointermove', 100, 200);
@@ -138,7 +152,7 @@ test('the progress neko sleeps at the end and keeps extra cats out of articles',
   const b = catPage();
   b.window.oneko.friend();
   b.window.scrollY = 1000;
-  b.tick();
+  b.settle();
   expect(b.cat.style.backgroundPosition).toBe('-64px 0px');
   expect(b.body.children.filter((el) => el.className === 'oneko-cat' && !el.hidden)).toHaveLength(1);
 });
@@ -178,4 +192,108 @@ test('the cat comes over and paws at yarn while someone holds it up', () => {
   const cat = b.window.oneko.cats()[0];
   expect(Math.hypot(cat.x - 300, cat.y - 320)).toBeLessThan(12);
   expect(['0px 0px', '0px -32px']).toContain(b.cat.style.backgroundPosition);
+});
+
+test('entering an article, the cat runs to the progress bar instead of jumping there', () => {
+  const b = catPage();
+  b.pointer('pointerdown', 16, 19);
+  b.pointer('pointermove', 200, 400);
+  b.pointer('pointerup', 200, 400);
+  b.window.dispatchEvent(new Event('site:navigate'));
+  b.tick();
+  const first = b.window.oneko.cats()[0];
+  expect(first).not.toEqual({ x: 16, y: 19 });
+  expect(Math.hypot(first.x - 200, first.y - 400)).toBeLessThanOrEqual(60.01);
+  b.settle();
+  expect(b.window.oneko.cats()[0]).toEqual({ x: 16, y: 19 });
+  expect(b.body.children.filter((el) => el.className === 'oneko-print')).toHaveLength(0);
+});
+
+test('reduced motion still puts the cat straight on the progress bar', () => {
+  const b = catPage({ reduced: true });
+  b.window.scrollY = 1000;
+  b.window.dispatchEvent(new Event('scroll'));
+  expect(b.window.oneko.cats()).toEqual([{ x: 384, y: 19 }]);
+});
+
+function yarnPage() {
+  const b = catPage({ article: false, width: 800 });
+  const at = (type: string, x: number, y: number) =>
+    b.yarn().dispatchEvent(Object.assign(new Event(type, { cancelable: true }), { pointerId: 2, pointerType: 'mouse', clientX: x, clientY: y, button: 0 }));
+  const where = () => ({ x: parseFloat(b.yarn().style.left), y: parseFloat(b.yarn().style.top) });
+  // Carry it to (x, y) and set it down gently.
+  const put = (x: number, y: number) => {
+    const from = where();
+    at('pointerdown', from.x, from.y);
+    at('pointermove', x, y);
+    b.later(500);
+    at('pointerup', x, y);
+  };
+  // Flick it from (fromX, fromY), moving dx, dy every 16 ms.
+  const flick = (fromX: number, fromY: number, dx: number, dy: number, steps = 5) => {
+    put(fromX, fromY);
+    at('pointerdown', fromX, fromY);
+    for (let i = 1; i <= steps; i++) {
+      b.later(16);
+      at('pointermove', fromX + dx * i, fromY + dy * i);
+    }
+    at('pointerup', fromX + dx * steps, fromY + dy * steps);
+  };
+  return { ...b, at, where, put, flick };
+}
+
+test('yarn keeps the spot you grabbed it by', () => {
+  const b = yarnPage();
+  b.at('pointerdown', 34, 566);
+  b.at('pointermove', 134, 466);
+  expect(b.where()).toEqual({ x: 128, y: 472 });
+});
+
+test('a flick throws the yarn, and it rolls the same way on 60 and 120 Hz screens', () => {
+  const rolled = (hz: number) => {
+    const b = yarnPage();
+    b.flick(28, 300, 6, 0);
+    const ms = b.animate(hz);
+    return { x: b.where().x, ms };
+  };
+  const at60 = rolled(60);
+  const at120 = rolled(120);
+  expect(at60.x).toBeGreaterThan(200);
+  expect(Math.abs(at120.x - at60.x)).toBeLessThan(at60.x * 0.03);
+  expect(Math.abs(at120.ms - at60.ms)).toBeLessThan(at60.ms * 0.05);
+});
+
+test('yarn held still before letting go just drops', () => {
+  const b = yarnPage();
+  b.at('pointerdown', 28, 572);
+  b.later(16);
+  b.at('pointermove', 100, 300);
+  b.later(500);
+  b.at('pointerup', 100, 300);
+  b.animate();
+  expect(b.where()).toEqual({ x: 100, y: 300 });
+});
+
+test('yarn spins as it rolls and comes back off a wall slower, squashed for a moment', () => {
+  const b = yarnPage();
+  b.flick(700, 300, 12, 0);
+  b.animate(60, 6);
+  expect(b.yarn().style.scale).toMatch(/^0\.\d+ 1\.\d+$/);
+  const before = parseFloat(b.yarn().style.rotate);
+  b.animate();
+  expect(b.where().x).toBeLessThan(788);
+  expect(parseFloat(b.yarn().style.rotate)).not.toBe(before);
+});
+
+test('rolling yarn bounces off the cat', () => {
+  const b = yarnPage();
+  const cat = b.window.oneko.cats()[0];
+  b.flick(cat.x + 150, cat.y, -8, 0);
+  let closest = Infinity;
+  for (let i = 0; i < 300; i++) {
+    b.animate(60, 1);
+    closest = Math.min(closest, b.where().x);
+  }
+  // Never rolls through the cat to the wall behind it.
+  expect(closest).toBeGreaterThan(cat.x + 20);
 });
