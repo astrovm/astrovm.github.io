@@ -774,6 +774,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }, CONSTANTS.TIMEOUT.TITLE_BLINK);
   state.addInterval(blinkInterval);
 
+  // In-site navigation sends the new page title. Swap it in without opening the terminal.
+  window.addEventListener("site:navigate", (event) => {
+    const next = event.detail?.title;
+    if (!next) return;
+    title.text = next;
+    blinkStates[0] = title.text + title.prompt;
+    blinkStates[1] = title.text + title.prompt + title.cursor;
+    if (!state.active) document.title = blinkStates[0];
+  });
+
   // Direct title change check
   const checkTitleChange = () => {
     const currentTitle = document.title.toLowerCase().trim();
