@@ -1,8 +1,8 @@
 import { test, expect } from 'bun:test';
-import { readFileSync } from 'node:fs';
+import { browserSource, coverage } from './helpers/coverage';
 import { runInNewContext } from 'node:vm';
 
-const source = readFileSync(new URL('../assets/navigation.js', import.meta.url), 'utf8');
+const source = browserSource('assets/navigation.js');
 const settle = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 function browser() {
@@ -80,7 +80,7 @@ function browser() {
       };
     }
   }
-  runInNewContext(source, { window, document, location, history, fetch: window.fetch, DOMParser, URL, AbortController, Event, CustomEvent });
+  runInNewContext(source, { __coverage__: coverage, window, document, location, history, fetch: window.fetch, DOMParser, URL, AbortController, Event, CustomEvent });
   function click(path: string, extra: any = {}) {
     let prevented = false;
     const link = { href: new URL(path, location.href).href, target: '', hasAttribute: () => false, ...extra.link };

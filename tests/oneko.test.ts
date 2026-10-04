@@ -1,8 +1,8 @@
 import { test, expect } from 'bun:test';
-import { readFileSync } from 'node:fs';
+import { browserSource, coverage } from './helpers/coverage';
 import { runInNewContext } from 'node:vm';
 
-const source = readFileSync(new URL('../assets/oneko.js', import.meta.url), 'utf8');
+const source = browserSource('assets/oneko.js');
 
 function catPage({ article = true, width = 400 } = {}) {
   class Element extends EventTarget {
@@ -24,12 +24,12 @@ function catPage({ article = true, width = 400 } = {}) {
   const document = Object.assign(new EventTarget(), {
     body, head: new Element(), hidden: false,
     documentElement: { scrollHeight: 1600 },
-    createElement: () => new Element(),
+    createElement: (_tag?: string) => new Element(),
     querySelector: (selector: string) => selector.includes('.post:not') && article ? {} : null,
     querySelectorAll: () => [],
   });
   const intervals: (() => void)[] = [];
-  const frames: (() => void)[] = [];
+  const frames: ((timestamp?: number) => void)[] = [];
   let clock = 0;
   const location = { pathname: article ? '/en/blog/story/' : '/en/', search: '?today=2026-04-01' };
   const window: any = Object.assign(new EventTarget(), {
@@ -38,10 +38,10 @@ function catPage({ article = true, width = 400 } = {}) {
     matchMedia: () => ({ matches: true }),
   });
   const storage = new Map();
-  runInNewContext(source, {
+  runInNewContext(source, { __coverage__: coverage,
     window, document, location, URLSearchParams, Date, CustomEvent, performance: { now: () => clock },
     localStorage: { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value) },
-    setInterval: (fn: () => void) => intervals.push(fn), setTimeout: () => 1, clearTimeout() {}, requestAnimationFrame: (fn: () => void) => frames.push(fn),
+    setInterval: (fn: () => void) => intervals.push(fn), setTimeout: () => 1, clearTimeout() {}, requestAnimationFrame: (fn: (timestamp?: number) => void) => frames.push(fn),
   });
   const cat = body.children.find((el) => el.className === 'oneko-cat')!;
   const pointer = (type: string, x: number, y: number, pointerType = 'mouse', id = 1) => {

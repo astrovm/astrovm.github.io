@@ -1,8 +1,8 @@
 import { test, expect } from 'bun:test';
-import { readFileSync } from 'node:fs';
+import { browserSource, coverage } from './helpers/coverage';
 import { runInNewContext } from 'node:vm';
 
-const source = readFileSync(new URL('../assets/fun.js', import.meta.url), 'utf8');
+const source = browserSource('assets/fun.js');
 
 type Options = { headings?: [string, number][]; next?: boolean; saved?: number };
 
@@ -66,9 +66,10 @@ function page({ headings = [], next = false, saved }: Options = {}) {
   const storage = new Map<string, string>();
   if (saved !== undefined) storage.set('fun.place./en/blog/story/', JSON.stringify(saved));
   const copied: string[] = [];
-  runInNewContext(source, {
+  const clipboard = { writeText: async (text: string) => { copied.push(text); } };
+  runInNewContext(source, { __coverage__: coverage,
     window, document, AbortController, URLSearchParams, Intl, CustomEvent,
-    navigator: { clipboard: { writeText: async (text: string) => { copied.push(text); } } },
+    navigator: { clipboard },
     localStorage: { getItem: (key: string) => storage.get(key) ?? null, setItem: (key: string, value: string) => storage.set(key, value), removeItem: (key: string) => storage.delete(key) },
     console: { log() {} },
   });
@@ -87,7 +88,7 @@ function page({ headings = [], next = false, saved }: Options = {}) {
     wait();
   };
   return { window, document, timers, elements, find, all, scroll, wait, notes, tapCat, select, copied, storage, nextLink,
-    guide: () => guide?.(),
+    clipboard, guide: () => guide?.(),
     navigate: (toArticle: boolean) => { article = toArticle; window.dispatchEvent(new Event('site:navigate')); } };
 }
 
@@ -299,5 +300,28 @@ test('the quote link hides when nothing is selected or the page scrolls', () => 
   b.scroll(10);
   expect(b.find('fun-quote').hidden).toBe(true);
   b.select('');
+  expect(b.find('fun-quote').hidden).toBe(true);
+});
+
+test('resize replaces section positions and quote presses keep the selection, with copy failures reported', async () => {
+  const b = page({ headings: [['Intro', 100], ['Next', 600]] });
+  b.window.dispatchEvent(new Event('resize'));
+  expect(b.all('fun-tick')[1].style.left).toBe('58.4%');
+  b.select('selected words');
+  const button = b.find('fun-quote');
+  const press = new Event('pointerdown', { cancelable: true });
+  button.dispatchEvent(press);
+  expect(press.defaultPrevented).toBe(true);
+  b.clipboard.writeText = async () => { throw new Error('denied'); };
+  button.click();
+  await new Promise((r) => setTimeout(r, 0));
+  expect(b.notes).toContain("couldn't copy (=ↀωↀ=)");
+});
+
+test('a selection without visible rectangles cannot place the quote button', () => {
+  const b = page();
+  b.document.getSelection = () => ({ toString: () => 'words', rangeCount: 1, getRangeAt: () => ({ commonAncestorContainer: {}, getClientRects: () => [] }) }) as any;
+  b.document.dispatchEvent(new Event('selectionchange'));
+  b.wait();
   expect(b.find('fun-quote').hidden).toBe(true);
 });

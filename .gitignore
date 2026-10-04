@@ -27,3 +27,6 @@ static/roms/*.bin
 
 # Wrangler local state
 .wrangler/
+
+# Test reports
+coverage/
