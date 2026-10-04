@@ -41,7 +41,6 @@
   const PERCHES = "#install-link, .app-card-cta, .read-more";
   const MEOWS = ["nya~", "mrrp?", "(=^･ω･^=)", "ฅ^•ﻌ•^ฅ", "meow", "=^.^="];
 
-  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const touch = !window.matchMedia("(pointer: fine)").matches;
   // A plain date means noon that day here, not midnight in London.
   const asked = new URLSearchParams(window.location.search).get("today");
@@ -507,14 +506,11 @@
         home?.classList.add("oneko-away");
         // Hanging by the scruff, it swings against the way you move it.
         const x = Math.max(16, Math.min(window.innerWidth - 16, event.clientX + held.dx));
-        if (!calm) {
-          this.swing = Math.max(-35, Math.min(35, this.swing - (x - this.x) * 1.5));
-          this.el.style.rotate = `${this.swing.toFixed(1)}deg`;
-        }
+        this.swing = Math.max(-35, Math.min(35, this.swing - (x - this.x) * 1.5));
+        this.el.style.rotate = `${this.swing.toFixed(1)}deg`;
         this.x = x;
         this.y = Math.max(16, Math.min(window.innerHeight - 16, event.clientY + held.dy));
         this.place();
-        if (calm) this.setSprite("alert", 0);
       });
       const release = (event) => {
         if (!held || held.id !== event.pointerId) return;
@@ -531,7 +527,7 @@
         this.readerSpot = dragged && !scrubbed ? { x: this.x, y: this.y } : null;
         this.el.classList.remove("oneko-held");
         this.el.style.rotate = "";
-        if (dragged && !scrubbed && !calm) this.land();
+        if (dragged && !scrubbed) this.land();
       };
       this.el.addEventListener("pointerup", release);
       this.el.addEventListener("pointercancel", release);
@@ -1309,7 +1305,7 @@
       this.el.hidden = Boolean(reading() && this.leader);
       if (this.el.hidden) return;
       if (this.held) {
-        if (!calm && !this.scrubbing) this.dangle();
+        if (!this.scrubbing) this.dangle();
         return;
       }
       if (quiet()) {
@@ -1319,7 +1315,7 @@
         const x = Math.max(16, Math.min(window.innerWidth - 16, spot.x));
         const y = Math.max(16, Math.min(window.innerHeight - 16, spot.y));
         // Far from its spot (a new article, a big jump): it runs there, quietly.
-        if (!calm && Math.hypot(this.x - x, this.y - y) > 40) {
+        if (Math.hypot(this.x - x, this.y - y) > 40) {
           this.idleTime = 0;
           this.step(x, y, 40, 30, false);
           return;
@@ -1328,7 +1324,7 @@
         this.y = y;
         this.place();
         const max = document.documentElement.scrollHeight - window.innerHeight;
-        const name = this.readerSpot || calm || guided(this) ? "idle" : window.scrollY >= max - 4 ? "sleeping" : Date.now() - readingScrollAt < 300 ? "E" : "idle";
+        const name = this.readerSpot || guided(this) ? "idle" : window.scrollY >= max - 4 ? "sleeping" : Date.now() - readingScrollAt < 300 ? "E" : "idle";
         this.setSprite(name, name === "sleeping" ? Math.floor(this.frameCount / 4) : this.frameCount);
         if (yarn) yarn.el.hidden = true;
         return;
@@ -1865,10 +1861,6 @@
   }
 
   function main() {
-    // A still logo is enough when motion is turned off.
-    if (home && calm) {
-      return;
-    }
     addStyles();
     if (memory.get("pets", 0) >= 100) {
       hat = "crown";
@@ -1877,13 +1869,6 @@
     cats.push(new Cat(start.x, start.y));
     if (home) {
       home.classList.add("oneko-home");
-    }
-
-    if (calm) {
-      const update = () => { if (quiet()) cats.forEach((cat) => cat.frame()); };
-      window.addEventListener("scroll", update, { passive: true });
-      window.addEventListener("resize", update);
-      return;
     }
 
     if (catDay) {
@@ -1986,7 +1971,7 @@
     // Another visitor's cat passed the yarn over.
     // Says whether it took it, so fun.js can send it back if not.
     passed: (friend) => {
-      if (calm || away || quiet() || !first()) return false;
+      if (away || quiet() || !first()) return false;
       addYarn();
       if (yarn.sent?.to === friend && Date.now() - yarn.sent.at < 1500) friend.busyUntil = Date.now() + 30000;
       yarn.receive(friend);
@@ -1996,7 +1981,6 @@
     note: (text) => first()?.say(text, true),
     guide: (spot) => {
       guide = spot || null;
-      if (calm && quiet()) first()?.frame();
     },
     visit: (friend) => first()?.visit(friend),
     booped: (friend) => first()?.booped(friend),

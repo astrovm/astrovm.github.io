@@ -31,7 +31,6 @@
   const listen = (target, name, fn, options = {}) =>
     target.addEventListener(name, fn, { ...options, signal: controller.signal });
   const lang = (document.documentElement.lang || "en").slice(0, 2);
-  const calm = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const touch = !window.matchMedia("(pointer: fine)").matches;
   // A plain date means noon that day here, not midnight in London.
   const asked = new URLSearchParams(window.location.search).get("today");
@@ -268,25 +267,21 @@
     if (halloween) {
       seasonalHat = "pumpkin";
       accent("#ff8c1a");
-      if (!calm) {
-        setInterval(bat, 9000);
-        setTimeout(bat, 2000);
-      }
+      setInterval(bat, 9000);
+      setTimeout(bat, 2000);
     }
     if (christmas) {
       seasonalHat = "santa";
-      if (!calm) {
-        snow();
-      }
+      snow();
     }
     if (argentina) {
       accent("#74acdf");
       document.documentElement.classList.add("fun-argentina");
     }
-    if (spring && !calm) {
+    if (spring) {
       setInterval(petal, 700);
     }
-    if (sonicDay && !calm) {
+    if (sonicDay) {
       setTimeout(sonicRun, 3000);
       setInterval(sonicRun, 20000);
     }
@@ -459,7 +454,7 @@
 
     const max = () => Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
     const done = () => (max() > 0 ? Math.min(1, window.scrollY / max()) : 1);
-    const jump = (top) => window.scrollTo({ top, behavior: calm ? "instant" : "smooth" });
+    const jump = (top) => window.scrollTo({ top, behavior: "smooth" });
     // Where the reading cat sits for a given progress (same as oneko.js).
     const barSpot = (fraction) => ({ x: Math.max(16, Math.min(window.innerWidth - 16, fraction * window.innerWidth - 12)), y: 19 });
 
@@ -695,7 +690,7 @@
         }
       });
     }
-    if (window.oneko && !calm) {
+    if (window.oneko) {
       window.oneko.play();
       setInterval(() => window.oneko.play(), 7000);
     }
@@ -748,9 +743,9 @@
     const hear = (data) => {
       if (data.from) {
         const ghost = others.get(data.from);
-        // Can't take the yarn right now (still, reading, away): it goes straight back.
+        // Can't take the yarn right now (reading, away): it goes straight back.
         // Only once in a while, so two busy cats don't bounce it forever.
-        if (data.a === "pass" && (calm || !ghost || !oneko.passed(ghost))) {
+        if (data.a === "pass" && (!ghost || !oneko.passed(ghost))) {
           if (Date.now() - bouncedAt > 10000) {
             bouncedAt = Date.now();
             nudge(data.from, "pass");
@@ -758,11 +753,9 @@
           return;
         }
         const react = { boop: "booped", tag: "tagged" }[data.a];
-        if (!calm && ghost && react) oneko[react]?.(ghost);
+        if (ghost && react) oneko[react]?.(ghost);
         return;
       }
-      // Without motion we still share our cat, but don't show moving ones.
-      if (calm) return;
       if (data.gone) {
         forget(data.id);
         return;
