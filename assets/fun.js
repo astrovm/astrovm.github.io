@@ -438,7 +438,7 @@
 
   // A thin line shows how far through a post you are, with the reading cat on it (oneko.js).
   // The cat helps: it keeps your place, marks where you were when you scroll back up,
-  // marks the sections, tells you how much is left and walks over to the next post.
+  // tells you how much is left and walks over to the next post.
   function readingProgress() {
     const article = window.location.pathname.includes("/blog/") && $(".post:not(.on-list) .post-content");
     if (!article) return;
@@ -500,29 +500,6 @@
       steer();
     };
 
-    // Ticks on the bar for each section. Tap one to jump there.
-    const headings = [...article.querySelectorAll("h2, h3")];
-    // Without the # anchor link at the end.
-    const title = (heading) => [...heading.childNodes].filter((node) => !node.classList?.contains("hanchor")).map((node) => node.textContent).join("").trim();
-    const ticks = headings.length < 2 ? [] : headings.map((heading) => {
-      const tick = document.createElement("button");
-      tick.className = "fun-tick";
-      tick.setAttribute("aria-label", title(heading));
-      tick.title = title(heading);
-      listen(tick, "click", () => jump(heading.getBoundingClientRect().top + window.scrollY - 16));
-      document.body.append(tick);
-      return tick;
-    });
-    // The last section you got to, once the page knows where you start.
-    let section = null;
-    let sectionTimer = null;
-    const placeTicks = () => {
-      ticks.forEach((tick, i) => {
-        const top = headings[i].getBoundingClientRect().top + window.scrollY - 16;
-        tick.style.left = `${Math.min(1, Math.max(0, top / (max() || 1))) * 100}%`;
-      });
-    };
-
     const update = () => {
       const now = done();
       bar.style.width = `${now * 100}%`;
@@ -544,16 +521,6 @@
         if (place === null) store.remove(key);
         else store.set(key, place);
       }
-      // Say which section it is when you get to a new one.
-      // At the very end, the last sections can't scroll up that far, so they count as reached.
-      const reached = now >= 0.98 ? headings.length - 1 : headings.findLastIndex((heading) => heading.getBoundingClientRect().top < window.innerHeight * 0.3);
-      // Only once you stay a moment, so racing past a few sections doesn't spam bubbles.
-      if (ticks.length && section !== null && reached > section) {
-        const name = title(headings[reached]);
-        window.clearTimeout(sectionTimer);
-        sectionTimer = setTimeout(() => oneko?.note(shorten(name, 28)), 600);
-      }
-      section = section === null ? reached : Math.max(section, reached);
       if (next && now >= 0.98 && !pointedNext) {
         pointedNext = true;
         setTimeout(() => { if (done() >= 0.98) oneko?.note("read next?"); }, 1200);
@@ -580,30 +547,12 @@
 
     quoteLinks(article);
     listen(window, "scroll", update, { passive: true });
-    listen(window, "resize", () => {
-      placeTicks();
-      update();
-    });
-    // Pictures change the page height as they load.
-    listen(window, "load", placeTicks);
-    placeTicks();
+    listen(window, "resize", update);
     if (saved > 0.05 && saved < 0.95 && done() < saved - 0.05) {
       mark(saved, true);
       setTimeout(() => { if (waiting) oneko?.note("you were here"); }, 2500);
     }
     update();
-  }
-
-  // Cut to fit a bubble. Japanese and Chinese letters are twice as wide.
-  function shorten(text, room) {
-    let width = 0;
-    let out = "";
-    for (const letter of text) {
-      width += /[\u1100-\uffef]/.test(letter) ? 2 : 1;
-      if (width > room) return `${out.slice(0, -1)}…`;
-      out += letter;
-    }
-    return text;
   }
 
   // Select some words in a post and the cat offers a link that opens right at them.

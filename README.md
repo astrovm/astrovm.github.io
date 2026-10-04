@@ -44,7 +44,7 @@ Vendored code in `themes/terminal` and `static/genesis/Genesis.js` is outside th
 
 Other visitors' cats on the same page show up as faded cats, whatever language they read in. On articles they sit on the reading bar at their spot in the post. Cats that meet boop noses, play tag or pass the yarn. Try `oneko.pass()` in the console when another cat is around.
 
-The reading cat remembers unfinished posts. Tap it to return to your place or see the time left, and drag it along the bar to scroll. A paw marks your place when you look back up, and section ticks jump to headings. Select words to copy a quote link. At the end, the cat points to another post.
+The reading cat remembers unfinished posts. Tap it to return to your place or see the time left, and drag it along the bar to scroll. A paw marks your place when you look back up. Select words to copy a quote link. At the end, the cat points to another post.
 
 The relay is a Cloudflare Worker in `workers/ghosts`. CI deploys it on every push to `main`, before the site, using the `CLOUDFLARE_WORKERS_TOKEN` secret (an **Edit Cloudflare Workers** token for the astro account). When the messages change, bump `VERSION` there and `v=` in `fun.js`. To deploy by hand:
 
