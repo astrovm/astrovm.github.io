@@ -184,13 +184,27 @@ powerprofilesctl set performance
 
 ## 响应速度
 
-T3 Code 以及它的 agent 启动的构建和测试的 CPU weight 比桌面低。没有其他程序需要时仍然会用满所有核心。
+T3 Code 以及它的 agent 启动的构建和测试的 CPU weight 比桌面低。没有其他程序需要时仍然会用满所有核心。内存超过 16 GB 后会先被降速和回收，桌面就不会被挤进 swap。
 
 ```bash
 mkdir -p ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d && \
   tee ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d/background.conf > /dev/null << 'EOF'
 [Scope]
 CPUWeight=20
+MemoryHigh=16G
+EOF
+
+systemctl --user daemon-reload
+```
+
+Podman 容器在 T3 Code 的 scope 之外运行，所以也加上同样的限制：
+
+```bash
+mkdir -p ~/.config/systemd/user/libpod-.scope.d && \
+  tee ~/.config/systemd/user/libpod-.scope.d/background.conf > /dev/null << 'EOF'
+[Scope]
+CPUWeight=20
+MemoryHigh=16G
 EOF
 
 systemctl --user daemon-reload
@@ -450,6 +464,16 @@ sudo snap install android-studio --classic
 ```
 
 Setup Wizard 会把 SDK 下载到 `~/Android/Sdk`。
+
+Gradle 守护进程空闲 15 分钟后自动退出：
+
+```bash
+mkdir -p ~/.gradle && \
+  tee ~/.gradle/gradle.properties > /dev/null << 'EOF'
+org.gradle.daemon.idletimeout=900000
+org.gradle.workers.max=6
+EOF
+```
 
 ## Zed
 

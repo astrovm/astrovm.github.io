@@ -184,13 +184,27 @@ powerprofilesctl set performance
 
 ## Responsividad
 
-T3 Code y los builds y tests que lanzan sus agentes tienen menos peso de CPU que el escritorio. Igual usan todos los núcleos cuando nada más los necesita.
+T3 Code y los builds y tests que lanzan sus agentes tienen menos peso de CPU que el escritorio. Igual usan todos los núcleos cuando nada más los necesita. Pasados 16 GB de RAM se frenan y se liberan primero, así el escritorio no termina en swap.
 
 ```bash
 mkdir -p ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d && \
   tee ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d/background.conf > /dev/null << 'EOF'
 [Scope]
 CPUWeight=20
+MemoryHigh=16G
+EOF
+
+systemctl --user daemon-reload
+```
+
+Los contenedores de Podman corren fuera del scope de T3 Code, así que tienen los mismos límites:
+
+```bash
+mkdir -p ~/.config/systemd/user/libpod-.scope.d && \
+  tee ~/.config/systemd/user/libpod-.scope.d/background.conf > /dev/null << 'EOF'
+[Scope]
+CPUWeight=20
+MemoryHigh=16G
 EOF
 
 systemctl --user daemon-reload
@@ -450,6 +464,16 @@ sudo snap install android-studio --classic
 ```
 
 El Setup Wizard descarga el SDK en `~/Android/Sdk`.
+
+Los daemons de Gradle se cierran después de 15 minutos sin uso:
+
+```bash
+mkdir -p ~/.gradle && \
+  tee ~/.gradle/gradle.properties > /dev/null << 'EOF'
+org.gradle.daemon.idletimeout=900000
+org.gradle.workers.max=6
+EOF
+```
 
 ## Zed
 
