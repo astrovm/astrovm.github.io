@@ -627,7 +627,7 @@
     }
 
     // Walk one step toward (tx, ty). Returns true once there.
-    step(tx, ty, closeEnough, speed = SPEED, prints = true) {
+    step(tx, ty, closeEnough, speed = SPEED, leavesTrail = true) {
       const dx = this.x - tx;
       const dy = this.y - ty;
       const distance = Math.hypot(dx, dy);
@@ -648,7 +648,7 @@
       this.x -= (dx / distance) * move;
       this.y -= (dy / distance) * move;
       this.place();
-      if (prints) this.trail(Math.atan2(-dy, -dx));
+      if (leavesTrail) this.trail(Math.atan2(-dy, -dx));
       return false;
     }
 
