@@ -184,13 +184,27 @@ powerprofilesctl set performance
 
 ## Responsiveness
 
-T3 Code and the builds and tests its agents start get a lower CPU weight than the desktop. They still use every core when nothing else needs it.
+T3 Code and the builds and tests its agents start get a lower CPU weight than the desktop. They still use every core when nothing else needs it. Past 16 GB of RAM they get slowed down and reclaimed first, so the desktop doesn't end up in swap.
 
 ```bash
 mkdir -p ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d && \
   tee ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d/background.conf > /dev/null << 'EOF'
 [Scope]
 CPUWeight=20
+MemoryHigh=16G
+EOF
+
+systemctl --user daemon-reload
+```
+
+Podman containers run outside the T3 Code scope, so they get the same limits:
+
+```bash
+mkdir -p ~/.config/systemd/user/libpod-.scope.d && \
+  tee ~/.config/systemd/user/libpod-.scope.d/background.conf > /dev/null << 'EOF'
+[Scope]
+CPUWeight=20
+MemoryHigh=16G
 EOF
 
 systemctl --user daemon-reload
@@ -450,6 +464,16 @@ sudo snap install android-studio --classic
 ```
 
 The Setup Wizard downloads the SDK to `~/Android/Sdk`.
+
+Gradle daemons exit after 15 idle minutes:
+
+```bash
+mkdir -p ~/.gradle && \
+  tee ~/.gradle/gradle.properties > /dev/null << 'EOF'
+org.gradle.daemon.idletimeout=900000
+org.gradle.workers.max=6
+EOF
+```
 
 ## Zed
 

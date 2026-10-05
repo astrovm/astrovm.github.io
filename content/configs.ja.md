@@ -184,13 +184,27 @@ powerprofilesctl set performance
 
 ## レスポンス
 
-T3 Codeと、そのエージェントが起動するビルドやテストのCPU weightをデスクトップより下げる。他に使うものがなければ全コアを使う。
+T3 Codeと、そのエージェントが起動するビルドやテストのCPU weightをデスクトップより下げる。他に使うものがなければ全コアを使う。RAMが16 GBを超えると先に減速・回収されるので、デスクトップがswapに追い出されない。
 
 ```bash
 mkdir -p ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d && \
   tee ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d/background.conf > /dev/null << 'EOF'
 [Scope]
 CPUWeight=20
+MemoryHigh=16G
+EOF
+
+systemctl --user daemon-reload
+```
+
+PodmanのコンテナはT3 Codeのscopeの外で動くので、同じ制限をかける：
+
+```bash
+mkdir -p ~/.config/systemd/user/libpod-.scope.d && \
+  tee ~/.config/systemd/user/libpod-.scope.d/background.conf > /dev/null << 'EOF'
+[Scope]
+CPUWeight=20
+MemoryHigh=16G
 EOF
 
 systemctl --user daemon-reload
@@ -450,6 +464,16 @@ sudo snap install android-studio --classic
 ```
 
 Setup WizardがSDKを`~/Android/Sdk`へダウンロードする。
+
+Gradleデーモンは15分使われないと終了する：
+
+```bash
+mkdir -p ~/.gradle && \
+  tee ~/.gradle/gradle.properties > /dev/null << 'EOF'
+org.gradle.daemon.idletimeout=900000
+org.gradle.workers.max=6
+EOF
+```
 
 ## Zed
 
