@@ -179,51 +179,20 @@ test('tapping the cat tells how much is left', () => {
   expect(b.notes.at(-1)).toBe('all done ♡');
 });
 
-test('sections get ticks you can tap, and the cat names each new one', () => {
-  const b = page({ headings: [['Intro', 100], ['A very long section name that goes on and on', 600]] });
-  const ticks = b.all('fun-tick');
-  expect(ticks.map((tick) => tick.style.left)).toEqual(['8.4%', '58.4%']);
-  expect(ticks[1].title).toBe('A very long section name that goes on and on');
-  ticks[1].click();
-  expect(b.window.scrollY).toBe(584);
-  expect(b.notes).toEqual([]);
-  b.wait();
-  expect(b.notes).toEqual(['A very long section name th…']);
-});
-
-test('the first section gets named too, when it starts below the fold', () => {
-  const b = page({ headings: [['Intro', 400], ['Middle', 900]] });
-  b.scroll(300);
-  b.wait();
-  expect(b.notes).toEqual(['Intro']);
-});
-
-test('the last section gets named at the very end, even if it never reaches the top', () => {
-  const b = page({ headings: [['Start', 100], ['Last', 1400]] });
-  b.scroll(1000);
-  b.wait();
-  expect(b.notes).toContain('Last');
-});
-
-test('long Japanese section names get cut shorter, since each letter is twice as wide', () => {
-  const b = page({ headings: [['Start', 100], ['とても長いセクションの見出しです', 600]] });
-  b.scroll(600);
-  b.wait();
-  expect(b.notes).toEqual(['とても長いセクションの見出…']);
-});
-
-test('racing past a few sections names only the one you stop at', () => {
-  const b = page({ headings: [['One', 400], ['Two', 700], ['Three', 1000]] });
-  b.scroll(300);
-  b.scroll(600);
-  b.scroll(900);
-  b.wait();
-  expect(b.notes).toEqual(['Three']);
-});
-
-test('one heading is not worth ticks', () => {
-  const b = page({ headings: [['Only', 100]] });
+test('article headings do not add section markers or announce sections while scrolling', () => {
+  const b = page({ headings: [['Intro', 100], ['Middle', 600], ['Last', 1400]] });
   expect(b.all('fun-tick')).toHaveLength(0);
+  for (const top of [300, 600, 1000]) {
+    b.scroll(top);
+    b.wait();
+    expect(b.notes).toEqual([]);
+  }
+  expect(b.find('fun-progress').style.width).toBe('100%');
+  b.navigate(true);
+  b.scroll(600);
+  b.wait();
+  expect(b.all('fun-tick')).toHaveLength(0);
+  expect(b.notes).toEqual([]);
 });
 
 test('at the end the cat walks to the next post, and a tap opens it', () => {
@@ -303,10 +272,12 @@ test('the quote link hides when nothing is selected or the page scrolls', () => 
   expect(b.find('fun-quote').hidden).toBe(true);
 });
 
-test('resize replaces section positions and quote presses keep the selection, with copy failures reported', async () => {
-  const b = page({ headings: [['Intro', 100], ['Next', 600]] });
+test('resize updates reading progress and quote presses preserve selection, with copy failures reported', async () => {
+  const b = page();
+  b.scroll(500);
+  b.document.documentElement.scrollHeight = 2000;
   b.window.dispatchEvent(new Event('resize'));
-  expect(b.all('fun-tick')[1].style.left).toBe('58.4%');
+  expect(b.find('fun-progress').style.width).toBe(`${500 / 1500 * 100}%`);
   b.select('selected words');
   const button = b.find('fun-quote');
   const press = new Event('pointerdown', { cancelable: true });
