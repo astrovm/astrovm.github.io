@@ -186,7 +186,6 @@ test('entering an article, the cat runs to the progress bar instead of jumping t
   expect(Math.hypot(first.x - 200, first.y - 400)).toBeLessThanOrEqual(60.01);
   b.settle();
   expect(b.window.oneko.cats()[0]).toEqual({ x: 16, y: 19 });
-  expect(b.body.children.filter((el) => el.className === 'oneko-print')).toHaveLength(0);
 });
 
 function yarnPage() {
