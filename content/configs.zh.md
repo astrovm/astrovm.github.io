@@ -184,13 +184,29 @@ powerprofilesctl set performance
 
 ## 响应速度
 
-T3 Code 以及它的 agent 启动的构建和测试的 CPU weight 比桌面低。没有其他程序需要时仍然会用满所有核心。内存超过 16 GB 后会先被降速和回收，桌面就不会被挤进 swap。
+T3 Code 以及它的 agent 启动的构建和测试的 CPU weight 比桌面低。没有其他程序需要时仍然会用满所有核心。内存超过 16 GB 后会先被降速和回收，桌面就不会被挤进 swap。 磁盘 weight 也更低，所以一直写盘的构建不会卡住桌面。
+
+磁盘 weight 需要用户会话里的 `io` 控制器和 NVMe 上的 BFQ 调度器。设置完重启：
+
+```bash
+sudo mkdir -p /etc/systemd/system/user@.service.d && \
+  sudo tee /etc/systemd/system/user@.service.d/delegate.conf > /dev/null << 'EOF'
+[Service]
+Delegate=cpu cpuset io memory pids
+EOF
+
+echo bfq | sudo tee /etc/modules-load.d/bfq.conf > /dev/null
+sudo tee /etc/udev/rules.d/60-iosched.rules > /dev/null << 'EOF'
+ACTION=="add|change", KERNEL=="nvme[0-9]*n[0-9]*", ATTR{queue/scheduler}="bfq"
+EOF
+```
 
 ```bash
 mkdir -p ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d && \
   tee ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d/background.conf > /dev/null << 'EOF'
 [Scope]
 CPUWeight=20
+IOWeight=10
 MemoryHigh=16G
 EOF
 
@@ -204,6 +220,7 @@ mkdir -p ~/.config/systemd/user/libpod-.scope.d && \
   tee ~/.config/systemd/user/libpod-.scope.d/background.conf > /dev/null << 'EOF'
 [Scope]
 CPUWeight=20
+IOWeight=10
 MemoryHigh=16G
 EOF
 
@@ -213,7 +230,7 @@ systemctl --user daemon-reload
 其他一次性的重负载命令：
 
 ```bash
-systemd-run --user --scope -p CPUWeight=20 <command>
+systemd-run --user --scope -p CPUWeight=20 -p IOWeight=10 <command>
 ```
 
 禁用 Baloo 文件索引：
@@ -427,6 +444,19 @@ curl --proto '=https' --tlsv1.2 -fsSL https://bun.sh/install | bash
 
 ```bash
 curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
+```
+
+用 mold 链接并减少调试信息，大型 Rust 构建写盘会少很多：
+
+```bash
+sudo apt install mold && \
+  tee ~/.cargo/config.toml > /dev/null << 'EOF'
+[target.x86_64-unknown-linux-gnu]
+rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+
+[profile.dev]
+debug = "line-tables-only"
+EOF
 ```
 
 # 应用

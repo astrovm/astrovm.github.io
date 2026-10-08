@@ -184,13 +184,29 @@ powerprofilesctl set performance
 
 ## Responsiveness
 
-T3 Code and the builds and tests its agents start get a lower CPU weight than the desktop. They still use every core when nothing else needs it. Past 16 GB of RAM they get slowed down and reclaimed first, so the desktop doesn't end up in swap.
+T3 Code and the builds and tests its agents start get a lower CPU weight than the desktop. They still use every core when nothing else needs it. Past 16 GB of RAM they get slowed down and reclaimed first, so the desktop doesn't end up in swap. They also get a lower disk weight, so a build writing nonstop doesn't freeze the desktop.
+
+Disk weights need the `io` controller in user sessions and the BFQ scheduler on the NVMe drives. Reboot after this:
+
+```bash
+sudo mkdir -p /etc/systemd/system/user@.service.d && \
+  sudo tee /etc/systemd/system/user@.service.d/delegate.conf > /dev/null << 'EOF'
+[Service]
+Delegate=cpu cpuset io memory pids
+EOF
+
+echo bfq | sudo tee /etc/modules-load.d/bfq.conf > /dev/null
+sudo tee /etc/udev/rules.d/60-iosched.rules > /dev/null << 'EOF'
+ACTION=="add|change", KERNEL=="nvme[0-9]*n[0-9]*", ATTR{queue/scheduler}="bfq"
+EOF
+```
 
 ```bash
 mkdir -p ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d && \
   tee ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d/background.conf > /dev/null << 'EOF'
 [Scope]
 CPUWeight=20
+IOWeight=10
 MemoryHigh=16G
 EOF
 
@@ -204,6 +220,7 @@ mkdir -p ~/.config/systemd/user/libpod-.scope.d && \
   tee ~/.config/systemd/user/libpod-.scope.d/background.conf > /dev/null << 'EOF'
 [Scope]
 CPUWeight=20
+IOWeight=10
 MemoryHigh=16G
 EOF
 
@@ -213,7 +230,7 @@ systemctl --user daemon-reload
 Other heavy one-off commands:
 
 ```bash
-systemd-run --user --scope -p CPUWeight=20 <command>
+systemd-run --user --scope -p CPUWeight=20 -p IOWeight=10 <command>
 ```
 
 Disable Baloo file indexing:
@@ -427,6 +444,19 @@ curl --proto '=https' --tlsv1.2 -fsSL https://bun.sh/install | bash
 
 ```bash
 curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
+```
+
+Link with mold and keep less debug info, so big Rust builds write much less to disk:
+
+```bash
+sudo apt install mold && \
+  tee ~/.cargo/config.toml > /dev/null << 'EOF'
+[target.x86_64-unknown-linux-gnu]
+rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+
+[profile.dev]
+debug = "line-tables-only"
+EOF
 ```
 
 # Apps

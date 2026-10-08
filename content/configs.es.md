@@ -184,13 +184,29 @@ powerprofilesctl set performance
 
 ## Responsividad
 
-T3 Code y los builds y tests que lanzan sus agentes tienen menos peso de CPU que el escritorio. Igual usan todos los núcleos cuando nada más los necesita. Pasados 16 GB de RAM se frenan y se liberan primero, así el escritorio no termina en swap.
+T3 Code y los builds y tests que lanzan sus agentes tienen menos peso de CPU que el escritorio. Igual usan todos los núcleos cuando nada más los necesita. Pasados 16 GB de RAM se frenan y se liberan primero, así el escritorio no termina en swap. También tienen menos peso de disco, así un build que escribe sin parar no congela el escritorio.
+
+El peso de disco necesita el controlador `io` en las sesiones de usuario y el scheduler BFQ en los NVMe. Reiniciá después de esto:
+
+```bash
+sudo mkdir -p /etc/systemd/system/user@.service.d && \
+  sudo tee /etc/systemd/system/user@.service.d/delegate.conf > /dev/null << 'EOF'
+[Service]
+Delegate=cpu cpuset io memory pids
+EOF
+
+echo bfq | sudo tee /etc/modules-load.d/bfq.conf > /dev/null
+sudo tee /etc/udev/rules.d/60-iosched.rules > /dev/null << 'EOF'
+ACTION=="add|change", KERNEL=="nvme[0-9]*n[0-9]*", ATTR{queue/scheduler}="bfq"
+EOF
+```
 
 ```bash
 mkdir -p ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d && \
   tee ~/.config/systemd/user/app-com.t3tools.T3Code-.scope.d/background.conf > /dev/null << 'EOF'
 [Scope]
 CPUWeight=20
+IOWeight=10
 MemoryHigh=16G
 EOF
 
@@ -204,6 +220,7 @@ mkdir -p ~/.config/systemd/user/libpod-.scope.d && \
   tee ~/.config/systemd/user/libpod-.scope.d/background.conf > /dev/null << 'EOF'
 [Scope]
 CPUWeight=20
+IOWeight=10
 MemoryHigh=16G
 EOF
 
@@ -213,7 +230,7 @@ systemctl --user daemon-reload
 Otros comandos pesados puntuales:
 
 ```bash
-systemd-run --user --scope -p CPUWeight=20 <command>
+systemd-run --user --scope -p CPUWeight=20 -p IOWeight=10 <command>
 ```
 
 Deshabilitar la indexación de archivos de Baloo:
@@ -427,6 +444,19 @@ curl --proto '=https' --tlsv1.2 -fsSL https://bun.sh/install | bash
 
 ```bash
 curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
+```
+
+Linkear con mold y guardar menos info de debug, así los builds grandes de Rust escriben mucho menos en disco:
+
+```bash
+sudo apt install mold && \
+  tee ~/.cargo/config.toml > /dev/null << 'EOF'
+[target.x86_64-unknown-linux-gnu]
+rustflags = ["-C", "link-arg=-fuse-ld=mold"]
+
+[profile.dev]
+debug = "line-tables-only"
+EOF
 ```
 
 # Apps
