@@ -266,19 +266,22 @@ sudo systemctl restart NetworkManager
 ```bash
 apt_packages=(
   # Build and development
-  autoconf automake bear build-essential clang cmake libfuse-dev libfuse3-dev
-  libtool meson ninja-build pkg-config python-is-python3 python3-dev
-  python3-full python3-venv valgrind
+  autoconf automake bear build-essential clang cmake editorconfig expect
+  libfuse-dev libfuse3-dev libtool meson ninja-build pkg-config pre-commit
+  python-is-python3 python3-dev python3-full python3-venv shellcheck shfmt
+  universal-ctags valgrind
 
   # Shell and CLI
-  ble.sh neovim toilet
+  bat ble.sh btop cmatrix direnv duf eza fd-find fortune-mod hyperfine jo
+  moreutils neovim procs ripgrep-all tealdeer thefuck tidy tmux toilet
+  trash-cli tree ugrep xmlstarlet zoxide
 
   # Networking and security
-  hashcat nmap redis-tools ssh
-  torbrowser-launcher tshark wireshark
+  aria2 axel hashcat httpie nethogs nload nmap redis-tools speedtest-cli ssh
+  sshpass torbrowser-launcher tshark whois wireshark
 
   # Audio, video, and images
-  ffmpegthumbnailer handbrake mpv optipng pamixer playerctl vlc
+  ffmpegthumbnailer gifsicle handbrake mpv optipng pamixer playerctl vlc
 
   # Containers and virtualization
   buildah cockpit cockpit-podman criu distrobox libvirt-daemon-system podman
@@ -294,7 +297,8 @@ apt_packages=(
   mythes-es
 
   # System utilities and maintenance
-  antiword clamav diffoscope firejail hw-probe iotop-c pdfgrep timeshift unrar
+  antiword clamav diffoscope firejail hw-probe inotify-tools iotop-c pdfgrep
+  timeshift unrar
 )
 
 sudo apt install "${apt_packages[@]}"
@@ -375,13 +379,8 @@ sudo apt install extrepo && \
 /bin/bash -c "$(curl --proto '=https' --tlsv1.2 -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
   brew install \
-    aria2 atuin axel bat btop cmatrix cowsay croc direnv duf \
-    editorconfig expect eza fd fnm fortune gh gifsicle glab go \
-    httpie hugo hyperfine inotify-tools jo just lazygit magic-wormhole \
-    moreutils ncdu nethogs nload pandoc pinact pipx pngquant \
-    pre-commit procs ripgrep-all shellcheck shfmt speedtest-cli sshpass starship \
-    tealdeer thefuck tidy-html5 tmux topgrade trash-cli tree typst ugrep \
-    universal-ctags uv whois xmlstarlet yq yt-dlp zoxide
+    atuin cowsay croc fnm gh glab go hugo just lazygit magic-wormhole \
+    ncdu pandoc pinact pipx pngquant starship topgrade typst uv yq yt-dlp
 ```
 
 ## Topgrade config
@@ -667,6 +666,10 @@ if command -v eza >/dev/null 2>&1; then
   alias la='eza --almost-all --group-directories-first'
   alias ll='eza --long --all --classify --group-directories-first'
 fi
+
+# debian renames these
+alias bat='batcat'
+alias fd='fdfind'
 
 if [ -r "$HOME/.bash_aliases" ]; then
   . "$HOME/.bash_aliases"
