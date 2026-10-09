@@ -388,7 +388,8 @@ sudo apt install extrepo && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
   brew install \
     atuin cowsay croc fnm gh glab go hugo just lazygit magic-wormhole \
-    ncdu pandoc pinact pipx pngquant starship topgrade typst uv yq yt-dlp
+    ncdu pandoc pinact pipx pngquant sccache starship topgrade typst uv yq \
+    yt-dlp
 ```
 
 ## Topgrade config
@@ -453,18 +454,33 @@ curl --proto '=https' --tlsv1.2 -fsSL https://bun.sh/install | bash
 curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
 ```
 
-moldでリンクしてデバッグ情報を減らし、大きなRustビルドのディスク書き込みを大幅に減らす：
+moldでリンクし、sccacheでコンパイル済みのクレートをworktree間でキャッシュし、インクリメンタルビルドと依存クレートのデバッグ情報をやめる。新しいworktreeでのPkgDeckのテストビルドは、202秒・8.6 GB書き込みから108秒・3.2 GBになった：
 
 ```bash
-sudo apt install mold && \
+sudo apt install mold && brew install sccache && \
   tee ~/.cargo/config.toml > /dev/null << 'EOF'
+[build]
+rustc-wrapper = "sccache"
+incremental = false
+
 [target.x86_64-unknown-linux-gnu]
 rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 
 [profile.dev]
 debug = "line-tables-only"
+
+[profile.dev.package."*"]
+debug = false
+EOF
+
+mkdir -p ~/.config/sccache && \
+  tee ~/.config/sccache/config > /dev/null << 'EOF'
+[cache.disk]
+size = 21474836480
 EOF
 ```
+
+手で編集してビルドし直す大きなクレートには、`CARGO_INCREMENTAL=1`でインクリメンタルビルドを戻せる。
 
 # アプリ
 

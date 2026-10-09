@@ -388,7 +388,8 @@ sudo apt install extrepo && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
   brew install \
     atuin cowsay croc fnm gh glab go hugo just lazygit magic-wormhole \
-    ncdu pandoc pinact pipx pngquant starship topgrade typst uv yq yt-dlp
+    ncdu pandoc pinact pipx pngquant sccache starship topgrade typst uv yq \
+    yt-dlp
 ```
 
 ## Topgrade config
@@ -453,18 +454,33 @@ curl --proto '=https' --tlsv1.2 -fsSL https://bun.sh/install | bash
 curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
 ```
 
-用 mold 链接并减少调试信息，大型 Rust 构建写盘会少很多：
+用 mold 链接，用 sccache 在 worktree 之间缓存编译好的 crate，并关闭增量构建和依赖的调试信息。在新 worktree 里构建 PkgDeck 的测试，从 202 秒、写盘 8.6 GB 降到 108 秒、3.2 GB：
 
 ```bash
-sudo apt install mold && \
+sudo apt install mold && brew install sccache && \
   tee ~/.cargo/config.toml > /dev/null << 'EOF'
+[build]
+rustc-wrapper = "sccache"
+incremental = false
+
 [target.x86_64-unknown-linux-gnu]
 rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 
 [profile.dev]
 debug = "line-tables-only"
+
+[profile.dev.package."*"]
+debug = false
+EOF
+
+mkdir -p ~/.config/sccache && \
+  tee ~/.config/sccache/config > /dev/null << 'EOF'
+[cache.disk]
+size = 21474836480
 EOF
 ```
+
+手动编辑并反复构建大型 crate 时，用 `CARGO_INCREMENTAL=1` 重新打开增量构建。
 
 # 应用
 
