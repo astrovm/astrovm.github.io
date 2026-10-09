@@ -227,10 +227,18 @@ EOF
 systemctl --user daemon-reload
 ```
 
-Otros comandos pesados puntuales:
+Los comandos pesados que lanzan los agentes, como builds, tests y mutation testing, van todos a un mismo slice. Aunque corran varios a la vez, comparten una sola porción chica:
 
 ```bash
-systemd-run --user --scope -p CPUWeight=20 -p IOWeight=10 <command>
+tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
+[Slice]
+CPUWeight=20
+IOWeight=10
+MemoryHigh=12G
+EOF
+
+systemctl --user daemon-reload
+systemd-run --user --scope --slice=agents.slice <command>
 ```
 
 Deshabilitar la indexación de archivos de Baloo:

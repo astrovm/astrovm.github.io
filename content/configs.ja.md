@@ -227,10 +227,18 @@ EOF
 systemctl --user daemon-reload
 ```
 
-その他の重い単発コマンド：
+エージェントが起動する重いコマンド（ビルド、テスト、ミューテーションテストなど）は、すべて1つの共有sliceに入れる。いくつ同時に動いても、小さな取り分を1つ分け合うだけ：
 
 ```bash
-systemd-run --user --scope -p CPUWeight=20 -p IOWeight=10 <command>
+tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
+[Slice]
+CPUWeight=20
+IOWeight=10
+MemoryHigh=12G
+EOF
+
+systemctl --user daemon-reload
+systemd-run --user --scope --slice=agents.slice <command>
 ```
 
 Balooのファイルインデックスを無効化：
