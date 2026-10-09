@@ -388,7 +388,8 @@ sudo apt install extrepo && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
   brew install \
     atuin cowsay croc fnm gh glab go hugo just lazygit magic-wormhole \
-    ncdu pandoc pinact pipx pngquant starship topgrade typst uv yq yt-dlp
+    ncdu pandoc pinact pipx pngquant sccache starship topgrade typst uv yq \
+    yt-dlp
 ```
 
 ## Topgrade config
@@ -453,18 +454,33 @@ curl --proto '=https' --tlsv1.2 -fsSL https://bun.sh/install | bash
 curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
 ```
 
-Link with mold and keep less debug info, so big Rust builds write much less to disk:
+Link with mold, cache compiled crates with sccache across worktrees, and skip incremental builds and debug info for dependencies. A test build of PkgDeck in a new worktree went from 202 s and 8.6 GB written to 108 s and 3.2 GB:
 
 ```bash
-sudo apt install mold && \
+sudo apt install mold && brew install sccache && \
   tee ~/.cargo/config.toml > /dev/null << 'EOF'
+[build]
+rustc-wrapper = "sccache"
+incremental = false
+
 [target.x86_64-unknown-linux-gnu]
 rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 
 [profile.dev]
 debug = "line-tables-only"
+
+[profile.dev.package."*"]
+debug = false
+EOF
+
+mkdir -p ~/.config/sccache && \
+  tee ~/.config/sccache/config > /dev/null << 'EOF'
+[cache.disk]
+size = 21474836480
 EOF
 ```
+
+For a big crate you edit and rebuild by hand, `CARGO_INCREMENTAL=1` turns incremental builds back on.
 
 # Apps
 

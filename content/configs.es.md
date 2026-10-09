@@ -388,7 +388,8 @@ sudo apt install extrepo && \
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" && \
   brew install \
     atuin cowsay croc fnm gh glab go hugo just lazygit magic-wormhole \
-    ncdu pandoc pinact pipx pngquant starship topgrade typst uv yq yt-dlp
+    ncdu pandoc pinact pipx pngquant sccache starship topgrade typst uv yq \
+    yt-dlp
 ```
 
 ## Topgrade config
@@ -453,18 +454,33 @@ curl --proto '=https' --tlsv1.2 -fsSL https://bun.sh/install | bash
 curl --proto '=https' --tlsv1.2 -fsSL https://sh.rustup.rs | sh
 ```
 
-Linkear con mold y guardar menos info de debug, así los builds grandes de Rust escriben mucho menos en disco:
+Linkear con mold, cachear los crates compilados con sccache entre worktrees y no usar builds incrementales ni info de debug en las dependencias. Un build de tests de PkgDeck en un worktree nuevo pasó de 202 s y 8,6 GB escritos a 108 s y 3,2 GB:
 
 ```bash
-sudo apt install mold && \
+sudo apt install mold && brew install sccache && \
   tee ~/.cargo/config.toml > /dev/null << 'EOF'
+[build]
+rustc-wrapper = "sccache"
+incremental = false
+
 [target.x86_64-unknown-linux-gnu]
 rustflags = ["-C", "link-arg=-fuse-ld=mold"]
 
 [profile.dev]
 debug = "line-tables-only"
+
+[profile.dev.package."*"]
+debug = false
+EOF
+
+mkdir -p ~/.config/sccache && \
+  tee ~/.config/sccache/config > /dev/null << 'EOF'
+[cache.disk]
+size = 21474836480
 EOF
 ```
+
+Para un crate grande que editás y recompilás a mano, `CARGO_INCREMENTAL=1` vuelve a activar los builds incrementales.
 
 # Apps
 
