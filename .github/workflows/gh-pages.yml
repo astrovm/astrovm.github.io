@@ -29,7 +29,7 @@ jobs:
         working-directory: workers/ghosts
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_WORKERS_TOKEN }}
-        run: bunx wrangler@4.147.0 deploy
+        run: bunx wrangler@4.148.0 deploy
 
   build:
     needs: worker
