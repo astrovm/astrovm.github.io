@@ -227,10 +227,18 @@ EOF
 systemctl --user daemon-reload
 ```
 
-其他一次性的重负载命令：
+agent 启动的重负载命令（构建、测试、变异测试等）都放进同一个共享 slice。同时跑多个也只分一小份资源：
 
 ```bash
-systemd-run --user --scope -p CPUWeight=20 -p IOWeight=10 <command>
+tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
+[Slice]
+CPUWeight=20
+IOWeight=10
+MemoryHigh=12G
+EOF
+
+systemctl --user daemon-reload
+systemd-run --user --scope --slice=agents.slice <command>
 ```
 
 禁用 Baloo 文件索引：

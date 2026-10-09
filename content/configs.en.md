@@ -227,10 +227,18 @@ EOF
 systemctl --user daemon-reload
 ```
 
-Other heavy one-off commands:
+Heavy commands that agents start, like builds, tests and mutation testing, all go into one shared slice. Several at once still get only one small share:
 
 ```bash
-systemd-run --user --scope -p CPUWeight=20 -p IOWeight=10 <command>
+tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
+[Slice]
+CPUWeight=20
+IOWeight=10
+MemoryHigh=12G
+EOF
+
+systemctl --user daemon-reload
+systemd-run --user --scope --slice=agents.slice <command>
 ```
 
 Disable Baloo file indexing:
