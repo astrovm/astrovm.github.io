@@ -27,8 +27,8 @@ function fun(options: any = {}) {
   return { ...b, calls, tones, closes, cat, positions: (value: any[]) => positions = value, chase: () => point?.(), friends: () => list?.() };
 }
 
-test('status uses Buenos Aires time and sound labels in all four languages', async () => {
-  for (const lang of ['en', 'es', 'ja', 'zh']) {
+test('status uses Buenos Aires time and sound labels in all five languages', async () => {
+  for (const lang of ['en', 'es', 'ja', 'zh', 'zh-tw']) {
     const b = fun({ html: status, url: 'https://example.test/en/?today=2026-03-03T06:00:00Z' });
     b.document.documentElement.lang = lang;
     b.context.fetch = async () => ({ ok: false });

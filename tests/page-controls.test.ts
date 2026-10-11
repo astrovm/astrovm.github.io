@@ -14,9 +14,12 @@ test('language redirects prefer a valid cookie, then the browser, then English',
   };
   expect(redirect('/contact/', 'other=yes; preferredLanguage=es', 'ja-JP')).toBe('/es/contact/');
   expect(redirect('/projects/', 'preferredLanguage=invalid', 'zh-CN')).toBe('/zh/projects/');
+  for (const language of ['zh-TW', 'zh-HK', 'zh-MO', 'zh-Hant', 'zh-Hant-TW']) expect(redirect('/', '', language)).toBe('/zh-tw/');
+  expect(redirect('/', '', 'zh-Hans-CN')).toBe('/zh/');
+  expect(redirect('/', 'preferredLanguage=zh-tw', 'en')).toBe('/zh-tw/');
   expect(redirect('/', '', 'fr-FR')).toBe('/en/');
   expect(redirect('/', '')).toBe('/en/');
-  for (const path of ['/en', '/es/', '/ja/contact/', '/zh/']) expect(redirect(path, '', 'en')).toBe('');
+  for (const path of ['/en', '/es/', '/ja/contact/', '/zh/', '/zh-tw/', '/zh-tw']) expect(redirect(path, '', 'en')).toBe('');
 });
 
 const controls = `<div class="container"><div class="menu"><button class="menu__trigger">menu</button><div class="menu__dropdown">links</div></div><div class="menu"><button class="menu__trigger">languages</button><div class="menu__dropdown">languages</div></div><div class="menu"></div></div><div class="highlight"><div class="chroma"><code data-lang="js">example code</code></div></div><code data-lang="sh" class="chroma"></code>`;

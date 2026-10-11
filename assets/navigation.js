@@ -123,7 +123,7 @@
     const link = event.target.closest('a[href]');
     if (!link || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
     const url = new URL(link.href);
-    if (url.origin !== location.origin || !/^\/(en|es|ja|zh)(\/|$)/.test(url.pathname) || /\.[^/]+$/.test(url.pathname)) return;
+    if (url.origin !== location.origin || !/^\/(en|es|ja|zh|zh-tw)(\/|$)/.test(url.pathname) || /\.[^/]+$/.test(url.pathname)) return;
     if (url.pathname === location.pathname && url.search === location.search) {
       if (pending) {
         pending.abort();

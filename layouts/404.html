@@ -4,6 +4,7 @@
     "es" (slice "esta página se escapó. el gato la está buscando (=;ω;=)" "volver al inicio")
     "ja" (slice "このページは逃げちゃった。ネコが探してる (=;ω;=)" "ホームへ")
     "zh" (slice "这个页面跑掉了。猫咪正在找它 (=;ω;=)" "回首页")
+    "zh-tw" (slice "這個頁面跑掉了。貓咪正在找它 (=;ω;=)" "回首頁")
   }}
   {{- $text := index $lost .Site.Language.Lang | default (index $lost "en") }}
   <div class="post lost-page">

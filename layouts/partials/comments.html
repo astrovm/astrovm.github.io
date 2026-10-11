@@ -18,7 +18,7 @@
   data-emit-metadata="0"
   data-input-position="bottom"
   data-theme="transparent_dark"
-  data-lang="{{ if eq .Lang "zh" }}zh-CN{{ else }}{{ .Lang }}{{ end }}"
+  data-lang="{{ if eq .Lang "zh" }}zh-CN{{ else if eq .Lang "zh-tw" }}zh-TW{{ else }}{{ .Lang }}{{ end }}"
   data-loading="lazy"
   crossorigin="anonymous"
   async

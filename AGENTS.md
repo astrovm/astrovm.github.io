@@ -4,7 +4,7 @@ astro's personal website: blog posts, projects, configs and contact. Hugo with t
 
 ## What's here
 
-- `content/`: pages and posts in 4 languages (en, es, ja, zh). Every change goes to all four.
+- `content/`: pages and posts in 5 languages (en, es, ja, zh, zh-tw). Every change goes to all five. `zh-tw` is Traditional Chinese (Taiwan wording), `zh` is Simplified.
 - `layouts/`: overrides of the theme in `themes/terminal` (a git submodule).
 - `assets/oneko.js`: the pixel cat. Same file as on flatpak.4st.li (`astrovm/flatpak`, `static/oneko.js`), so copy changes over there.
 - `assets/fun.js`: clock, weather, last commit, special days, sounds, reading cat, 404 and ghost cats.
