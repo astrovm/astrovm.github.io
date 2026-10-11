@@ -227,7 +227,7 @@ EOF
 systemctl --user daemon-reload
 ```
 
-agent 启动的重负载命令（构建、测试、变异测试等）都放进同一个共享 slice。同时跑多个也只分一小份资源：
+agent 启动的重负载命令（构建、测试、变异测试等）都放进同一个共享 slice。同时跑多个也只分一小份资源。如果还是占满了内存和 swap，内核会杀掉 slice 里的任务，而不是整个桌面：
 
 ```bash
 tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
@@ -235,6 +235,8 @@ tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
 CPUWeight=20
 IOWeight=10
 MemoryHigh=12G
+MemoryMax=16G
+MemorySwapMax=4G
 EOF
 
 systemctl --user daemon-reload
