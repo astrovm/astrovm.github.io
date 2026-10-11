@@ -30,7 +30,7 @@
       author: 'astro',
       github: 'https://github.com/astrovm',
       description: 'Personal website about crypto, programming, Linux, and hacking',
-      projects: ['Amy OS', 'Adventure Mods', 'Crosstune', 'YTMusicFS', 'Timba', 'Flash Collection'],
+      projects: ['Amy OS', 'Adventure Mods', 'Crosstune', 'YTMusicFS', 'Timba', 'Astro XP'],
       contact: { email: '~@4st.li', signal: 'astro.99', telegram: '@astrolince' }
     };
   });
