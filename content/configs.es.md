@@ -227,7 +227,7 @@ EOF
 systemctl --user daemon-reload
 ```
 
-Los comandos pesados que lanzan los agentes, como builds, tests y mutation testing, van todos a un mismo slice. Aunque corran varios a la vez, comparten una sola porción chica:
+Los comandos pesados que lanzan los agentes, como builds, tests y mutation testing, van todos a un mismo slice. Aunque corran varios a la vez, comparten una sola porción chica. Si igual llenan la RAM y el swap, el kernel mata un job del slice en vez del escritorio:
 
 ```bash
 tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
@@ -235,6 +235,8 @@ tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
 CPUWeight=20
 IOWeight=10
 MemoryHigh=12G
+MemoryMax=16G
+MemorySwapMax=4G
 EOF
 
 systemctl --user daemon-reload

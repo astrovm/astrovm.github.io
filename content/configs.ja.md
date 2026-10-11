@@ -227,7 +227,7 @@ EOF
 systemctl --user daemon-reload
 ```
 
-エージェントが起動する重いコマンド（ビルド、テスト、ミューテーションテストなど）は、すべて1つの共有sliceに入れる。いくつ同時に動いても、小さな取り分を1つ分け合うだけ：
+エージェントが起動する重いコマンド（ビルド、テスト、ミューテーションテストなど）は、すべて1つの共有sliceに入れる。いくつ同時に動いても、小さな取り分を1つ分け合うだけ。それでもRAMとswapを使い切ったら、カーネルはデスクトップではなくslice内のジョブを止める：
 
 ```bash
 tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
@@ -235,6 +235,8 @@ tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
 CPUWeight=20
 IOWeight=10
 MemoryHigh=12G
+MemoryMax=16G
+MemorySwapMax=4G
 EOF
 
 systemctl --user daemon-reload

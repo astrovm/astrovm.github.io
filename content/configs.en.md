@@ -227,7 +227,7 @@ EOF
 systemctl --user daemon-reload
 ```
 
-Heavy commands that agents start, like builds, tests and mutation testing, all go into one shared slice. Several at once still get only one small share:
+Heavy commands that agents start, like builds, tests and mutation testing, all go into one shared slice. Several at once still get only one small share. If they fill RAM and swap anyway, the kernel kills a job in the slice instead of the desktop:
 
 ```bash
 tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
@@ -235,6 +235,8 @@ tee ~/.config/systemd/user/agents.slice > /dev/null << 'EOF'
 CPUWeight=20
 IOWeight=10
 MemoryHigh=12G
+MemoryMax=16G
+MemorySwapMax=4G
 EOF
 
 systemctl --user daemon-reload
