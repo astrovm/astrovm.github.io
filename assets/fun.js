@@ -30,7 +30,8 @@
   };
   const listen = (target, name, fn, options = {}) =>
     target.addEventListener(name, fn, { ...options, signal: controller.signal });
-  const lang = (document.documentElement.lang || "en").slice(0, 2);
+  const tag = (document.documentElement.lang || "en").toLowerCase();
+  const lang = tag === "zh-tw" ? tag : tag.slice(0, 2);
   const touch = !window.matchMedia("(pointer: fine)").matches;
   // A plain date means noon that day here, not midnight in London.
   const asked = new URLSearchParams(window.location.search).get("today");
@@ -67,6 +68,13 @@
       sound: (on) => `♪ 声音：${on ? "开" : "关"}`,
       back: "回到刚才读的地方",
       quote: "复制链接",
+    },
+    "zh-tw": {
+      clock: "布宜諾斯艾利斯時間",
+      asleep: "astro大概在睡覺",
+      sound: (on) => `♪ 聲音：${on ? "開" : "關"}`,
+      back: "回到剛才讀的地方",
+      quote: "複製連結",
     },
   }[lang] || null;
   const say = words || {};

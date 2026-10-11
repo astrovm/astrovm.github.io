@@ -109,6 +109,10 @@ test('internal navigation keeps the document, renders the page, focuses its head
   expect(b.scrolls).toEqual([[0, 0]]);
 });
 
+test('Traditional Chinese pages navigate in place too', () => {
+  for (const path of ['/zh-tw/', '/zh-tw/projects/', '/zh/projects/']) expect(browser().click(path)).toBe(true);
+});
+
 test('links in the theme dropdowns are caught before the theme stops the click', () => {
   expect(browser().capturing.has('click')).toBe(true);
 });
