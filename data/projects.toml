@@ -98,7 +98,7 @@ url = "https://github.com/astrovm/PkgDeck"
 en = "One app for every package manager"
 es = "Una app para todos tus gestores de paquetes"
 ja = "すべてのパッケージマネージャーをひとつのアプリで"
-zh = "一个应用管理所有套件管理器"
+zh = "一个应用管理所有包管理器"
 zh-tw = "一個應用管理所有套件管理器"
 
 [[projects]]
