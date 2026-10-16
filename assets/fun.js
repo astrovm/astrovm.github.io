@@ -493,7 +493,6 @@
       const rect = next.getBoundingClientRect();
       return rect.top > 40 && rect.top < window.innerHeight ? { x: rect.left + Math.min(rect.width / 2, 40), y: rect.top - 14 } : null;
     };
-    let pointedNext = false;
 
     const steer = () => {
       if (waiting && back !== null) oneko?.guide(() => barSpot(back));
@@ -517,10 +516,7 @@
       // Scrolled way back up: once you stop there a moment, mark where you were.
       window.clearTimeout(farTimer);
       if (back === null && (deepest - now) * max() > window.innerHeight * 1.5) {
-        farTimer = setTimeout(() => {
-          mark(deepest);
-          oneko?.note("you were here");
-        }, 1500);
+        farTimer = setTimeout(() => mark(deepest), 1500);
       }
       // Remember the place for next time. Finished posts start over.
       const place = deepest >= 0.95 ? null : Math.round(Math.max(deepest, waiting ? back : 0) * 100) / 100;
@@ -529,11 +525,6 @@
         if (place === null) store.remove(key);
         else store.set(key, place);
       }
-      if (next && now >= 0.98 && !pointedNext) {
-        pointedNext = true;
-        setTimeout(() => { if (done() >= 0.98) oneko?.note("read next?"); }, 1200);
-      }
-      if (now < 0.95) pointedNext = false;
       steer();
     };
 
@@ -558,7 +549,6 @@
     listen(window, "resize", update);
     if (saved > 0.05 && saved < 0.95 && done() < saved - 0.05) {
       mark(saved, true);
-      setTimeout(() => { if (waiting) oneko?.note("you were here"); }, 2500);
     }
     update();
   }
