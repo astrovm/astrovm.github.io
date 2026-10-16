@@ -120,7 +120,7 @@ test('the place is saved, and next time the cat waits there until you tap it', (
   expect(paw.style.left).toBe('60%');
   expect(b.guide()).toEqual({ x: 468, y: 19 });
   b.wait();
-  expect(b.notes).toContain('you were here');
+  expect(b.notes).toEqual([]);
   b.tapCat();
   expect(b.window.scrollY).toBe(600);
   expect(paw.hidden).toBe(true);
@@ -134,13 +134,6 @@ test('finished posts start over next time', () => {
   expect(b.storage.has('fun.place./en/blog/story/')).toBe(false);
 });
 
-test('resuming before the saved-place hint hides the stale hint', () => {
-  const b = page({ saved: 0.6 });
-  b.tapCat();
-  b.wait();
-  expect(b.notes).not.toContain('you were here');
-});
-
 test('scrolling way back up marks where you were, and the paw takes you back', () => {
   const b = page();
   b.scroll(900);
@@ -149,7 +142,7 @@ test('scrolling way back up marks where you were, and the paw takes you back', (
   expect(b.find('fun-paw').hidden).toBe(true);
   b.wait();
   expect(b.find('fun-paw').hidden).toBe(false);
-  expect(b.notes).toContain('you were here');
+  expect(b.notes).toEqual([]);
   b.find('fun-paw').click();
   expect(b.window.scrollY).toBe(900);
   expect(b.find('fun-paw').hidden).toBe(true);
@@ -202,7 +195,7 @@ test('at the end the cat walks to the next post, and a tap opens it', () => {
   b.scroll(1000);
   expect(b.guide()).toEqual({ x: 140, y: 286 });
   b.wait();
-  expect(b.notes).toContain('read next?');
+  expect(b.notes).toEqual([]);
   b.tapCat();
   expect(opened).toBe(true);
   b.scroll(100);

@@ -103,10 +103,35 @@ test('pounces reach the pointer and treats are eaten with a sound and removed', 
   b.api.treat(); b.tick(55);
   expect(b.document.querySelector('.oneko-fish')).toBeNull(); expect(noms).toBe(1);
   b.api.pspsps(); b.tick(20);
-  expect(b.document.querySelector('.oneko-bubble')).not.toBeNull();
+  expect(b.api.cats()[0]).toEqual({ x: 300, y: 300 });
   b.api.nyan(); b.tick(8);
   expect(b.document.querySelector('.oneko-rainbow')).not.toBeNull();
   b.api.friend(); b.tick(80); expect(b.api.cats()).toHaveLength(2);
+});
+
+test('the cat only talks when you click it', () => {
+  const b = cats({ pets: 5, seen: 7 * 3600000, url: 'https://example.test/en/?today=2026-04-01T03:00' });
+  const bubbles: string[] = [];
+  const append = b.document.body.appendChild.bind(b.document.body);
+  b.document.body.appendChild = (el: any) => { if (el.className === 'oneko-bubble') bubbles.push(el.textContent); return append(el); };
+  const hush = () => { b.tick(); expect(bubbles).toEqual([]); };
+  b.tick(40); hush();
+  b.move(300, 300); b.api.pspsps(); b.tick(20); hush();
+  b.api.nyan(); b.tick(8); hush();
+  b.api.treat(); b.tick(55); hush();
+  b.api.hunt(); b.frame(950); hush();
+  b.api.box(); b.tick(40); hush();
+  b.drag(200, 200); b.cat().click(); b.tick(10); hush();
+  b.pointer(b.cat(), 'pointermove', 10, 10);
+  for (let i = 0; i < 9; i++) b.pointer(b.cat(), 'pointermove', i % 2 ? 30 : 10, 10);
+  hush();
+  const pal = b.friend(); b.api.booped(pal); b.api.tagged(pal); b.api.noticed(pal); b.tick(40); hush();
+  Object.defineProperty(b.document, 'hidden', { value: true, configurable: true }); b.emit(b.document, 'visibilitychange');
+  b.tick(120);
+  Object.defineProperty(b.document, 'hidden', { value: false, configurable: true }); b.emit(b.document, 'visibilitychange');
+  b.tick(30); hush();
+  b.cat().click(); b.tick();
+  expect(bubbles).toHaveLength(1);
 });
 
 test('hunting follows a dodging butterfly, then it flies away', () => {
@@ -121,7 +146,6 @@ test('hunting follows a dodging butterfly, then it flies away', () => {
 
 test('pets remember milestones, hats, rubs, triple-clicks and returning visits', () => {
   const b = cats({ pets: 99, seen: 7 * 3600000 });
-  b.tick(20); expect(b.document.querySelector('.oneko-bubble').textContent).toBe('welcome back ♡');
   b.api.pet(); expect(b.api.pets()).toBe(100);
   expect(b.document.querySelector('.oneko-hat-crown')).not.toBeNull();
   let opened = 0; b.window.activateTerminal = () => opened++;
@@ -136,7 +160,6 @@ test('pets remember milestones, hats, rubs, triple-clicks and returning visits',
   Object.defineProperty(b.document, 'hidden', { value: true, configurable: true }); b.emit(b.document, 'visibilitychange');
   b.tick(120);
   Object.defineProperty(b.document, 'hidden', { value: false, configurable: true }); b.emit(b.document, 'visibilitychange');
-  expect(b.document.querySelector('.oneko-bubble').textContent).toBe("you're back! ♡");
   const returning = cats({ pets: 100 }); expect(returning.document.querySelector('.oneko-hat-crown')).not.toBeNull();
 });
 
@@ -183,7 +206,6 @@ test('keyboard secrets ignore editing fields and work on cat day, late nights an
   for (const text of ['pspsps', 'nyan', 'fish']) for (const key of text) b.emit(b.document.body, 'keydown', { key });
   expect(b.document.querySelector('.oneko-fish')).not.toBeNull();
   const night = cats({ url: 'https://example.test/en/?today=2026-04-01T03:00' });
-  night.tick(30); expect(night.document.querySelector('.oneko-bubble').textContent).toBe('*yawn*');
   night.api.pet(); expect(night.document.querySelector('.oneko-bubble').textContent).toContain('go to sleep');
   const phone = cats({ touch: true });
   expect(phone.api.cats()[0]).toEqual({ x: 360, y: 560 });
