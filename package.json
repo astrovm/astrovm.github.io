@@ -14,7 +14,7 @@
     "@types/istanbul-lib-report": "3.0.3",
     "@types/istanbul-reports": "3.0.4",
     "@types/node": "^26.6.4",
-    "happy-dom": "21.0.1",
+    "happy-dom": "21.0.3",
     "istanbul-lib-coverage": "3.2.2",
     "istanbul-lib-instrument": "6.0.3",
     "istanbul-lib-report": "3.0.1",
