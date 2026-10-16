@@ -15,7 +15,7 @@ tocTitle = "本页内容"
 - RAM: 32 GB (4×8 GB GeIL Super Luce DDR4 3200 MHz)
 - NVMe: 1 TB (2×512 GB Adata XPG Spectrix S40G)
 - 主板: ASUS TUF Gaming X570-PRO (Wi-Fi)
-- 鼠标: Logitech G305
+- 鼠标: Razer Viper V3 HyperSpeed
 - 键盘: HyperX Alloy Origins Core，配 Razer Pink PBT 键帽
 - 耳机: Audio-Technica ATH-M50x 配 FiiO BTA10，以及 Sony Inzone H9
 

@@ -15,7 +15,7 @@ tocTitle = "このページの内容"
 - RAM: 32 GB (4×8 GB GeIL Super Luce DDR4 3200 MHz)
 - NVMe: 1 TB (2×512 GB Adata XPG Spectrix S40G)
 - マザーボード: ASUS TUF Gaming X570-PRO (Wi-Fi)
-- マウス: Logitech G305
+- マウス: Razer Viper V3 HyperSpeed
 - キーボード: HyperX Alloy Origins Core、Razer Pink PBTキーキャップ付き
 - ヘッドホン: Audio-Technica ATH-M50x (FiiO BTA10付き) と Sony Inzone H9
 
