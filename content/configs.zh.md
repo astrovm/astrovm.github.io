@@ -34,7 +34,7 @@ Kubuntu 26.04.1 用 UEFI 模式安装。两个 NVMe 都使用 LUKS2。
 
 数据盘：
 
-- LUKS2 -> LVM VDO -> 470 GiB XFS `/data`
+- LUKS2 -> LVM VDO -> 470 GiB XFS `/mnt/data`
 - 453 GiB 物理 VDO 池，启用压缩和重复数据删除
 - 使用保存在加密系统盘上的密钥自动解锁，并设置单独的恢复 passphrase
 
@@ -93,11 +93,11 @@ sudo cryptsetup status data_crypt
 `/etc/fstab` 中的相关条目：
 
 ```ini
-UUID=<root-btrfs-uuid> /      btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
-UUID=<home-xfs-uuid>   /home  xfs   defaults,noatime 0 2
-UUID=<root-btrfs-uuid> /swap  btrfs subvol=/@swap,defaults,noatime 0 0
-/swap/swapfile         none   swap  defaults 0 0
-UUID=<data-xfs-uuid>   /data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
+UUID=<root-btrfs-uuid> /          btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
+UUID=<home-xfs-uuid>   /home      xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
+/swap/swapfile         none       swap  defaults 0 0
+UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
 两个 XFS 文件系统的下层都启用了 VDO 压缩和重复数据删除。每个 VDO 池初始使用 volume group 可用空间的 95%。剩余 extent 可让 LVM 在物理使用量过高时扩展 VDO 池。
@@ -567,7 +567,7 @@ sudo timeshift-gtk
 - 位置：系统盘上的 Btrfs root
 - 调度：每日 + 每周 + 启动时
 - 保留：3 个每日、3 个启动、2 个每周
-- `/home` 和 `/data`：不包含；两者都是单独的 XFS 文件系统
+- `/home` 和 `/mnt/data`：不包含；两者都是单独的 XFS 文件系统
 
 # Shell和终端
 

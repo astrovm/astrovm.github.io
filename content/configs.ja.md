@@ -34,7 +34,7 @@ Kubuntu 26.04.1をUEFIモードでインストール。両方のNVMeでLUKS2を�
 
 データディスク：
 
-- LUKS2 -> LVM VDO -> 470 GiBのXFS `/data`
+- LUKS2 -> LVM VDO -> 470 GiBのXFS `/mnt/data`
 - 圧縮と重複排除を有効にした453 GiBの物理VDOプール
 - 暗号化されたシステムディスク上のキーで自動unlock、別にリカバリーpassphraseを設定
 
@@ -93,11 +93,11 @@ sudo cryptsetup status data_crypt
 `/etc/fstab`の関連entry：
 
 ```ini
-UUID=<root-btrfs-uuid> /      btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
-UUID=<home-xfs-uuid>   /home  xfs   defaults,noatime 0 2
-UUID=<root-btrfs-uuid> /swap  btrfs subvol=/@swap,defaults,noatime 0 0
-/swap/swapfile         none   swap  defaults 0 0
-UUID=<data-xfs-uuid>   /data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
+UUID=<root-btrfs-uuid> /          btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
+UUID=<home-xfs-uuid>   /home      xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
+/swap/swapfile         none       swap  defaults 0 0
+UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
 両方のXFSファイルシステムの下でVDOの圧縮と重複排除を有効化。各VDOプールはvolume groupの初期空き領域の95%を使用する。残りのextentは物理使用量が増えたときのLVMによるpool拡張に使う。
@@ -567,7 +567,7 @@ sudo timeshift-gtk
 - ロケーション: システムディスクのBtrfs root
 - スケジュール: 毎日 + 毎週 + boot時
 - 保持: 3個の毎日、3個のboot、2個の毎週
-- `/home`と`/data`: 含めない。どちらも別のXFSファイルシステム
+- `/home`と`/mnt/data`: 含めない。どちらも別のXFSファイルシステム
 
 # Shellとターミナル
 
