@@ -34,7 +34,7 @@ Disco del sistema:
 
 Disco de datos:
 
-- LUKS2 -> LVM VDO -> `/data` XFS de 470 GiB
+- LUKS2 -> LVM VDO -> `/mnt/data` XFS de 470 GiB
 - Pool VDO físico de 453 GiB con compresión y deduplicación
 - Desbloqueo automático con una clave guardada en el disco cifrado del sistema; passphrase de recuperación separada
 
@@ -93,11 +93,11 @@ sudo cryptsetup status data_crypt
 Entradas relevantes de `/etc/fstab`:
 
 ```ini
-UUID=<root-btrfs-uuid> /      btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
-UUID=<home-xfs-uuid>   /home  xfs   defaults,noatime 0 2
-UUID=<root-btrfs-uuid> /swap  btrfs subvol=/@swap,defaults,noatime 0 0
-/swap/swapfile         none   swap  defaults 0 0
-UUID=<data-xfs-uuid>   /data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
+UUID=<root-btrfs-uuid> /          btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
+UUID=<home-xfs-uuid>   /home      xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
+/swap/swapfile         none       swap  defaults 0 0
+UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
 Los dos filesystems XFS tienen compresión y deduplicación VDO por debajo. Cada pool VDO usa inicialmente el 95% del espacio libre de su volume group. Los extents restantes permiten que LVM extienda el pool si aumenta mucho el uso físico.
@@ -567,7 +567,7 @@ Config:
 - Ubicación: root Btrfs del disco del sistema
 - Schedule: diario + semanal + boot
 - Mantener: 3 diarios, 3 boot, 2 semanales
-- `/home` y `/data`: no se incluyen; los dos son filesystems XFS separados
+- `/home` y `/mnt/data`: no se incluyen; los dos son filesystems XFS separados
 
 # Shell y terminal
 
