@@ -29,7 +29,7 @@ System disk:
 - 4 GiB ext4 `/boot`
 - LUKS2 -> LVM
 - 96 GiB Btrfs `/` with subvolumes `/@` and `/@swap`
-- 370 GiB XFS `/home` on a 357 GiB VDO pool with compression and deduplication
+- 500 GiB XFS `/home` on a 357 GiB VDO pool with compression and deduplication
 - 4 GiB swap file at `/swap/swapfile`
 
 Data disk:
@@ -118,6 +118,8 @@ sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compres
 sudo vdostats --human-readable
 sudo systemctl enable --now fstrim.timer
 ```
+
+Logical sizes follow the measured savings: physical pool size × measured ratio, with enough margin that filling the remaining free space with incompressible data still fits in the physical pool. `/home` saves about 42% and uses 500 GiB. `/mnt/data` saves under 10% and uses 470 GiB. XFS can grow but not shrink.
 
 ## sysctl
 

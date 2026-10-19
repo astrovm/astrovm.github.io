@@ -29,7 +29,7 @@ Disco del sistema:
 - `/boot` ext4 de 4 GiB
 - LUKS2 -> LVM
 - `/` Btrfs de 96 GiB con los subvolúmenes `/@` y `/@swap`
-- `/home` XFS de 370 GiB sobre un pool VDO físico de 357 GiB con compresión y deduplicación
+- `/home` XFS de 500 GiB sobre un pool VDO físico de 357 GiB con compresión y deduplicación
 - Swap file de 4 GiB en `/swap/swapfile`
 
 Disco de datos:
@@ -118,6 +118,8 @@ sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compres
 sudo vdostats --human-readable
 sudo systemctl enable --now fstrim.timer
 ```
+
+Los tamaños lógicos siguen el ahorro medido: tamaño del pool físico × ratio medido, con margen suficiente para que, si el espacio libre restante se llena con datos incompresibles, todo siga entrando en el pool físico. `/home` ahorra cerca del 42% y usa 500 GiB. `/mnt/data` ahorra menos del 10% y usa 470 GiB. XFS se puede agrandar pero no achicar.
 
 ## sysctl
 

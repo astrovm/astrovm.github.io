@@ -29,7 +29,7 @@ Kubuntu 26.04.1 用 UEFI 模式安裝。兩個 NVMe 都使用 LUKS2。
 - 4 GiB ext4 `/boot`
 - LUKS2 -> LVM
 - 96 GiB Btrfs `/`，子卷為 `/@` 和 `/@swap`
-- 370 GiB XFS `/home`，位於啟用壓縮和重複資料刪除的 357 GiB VDO 池上
+- 500 GiB XFS `/home`，位於啟用壓縮和重複資料刪除的 357 GiB VDO 池上
 - `/swap/swapfile` 中有 4 GiB swap file
 
 資料盤：
@@ -118,6 +118,8 @@ sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compres
 sudo vdostats --human-readable
 sudo systemctl enable --now fstrim.timer
 ```
+
+邏輯大小依實測節省率設定：物理池大小 × 實測壓縮比，並保留足夠餘量，確保即使剩餘可用空間全部寫入無法壓縮的資料，也仍能放進物理池。`/home` 約節省 42%，使用 500 GiB。`/mnt/data` 節省不到 10%，使用 470 GiB。XFS 只能擴充，不能縮小。
 
 ## sysctl
 
