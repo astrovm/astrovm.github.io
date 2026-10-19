@@ -119,11 +119,7 @@ sudo vdostats --human-readable
 sudo systemctl enable --now fstrim.timer
 ```
 
-Los tamaños lógicos siguen el ahorro medido: tamaño del pool físico × ratio medido, con margen suficiente para que, si el espacio libre restante se llena con datos incompresibles, todo siga entrando en el pool físico. `/home` ahorra cerca del 42%, así que se amplió a 500 GiB. `/mnt/data` ahorra menos del 10%, así que se mantiene en 470 GiB. XFS se puede agrandar pero no achicar.
-
-```bash
-sudo lvextend -r -L 500G system_vg/home
-```
+Los tamaños lógicos siguen el ahorro medido: tamaño del pool físico × ratio medido, con margen suficiente para que, si el espacio libre restante se llena con datos incompresibles, todo siga entrando en el pool físico. `/home` ahorra cerca del 42% y usa 500 GiB. `/mnt/data` ahorra menos del 10% y usa 470 GiB. XFS se puede agrandar pero no achicar.
 
 ## sysctl
 

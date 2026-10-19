@@ -119,11 +119,7 @@ sudo vdostats --human-readable
 sudo systemctl enable --now fstrim.timer
 ```
 
-論理サイズは実測の節約率に合わせる：物理プールのサイズ × 実測の圧縮率。残りの空き領域を圧縮できないデータで埋めても物理プールに収まる余裕を残す。`/home`は約42%節約しているため500 GiBに拡張した。`/mnt/data`の節約は10%未満なので470 GiBのまま。XFSは拡張できるが縮小はできない。
-
-```bash
-sudo lvextend -r -L 500G system_vg/home
-```
+論理サイズは実測の節約率に合わせる：物理プールのサイズ × 実測の圧縮率。残りの空き領域を圧縮できないデータで埋めても物理プールに収まる余裕を残す。`/home`は約42%節約し、500 GiBを使用。`/mnt/data`は節約が10%未満で、470 GiBを使用。XFSは拡張できるが縮小はできない。
 
 ## sysctl
 

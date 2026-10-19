@@ -119,11 +119,7 @@ sudo vdostats --human-readable
 sudo systemctl enable --now fstrim.timer
 ```
 
-逻辑大小按实测节省率设定：物理池大小 × 实测压缩比，并保留足够余量，确保即使剩余可用空间全部写入不可压缩数据，也仍能放进物理池。`/home` 约节省 42%，因此扩展到 500 GiB。`/mnt/data` 节省不到 10%，因此保持 470 GiB。XFS 只能扩展，不能缩小。
-
-```bash
-sudo lvextend -r -L 500G system_vg/home
-```
+逻辑大小按实测节省率设定：物理池大小 × 实测压缩比，并保留足够余量，确保即使剩余可用空间全部写入不可压缩数据，也仍能放进物理池。`/home` 约节省 42%，使用 500 GiB。`/mnt/data` 节省不到 10%，使用 470 GiB。XFS 只能扩展，不能缩小。
 
 ## sysctl
 

@@ -119,11 +119,7 @@ sudo vdostats --human-readable
 sudo systemctl enable --now fstrim.timer
 ```
 
-Logical sizes follow the measured savings: physical pool size × measured ratio, with enough margin that filling the remaining free space with incompressible data still fits in the physical pool. `/home` saves about 42%, so it was grown to 500 GiB. `/mnt/data` saves under 10%, so it stays at 470 GiB. XFS can grow but not shrink.
-
-```bash
-sudo lvextend -r -L 500G system_vg/home
-```
+Logical sizes follow the measured savings: physical pool size × measured ratio, with enough margin that filling the remaining free space with incompressible data still fits in the physical pool. `/home` saves about 42% and uses 500 GiB. `/mnt/data` saves under 10% and uses 470 GiB. XFS can grow but not shrink.
 
 ## sysctl
 
