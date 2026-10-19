@@ -29,7 +29,7 @@ Kubuntu 26.04.1をUEFIモードでインストール。両方のNVMeでLUKS2を�
 - 4 GiBのext4 `/boot`
 - LUKS2 -> LVM
 - 96 GiBのBtrfs `/`、サブボリュームは`/@`と`/@swap`
-- 圧縮と重複排除を有効にした357 GiBのVDOプール上に370 GiBのXFS `/home`
+- 圧縮と重複排除を有効にした357 GiBのVDOプール上に500 GiBのXFS `/home`
 - `/swap/swapfile`に4 GiBのswap file
 
 データディスク：
@@ -117,6 +117,12 @@ sudo systemctl enable --now lvm2-monitor.service
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
 sudo vdostats --human-readable
 sudo systemctl enable --now fstrim.timer
+```
+
+論理サイズは実測の節約率に合わせる：物理プールのサイズ × 実測の圧縮率。残りの空き領域を圧縮できないデータで埋めても物理プールに収まる余裕を残す。`/home`は約42%節約しているため500 GiBに拡張した。`/mnt/data`の節約は10%未満なので470 GiBのまま。XFSは拡張できるが縮小はできない。
+
+```bash
+sudo lvextend -r -L 500G system_vg/home
 ```
 
 ## sysctl

@@ -29,7 +29,7 @@ Kubuntu 26.04.1 用 UEFI 模式安装。两个 NVMe 都使用 LUKS2。
 - 4 GiB ext4 `/boot`
 - LUKS2 -> LVM
 - 96 GiB Btrfs `/`，子卷为 `/@` 和 `/@swap`
-- 370 GiB XFS `/home`，位于启用压缩和重复数据删除的 357 GiB VDO 池上
+- 500 GiB XFS `/home`，位于启用压缩和重复数据删除的 357 GiB VDO 池上
 - `/swap/swapfile` 中有 4 GiB swap file
 
 数据盘：
@@ -117,6 +117,12 @@ sudo systemctl enable --now lvm2-monitor.service
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
 sudo vdostats --human-readable
 sudo systemctl enable --now fstrim.timer
+```
+
+逻辑大小按实测节省率设定：物理池大小 × 实测压缩比，并保留足够余量，确保即使剩余可用空间全部写入不可压缩数据，也仍能放进物理池。`/home` 约节省 42%，因此扩展到 500 GiB。`/mnt/data` 节省不到 10%，因此保持 470 GiB。XFS 只能扩展，不能缩小。
+
+```bash
+sudo lvextend -r -L 500G system_vg/home
 ```
 
 ## sysctl
