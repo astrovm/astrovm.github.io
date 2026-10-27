@@ -11,27 +11,6 @@ zh = "在Linux上为Sonic Adventure DX和Sonic Adventure 2配置模组"
 zh-tw = "在Linux上為Sonic Adventure DX和Sonic Adventure 2配置模組"
 
 [[projects]]
-name = "Amy OS"
-image = "amyos"
-fit = "contain"
-url = "https://github.com/astrovm/amyos"
-en = "Custom Debian and Fedora images"
-es = "Imágenes personalizadas de Debian y Fedora"
-ja = "カスタムのDebianとFedoraイメージ"
-zh = "自定义的Debian和Fedora镜像"
-zh-tw = "自定義的Debian和Fedora映像檔"
-
-[[projects]]
-name = "Anomalous"
-image = "anomalous"
-url = "https://anomalous.xyz/"
-en = "An Anomalous Research Society"
-es = "Sociedad de investigaciones anómalas"
-ja = "異常研究協会"
-zh = "异常研究协会"
-zh-tw = "異常研究協會"
-
-[[projects]]
 name = "Astro XP"
 image = "xp"
 url = "https://xp.4st.li/"
