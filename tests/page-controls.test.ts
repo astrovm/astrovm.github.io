@@ -109,16 +109,28 @@ test('WebMCP registers and runs site tools, and aborts them when leaving', () =>
   const tools: any[] = [];
   let signal: AbortSignal;
   const b = browser();
-  b.window.navigator.modelContext = { registerTool: (tool: any, options: any) => { tools.push(tool); signal = options.signal; } };
+  b.document.modelContext = { registerTool: (tool: any, options: any) => { tools.push(tool); signal = options.signal; return Promise.resolve(); } };
+  const projects = [{ name: 'Crosstune', url: 'https://crosstune.4st.li/', description: 'Open any music link in your favorite app' }];
+  b.window.__WEBMCP__ = { pages: ['/en/', '/en/projects/'], projects };
+  const tricks = ['pet', 'treat', 'play', 'pspsps', 'nyan', 'hunt', 'box', 'pounce', 'nap', 'scratch', 'perch', 'peek', 'bite', 'knock', 'push', 'steal'];
   const actions: string[] = [];
-  b.window.oneko = Object.fromEntries(['pet', 'treat', 'play', 'hunt', 'box', 'nyan', 'pspsps'].map((name) => [name, () => actions.push(name)]));
+  b.window.oneko = Object.fromEntries(tricks.map((name) => [name, () => { actions.push(name); return name === 'steal' ? false : undefined; }]));
   b.run('assets/webmcp.js');
-  const execute = (name: string, args = {}) => tools.find((tool) => tool.name === name).execute(args);
-  expect(execute('list_pages').pages).toContain('/projects/');
-  expect(execute('get_site_info').site).toBe('4st.li');
+  const tool = (name: string) => tools.find((tool) => tool.name === name);
+  const execute = (name: string, args = {}) => tool(name).execute(args);
+  expect(execute('list_pages')).toEqual({ pages: ['/en/', '/en/projects/'] });
+  expect(execute('get_site_info')).toMatchObject({ site: '4st.li', projects });
+  expect(tool('list_pages').annotations).toEqual({ readOnlyHint: true });
+  expect(tool('get_site_info').annotations).toEqual({ readOnlyHint: true });
+  expect(tool('navigate').annotations).toBeUndefined();
   expect(execute('navigate', { path: '/en/projects/' })).toEqual({ navigated: '/en/projects/' });
-  for (const action of ['pet', 'treat', 'yarn', 'hunt', 'box', 'nyan', 'call']) expect(execute('play_with_cat', { action })).toEqual({ played: action });
-  expect(actions).toEqual(['pet', 'treat', 'play', 'hunt', 'box', 'nyan', 'pspsps']);
+  expect(execute('navigate', { path: 'https://elsewhere.test/' })).toEqual({ navigated: false });
+  expect(execute('navigate', { path: 'javascript:alert(1)' })).toEqual({ navigated: false });
+  const enumActions = tool('play_with_cat').inputSchema.properties.action.enum;
+  expect(enumActions).toHaveLength(tricks.length);
+  for (const action of enumActions.filter((action: string) => action !== 'steal')) expect(execute('play_with_cat', { action })).toEqual({ played: action });
+  expect(execute('play_with_cat', { action: 'steal' })).toEqual({ played: false });
+  expect(actions.sort()).toEqual([...tricks].sort());
   expect(execute('play_with_cat', { action: 'unknown' })).toEqual({ played: false });
   delete b.window.oneko;
   expect(execute('play_with_cat', { action: 'pet' })).toEqual({ played: false });
@@ -126,11 +138,19 @@ test('WebMCP registers and runs site tools, and aborts them when leaving', () =>
   expect(signal!.aborted).toBe(true);
 });
 
-test('WebMCP handles unavailable APIs and registration errors', () => {
+test('WebMCP handles unavailable APIs and registration errors', async () => {
   runInNewContext(browserSource('assets/webmcp.js'), { __coverage__: coverage });
   const b = browser();
   b.run('assets/webmcp.js');
+  expect(b.logs).toHaveLength(0);
+  // Older Chrome builds: on navigator, throwing right away.
   b.window.navigator.modelContext = { registerTool: () => { throw new Error('unsupported'); } };
   b.run('assets/webmcp.js');
   expect(b.logs).toHaveLength(4);
+  // The spec: on document, rejecting later.
+  b.document.modelContext = { registerTool: () => Promise.reject(new Error('duplicate')) };
+  b.run('assets/webmcp.js');
+  await settle();
+  expect(b.logs).toHaveLength(8);
+  expect(b.logs[7][0]).toBe('WebMCP: failed to register tool');
 });
