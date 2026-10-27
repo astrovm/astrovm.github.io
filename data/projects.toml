@@ -1,24 +1,4 @@
-# The projects page in every language. Keep entries in alphabetical order.
-
-[[projects]]
-name = "Adventure Mods"
-image = "adventuremods"
-url = "https://github.com/astrovm/AdventureMods"
-en = "Set up mods for Sonic Adventure DX and Sonic Adventure 2 on Linux"
-es = "Configura mods para Sonic Adventure DX y Sonic Adventure 2 en Linux"
-ja = "LinuxでSonic Adventure DXとSonic Adventure 2のMod環境をセットアップする"
-zh = "在Linux上为Sonic Adventure DX和Sonic Adventure 2配置模组"
-zh-tw = "在Linux上為Sonic Adventure DX和Sonic Adventure 2配置模組"
-
-[[projects]]
-name = "Astro XP"
-image = "xp"
-url = "https://xp.4st.li/"
-en = "Classic games and Windows XP apps in your browser"
-es = "Juegos clásicos y apps de Windows XP en tu navegador"
-ja = "ブラウザで遊べるクラシックゲームとWindows XPアプリ"
-zh = "在浏览器中运行的经典游戏和Windows XP应用"
-zh-tw = "在瀏覽器中執行的經典遊戲和Windows XP應用程式"
+# The projects page in every language. Most active first, by commits in the last 30 days.
 
 [[projects]]
 name = "Crosstune"
@@ -31,6 +11,56 @@ zh = "用你喜欢的应用打开任何音乐链接"
 zh-tw = "用你喜歡的應用開啟任何音樂連結"
 
 [[projects]]
+name = "PkgDeck"
+image = "pkgdeck"
+url = "https://github.com/astrovm/PkgDeck"
+en = "One app for every package manager"
+es = "Una app para todos tus gestores de paquetes"
+ja = "すべてのパッケージマネージャーをひとつのアプリで"
+zh = "一个应用管理所有包管理器"
+zh-tw = "一個應用管理所有套件管理器"
+
+[[projects]]
+name = "Timba"
+image = "timba"
+url = "https://timba.cc/"
+en = "Coinflip game on Solana"
+es = "Juego de cara o cruz en Solana"
+ja = "Solana上のコイントスゲーム"
+zh = "Solana上的抛硬币游戏"
+zh-tw = "Solana上的拋硬幣遊戲"
+
+[[projects]]
+name = "Astro XP"
+image = "xp"
+url = "https://xp.4st.li/"
+en = "Classic games and Windows XP apps in your browser"
+es = "Juegos clásicos y apps de Windows XP en tu navegador"
+ja = "ブラウザで遊べるクラシックゲームとWindows XPアプリ"
+zh = "在浏览器中运行的经典游戏和Windows XP应用"
+zh-tw = "在瀏覽器中執行的經典遊戲和Windows XP應用程式"
+
+[[projects]]
+name = "Respondedor de boludos"
+image = "respondedor"
+url = "https://t.me/respondedorbot"
+en = "Telegram bot with AI based on Argentina internet culture"
+es = "Bot de Telegram con IA basada en la cultura de internet argentina"
+ja = "アルゼンチンのネット文化に基づいたAI搭載のTelegramボット"
+zh = "基于阿根廷网络文化的AI Telegram机器人"
+zh-tw = "基於阿根廷網路文化的AI Telegram機器人"
+
+[[projects]]
+name = "Adventure Mods"
+image = "adventuremods"
+url = "https://github.com/astrovm/AdventureMods"
+en = "Set up mods for Sonic Adventure DX and Sonic Adventure 2 on Linux"
+es = "Configura mods para Sonic Adventure DX y Sonic Adventure 2 en Linux"
+ja = "LinuxでSonic Adventure DXとSonic Adventure 2のMod環境をセットアップする"
+zh = "在Linux上为Sonic Adventure DX和Sonic Adventure 2配置模组"
+zh-tw = "在Linux上為Sonic Adventure DX和Sonic Adventure 2配置模組"
+
+[[projects]]
 name = "Flatpak repo"
 image = "flatpak"
 url = "https://flatpak.4st.li/"
@@ -39,16 +69,6 @@ es = "Mis apps para Linux en Flatpak"
 ja = "私のLinuxアプリをFlatpakでインストール"
 zh = "用Flatpak安装我的Linux应用"
 zh-tw = "用Flatpak安裝我的Linux應用"
-
-[[projects]]
-name = "hosty"
-image = "hosty"
-url = "https://4st.li/hosty/"
-en = "System-wide ad blocker for Linux, BSD and Mac"
-es = "Bloqueador de anuncios para todo el sistema en Linux, BSD y Mac"
-ja = "Linux、BSD、Mac向けのシステム全体の広告ブロッカー"
-zh = "适用于Linux、BSD和Mac的系统级广告拦截器"
-zh-tw = "適用於Linux、BSD和Mac的系統級廣告攔截器"
 
 [[projects]]
 name = "Inside the firewall"
@@ -71,24 +91,14 @@ zh = "为宝珠提供能量的巫师蠕虫"
 zh-tw = "為寶珠提供能量的巫師蠕蟲"
 
 [[projects]]
-name = "PkgDeck"
-image = "pkgdeck"
-url = "https://github.com/astrovm/PkgDeck"
-en = "One app for every package manager"
-es = "Una app para todos tus gestores de paquetes"
-ja = "すべてのパッケージマネージャーをひとつのアプリで"
-zh = "一个应用管理所有包管理器"
-zh-tw = "一個應用管理所有套件管理器"
-
-[[projects]]
-name = "Respondedor de boludos"
-image = "respondedor"
-url = "https://t.me/respondedorbot"
-en = "Telegram bot with AI based on Argentina internet culture"
-es = "Bot de Telegram con IA basada en la cultura de internet argentina"
-ja = "アルゼンチンのネット文化に基づいたAI搭載のTelegramボット"
-zh = "基于阿根廷网络文化的AI Telegram机器人"
-zh-tw = "基於阿根廷網路文化的AI Telegram機器人"
+name = "hosty"
+image = "hosty"
+url = "https://4st.li/hosty/"
+en = "System-wide ad blocker for Linux, BSD and Mac"
+es = "Bloqueador de anuncios para todo el sistema en Linux, BSD y Mac"
+ja = "Linux、BSD、Mac向けのシステム全体の広告ブロッカー"
+zh = "适用于Linux、BSD和Mac的系统级广告拦截器"
+zh-tw = "適用於Linux、BSD和Mac的系統級廣告攔截器"
 
 [[projects]]
 name = "Tdarg"
@@ -99,16 +109,6 @@ es = "Una web con información sobre TDAH en Argentina"
 ja = "アルゼンチンのADHDに関する情報サイト"
 zh = "关于阿根廷ADHD信息的网站"
 zh-tw = "關於阿根廷ADHD資訊的網站"
-
-[[projects]]
-name = "Timba"
-image = "timba"
-url = "https://timba.cc/"
-en = "Coinflip game on Solana"
-es = "Juego de cara o cruz en Solana"
-ja = "Solana上のコイントスゲーム"
-zh = "Solana上的抛硬币游戏"
-zh-tw = "Solana上的拋硬幣遊戲"
 
 [[projects]]
 name = "YTMusicFS"
