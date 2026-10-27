@@ -18,6 +18,15 @@
 {{ with site.Params.ghostsUrl }}<script>window.__GHOSTS_URL__={{ . }};</script>{{ end }}
 <script src="{{ $funJS.Permalink }}" defer></script>
 <script src="{{ $sonicJS.Permalink }}" defer></script>
+{{- /* Pages and projects for the WebMCP tools, in this page's language. */}}
+{{- $pages := slice site.Home.RelPermalink }}
+{{- range site.Sections }}{{ $pages = $pages | append .RelPermalink }}{{ end }}
+{{- range site.RegularPages }}{{ $pages = $pages | append .RelPermalink }}{{ end }}
+{{- $projects := slice }}
+{{- range hugo.Data.projects.projects }}
+{{- $projects = $projects | append (dict "name" .name "url" .url "description" (index . site.Language.Lang | default .en)) }}
+{{- end }}
+<script>window.__WEBMCP__={{ dict "pages" $pages "projects" $projects }};</script>
 {{ $webmcpJS := resources.Get "webmcp.js" | fingerprint }}
 <script src="{{ $webmcpJS.Permalink }}" defer></script>
 <link rel="service-doc" href="/">
