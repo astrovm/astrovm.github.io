@@ -45,7 +45,9 @@ Kubuntu 26.04.1 用 UEFI 模式安裝。兩個 NVMe 都使用 LUKS2。
 - 啟用 Above 4G Decoding
 - 啟用 Resizable BAR
 - 啟用 SVM Mode / AMD-V
-- 停用 Secure Boot
+- 啟用 IOMMU
+- 啟用 Firmware TPM (fTPM)
+- 用原廠金鑰啟用 Secure Boot
 - 停用 CSM
 - 調風扇曲線，儘量安靜
 
@@ -140,11 +142,16 @@ vm.dirty_background_bytes = 67108864
 vm.page-cluster = 0
 EOF
 
+sudo tee /etc/sysctl.d/99-kexec.conf > /dev/null << 'EOF'
+kernel.kexec_load_disabled = 1
+EOF
+
 sudo sysctl --system
 ```
 
 - `dirty_bytes` / `dirty_background_bytes` 把未寫入的 page cache 限制在 256 MiB / 64 MiB，讓經過 LUKS 和 VDO 的 writeback 分成小批寫入，而不是一次卡住好幾 GB。
 - `page-cluster = 0` 讓 zram 每次只讀 1 頁，而不是 8 頁。
+- `kexec_load_disabled = 1` 禁止不重開機就啟動另一個核心。Easy Anti-Cheat v2 需要它。下次開機前都改不回來。
 
 ## zram
 
@@ -803,6 +810,22 @@ gamemoderun %command%
 ```
 
 - 用 ProtonPlus 安裝 Proton-CachyOS 或 Proton-GE
+
+## Easy Anti-Cheat v2
+
+Linux 上用 Easy Anti-Cheat v2 的遊戲（例如 Fortnite）需要 Secure Boot、TPM 2.0、IOMMU、kernel lockdown，還要關掉 kexec（見 **BIOS** 和 **sysctl**）。Ubuntu 內建的核心已簽章，開了 Secure Boot 就會自動啟用 lockdown。不要用 DKMS 或沒簽章的核心模組。
+
+檢查：
+
+```bash
+mokutil --sb-state                         # SecureBoot enabled
+cat /sys/class/tpm/tpm0/tpm_version_major  # 2
+ls /sys/kernel/security/tpm0/              # binary_bios_measurements
+ls /sys/kernel/iommu_groups | wc -l        # 大於 0
+cat /sys/kernel/security/lockdown          # [integrity]
+cat /sys/kernel/security/lsm               # 包含 bpf
+cat /proc/sys/kernel/kexec_load_disabled   # 1
+```
 
 ## Half-Life / Portal / Counter-Strike
 

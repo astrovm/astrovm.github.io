@@ -45,7 +45,9 @@ Disco de datos:
 - Habilitar Above 4G Decoding
 - Habilitar Resizable BAR
 - Habilitar SVM Mode / AMD-V
-- Deshabilitar Secure Boot
+- Habilitar IOMMU
+- Habilitar Firmware TPM (fTPM)
+- Habilitar Secure Boot con las claves de fábrica
 - Deshabilitar CSM
 - Configurar los coolers para que hagan el menor ruido posible
 
@@ -140,11 +142,16 @@ vm.dirty_background_bytes = 67108864
 vm.page-cluster = 0
 EOF
 
+sudo tee /etc/sysctl.d/99-kexec.conf > /dev/null << 'EOF'
+kernel.kexec_load_disabled = 1
+EOF
+
 sudo sysctl --system
 ```
 
 - `dirty_bytes` / `dirty_background_bytes` limitan la page cache sin escribir a 256 MiB / 64 MiB, así el writeback por LUKS y VDO va en ráfagas chicas en vez de trabas de varios GB.
 - `page-cluster = 0` lee de a una página desde zram en vez de 8.
+- `kexec_load_disabled = 1` bloquea arrancar otro kernel sin reiniciar. Easy Anti-Cheat v2 lo pide. Queda bloqueado hasta el próximo arranque.
 
 ## zram
 
@@ -803,6 +810,22 @@ gamemoderun %command%
 ```
 
 - Instalar Proton-CachyOS o Proton-GE con ProtonPlus
+
+## Easy Anti-Cheat v2
+
+Los juegos con Easy Anti-Cheat v2 en Linux, como Fortnite, piden Secure Boot, TPM 2.0, IOMMU, kernel lockdown y kexec deshabilitado (ver **BIOS** y **sysctl**). El kernel de Ubuntu viene firmado y activa lockdown solo cuando Secure Boot está prendido. Nada de DKMS ni módulos del kernel sin firmar.
+
+Verificar:
+
+```bash
+mokutil --sb-state                         # SecureBoot enabled
+cat /sys/class/tpm/tpm0/tpm_version_major  # 2
+ls /sys/kernel/security/tpm0/              # binary_bios_measurements
+ls /sys/kernel/iommu_groups | wc -l        # más de 0
+cat /sys/kernel/security/lockdown          # [integrity]
+cat /sys/kernel/security/lsm               # incluye bpf
+cat /proc/sys/kernel/kexec_load_disabled   # 1
+```
 
 ## Half-Life / Portal / Counter-Strike
 

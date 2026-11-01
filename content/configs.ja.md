@@ -45,7 +45,9 @@ Kubuntu 26.04.1をUEFIモードでインストール。両方のNVMeでLUKS2を�
 - Above 4G Decodingを有効化
 - Resizable BARを有効化
 - SVM Mode / AMD-Vを有効化
-- Secure Bootを無効化
+- IOMMUを有効化
+- Firmware TPM (fTPM)を有効化
+- 工場出荷時のキーでSecure Bootを有効化
 - CSMを無効化
 - ファンカーブを静音寄りに調整
 
@@ -140,11 +142,16 @@ vm.dirty_background_bytes = 67108864
 vm.page-cluster = 0
 EOF
 
+sudo tee /etc/sysctl.d/99-kexec.conf > /dev/null << 'EOF'
+kernel.kexec_load_disabled = 1
+EOF
+
 sudo sysctl --system
 ```
 
 - `dirty_bytes` / `dirty_background_bytes` で未書き込みのpage cacheを256 MiB / 64 MiBに制限。LUKSとVDO経由のwritebackが数GB単位で詰まらず、小さく分かれて流れる。
 - `page-cluster = 0` でzramから8ページではなく1ページずつ読む。
+- `kexec_load_disabled = 1` で再起動なしに別のカーネルを起動できなくする。Easy Anti-Cheat v2に必要。次の起動まで戻せない。
 
 ## zram
 
@@ -803,6 +810,22 @@ gamemoderun %command%
 ```
 
 - ProtonPlusでProton-CachyOSかProton-GEを入れる
+
+## Easy Anti-Cheat v2
+
+FortniteなどLinuxでEasy Anti-Cheat v2を使うゲームには、Secure Boot、TPM 2.0、IOMMU、kernel lockdown、kexecの無効化が必要（**BIOS** と **sysctl** を参照）。Ubuntu標準のカーネルは署名済みで、Secure Bootがオンなら自動でlockdownも有効になる。DKMSや署名のないカーネルモジュールは使わない。
+
+確認：
+
+```bash
+mokutil --sb-state                         # SecureBoot enabled
+cat /sys/class/tpm/tpm0/tpm_version_major  # 2
+ls /sys/kernel/security/tpm0/              # binary_bios_measurements
+ls /sys/kernel/iommu_groups | wc -l        # 0より大きい
+cat /sys/kernel/security/lockdown          # [integrity]
+cat /sys/kernel/security/lsm               # bpfを含む
+cat /proc/sys/kernel/kexec_load_disabled   # 1
+```
 
 ## Half-Life / Portal / Counter-Strike
 
