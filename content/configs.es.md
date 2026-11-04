@@ -818,7 +818,7 @@ git config --global user.name "astrovm" && \
   git config --global rerere.enabled true
 ```
 
-Usá un hook global de pre-push para impedir pushes directos a `main` y `master`:
+Usá un hook global de pre-push para impedir pushes directos a `main` y `master`, y para bloquear commits nuevos que no usen tu identidad de git:
 
 ```bash
 mkdir -p "$HOME/.config/git/hooks"
@@ -826,7 +826,14 @@ git config --global core.hooksPath "$HOME/.config/git/hooks"
 cat > "$HOME/.config/git/hooks/pre-push" <<'EOF'
 #!/bin/sh
 
-while read local_ref local_oid remote_ref remote_oid; do
+# Gists only have one branch, so pushing to main is the only way to update them.
+case "$2" in
+    *gist.github.com*) cat >/dev/null; exit 0 ;;
+esac
+
+me=$(git config --global user.email)
+
+while read -r _ local_sha remote_ref _; do
     case "$remote_ref" in
         refs/heads/main|refs/heads/master)
             echo "Blocked: direct pushes to ${remote_ref#refs/heads/} are not allowed." >&2
@@ -834,6 +841,16 @@ while read local_ref local_oid remote_ref remote_oid; do
             exit 1
             ;;
     esac
+
+    # Deleting a ref pushes no commits.
+    case "$local_sha" in *[!0]*) ;; *) continue ;; esac
+
+    # New commits must use your identity. Someone else's: ALLOW_COMMITTER=their@email git push
+    bad=$(git log --format=%ce "$local_sha" --not --remotes | sort -u | grep -vxF -e "$me" -e "${ALLOW_COMMITTER:-$me}")
+    if [ -n "$bad" ]; then
+        echo "Blocked: new commits not made with your git identity ($me): $bad" >&2
+        exit 1
+    fi
 done
 
 exit 0
