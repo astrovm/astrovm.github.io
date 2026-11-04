@@ -808,7 +808,7 @@ WINEDLLOVERRIDES="dinput8=n,b" %command%
 
 ```bash
 git config --global user.name "astrovm" && \
-  git config --global user.email "~@4st.li" && \
+  git config --global user.email "5521045+astrovm@users.noreply.github.com" && \
   git config --global init.defaultBranch main && \
   git config --global pull.rebase true && \
   git config --global rebase.autoStash true && \
