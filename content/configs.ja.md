@@ -497,6 +497,20 @@ curl -fsSL -o /tmp/chatgpt.deb \
 
 [Trezor Suite](https://trezor.io/trezor-suite)をAppImageでダウンロードしてGear Leverで管理する。
 
+# KDE でのコンピューター操作
+
+[cua-driver](https://github.com/trycua/cua) に、まだ upstream に入っていない [KDE 向けの修正](https://github.com/astrovm/cua/tree/kde-setup/libs/cua-driver/kde)を当てて使っています。スケーリングされたモニターでの正確なクリック、隠れたウィンドウのスクリーンショット、ウィンドウを前面に出す操作、AltGr 入力に対応しています。
+
+```bash
+# インストール。公式ビルドに戻すには --uninstall
+git clone --depth 1 -b kde-setup https://github.com/astrovm/cua
+./cua/libs/cua-driver/kde/install.sh
+```
+
+エージェントの MCP 設定には `CUA_DRIVER_RS_ENABLE_WAYLAND=1` が必要です。`cua-driver update --apply` を実行するとこのビルドが置き換えられるので、そのあと `install.sh` をもう一度実行します。
+
+リスクのあるテストや並列テストには `kde-private-session <コマンド>` を使います。専用の KDE セッションでコマンドを実行し、自分の画面には何も表示されません。
+
 # Timeshift
 
 ```bash

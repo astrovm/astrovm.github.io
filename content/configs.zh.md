@@ -497,6 +497,20 @@ curl -fsSL -o /tmp/chatgpt.deb \
 
 把 [Trezor Suite](https://trezor.io/trezor-suite) 下载成 AppImage，用 Gear Lever 管理。
 
+# KDE 上的电脑操作
+
+我使用 [cua-driver](https://github.com/trycua/cua)，并加上尚未合并到上游的 [KDE 修复](https://github.com/astrovm/cua/tree/kde-setup/libs/cua-driver/kde)：在缩放显示器上精确点击、截取被遮挡的窗口、把窗口带到最前面，以及 AltGr 输入。
+
+```bash
+# 安装；用 --uninstall 可以回到官方版本
+git clone --depth 1 -b kde-setup https://github.com/astrovm/cua
+./cua/libs/cua-driver/kde/install.sh
+```
+
+智能体的 MCP 配置需要 `CUA_DRIVER_RS_ENABLE_WAYLAND=1`。`cua-driver update --apply` 会替换这个版本，所以之后要重新运行 `install.sh`。
+
+进行有风险或并行的测试时，`kde-private-session <命令>` 会在独立的 KDE 会话中运行命令，我的屏幕上不会显示任何内容。
+
 # Timeshift
 
 ```bash
