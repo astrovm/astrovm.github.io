@@ -28,14 +28,13 @@ Kubuntu 26.04.1をUEFIモードでインストール。両方のNVMeでLUKS2を�
 - 1 GiBのEFIシステムパーティション
 - 4 GiBのext4 `/boot`
 - LUKS2 -> LVM
-- 96 GiBのBtrfs `/`、サブボリュームは`/@`と`/@swap`
-- 圧縮と重複排除を有効にした357 GiBのVDOプール上に500 GiBのXFS `/home`
+- 471 GiBのBtrfs、サブボリュームは`/@`（`/`）、`/@home`（`/home`）、`/@swap`
 - `/swap/swapfile`に4 GiBのswap file
 
 データディスク：
 
 - LUKS2 -> LVM VDO -> 470 GiBのXFS `/mnt/data`
-- 圧縮と重複排除を有効にした453 GiBの物理VDOプール
+- 圧縮と重複排除を有効にした476 GiBの物理VDOプール
 - 暗号化されたシステムディスク上のキーで自動unlock、別にリカバリーpassphraseを設定
 
 # BIOS
@@ -96,13 +95,13 @@ sudo cryptsetup status data_crypt
 
 ```ini
 UUID=<root-btrfs-uuid> /          btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
-UUID=<home-xfs-uuid>   /home      xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /home      btrfs subvol=/@home,defaults,noatime,compress=zstd:3,discard=async 0 0
 UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
 /swap/swapfile         none       swap  defaults 0 0
 UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
-両方のXFSファイルシステムの下でVDOの圧縮と重複排除を有効化。各VDOプールはvolume groupの初期空き領域の95%を使用する。残りのextentは物理使用量が増えたときのLVMによるpool拡張に使う。
+データディスクのXFSファイルシステムの下でVDOの圧縮と重複排除を有効化。VDOプールはvolume groupの空き領域の95%から始まり、残りはLVMの自動拡張ですでに使い切ったため、これ以上は拡張できない。システムディスクはVDOを使わない：Btrfs自体がファイルを圧縮し、`/`と`/home`は同じ領域を共有する。
 
 ```ini
 # /etc/lvm/lvm.conf
@@ -112,16 +111,29 @@ activation {
 }
 ```
 
-自動拡張には、`dmeventd`による各VDOプールの監視が必要。`lvs`の出力で`seg_monitor`が`monitored`になっていることを確認する。
+自動拡張には、`dmeventd`によるVDOプールの監視が必要。`lvs`の出力で`seg_monitor`が`monitored`になっていることを確認する。
 
 ```bash
 sudo systemctl enable --now lvm2-monitor.service
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
 sudo vdostats --human-readable
+```
+
+`fstrim.timer`は週1回ではなく毎日実行する。データディスクのXFSは`discard`マウントオプションを使っていないため、削除したファイルは次のtrimまでプールの物理領域を使い続ける。
+
+```bash
+sudo mkdir -p /etc/systemd/system/fstrim.timer.d
+sudo tee /etc/systemd/system/fstrim.timer.d/daily.conf > /dev/null << 'EOF'
+[Timer]
+OnCalendar=
+OnCalendar=daily
+EOF
+
+sudo systemctl daemon-reload
 sudo systemctl enable --now fstrim.timer
 ```
 
-論理サイズは実測の節約率に合わせる：物理プールのサイズ × 実測の圧縮率。残りの空き領域を圧縮できないデータで埋めても物理プールに収まる余裕を残す。`/home`は約42%節約し、500 GiBを使用。`/mnt/data`は節約が10%未満で、470 GiBを使用。XFSは拡張できるが縮小はできない。
+論理サイズは実測の節約率に合わせて決めた：物理プールのサイズ × 実測の圧縮率。`/mnt/data`は約14%節約し、470 GiBを使用しており、ファイルシステムより先に物理領域が尽きることはない。XFSは拡張できるが縮小はできない。
 
 ## sysctl
 
@@ -523,7 +535,7 @@ sudo timeshift-gtk
 - ロケーション: システムディスクのBtrfs root
 - スケジュール: 毎日 + 毎週 + boot時
 - 保持: 3個の毎日、3個のboot、2個の毎週
-- `/home`と`/mnt/data`: 含めない。どちらも別のXFSファイルシステム
+- `/home`と`/mnt/data`: 含めない。`/home`は別の`/@home`サブボリューム、`/mnt/data`は別のXFSファイルシステム
 
 # Shellとターミナル
 

@@ -28,14 +28,13 @@ System disk:
 - 1 GiB EFI system partition
 - 4 GiB ext4 `/boot`
 - LUKS2 -> LVM
-- 96 GiB Btrfs `/` with subvolumes `/@` and `/@swap`
-- 500 GiB XFS `/home` on a 357 GiB VDO pool with compression and deduplication
+- 471 GiB Btrfs with subvolumes `/@` (`/`), `/@home` (`/home`) and `/@swap`
 - 4 GiB swap file at `/swap/swapfile`
 
 Data disk:
 
 - LUKS2 -> LVM VDO -> 470 GiB XFS `/mnt/data`
-- 453 GiB physical VDO pool with compression and deduplication
+- 476 GiB physical VDO pool with compression and deduplication
 - Automatic unlock with a key stored on the encrypted system disk; separate recovery passphrase
 
 # BIOS
@@ -96,13 +95,13 @@ Relevant `/etc/fstab` entries:
 
 ```ini
 UUID=<root-btrfs-uuid> /          btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
-UUID=<home-xfs-uuid>   /home      xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /home      btrfs subvol=/@home,defaults,noatime,compress=zstd:3,discard=async 0 0
 UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
 /swap/swapfile         none       swap  defaults 0 0
 UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
-Both XFS filesystems have VDO compression and deduplication below them. Each VDO pool uses 95% of its volume group's initial free space. The remaining extents let LVM extend a pool if physical usage becomes high.
+The XFS filesystem on the data disk has VDO compression and deduplication below it. The VDO pool started at 95% of its volume group's free space, and LVM's automatic extension has since used the rest, so it can't grow again. The system disk doesn't use VDO: Btrfs compresses files itself, and `/` and `/home` share the same space.
 
 ```ini
 # /etc/lvm/lvm.conf
@@ -112,16 +111,29 @@ activation {
 }
 ```
 
-Automatic extension requires `dmeventd` to monitor each VDO pool. Check that `seg_monitor` reports `monitored` in the `lvs` output.
+Automatic extension requires `dmeventd` to monitor the VDO pool. Check that `seg_monitor` reports `monitored` in the `lvs` output.
 
 ```bash
 sudo systemctl enable --now lvm2-monitor.service
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
 sudo vdostats --human-readable
+```
+
+`fstrim.timer` runs daily instead of weekly. XFS on the data disk doesn't use the `discard` mount option, so deleted files keep using the pool's physical space until the next trim:
+
+```bash
+sudo mkdir -p /etc/systemd/system/fstrim.timer.d
+sudo tee /etc/systemd/system/fstrim.timer.d/daily.conf > /dev/null << 'EOF'
+[Timer]
+OnCalendar=
+OnCalendar=daily
+EOF
+
+sudo systemctl daemon-reload
 sudo systemctl enable --now fstrim.timer
 ```
 
-Logical sizes follow the measured savings: physical pool size × measured ratio, with enough margin that filling the remaining free space with incompressible data still fits in the physical pool. `/home` saves about 42% and uses 500 GiB. `/mnt/data` saves under 10% and uses 470 GiB. XFS can grow but not shrink.
+The logical size was set from the measured savings: physical pool size × measured ratio. `/mnt/data` saves about 14% and uses 470 GiB, so it can't run out of physical space before the filesystem fills up. XFS can grow but not shrink.
 
 ## sysctl
 
@@ -523,7 +535,7 @@ Config:
 - Location: Btrfs root on the system disk
 - Schedule: daily + weekly + boot
 - Keep: 3 daily, 3 boot, 2 weekly
-- `/home` and `/mnt/data`: not included; both are separate XFS filesystems
+- `/home` and `/mnt/data`: not included; `/home` is the separate `/@home` subvolume and `/mnt/data` is a separate XFS filesystem
 
 # Shell & terminal
 

@@ -28,14 +28,13 @@ Kubuntu 26.04.1 用 UEFI 模式安装。两个 NVMe 都使用 LUKS2。
 - 1 GiB EFI 系统分区
 - 4 GiB ext4 `/boot`
 - LUKS2 -> LVM
-- 96 GiB Btrfs `/`，子卷为 `/@` 和 `/@swap`
-- 500 GiB XFS `/home`，位于启用压缩和重复数据删除的 357 GiB VDO 池上
+- 471 GiB Btrfs，子卷为 `/@`（`/`）、`/@home`（`/home`）和 `/@swap`
 - `/swap/swapfile` 中有 4 GiB swap file
 
 数据盘：
 
 - LUKS2 -> LVM VDO -> 470 GiB XFS `/mnt/data`
-- 453 GiB 物理 VDO 池，启用压缩和重复数据删除
+- 476 GiB 物理 VDO 池，启用压缩和重复数据删除
 - 使用保存在加密系统盘上的密钥自动解锁，并设置单独的恢复 passphrase
 
 # BIOS
@@ -96,13 +95,13 @@ sudo cryptsetup status data_crypt
 
 ```ini
 UUID=<root-btrfs-uuid> /          btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
-UUID=<home-xfs-uuid>   /home      xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /home      btrfs subvol=/@home,defaults,noatime,compress=zstd:3,discard=async 0 0
 UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
 /swap/swapfile         none       swap  defaults 0 0
 UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
-两个 XFS 文件系统的下层都启用了 VDO 压缩和重复数据删除。每个 VDO 池初始使用 volume group 可用空间的 95%。剩余 extent 可让 LVM 在物理使用量过高时扩展 VDO 池。
+数据盘上的 XFS 文件系统下层启用了 VDO 压缩和重复数据删除。VDO 池最初使用 volume group 可用空间的 95%，其余空间已被 LVM 自动扩展用完，因此无法再扩展。系统盘不使用 VDO：Btrfs 自己压缩文件，`/` 和 `/home` 共用同一块空间。
 
 ```ini
 # /etc/lvm/lvm.conf
@@ -112,16 +111,29 @@ activation {
 }
 ```
 
-自动扩展要求 `dmeventd` 监控每个 VDO 池。检查 `lvs` 输出中的 `seg_monitor` 是否为 `monitored`。
+自动扩展要求 `dmeventd` 监控 VDO 池。检查 `lvs` 输出中的 `seg_monitor` 是否为 `monitored`。
 
 ```bash
 sudo systemctl enable --now lvm2-monitor.service
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
 sudo vdostats --human-readable
+```
+
+`fstrim.timer` 每天运行，而不是每周一次。数据盘上的 XFS 没有使用 `discard` 挂载选项，所以已删除的文件在下次 trim 之前仍会占用池的物理空间：
+
+```bash
+sudo mkdir -p /etc/systemd/system/fstrim.timer.d
+sudo tee /etc/systemd/system/fstrim.timer.d/daily.conf > /dev/null << 'EOF'
+[Timer]
+OnCalendar=
+OnCalendar=daily
+EOF
+
+sudo systemctl daemon-reload
 sudo systemctl enable --now fstrim.timer
 ```
 
-逻辑大小按实测节省率设定：物理池大小 × 实测压缩比，并保留足够余量，确保即使剩余可用空间全部写入不可压缩数据，也仍能放进物理池。`/home` 约节省 42%，使用 500 GiB。`/mnt/data` 节省不到 10%，使用 470 GiB。XFS 只能扩展，不能缩小。
+逻辑大小按实测节省率设定：物理池大小 × 实测压缩比。`/mnt/data` 约节省 14%，使用 470 GiB，物理空间不会先于文件系统用完。XFS 只能扩展，不能缩小。
 
 ## sysctl
 
@@ -523,7 +535,7 @@ sudo timeshift-gtk
 - 位置：系统盘上的 Btrfs root
 - 调度：每日 + 每周 + 启动时
 - 保留：3 个每日、3 个启动、2 个每周
-- `/home` 和 `/mnt/data`：不包含；两者都是单独的 XFS 文件系统
+- `/home` 和 `/mnt/data`：不包含；`/home` 是单独的 `/@home` 子卷，`/mnt/data` 是单独的 XFS 文件系统
 
 # Shell和终端
 
