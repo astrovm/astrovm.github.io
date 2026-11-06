@@ -28,8 +28,7 @@ Kubuntu 26.04.1 用 UEFI 模式安裝。兩個 NVMe 都使用 LUKS2。
 - 1 GiB EFI 系統分割區
 - 4 GiB ext4 `/boot`
 - LUKS2 -> LVM
-- 96 GiB Btrfs `/`，子卷為 `/@` 和 `/@swap`
-- 500 GiB XFS `/home`，位於啟用壓縮和重複資料刪除的 375 GiB VDO 池上
+- 471 GiB Btrfs，子卷為 `/@`（`/`）、`/@home`（`/home`）和 `/@swap`
 - `/swap/swapfile` 中有 4 GiB swap file
 
 資料盤：
@@ -96,13 +95,13 @@ sudo cryptsetup status data_crypt
 
 ```ini
 UUID=<root-btrfs-uuid> /          btrfs subvol=/@,defaults,noatime,compress=zstd:3,discard=async 0 0
-UUID=<home-xfs-uuid>   /home      xfs   defaults,noatime 0 2
+UUID=<root-btrfs-uuid> /home      btrfs subvol=/@home,defaults,noatime,compress=zstd:3,discard=async 0 0
 UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
 /swap/swapfile         none       swap  defaults 0 0
 UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
-兩個 XFS 檔案系統的下層都啟用了 VDO 壓縮和重複資料刪除。每個 VDO 池最初使用 volume group 可用空間的 95%，其餘空間已被 LVM 自動擴充用完，因此都無法再擴充。
+資料碟上的 XFS 檔案系統下層啟用了 VDO 壓縮和重複資料刪除。VDO 池最初使用 volume group 可用空間的 95%，其餘空間已被 LVM 自動擴充用完，因此無法再擴充。系統碟不使用 VDO：Btrfs 自己壓縮檔案，`/` 和 `/home` 共用同一塊空間。
 
 ```ini
 # /etc/lvm/lvm.conf
@@ -112,7 +111,7 @@ activation {
 }
 ```
 
-自動擴充要求 `dmeventd` 監控每個 VDO 池。檢查 `lvs` 輸出中的 `seg_monitor` 是否為 `monitored`。
+自動擴充要求 `dmeventd` 監控 VDO 池。檢查 `lvs` 輸出中的 `seg_monitor` 是否為 `monitored`。
 
 ```bash
 sudo systemctl enable --now lvm2-monitor.service
@@ -120,7 +119,7 @@ sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compres
 sudo vdostats --human-readable
 ```
 
-`fstrim.timer` 每天執行，而不是每週一次。這裡的 XFS 沒有使用 `discard` 掛載選項，所以已刪除的檔案在下次 trim 之前仍會佔用池的物理空間：
+`fstrim.timer` 每天執行，而不是每週一次。資料碟上的 XFS 沒有使用 `discard` 掛載選項，所以已刪除的檔案在下次 trim 之前仍會佔用池的物理空間：
 
 ```bash
 sudo mkdir -p /etc/systemd/system/fstrim.timer.d
@@ -134,7 +133,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now fstrim.timer
 ```
 
-邏輯大小依實測節省率設定：物理池大小 × 實測壓縮比。`/home` 依約 42% 的節省率設為 500 GiB，但現在只節省約 26%，所以 `df` 顯示的可用空間可能多於池的實際可用空間，此時要看 `vdostats`。`/mnt/data` 約節省 14%，使用 470 GiB，物理空間不會先於檔案系統用完。XFS 只能擴充，不能縮小。
+邏輯大小依實測節省率設定：物理池大小 × 實測壓縮比。`/mnt/data` 約節省 14%，使用 470 GiB，物理空間不會先於檔案系統用完。XFS 只能擴充，不能縮小。
 
 ## sysctl
 
@@ -536,7 +535,7 @@ sudo timeshift-gtk
 - 位置：系統盤上的 Btrfs root
 - 排程：每日 + 每週 + 啟動時
 - 保留：3 個每日、3 個啟動、2 個每週
-- `/home` 和 `/mnt/data`：不包含；兩者都是單獨的 XFS 檔案系統
+- `/home` 和 `/mnt/data`：不包含；`/home` 是單獨的 `/@home` 子卷，`/mnt/data` 是單獨的 XFS 檔案系統
 
 # Shell和終端
 
