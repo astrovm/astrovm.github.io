@@ -29,13 +29,13 @@ Kubuntu 26.04.1 用 UEFI 模式安裝。兩個 NVMe 都使用 LUKS2。
 - 4 GiB ext4 `/boot`
 - LUKS2 -> LVM
 - 96 GiB Btrfs `/`，子卷為 `/@` 和 `/@swap`
-- 500 GiB XFS `/home`，位於啟用壓縮和重複資料刪除的 357 GiB VDO 池上
+- 500 GiB XFS `/home`，位於啟用壓縮和重複資料刪除的 375 GiB VDO 池上
 - `/swap/swapfile` 中有 4 GiB swap file
 
 資料盤：
 
 - LUKS2 -> LVM VDO -> 470 GiB XFS `/mnt/data`
-- 453 GiB 物理 VDO 池，啟用壓縮和重複資料刪除
+- 476 GiB 物理 VDO 池，啟用壓縮和重複資料刪除
 - 使用儲存在加密系統盤上的金鑰自動解鎖，並設定單獨的恢復 passphrase
 
 # BIOS
@@ -102,7 +102,7 @@ UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
 UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
-兩個 XFS 檔案系統的下層都啟用了 VDO 壓縮和重複資料刪除。每個 VDO 池初始使用 volume group 可用空間的 95%。剩餘 extent 可讓 LVM 在物理使用量過高時擴充 VDO 池。
+兩個 XFS 檔案系統的下層都啟用了 VDO 壓縮和重複資料刪除。每個 VDO 池最初使用 volume group 可用空間的 95%，其餘空間已被 LVM 自動擴充用完，因此都無法再擴充。
 
 ```ini
 # /etc/lvm/lvm.conf
@@ -118,10 +118,23 @@ activation {
 sudo systemctl enable --now lvm2-monitor.service
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
 sudo vdostats --human-readable
+```
+
+`fstrim.timer` 每天執行，而不是每週一次。這裡的 XFS 沒有使用 `discard` 掛載選項，所以已刪除的檔案在下次 trim 之前仍會佔用池的物理空間：
+
+```bash
+sudo mkdir -p /etc/systemd/system/fstrim.timer.d
+sudo tee /etc/systemd/system/fstrim.timer.d/daily.conf > /dev/null << 'EOF'
+[Timer]
+OnCalendar=
+OnCalendar=daily
+EOF
+
+sudo systemctl daemon-reload
 sudo systemctl enable --now fstrim.timer
 ```
 
-邏輯大小依實測節省率設定：物理池大小 × 實測壓縮比，並保留足夠餘量，確保即使剩餘可用空間全部寫入無法壓縮的資料，也仍能放進物理池。`/home` 約節省 42%，使用 500 GiB。`/mnt/data` 節省不到 10%，使用 470 GiB。XFS 只能擴充，不能縮小。
+邏輯大小依實測節省率設定：物理池大小 × 實測壓縮比。`/home` 依約 42% 的節省率設為 500 GiB，但現在只節省約 26%，所以 `df` 顯示的可用空間可能多於池的實際可用空間，此時要看 `vdostats`。`/mnt/data` 約節省 14%，使用 470 GiB，物理空間不會先於檔案系統用完。XFS 只能擴充，不能縮小。
 
 ## sysctl
 

@@ -29,13 +29,13 @@ Kubuntu 26.04.1をUEFIモードでインストール。両方のNVMeでLUKS2を�
 - 4 GiBのext4 `/boot`
 - LUKS2 -> LVM
 - 96 GiBのBtrfs `/`、サブボリュームは`/@`と`/@swap`
-- 圧縮と重複排除を有効にした357 GiBのVDOプール上に500 GiBのXFS `/home`
+- 圧縮と重複排除を有効にした375 GiBのVDOプール上に500 GiBのXFS `/home`
 - `/swap/swapfile`に4 GiBのswap file
 
 データディスク：
 
 - LUKS2 -> LVM VDO -> 470 GiBのXFS `/mnt/data`
-- 圧縮と重複排除を有効にした453 GiBの物理VDOプール
+- 圧縮と重複排除を有効にした476 GiBの物理VDOプール
 - 暗号化されたシステムディスク上のキーで自動unlock、別にリカバリーpassphraseを設定
 
 # BIOS
@@ -102,7 +102,7 @@ UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
 UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
-両方のXFSファイルシステムの下でVDOの圧縮と重複排除を有効化。各VDOプールはvolume groupの初期空き領域の95%を使用する。残りのextentは物理使用量が増えたときのLVMによるpool拡張に使う。
+両方のXFSファイルシステムの下でVDOの圧縮と重複排除を有効化。各VDOプールはvolume groupの空き領域の95%から始まり、残りはLVMの自動拡張ですでに使い切ったため、これ以上は拡張できない。
 
 ```ini
 # /etc/lvm/lvm.conf
@@ -118,10 +118,23 @@ activation {
 sudo systemctl enable --now lvm2-monitor.service
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
 sudo vdostats --human-readable
+```
+
+`fstrim.timer`は週1回ではなく毎日実行する。ここのXFSは`discard`マウントオプションを使っていないため、削除したファイルは次のtrimまでプールの物理領域を使い続ける。
+
+```bash
+sudo mkdir -p /etc/systemd/system/fstrim.timer.d
+sudo tee /etc/systemd/system/fstrim.timer.d/daily.conf > /dev/null << 'EOF'
+[Timer]
+OnCalendar=
+OnCalendar=daily
+EOF
+
+sudo systemctl daemon-reload
 sudo systemctl enable --now fstrim.timer
 ```
 
-論理サイズは実測の節約率に合わせる：物理プールのサイズ × 実測の圧縮率。残りの空き領域を圧縮できないデータで埋めても物理プールに収まる余裕を残す。`/home`は約42%節約し、500 GiBを使用。`/mnt/data`は節約が10%未満で、470 GiBを使用。XFSは拡張できるが縮小はできない。
+論理サイズは実測の節約率に合わせて決めた：物理プールのサイズ × 実測の圧縮率。`/home`は約42%の節約を前提に500 GiBを使用しているが、現在の節約は約26%のため、`df`にはプールの実際の空きより多く表示されることがある。ここでは`vdostats`を確認する。`/mnt/data`は約14%節約し、470 GiBを使用しており、ファイルシステムより先に物理領域が尽きることはない。XFSは拡張できるが縮小はできない。
 
 ## sysctl
 

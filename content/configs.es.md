@@ -29,13 +29,13 @@ Disco del sistema:
 - `/boot` ext4 de 4 GiB
 - LUKS2 -> LVM
 - `/` Btrfs de 96 GiB con los subvolúmenes `/@` y `/@swap`
-- `/home` XFS de 500 GiB sobre un pool VDO físico de 357 GiB con compresión y deduplicación
+- `/home` XFS de 500 GiB sobre un pool VDO físico de 375 GiB con compresión y deduplicación
 - Swap file de 4 GiB en `/swap/swapfile`
 
 Disco de datos:
 
 - LUKS2 -> LVM VDO -> `/mnt/data` XFS de 470 GiB
-- Pool VDO físico de 453 GiB con compresión y deduplicación
+- Pool VDO físico de 476 GiB con compresión y deduplicación
 - Desbloqueo automático con una clave guardada en el disco cifrado del sistema; passphrase de recuperación separada
 
 # BIOS
@@ -102,7 +102,7 @@ UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
 UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
-Los dos filesystems XFS tienen compresión y deduplicación VDO por debajo. Cada pool VDO usa inicialmente el 95% del espacio libre de su volume group. Los extents restantes permiten que LVM extienda el pool si aumenta mucho el uso físico.
+Los dos filesystems XFS tienen compresión y deduplicación VDO por debajo. Cada pool VDO arrancó con el 95% del espacio libre de su volume group, y la extensión automática de LVM ya usó el resto, así que ninguno puede crecer más.
 
 ```ini
 # /etc/lvm/lvm.conf
@@ -118,10 +118,23 @@ La extensión automática requiere que `dmeventd` monitoree cada pool VDO. Verif
 sudo systemctl enable --now lvm2-monitor.service
 sudo lvs -a -o name,vg_name,lv_size,segtype,data_percent,seg_monitor,vdo_compression,vdo_deduplication
 sudo vdostats --human-readable
+```
+
+`fstrim.timer` corre todos los días en vez de una vez por semana. XFS acá no usa la opción de montaje `discard`, así que los archivos borrados siguen ocupando espacio físico del pool hasta el próximo trim:
+
+```bash
+sudo mkdir -p /etc/systemd/system/fstrim.timer.d
+sudo tee /etc/systemd/system/fstrim.timer.d/daily.conf > /dev/null << 'EOF'
+[Timer]
+OnCalendar=
+OnCalendar=daily
+EOF
+
+sudo systemctl daemon-reload
 sudo systemctl enable --now fstrim.timer
 ```
 
-Los tamaños lógicos siguen el ahorro medido: tamaño del pool físico × ratio medido, con margen suficiente para que, si el espacio libre restante se llena con datos incompresibles, todo siga entrando en el pool físico. `/home` ahorra cerca del 42% y usa 500 GiB. `/mnt/data` ahorra menos del 10% y usa 470 GiB. XFS se puede agrandar pero no achicar.
+Los tamaños lógicos se definieron según el ahorro medido: tamaño del pool físico × ratio medido. `/home` se dimensionó para un ahorro de cerca del 42% y usa 500 GiB, pero ahora ahorra cerca del 26%, así que `df` puede mostrar más espacio libre del que el pool tiene de verdad. Ahí hay que mirar `vdostats`. `/mnt/data` ahorra cerca del 14% y usa 470 GiB, así que no se puede quedar sin espacio físico antes de que se llene el filesystem. XFS se puede agrandar pero no achicar.
 
 ## sysctl
 
