@@ -521,8 +521,6 @@ git clone --depth 1 -b kde-setup https://github.com/astrovm/cua
 
 代理的 MCP 設定需要 `CUA_DRIVER_RS_ENABLE_WAYLAND=1`。`cua-driver update --apply` 會取代這個版本，所以之後要重新執行 `install.sh`。
 
-進行有風險或平行的測試時，`kde-private-session <指令>` 會在獨立的 KDE 工作階段中執行指令，我的螢幕上不會顯示任何內容。
-
 # Timeshift
 
 ```bash

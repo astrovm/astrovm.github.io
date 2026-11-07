@@ -521,8 +521,6 @@ git clone --depth 1 -b kde-setup https://github.com/astrovm/cua
 
 エージェントの MCP 設定には `CUA_DRIVER_RS_ENABLE_WAYLAND=1` が必要です。`cua-driver update --apply` を実行するとこのビルドが置き換えられるので、そのあと `install.sh` をもう一度実行します。
 
-リスクのあるテストや並列テストには `kde-private-session <コマンド>` を使います。専用の KDE セッションでコマンドを実行し、自分の画面には何も表示されません。
-
 # Timeshift
 
 ```bash
