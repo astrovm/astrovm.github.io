@@ -521,8 +521,6 @@ git clone --depth 1 -b kde-setup https://github.com/astrovm/cua
 
 Agents need `CUA_DRIVER_RS_ENABLE_WAYLAND=1` in their MCP config. `cua-driver update --apply` replaces this build, so run `install.sh` again after it.
 
-For risky or parallel tests, `kde-private-session <command>` runs a command in its own KDE session with nothing on my screen.
-
 # Timeshift
 
 ```bash

@@ -521,8 +521,6 @@ git clone --depth 1 -b kde-setup https://github.com/astrovm/cua
 
 智能体的 MCP 配置需要 `CUA_DRIVER_RS_ENABLE_WAYLAND=1`。`cua-driver update --apply` 会替换这个版本，所以之后要重新运行 `install.sh`。
 
-进行有风险或并行的测试时，`kde-private-session <命令>` 会在独立的 KDE 会话中运行命令，我的屏幕上不会显示任何内容。
-
 # Timeshift
 
 ```bash
