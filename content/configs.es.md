@@ -511,15 +511,14 @@ Descargar [Trezor Suite](https://trezor.io/trezor-suite) como AppImage y manejar
 
 # Computer use en KDE
 
-Uso [cua-driver](https://github.com/trycua/cua) con [arreglos para KDE](https://github.com/astrovm/cua/tree/kde-setup/libs/cua-driver/kde) que todavía no están upstream: clics exactos en monitores escalados, capturas de ventanas tapadas, traer ventanas al frente y tipeo con AltGr.
+Uso [cua-driver](https://github.com/trycua/cua), la versión oficial. En KDE, hay que activar la captura de ventanas de KWin: así el driver puede capturar ventanas tapadas y traer ventanas al frente sin el diálogo del portal.
 
 ```bash
-# Instalarlo, o volver a la versión oficial con --uninstall
-git clone --depth 1 -b kde-setup https://github.com/astrovm/cua
-./cua/libs/cua-driver/kde/install.sh
+/bin/bash -c "$(curl -fsSL https://cua.ai/driver/install.sh)"
+cua-driver kwin-capture on
 ```
 
-Los agentes necesitan `CUA_DRIVER_RS_ENABLE_WAYLAND=1` en su config de MCP. `cua-driver update --apply` reemplaza esta versión, así que después hay que correr `install.sh` de nuevo.
+Los agentes necesitan `CUA_DRIVER_RS_ENABLE_WAYLAND=1` en su config de MCP.
 
 # Timeshift
 
