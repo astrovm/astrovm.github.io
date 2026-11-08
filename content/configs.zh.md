@@ -511,15 +511,14 @@ curl -fsSL -o /tmp/chatgpt.deb \
 
 # KDE 上的电脑操作
 
-我使用 [cua-driver](https://github.com/trycua/cua)，并加上尚未合并到上游的 [KDE 修复](https://github.com/astrovm/cua/tree/kde-setup/libs/cua-driver/kde)：在缩放显示器上精确点击、截取被遮挡的窗口、把窗口带到最前面，以及 AltGr 输入。
+我使用官方版本的 [cua-driver](https://github.com/trycua/cua)。在 KDE 上要打开 KWin 窗口捕获：这样它可以截取被遮挡的窗口，并把窗口带到最前面，不会弹出门户对话框。
 
 ```bash
-# 安装；用 --uninstall 可以回到官方版本
-git clone --depth 1 -b kde-setup https://github.com/astrovm/cua
-./cua/libs/cua-driver/kde/install.sh
+/bin/bash -c "$(curl -fsSL https://cua.ai/driver/install.sh)"
+cua-driver kwin-capture on
 ```
 
-智能体的 MCP 配置需要 `CUA_DRIVER_RS_ENABLE_WAYLAND=1`。`cua-driver update --apply` 会替换这个版本，所以之后要重新运行 `install.sh`。
+智能体的 MCP 配置需要 `CUA_DRIVER_RS_ENABLE_WAYLAND=1`。
 
 # Timeshift
 

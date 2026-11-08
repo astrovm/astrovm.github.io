@@ -511,15 +511,14 @@ curl -fsSL -o /tmp/chatgpt.deb \
 
 # KDE でのコンピューター操作
 
-[cua-driver](https://github.com/trycua/cua) に、まだ upstream に入っていない [KDE 向けの修正](https://github.com/astrovm/cua/tree/kde-setup/libs/cua-driver/kde)を当てて使っています。スケーリングされたモニターでの正確なクリック、隠れたウィンドウのスクリーンショット、ウィンドウを前面に出す操作、AltGr 入力に対応しています。
+公式ビルドの [cua-driver](https://github.com/trycua/cua) を使っています。KDE では KWin のウィンドウキャプチャをオンにします。これで、ポータルのダイアログなしで隠れたウィンドウのスクリーンショットを撮ったり、ウィンドウを前面に出したりできます。
 
 ```bash
-# インストール。公式ビルドに戻すには --uninstall
-git clone --depth 1 -b kde-setup https://github.com/astrovm/cua
-./cua/libs/cua-driver/kde/install.sh
+/bin/bash -c "$(curl -fsSL https://cua.ai/driver/install.sh)"
+cua-driver kwin-capture on
 ```
 
-エージェントの MCP 設定には `CUA_DRIVER_RS_ENABLE_WAYLAND=1` が必要です。`cua-driver update --apply` を実行するとこのビルドが置き換えられるので、そのあと `install.sh` をもう一度実行します。
+エージェントの MCP 設定には `CUA_DRIVER_RS_ENABLE_WAYLAND=1` が必要です。
 
 # Timeshift
 

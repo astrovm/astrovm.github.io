@@ -511,15 +511,14 @@ curl -fsSL -o /tmp/chatgpt.deb \
 
 # KDE 上的電腦操作
 
-我使用 [cua-driver](https://github.com/trycua/cua)，並加上尚未合併到上游的 [KDE 修正](https://github.com/astrovm/cua/tree/kde-setup/libs/cua-driver/kde)：在縮放顯示器上精確點擊、擷取被遮住的視窗、把視窗帶到最前面，以及 AltGr 輸入。
+我使用官方版本的 [cua-driver](https://github.com/trycua/cua)。在 KDE 上要開啟 KWin 視窗擷取：這樣它可以擷取被遮住的視窗，並把視窗帶到最前面，不會跳出入口網站對話框。
 
 ```bash
-# 安裝；用 --uninstall 可以回到官方版本
-git clone --depth 1 -b kde-setup https://github.com/astrovm/cua
-./cua/libs/cua-driver/kde/install.sh
+/bin/bash -c "$(curl -fsSL https://cua.ai/driver/install.sh)"
+cua-driver kwin-capture on
 ```
 
-代理的 MCP 設定需要 `CUA_DRIVER_RS_ENABLE_WAYLAND=1`。`cua-driver update --apply` 會取代這個版本，所以之後要重新執行 `install.sh`。
+代理的 MCP 設定需要 `CUA_DRIVER_RS_ENABLE_WAYLAND=1`。
 
 # Timeshift
 
