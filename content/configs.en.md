@@ -33,8 +33,8 @@ System disk:
 
 Data disk:
 
-- LUKS2 -> LVM VDO -> 470 GiB XFS `/mnt/data`
-- 476 GiB physical VDO pool with compression and deduplication
+- LUKS2 -> LVM VDO -> 1 TiB XFS `/mnt/data`
+- 453 GiB physical VDO pool with compression and deduplication
 - Automatic unlock with a key stored on the encrypted system disk; separate recovery passphrase
 
 # BIOS
@@ -101,7 +101,7 @@ UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
 UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
-The XFS filesystem on the data disk has VDO compression and deduplication below it. The VDO pool started at 95% of its volume group's free space, and LVM's automatic extension has since used the rest, so it can't grow again. The system disk doesn't use VDO: Btrfs compresses files itself, and `/` and `/home` share the same space.
+The XFS filesystem on the data disk has VDO compression and deduplication below it. The VDO pool uses 95% of its volume group. The other 24 GiB stay free, so LVM can extend the pool automatically when it passes 70%. The system disk doesn't use VDO: Btrfs compresses files itself, and `/` and `/home` share the same space.
 
 ```ini
 # /etc/lvm/lvm.conf
@@ -133,7 +133,60 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now fstrim.timer
 ```
 
-The logical size was set from the measured savings: physical pool size × measured ratio. `/mnt/data` saves about 14% and uses 470 GiB, so it can't run out of physical space before the filesystem fills up. XFS can grow but not shrink.
+The logical size is bigger than the physical pool: 1 TiB on 453 GiB. `/mnt/data` holds mostly worktrees and build output of the same repos, so VDO saves about 80%. The pool only fills up before the filesystem if the savings drop below 56%. Both commands work with the filesystem mounted. XFS can grow but not shrink.
+
+```bash
+sudo lvextend -L 1T data_vg/data_xfs
+sudo xfs_growfs /mnt/data
+```
+
+XFS can't see how much physical space the pool has left, and writes fail when the pool is full. A timer checks every 15 minutes and sends a desktop notification at 80%:
+
+```bash
+sudo tee /usr/local/sbin/vdo-space-check > /dev/null << 'EOF'
+#!/bin/sh
+# Warn when a VDO pool is running out of physical space.
+# The filesystem on top is larger than the pool, so it can't see this itself.
+limit="${VDO_WARN_PERCENT:-80}"
+out=$(vdostats) || { echo "vdostats failed" >&2; exit 1; }
+echo "$out" | awk 'NR > 1 { sub(/%/, "", $5); print $1, $5 }' | while read -r name used; do
+  [ "$used" -ge "$limit" ] || continue
+  msg="VDO pool $name is ${used}% full. Free space or extend the pool before writes fail."
+  echo "$msg" | systemd-cat -t vdo-space-check -p warning
+  for bus in /run/user/*/bus; do
+    [ -S "$bus" ] || continue
+    uid=${bus#/run/user/}; uid=${uid%/bus}
+    runuser -u "$(id -nu "$uid")" -- env DBUS_SESSION_BUS_ADDRESS="unix:path=$bus" \
+      notify-send -u critical -a "VDO" "Data disk almost full" "$msg" || true
+  done
+done
+EOF
+sudo chmod +x /usr/local/sbin/vdo-space-check
+
+sudo tee /etc/systemd/system/vdo-space-check.service > /dev/null << 'EOF'
+[Unit]
+Description=Warn when a VDO pool is running out of physical space
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/vdo-space-check
+EOF
+
+sudo tee /etc/systemd/system/vdo-space-check.timer > /dev/null << 'EOF'
+[Unit]
+Description=Check VDO pool space every 15 minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=15min
+
+[Install]
+WantedBy=timers.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now vdo-space-check.timer
+```
 
 ## sysctl
 

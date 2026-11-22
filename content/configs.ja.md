@@ -33,8 +33,8 @@ Kubuntu 26.04.1をUEFIモードでインストール。両方のNVMeでLUKS2を�
 
 データディスク：
 
-- LUKS2 -> LVM VDO -> 470 GiBのXFS `/mnt/data`
-- 圧縮と重複排除を有効にした476 GiBの物理VDOプール
+- LUKS2 -> LVM VDO -> 1 TiBのXFS `/mnt/data`
+- 圧縮と重複排除を有効にした453 GiBの物理VDOプール
 - 暗号化されたシステムディスク上のキーで自動unlock、別にリカバリーpassphraseを設定
 
 # BIOS
@@ -101,7 +101,7 @@ UUID=<root-btrfs-uuid> /swap      btrfs subvol=/@swap,defaults,noatime 0 0
 UUID=<data-xfs-uuid>   /mnt/data  xfs   defaults,noatime,nofail,x-systemd.device-timeout=30s 0 2
 ```
 
-データディスクのXFSファイルシステムの下でVDOの圧縮と重複排除を有効化。VDOプールはvolume groupの空き領域の95%から始まり、残りはLVMの自動拡張ですでに使い切ったため、これ以上は拡張できない。システムディスクはVDOを使わない：Btrfs自体がファイルを圧縮し、`/`と`/home`は同じ領域を共有する。
+データディスクのXFSファイルシステムの下でVDOの圧縮と重複排除を有効化。VDOプールはvolume groupの95%を使う。残りの24 GiBは空けてあり、使用率が70%を超えるとLVMがプールを自動で拡張する。システムディスクはVDOを使わない：Btrfs自体がファイルを圧縮し、`/`と`/home`は同じ領域を共有する。
 
 ```ini
 # /etc/lvm/lvm.conf
@@ -133,7 +133,60 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now fstrim.timer
 ```
 
-論理サイズは実測の節約率に合わせて決めた：物理プールのサイズ × 実測の圧縮率。`/mnt/data`は約14%節約し、470 GiBを使用しており、ファイルシステムより先に物理領域が尽きることはない。XFSは拡張できるが縮小はできない。
+論理サイズは物理プールより大きい：453 GiBの上に1 TiB。`/mnt/data`の中身は主に同じリポジトリのworktreeとビルド成果物なので、VDOは約80%節約する。節約率が56%を下回らない限り、ファイルシステムより先にプールが埋まることはない。どちらのコマンドもマウントしたまま実行できる。XFSは拡張できるが縮小はできない。
+
+```bash
+sudo lvextend -L 1T data_vg/data_xfs
+sudo xfs_growfs /mnt/data
+```
+
+XFSからはプールの物理的な残り容量が見えず、プールが埋まると書き込みが失敗する。タイマーが15分ごとに確認し、80%でデスクトップ通知を送る。
+
+```bash
+sudo tee /usr/local/sbin/vdo-space-check > /dev/null << 'EOF'
+#!/bin/sh
+# Warn when a VDO pool is running out of physical space.
+# The filesystem on top is larger than the pool, so it can't see this itself.
+limit="${VDO_WARN_PERCENT:-80}"
+out=$(vdostats) || { echo "vdostats failed" >&2; exit 1; }
+echo "$out" | awk 'NR > 1 { sub(/%/, "", $5); print $1, $5 }' | while read -r name used; do
+  [ "$used" -ge "$limit" ] || continue
+  msg="VDO pool $name is ${used}% full. Free space or extend the pool before writes fail."
+  echo "$msg" | systemd-cat -t vdo-space-check -p warning
+  for bus in /run/user/*/bus; do
+    [ -S "$bus" ] || continue
+    uid=${bus#/run/user/}; uid=${uid%/bus}
+    runuser -u "$(id -nu "$uid")" -- env DBUS_SESSION_BUS_ADDRESS="unix:path=$bus" \
+      notify-send -u critical -a "VDO" "Data disk almost full" "$msg" || true
+  done
+done
+EOF
+sudo chmod +x /usr/local/sbin/vdo-space-check
+
+sudo tee /etc/systemd/system/vdo-space-check.service > /dev/null << 'EOF'
+[Unit]
+Description=Warn when a VDO pool is running out of physical space
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/vdo-space-check
+EOF
+
+sudo tee /etc/systemd/system/vdo-space-check.timer > /dev/null << 'EOF'
+[Unit]
+Description=Check VDO pool space every 15 minutes
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=15min
+
+[Install]
+WantedBy=timers.target
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now vdo-space-check.timer
+```
 
 ## sysctl
 
