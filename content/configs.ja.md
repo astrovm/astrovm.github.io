@@ -773,6 +773,19 @@ command -v grok >/dev/null && [[ -r "$HOME/.grok/completions/bash/grok.bash" ]] 
 systemctl --user enable --now podman.socket
 ```
 
+## Podman storage
+
+コンテナイメージとコンテナの書き込みはデータディスクに置く。システムディスクに置くと、コンテナ内の重いビルドでデスクトップが重くなる。
+
+```bash
+mkdir -p ~/.config/containers /mnt/data/containers/storage
+tee ~/.config/containers/storage.conf > /dev/null << 'EOF'
+[storage]
+driver = "overlay"
+graphroot = "/mnt/data/containers/storage"
+EOF
+```
+
 ## SSH
 
 ```bash

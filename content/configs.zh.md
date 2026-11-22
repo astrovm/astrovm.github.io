@@ -773,6 +773,19 @@ command -v grok >/dev/null && [[ -r "$HOME/.grok/completions/bash/grok.bash" ]] 
 systemctl --user enable --now podman.socket
 ```
 
+## Podman storage
+
+容器镜像和容器内的写入都放在数据盘。放在系统盘时，容器里的大型构建会拖慢桌面。
+
+```bash
+mkdir -p ~/.config/containers /mnt/data/containers/storage
+tee ~/.config/containers/storage.conf > /dev/null << 'EOF'
+[storage]
+driver = "overlay"
+graphroot = "/mnt/data/containers/storage"
+EOF
+```
+
 ## SSH
 
 ```bash

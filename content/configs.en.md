@@ -773,6 +773,19 @@ command -v grok >/dev/null && [[ -r "$HOME/.grok/completions/bash/grok.bash" ]] 
 systemctl --user enable --now podman.socket
 ```
 
+## Podman storage
+
+Container images and container writes go to the data disk. On the system disk, a heavy build inside a container slows down the desktop.
+
+```bash
+mkdir -p ~/.config/containers /mnt/data/containers/storage
+tee ~/.config/containers/storage.conf > /dev/null << 'EOF'
+[storage]
+driver = "overlay"
+graphroot = "/mnt/data/containers/storage"
+EOF
+```
+
 ## SSH
 
 ```bash
